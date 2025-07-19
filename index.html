@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页 - My Personal Homepage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+
+            animation: colorCycle 20s infinite alternate;
+        }
+
+        @keyframes colorCycle {
+            0%   { background-color: #FF6347; }
+            16%  { background-color: #FFD700; }
+            33%  { background-color: #32CD32; }
+            50%  { background-color: #1E90FF; }
+            66%  { background-color: #9370DB; }
+            83%  { background-color: #FF1493; }
+            100% { background-color: #FF6347; }
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fadeInOutMove linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInOutMove {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--endX), var(--endY));
+            }
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #000;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+        p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        li {
+            margin-bottom: 18px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+            transform: translateY(-2px);
+        }
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+            font-size: 1em;
+            color: #666;
+        }
+        .contact-info p {
+                margin: 8px 0;
+                font-size: 1.05em;
+        }
+        .contact-info strong {
+            color: #2c3e50;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="avatar">
+            <img src="https://sf6-cdn-tos.bdxiguastatic.com/img/user-avatar/d8f03e65a0c87c433554188283063179~300x300.image" alt="我的头像">
+        </div>
+
+        <h1>Hello!</h1>
+        <p class="subtitle">这里是Furry米特的个人空间</p>
+        <p>你可以在这里找到我在各个平台上的主页链接：</p>
+        <ul>
+            <li><a href="https://space.bilibili.com/1044109952?spm_id_from=333.1007.0.0" target="_blank">哔哩哔哩</a></li>
+            <li><a href="https://www.ixigua.com/home/3839145926210555/?is_new_connect=0&is_new_user=0&list_entrance=search" target="_blank">西瓜视频</a></li>
+            <li><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank">今日头条</a></li>
+        </ul>
+        <div class="contact-info">
+            <p>也可以加我为好友：</p>
+            <p><strong>QQ号码:</strong> 3877559035</p>
+            <p class="note">虽然目前本作者学业繁忙，但周末还是会尽量回复消息的</p>
+        </div>
+    </div>
+
+    <script>
+        const body = document.body;
+        const numberOfParticles = 50;
+        const minParticleSize = 3;
+        const maxParticleSize = 8;
+        const minAnimationDuration = 15;
+        const maxAnimationDuration = 30;
+        const windStrength = 200;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            body.appendChild(particle);
+
+            const size = Math.random() * (maxParticleSize - minParticleSize) + minParticleSize;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+
+            const endX = startX + (Math.random() - 0.5) * windStrength;
+            const endY = startY + (Math.random() - 0.5) * windStrength;
+            
+            const clampedEndX = Math.max(-100, Math.min(window.innerWidth + 100, endX));
+            const clampedEndY = Math.max(-100, Math.min(window.innerHeight + 100, endY));
+
+            particle.style.setProperty('--endX', `${clampedEndX - startX}px`);
+            particle.style.setProperty('--endY', `${clampedEndY - startY}px`);
+
+            const duration = Math.random() * (maxAnimationDuration - minAnimationDuration) + minAnimationDuration;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${Math.random() * -duration}s`;
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                createParticle();
+            });
+        }
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            createParticle();
+        }
+    </script>
+</body>
+</html>
