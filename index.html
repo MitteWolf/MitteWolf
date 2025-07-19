@@ -18,12 +18,9 @@
             box-sizing: border-box;
             overflow: hidden;
             position: relative;
-
-            /* 背景颜色过渡效果 */
             transition: background-color 2s ease-in-out; 
         }
 
-        /* Existing particle styles */
         .particle {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.8);
@@ -50,34 +47,30 @@
             }
         }
 
-        /* Modified shooting star styles */
         .shooting-star {
             position: absolute;
-            /* 这是流星的尾巴部分 */
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)); /* 从亮到透明的渐变 */
-            width: 150px; /* 尾巴长度 */
-            height: 3px; /* 尾巴厚度 */
-            /* border-radius: 50%; 在这里不再需要，因为头部是单独的伪元素 */
-            transform: rotate(-45deg); /* 从右上到左下的角度 */
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+            width: 150px;
+            height: 3px;
+            transform: rotate(-45deg);
             opacity: 0;
             animation: shoot linear infinite;
             pointer-events: none;
-            z-index: 5; 
-            /* 设定旋转原点，使头部伪元素能正确地依附在前端 */
-            transform-origin: 0% 50%; 
+            z-index: 5;
+            transform-origin: 0% 50%;
         }
 
         .shooting-star::before {
-            content: ''; /* 必须有 content 才能显示伪元素 */
+            content: '';
             position: absolute;
-            top: -2.5px; /* 微调以垂直居中头部和尾巴 */
-            left: -5px; /* 将头部定位在尾巴的前端（未旋转时是左侧） */
-            width: 8px; /* 头部大小 */
-            height: 8px; /* 头部大小 */
-            background-color: #fff; /* 头部颜色 */
-            border-radius: 50%; /* 使头部呈圆形 */
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4); /* 头部发光效果 */
-            z-index: 6; /* 确保头部在尾巴之上 */
+            top: -2.5px;
+            left: -5px;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
+            z-index: 6;
         }
 
         @keyframes shoot {
@@ -86,17 +79,16 @@
                 transform: translate(0, 0) rotate(-45deg);
             }
             1% {
-                opacity: 1; /* 快速出现 */
+                opacity: 1;
             }
             80% {
                 opacity: 1;
             }
             100% {
-                opacity: 0; /* 快速消失 */
+                opacity: 0;
                 transform: translate(var(--translateX), var(--translateY)) rotate(-45deg);
             }
         }
-
 
         .container {
             background-color: #ffffff;
@@ -188,86 +180,82 @@
             margin-top: 10px;
         }
 
-        /* Styles for the visitor counter and hint */
         #visitor-info {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 10;
-            text-align: left; /* Align text within its container */
+            text-align: left;
         }
 
         #visitor-counter {
-            color: #fff; /* Default white color */
+            color: #fff;
             font-size: 1.1em;
             font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Default shadow */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
             cursor: pointer;
             user-select: none;
-            transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out; /* Smooth transition for color and glow */
-            display: block; /* Ensure it takes its own line */
+            transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+            display: block;
         }
 
         #visitor-hint {
-            color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
-            font-size: 0.85em; /* Smaller font size */
-            margin-top: 5px; /* Space between counter and hint */
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85em;
+            margin-top: 5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            display: block; /* Ensure it takes its own line */
+            display: block;
         }
 
-
-        /* Golden glow style for visitor counter when maxed out */
         #visitor-counter.golden-glow {
-            color: #FFD700; /* Gold color */
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), /* Soft inner glow */
-                         0 0 10px rgba(255, 215, 0, 0.6), /* Medium glow */
-                         0 0 15px rgba(255, 215, 0, 0.4), /* Outer glow */
-                         0 0 20px rgba(255, 215, 0, 0.2); /* Farthest glow */
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8),
+                         0 0 10px rgba(255, 215, 0, 0.6),
+                         0 0 15px rgba(255, 215, 0, 0.4),
+                         0 0 20px rgba(255, 215, 0, 0.2);
         }
 
-        /* Styles for the new color controls */
         #color-controls {
             position: absolute;
             bottom: 20px;
             left: 20px;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            background-color: rgba(0, 0, 0, 0.6);
             padding: 10px 15px;
             border-radius: 8px;
             color: #fff;
             font-size: 0.9em;
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            gap: 10px; /* Space between items */
-            z-index: 10; /* Ensure it's above other background elements */
-            align-items: flex-start; /* Align items to the start (left) */
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+            align-items: flex-start;
         }
 
         #color-controls label {
-            display: flex; /* Make label and input align nicely */
+            display: flex;
             align-items: center;
-            gap: 8px; /* Space between label text and input */
+            gap: 8px;
             cursor: pointer;
         }
 
         #color-controls input[type="color"] {
-            -webkit-appearance: none; /* Remove default styling for webkit browsers */
-            -moz-appearance: none; /* Remove default styling for mozilla browsers */
-            appearance: none; /* Remove default styling */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
             border: none;
-            width: 30px; /* Size of the color swatch */
+            width: 30px;
             height: 30px;
-            background-color: transparent; /* Make background transparent */
+            background-color: transparent;
             cursor: pointer;
-            padding: 0; /* Remove padding */
+            padding: 0;
         }
 
         #color-controls input[type="color"]::-webkit-color-swatch-wrapper {
             padding: 0;
         }
         #color-controls input[type="color"]::-webkit-color-swatch {
-            border: 2px solid #ccc; /* Border around the color swatch */
-            border-radius: 4px; /* Slightly rounded corners */
+            border: 2px solid #ccc;
+            border-radius: 4px;
         }
         #color-controls input[type="color"]::-moz-color-swatch {
             border: 2px solid #ccc;
@@ -275,7 +263,7 @@
         }
 
         #color-controls input[type="checkbox"] {
-            margin-right: 5px; /* Space between checkbox and label text */
+            margin-right: 5px;
             cursor: pointer;
         }
     </style>
@@ -361,25 +349,24 @@
             createParticle();
         }
 
-        // --- Modified Shooting Star Effect ---
-        const numberOfStars = 20; 
-        const minStarDuration = 3; 
-        const maxStarDuration = 6; 
-        const minStarDelay = 0; 
-        const maxStarDelay = 3; 
+        const numberOfStars = 20;
+        const minStarDuration = 3;
+        const maxStarDuration = 6;
+        const minStarDelay = 0;
+        const maxStarDelay = 3;
 
         function createShootingStar() {
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             body.appendChild(star);
 
-            const startY = -star.offsetHeight; 
-            const startX = Math.random() * window.innerWidth; 
+            const startY = -star.offsetHeight;
+            const startX = Math.random() * window.innerWidth;
 
             const travelDistance = Math.sqrt(window.innerWidth * window.innerWidth + window.innerHeight * window.innerHeight) + star.offsetWidth;
 
-            const endX = startX - travelDistance; 
-            const endY = startY + travelDistance; 
+            const endX = startX - travelDistance;
+            const endY = startY + travelDistance;
 
             star.style.top = `${startY}px`;
             star.style.left = `${startX}px`;
@@ -393,7 +380,7 @@
 
             star.addEventListener('animationend', () => {
                 star.remove();
-                createShootingStar(); 
+                createShootingStar();
             });
         }
 
@@ -401,8 +388,6 @@
             createShootingStar();
         }
 
-
-        // --- 客户端模拟访问人数特效 ---
         const visitorInfoElement = document.getElementById('visitor-info');
         const visitorCounterElement = document.getElementById('visitor-counter');
         const visitorHintElement = document.getElementById('visitor-hint');
@@ -419,7 +404,6 @@
         let currentSimulatedVisitors;
         let autoIncreaseTimer;
 
-        // 初始化模拟访问人数
         function initializeSimulatedVisitors() {
             currentSimulatedVisitors = Math.floor(Math.random() * (MAX_INITIAL_COUNT - MIN_INITIAL_COUNT + 1)) + MIN_INITIAL_COUNT;
             updateVisitorCountDisplay();
@@ -431,7 +415,6 @@
             startAutoIncreaseTimer();
         }
 
-        // 更新显示
         function updateVisitorCountDisplay() {
             visitorCounterElement.textContent = `正在访问人数: ${currentSimulatedVisitors.toLocaleString()}`;
 
@@ -445,7 +428,6 @@
             }
         }
 
-        // 自动增加逻辑
         function autoIncreaseVisitors() {
             const increaseAmount = Math.floor(Math.random() * (MAX_AUTO_INCREASE - MIN_AUTO_INCREASE + 1)) + MIN_AUTO_INCREASE;
             currentSimulatedVisitors += increaseAmount;
@@ -455,13 +437,11 @@
             updateVisitorCountDisplay();
         }
 
-        // 启动自动增加定时器
         function startAutoIncreaseTimer() {
             const interval = Math.floor(Math.random() * (MAX_AUTO_INCREASE_INTERVAL_MS - MIN_AUTO_INCREASE_INTERVAL_MS + 1)) + MIN_AUTO_INCREASE_INTERVAL_MS;
             autoIncreaseTimer = setInterval(autoIncreaseVisitors, interval);
         }
 
-        // 点击增加逻辑
         visitorCounterElement.addEventListener('click', () => {
             currentSimulatedVisitors += CLICK_INCREASE;
             if (currentSimulatedVisitors > MAX_COUNT) {
@@ -470,33 +450,26 @@
             updateVisitorCountDisplay();
         });
 
-
-        // --- 背景颜色控制功能 ---
         const colorPicker = document.getElementById('color-picker');
         const colorCycleCheckbox = document.getElementById('color-cycle-checkbox');
-        const bodyElement = document.body; 
+        const bodyElement = document.body;
 
-        // 定义颜色循环的颜色数组
         const backgroundColors = ['#FF6347', '#FFD700', '#32CD32', '#1E90FF', '#9370DB', '#FF1493'];
         let currentColorIndex = 0;
-        let colorCycleInterval; 
+        let colorCycleInterval;
 
-        // 启动背景颜色循环
         function startColorCycle() {
-            if (colorCycleInterval) { 
+            if (colorCycleInterval) {
                 clearInterval(colorCycleInterval);
             }
-            // 立即设置第一个颜色
             bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
             
-            // 切换时间调整为4秒，给2秒的过渡留下充足时间
             colorCycleInterval = setInterval(() => {
                 currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
                 bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
-            }, 4000); 
+            }, 4000);
         }
 
-        // 停止背景颜色循环
         function stopColorCycle() {
             if (colorCycleInterval) {
                 clearInterval(colorCycleInterval);
@@ -504,34 +477,27 @@
             }
         }
 
-        // 颜色选择器事件监听
         colorPicker.addEventListener('input', (event) => {
-            colorCycleCheckbox.checked = false; 
-            stopColorCycle(); 
-            bodyElement.style.backgroundColor = event.target.value; 
+            colorCycleCheckbox.checked = false;
+            stopColorCycle();
+            bodyElement.style.backgroundColor = event.target.value;
         });
 
-        // 背景颜色循环复选框事件监听
         colorCycleCheckbox.addEventListener('change', () => {
             if (colorCycleCheckbox.checked) {
-                // 当重新勾选循环时，从当前颜色继续切换到下一个颜色
-                // 确保过渡效果依然存在
-                startColorCycle(); 
+                startColorCycle();
             } else {
-                stopColorCycle(); 
+                stopColorCycle();
             }
         });
 
-        // 页面加载时初始化背景颜色
         if (colorCycleCheckbox.checked) {
             startColorCycle();
         } else {
-            bodyElement.style.backgroundColor = colorPicker.value; 
+            bodyElement.style.backgroundColor = colorPicker.value;
         }
 
-        // 页面加载时初始化访问人数
         initializeSimulatedVisitors();
-
     </script>
 </body>
 </html>
