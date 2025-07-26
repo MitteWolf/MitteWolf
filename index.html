@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的个人主页 - My Personal Homepage</title>
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.ico" type="image/x-icon">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,7 +19,18 @@
             box-sizing: border-box;
             overflow: hidden;
             position: relative;
-            transition: background-color 2s ease-in-out; 
+            transition: background-color 2s ease-in-out;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .qq-number, .copy-button {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
         }
 
         .particle {
@@ -31,24 +43,14 @@
         }
 
         @keyframes fadeInOutMove {
-            0% {
-                opacity: 0;
-                transform: translate(0, 0);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--endX), var(--endY));
-            }
+            0% { opacity: 0; transform: translate(0, 0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translate(var(--endX), var(--endY)); }
         }
 
         .shooting-star {
-            position: absolute;
+            position: fixed;
             background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
             width: 150px;
             height: 3px;
@@ -56,7 +58,7 @@
             opacity: 0;
             animation: shoot linear infinite;
             pointer-events: none;
-            z-index: 5;
+            z-index: 0;
             transform-origin: 0% 50%;
         }
 
@@ -70,24 +72,14 @@
             background-color: #fff;
             border-radius: 50%;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
-            z-index: 6;
+            z-index: 1;
         }
 
         @keyframes shoot {
-            0% {
-                opacity: 0;
-                transform: translate(0, 0) rotate(-45deg);
-            }
-            1% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--translateX), var(--translateY)) rotate(-45deg);
-            }
+            0% { opacity: 0; transform: translate(0, 0) rotate(-45deg); }
+            1% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translate(var(--translateX), var(--translateY)) rotate(-45deg); }
         }
 
         .container {
@@ -123,62 +115,17 @@
             display: block;
         }
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.2em;
-        }
-        .subtitle {
-            color: #666;
-            font-size: 1.1em;
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-        p {
-            margin-bottom: 25px;
-            font-size: 1.1em;
-            color: #555;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-bottom: 30px;
-        }
-        li {
-            margin-bottom: 18px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: color 0.3s ease, transform 0.2s ease;
-            display: inline-block;
-        }
-        a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-            transform: translateY(-2px);
-        }
-        .contact-info {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid #eee;
-            font-size: 1em;
-            color: #666;
-        }
-        .contact-info p {
-                margin: 8px 0;
-                font-size: 1.05em;
-        }
-        .contact-info strong {
-            color: #2c3e50;
-        }
-        .note {
-            font-size: 0.9em;
-            color: #888;
-            margin-top: 10px;
-        }
+        h1 { color: #2c3e50; margin-bottom: 10px; font-size: 2.2em; }
+        .subtitle { color: #666; font-size: 1.1em; margin-top: 0; margin-bottom: 25px; }
+        p { margin-bottom: 25px; font-size: 1.1em; color: #555; }
+        ul { list-style-type: none; padding: 0; margin-bottom: 30px; }
+        li { margin-bottom: 18px; }
+        a { color: #007bff; text-decoration: none; font-weight: bold; font-size: 1.1em; transition: color 0.3s ease, transform 0.2s ease; display: inline-block; }
+        a:hover { color: #0056b3; text-decoration: underline; transform: translateY(-2px); }
+        .contact-info { margin-top: 30px; padding-top: 25px; border-top: 1px solid #eee; font-size: 1em; color: #666; text-align: center; }
+        .contact-line { display: flex; align-items: center; margin: 8px 0; justify-content: center; }
+        .contact-info strong { color: #2c3e50; }
+        .note { font-size: 0.9em; color: #888; margin-top: 10px; }
 
         #visitor-info {
             position: absolute;
@@ -220,15 +167,18 @@
             bottom: 20px;
             left: 20px;
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px 15px;
+            padding: 10px 12px;
             border-radius: 8px;
             color: #fff;
             font-size: 0.9em;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             z-index: 10;
             align-items: flex-start;
+            width: auto;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         #color-controls label {
@@ -236,6 +186,12 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            width: auto;
+            padding: 5px 6px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            white-space: nowrap;
         }
 
         #color-controls input[type="color"] {
@@ -243,41 +199,49 @@
             -moz-appearance: none;
             appearance: none;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background-color: transparent;
             cursor: pointer;
             padding: 0;
         }
 
-        #color-controls input[type="color"]::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-        #color-controls input[type="color"]::-webkit-color-swatch {
-            border: 2px solid #ccc;
-            border-radius: 4px;
-        }
-        #color-controls input[type="color"]::-moz-color-swatch {
-            border: 2px solid #ccc;
-            border-radius: 4px;
-        }
+        #color-controls input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        #color-controls input[type="color"]::-webkit-color-swatch { border: 2px solid #ccc; border-radius: 4px; }
+        #color-controls input[type="color"]::-moz-color-swatch { border: 2px solid #ccc; border-radius: 4px; }
 
         #color-controls input[type="checkbox"] {
             margin-right: 5px;
             cursor: pointer;
+            width: 14px;
+            height: 14px;
+            accent-color: #4CAF50;
         }
+
+        .copy-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        .copy-button img { width: 18px; height: 18px; }
+        .copy-button.copied img { content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/%3E%3C/svg%3E'); }
+        .qq-number { color: #000000; margin-right: 5px; }
+        .qq-label { color: #007bff; font-weight: bold; min-width: 80px; display: inline-block; }
     </style>
 </head>
 <body>
     <div id="visitor-info">
         <span id="visitor-counter"></span>
-        <span id="visitor-hint"></span>
+        <span id="visitor-hint">不停点击的话会发生惊喜哦</span>
     </div>
 
     <div id="color-controls">
         <label for="color-picker">这里选择背景色:</label>
         <input type="color" id="color-picker" value="#FF6347">
-
         <label for="color-cycle-checkbox">
             <input type="checkbox" id="color-cycle-checkbox" checked> 背景色循环
         </label>
@@ -287,7 +251,6 @@
         <div class="avatar">
             <img src="https://sf6-cdn-tos.bdxiguastatic.com/img/user-avatar/d8f03e65a0c87c433554188283063179~300x300.image" alt="我的头像">
         </div>
-
         <h1>Hello!</h1>
         <p class="subtitle">这里是Furry米特的个人空间</p>
         <p>你可以在这里找到我在各个平台上的主页链接：</p>
@@ -297,13 +260,32 @@
             <li><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank">今日头条</a></li>
         </ul>
         <div class="contact-info">
-            <p>也可以加我为好友：</p>
-            <p><strong>QQ号码:</strong> 3877559035</p>
+            <p><strong>也可以加我为好友：</strong></p>
+            <div class="contact-line">
+                <span class="qq-label">QQ号码:</span>
+                <span class="qq-number">3877559035</span>
+                <button class="copy-button" data-clipboard-text="3877559035">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制QQ号码">
+                </button>
+            </div>
+            <div class="contact-line">
+                <span class="qq-label">来我的群聊玩:</span>
+                <span class="qq-number">1026977461</span>
+                <button class="copy-button" data-clipboard-text="1026977461">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制QQ群号">
+                </button>
+            </div>
             <p class="note">虽然目前本作者学业繁忙，但周末还是会尽量回复消息的</p>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     <script>
+        document.addEventListener('selectstart', function(e) {
+            if (!e.target.classList.contains('qq-number') && !e.target.classList.contains('copy-button')) {
+                e.preventDefault();
+            }
+        });
+
         const body = document.body;
         const numberOfParticles = 50;
         const minParticleSize = 3;
@@ -316,29 +298,22 @@
             const particle = document.createElement('div');
             particle.classList.add('particle');
             body.appendChild(particle);
-
             const size = Math.random() * (maxParticleSize - minParticleSize) + minParticleSize;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
-
             const startX = Math.random() * window.innerWidth;
             const startY = Math.random() * window.innerHeight;
             particle.style.left = `${startX}px`;
             particle.style.top = `${startY}px`;
-
             const endX = startX + (Math.random() - 0.5) * windStrength;
             const endY = startY + (Math.random() - 0.5) * windStrength;
-            
             const clampedEndX = Math.max(-100, Math.min(window.innerWidth + 100, endX));
             const clampedEndY = Math.max(-100, Math.min(window.innerHeight + 100, endY));
-
             particle.style.setProperty('--endX', `${clampedEndX - startX}px`);
             particle.style.setProperty('--endY', `${clampedEndY - startY}px`);
-
             const duration = Math.random() * (maxAnimationDuration - minAnimationDuration) + minAnimationDuration;
             particle.style.animationDuration = `${duration}s`;
             particle.style.animationDelay = `${Math.random() * -duration}s`;
-
             particle.addEventListener('animationend', () => {
                 particle.remove();
                 createParticle();
@@ -359,25 +334,18 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             body.appendChild(star);
-
-            const startY = -star.offsetHeight;
+            const startY = Math.random() * window.innerHeight;
             const startX = Math.random() * window.innerWidth;
-
             const travelDistance = Math.sqrt(window.innerWidth * window.innerWidth + window.innerHeight * window.innerHeight) + star.offsetWidth;
-
             const endX = startX - travelDistance;
             const endY = startY + travelDistance;
-
             star.style.top = `${startY}px`;
             star.style.left = `${startX}px`;
-
             star.style.setProperty('--translateX', `${endX - startX}px`);
             star.style.setProperty('--translateY', `${endY - startY}px`);
-
             const duration = Math.random() * (maxStarDuration - minStarDuration) + minStarDuration;
             star.style.animationDuration = `${duration}s`;
             star.style.animationDelay = `${Math.random() * (maxStarDelay - minStarDelay) + minStarDelay}s`;
-
             star.addEventListener('animationend', () => {
                 star.remove();
                 createShootingStar();
@@ -388,10 +356,16 @@
             createShootingStar();
         }
 
+        window.addEventListener('resize', function() {
+            document.querySelectorAll('.shooting-star').forEach(star => {
+                star.style.top = `${Math.random() * window.innerHeight}px`;
+                star.style.left = `${Math.random() * window.innerWidth}px`;
+            });
+        });
+
         const visitorInfoElement = document.getElementById('visitor-info');
         const visitorCounterElement = document.getElementById('visitor-counter');
         const visitorHintElement = document.getElementById('visitor-hint');
-
         const MIN_INITIAL_COUNT = 30000;
         const MAX_INITIAL_COUNT = 31000;
         const MIN_AUTO_INCREASE = 300;
@@ -400,15 +374,12 @@
         const MAX_COUNT = 999999;
         const MIN_AUTO_INCREASE_INTERVAL_MS = 1500;
         const MAX_AUTO_INCREASE_INTERVAL_MS = 2500;
-
         let currentSimulatedVisitors;
         let autoIncreaseTimer;
 
         function initializeSimulatedVisitors() {
             currentSimulatedVisitors = Math.floor(Math.random() * (MAX_INITIAL_COUNT - MIN_INITIAL_COUNT + 1)) + MIN_INITIAL_COUNT;
             updateVisitorCountDisplay();
-            visitorHintElement.textContent = '不停点击的话……会发生意想不到的事情';
-            
             if (autoIncreaseTimer) {
                 clearInterval(autoIncreaseTimer);
             }
@@ -416,9 +387,9 @@
         }
 
         function updateVisitorCountDisplay() {
-            visitorCounterElement.textContent = `正在访问人数: ${currentSimulatedVisitors.toLocaleString()}`;
-
+            let displayCount = currentSimulatedVisitors;
             if (currentSimulatedVisitors >= MAX_COUNT) {
+                displayCount = MAX_COUNT + '+';
                 visitorCounterElement.classList.add('golden-glow');
                 if (autoIncreaseTimer) {
                     clearInterval(autoIncreaseTimer);
@@ -426,6 +397,7 @@
             } else {
                 visitorCounterElement.classList.remove('golden-glow');
             }
+            visitorCounterElement.textContent = `正在访问人数: ${displayCount.toLocaleString()}`;
         }
 
         function autoIncreaseVisitors() {
@@ -453,7 +425,6 @@
         const colorPicker = document.getElementById('color-picker');
         const colorCycleCheckbox = document.getElementById('color-cycle-checkbox');
         const bodyElement = document.body;
-
         const backgroundColors = ['#FF6347', '#FFD700', '#32CD32', '#1E90FF', '#9370DB', '#FF1493'];
         let currentColorIndex = 0;
         let colorCycleInterval;
@@ -463,7 +434,6 @@
                 clearInterval(colorCycleInterval);
             }
             bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
-            
             colorCycleInterval = setInterval(() => {
                 currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
                 bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
@@ -491,13 +461,26 @@
             }
         });
 
-        if (colorCycleCheckbox.checked) {
-            startColorCycle();
-        } else {
-            bodyElement.style.backgroundColor = colorPicker.value;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (colorCycleCheckbox.checked) {
+                startColorCycle();
+            } else {
+                bodyElement.style.backgroundColor = colorPicker.value;
+            }
+        });
 
         initializeSimulatedVisitors();
+
+        new ClipboardJS('.copy-button').on('success', function(e) {
+            let button = e.trigger;
+            button.classList.add('copied');
+            button.querySelector('img').src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/%3E%3C/svg%3E';
+            setTimeout(function() {
+                button.classList.remove('copied');
+                button.querySelector('img').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'currentColor\'%3E%3Cpath d=\'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z\'/%3E%3C/svg%3E';
+            }, 2000);
+            e.clearSelection();
+        });
     </script>
 </body>
 </html>
