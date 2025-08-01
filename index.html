@@ -2,14 +2,14 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Furry米特的个人空间 - My Personal Homepage</title>
     <link rel="icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.ico" type="image/x-icon">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
             color: #333;
             line-height: 1.6;
             display: flex;
@@ -17,16 +17,17 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             transition: background-color 2s ease-in-out;
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            font-weight: 500;
         }
 
-        .qq-number, .copy-button {
+        .qq-number, .copy-button, .qq-number-container {
             user-select: text;
             -webkit-user-select: text;
             -moz-user-select: text;
@@ -84,19 +85,20 @@
 
         .container {
             background-color: #ffffff;
-            padding: 40px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             max-width: 600px;
-            width: 100%;
+            width: calc(100% - 40px);
             text-align: center;
             z-index: 1;
             position: relative;
+            margin: 20px auto;
         }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border: 2px solid #000;
             background-color: #333;
             border-radius: 8px;
@@ -104,7 +106,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 20px auto;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -115,40 +117,102 @@
             display: block;
         }
 
-        h1 { color: #2c3e50; margin-bottom: 10px; font-size: 2.2em; }
-        .subtitle { color: #666; font-size: 1.1em; margin-top: 0; margin-bottom: 25px; }
-        p { margin-bottom: 25px; font-size: 1.1em; color: #555; }
-        ul { list-style-type: none; padding: 0; margin-bottom: 30px; }
-        li { margin-bottom: 18px; }
-        a { color: #007bff; text-decoration: none; font-weight: bold; font-size: 1.1em; transition: color 0.3s ease, transform 0.2s ease; display: inline-block; }
-        a:hover { color: #0056b3; text-decoration: underline; transform: translateY(-2px); }
-        .contact-info { margin-top: 30px; padding-top: 25px; border-top: 1px solid #eee; font-size: 1em; color: #666; text-align: center; }
-        .contact-line { display: flex; align-items: center; margin: 8px 0; justify-content: center; }
-        .contact-info strong { color: #2c3e50; }
-        .note { font-size: 0.9em; color: #888; margin-top: 10px; }
+        h1 { 
+            color: #2c3e50; 
+            margin-bottom: 10px; 
+            font-size: 1.8em; 
+            font-weight: 600;
+        }
+        .subtitle { 
+            color: #666; 
+            font-size: 1em; 
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            font-weight: 500;
+        }
+        p { 
+            margin-bottom: 20px; 
+            font-size: 1em; 
+            color: #555; 
+            font-weight: 500;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+            margin-bottom: 25px; 
+        }
+        li { 
+            margin-bottom: 15px; 
+        }
+        a { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 1em; 
+            transition: color 0.3s ease, transform 0.2s ease; 
+            display: inline-block; 
+        }
+        a:hover { 
+            color: #0056b3; 
+            text-decoration: underline; 
+            transform: translateY(-2px); 
+        }
+        .contact-info { 
+            margin-top: 25px; 
+            padding-top: 20px; 
+            border-top: 1px solid #eee; 
+            font-size: 0.95em; 
+            color: #666; 
+            text-align: center; 
+        }
+        .contact-line { 
+            display: flex; 
+            align-items: center; 
+            margin: 8px 0; 
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .contact-info strong { 
+            color: #2c3e50; 
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .note { 
+            font-size: 0.85em; 
+            color: #888; 
+            margin-top: 10px; 
+        }
 
         #visitor-info {
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
             z-index: 10;
             text-align: left;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 8px 12px;
+            border-radius: 6px;
+            max-width: 80%;
         }
 
         #visitor-counter {
             color: #fff;
-            font-size: 1.1em;
+            font-size: 0.95em;
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
             cursor: pointer;
             user-select: none;
             transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #visitor-hint {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 0.85em;
+            font-size: 0.75em;
             margin-top: 5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             display: block;
@@ -163,31 +227,29 @@
         }
 
         #color-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             color: #fff;
-            font-size: 0.9em;
+            font-size: 0.8em;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             z-index: 10;
             align-items: flex-start;
-            width: auto;
-            min-width: 150px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            max-width: 80%;
         }
 
         #color-controls label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             width: auto;
-            padding: 5px 6px;
+            padding: 4px 5px;
             background-color: rgba(255,255,255,0.1);
             border-radius: 4px;
             transition: background-color 0.2s;
@@ -199,8 +261,8 @@
             -moz-appearance: none;
             appearance: none;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 22px;
+            height: 22px;
             background-color: transparent;
             cursor: pointer;
             padding: 0;
@@ -213,24 +275,142 @@
         #color-controls input[type="checkbox"] {
             margin-right: 5px;
             cursor: pointer;
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             accent-color: #4CAF50;
         }
 
-        .copy-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            margin-left: 5px;
-            vertical-align: middle;
+        .qq-number-container {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
         }
 
-        .copy-button img { width: 18px; height: 18px; }
-        .copy-button.copied img { content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/%3E%3C/svg%3E'); }
-        .qq-number { color: #000000; margin-right: 5px; }
-        .qq-label { color: #007bff; font-weight: bold; min-width: 80px; display: inline-block; }
+        .copy-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 5px;
+            font-weight: 500;
+        }
+
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+
+        .copy-button.copied {
+            background-color: #28a745;
+        }
+
+        .copy-button img {
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+        }
+
+        .toutiao-egg {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .toutiao-egg img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #000;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 99;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .back-to-top:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top::before {
+            content: '↑';
+            font-size: 18px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px 15px;
+                width: calc(100% - 30px);
+            }
+            .avatar {
+                width: 80px;
+                height: 80px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            .subtitle {
+                font-size: 0.9em;
+            }
+            .contact-line {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .qq-label {
+                min-width: auto;
+                margin-bottom: 2px;
+            }
+            .qq-number-container {
+                margin-bottom: 5px;
+                margin-right: 0;
+            }
+            .copy-button {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            #visitor-info, #color-controls {
+                font-size: 0.75em;
+                padding: 6px 8px;
+            }
+            #visitor-counter {
+                font-size: 0.85em;
+            }
+            .back-to-top {
+                padding: 8px 12px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 0.9em;
+            }
+            .back-to-top::before {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -249,10 +429,10 @@
 
     <div class="container">
         <div class="avatar">
-            <img src="https://sf6-cdn-tos.bdxiguastatic.com/img/user-avatar/d8f03e65a0c87c433554188283063179~300x300.image" alt="我的头像">
+            <img src="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/profile%20photo.png" alt="我的头像">
         </div>
         <h1>Hello!</h1>
-        <p class="subtitle">这里是Furry米特的个人空间</p>
+        <p class="subtitle">这里是我的小空间</p>
         <p>你可以在这里找到我在各个平台上的主页链接：</p>
         <ul>
             <li><a href="https://space.bilibili.com/1044109952?spm_id_from=333.1007.0.0" target="_blank">哔哩哔哩</a></li>
@@ -263,36 +443,49 @@
             <p><strong>也可以加我为好友：</strong></p>
             <div class="contact-line">
                 <span class="qq-label">QQ号码:</span>
-                <span class="qq-number">3877559035</span>
+                <div class="qq-number-container">
+                    <span class="qq-number">3877559035</span>
+                </div>
                 <button class="copy-button" data-clipboard-text="3877559035">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制QQ号码">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制">
+                    复制
                 </button>
             </div>
             <div class="contact-line">
                 <span class="qq-label">来我的群聊玩:</span>
-                <span class="qq-number">1026977461</span>
+                <div class="qq-number-container">
+                    <span class="qq-number">1026977461</span>
+                </div>
                 <button class="copy-button" data-clipboard-text="1026977461">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制QQ群号">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制">
+                    复制
                 </button>
             </div>
             <p class="note">虽然目前本作者学业繁忙，但周末还是会尽量回复消息的</p>
         </div>
+        
+        <div class="toutiao-egg">
+            <img src="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/99%2B.png" alt="今日头条彩蛋">
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+    <div class="back-to-top">返回顶部</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
     <script>
         document.addEventListener('selectstart', function(e) {
-            if (!e.target.classList.contains('qq-number') && !e.target.classList.contains('copy-button')) {
+            if (!e.target.classList.contains('qq-number') && !e.target.classList.contains('copy-button') && !e.target.classList.contains('qq-number-container')) {
                 e.preventDefault();
             }
         });
 
         const body = document.body;
-        const numberOfParticles = 50;
-        const minParticleSize = 3;
-        const maxParticleSize = 8;
+        const numberOfParticles = 30;
+        const minParticleSize = 2;
+        const maxParticleSize = 6;
         const minAnimationDuration = 15;
         const maxAnimationDuration = 30;
-        const windStrength = 200;
+        const windStrength = 150;
 
         function createParticle() {
             const particle = document.createElement('div');
@@ -324,7 +517,7 @@
             createParticle();
         }
 
-        const numberOfStars = 20;
+        const numberOfStars = 10;
         const minStarDuration = 3;
         const maxStarDuration = 6;
         const minStarDelay = 0;
@@ -461,25 +654,69 @@
             }
         });
 
+        const backToTopButton = document.querySelector('.back-to-top');
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             if (colorCycleCheckbox.checked) {
                 startColorCycle();
             } else {
                 bodyElement.style.backgroundColor = colorPicker.value;
             }
-        });
+            
+            const clipboard = new ClipboardJS('.copy-button', {
+                text: function(trigger) {
+                    return trigger.getAttribute('data-clipboard-text');
+                }
+            });
 
-        initializeSimulatedVisitors();
+            clipboard.on('success', function(e) {
+                const button = e.trigger;
+                button.classList.add('copied');
+                button.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\'/%3E%3C/svg%3E" alt="已复制"> 已复制';
+                
+                setTimeout(function() {
+                    button.classList.remove('copied');
+                    button.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z\'/%3E%3C/svg%3E" alt="复制"> 复制';
+                }, 2000);
+                
+                e.clearSelection();
+            });
 
-        new ClipboardJS('.copy-button').on('success', function(e) {
-            let button = e.trigger;
-            button.classList.add('copied');
-            button.querySelector('img').src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3Cpath d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/%3E%3C/svg%3E';
-            setTimeout(function() {
-                button.classList.remove('copied');
-                button.querySelector('img').src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'currentColor\'%3E%3Cpath d=\'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z\'/%3E%3C/svg%3E';
-            }, 2000);
-            e.clearSelection();
+            clipboard.on('error', function(e) {
+                const text = e.trigger.getAttribute('data-clipboard-text');
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                document.body.appendChild(textArea);
+                textArea.select();
+                
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        const button = e.trigger;
+                        button.classList.add('copied');
+                        button.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\'/%3E%3C/svg%3E" alt="已复制"> 已复制';
+                        
+                        setTimeout(function() {
+                            button.classList.remove('copied');
+                            button.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z\'/%3E%3C/svg%3E" alt="复制"> 复制';
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动选择号码并复制');
+                }
+                
+                document.body.removeChild(textArea);
+            });
+
+            initializeSimulatedVisitors();
         });
     </script>
 </body>
