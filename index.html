@@ -1,915 +1,629 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Furry米特的个人空间 - My Personal Homepage</title>
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.ico" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>MT的小空间</title>
+    <!-- ==================== 网页图标 ==================== -->
+    <!-- 如需更换网页图标，请替换下面两行中的 icon.ico 地址 -->
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/icon.ico" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/icon.ico" type="image/x-icon">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            color: #333;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-            overflow-x: hidden;
-            position: relative;
-            transition: background-color 2s ease-in-out;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            font-weight: 500;
-            background-color: #FF6347;
-        }
-
-        .qq-number, .copy-button, .qq-number-container, .discord-username {
-            user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-        }
-
-        .particle {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            opacity: 0;
-            animation: fadeInOutMove linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes fadeInOutMove {
-            0% { opacity: 0; transform: translate(0, 0); }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; transform: translate(var(--endX), var(--endY)); }
-        }
-
-        .shooting-star {
-            position: fixed;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
-            width: 150px;
-            height: 3px;
-            transform: rotate(-45deg);
-            opacity: 0;
-            animation: shoot linear infinite;
-            pointer-events: none;
-            z-index: 0;
-            transform-origin: 0% 50%;
-        }
-
-        .shooting-star::before {
-            content: '';
-            position: absolute;
-            top: -2.5px;
-            left: -5px;
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
-            z-index: 1;
-        }
-
-        @keyframes shoot {
-            0% { opacity: 0; transform: translate(0, 0) rotate(-45deg); }
-            1% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { opacity: 0; transform: translate(var(--translateX), var(--translateY)) rotate(-45deg); }
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            max-width: 600px;
-            width: calc(100% - 40px);
-            text-align: center;
-            z-index: 1;
-            position: relative;
-            margin: 20px auto;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .container.dark-mode {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-        }
-
-        .container.dark-mode h1,
-        .container.dark-mode .subtitle,
-        .container.dark-mode p,
-        .container.dark-mode .contact-info strong,
-        .container.dark-mode .qq-label,
-        .container.dark-mode .discord-label {
-            color: #ecf0f1;
-        }
-
-        .container.dark-mode .contact-info {
-            border-top-color: #34495e;
-        }
-
-        .container.dark-mode .qq-number-container,
-        .container.dark-mode .discord-container {
-            background-color: #34495e;
-            color: #ecf0f1;
-        }
-
-        .container.dark-mode a {
-            color: #3498db;
-        }
-
-        .container.dark-mode a:hover {
-            color: #2980b9;
-        }
-
-        .container.dark-mode .note {
-            color: #bdc3c7;
-        }
-
-        h1 { 
-            color: #2c3e50; 
-            margin-bottom: 10px; 
-            font-size: 1.8em; 
-            font-weight: 600;
-        }
-        .subtitle { 
-            color: #666; 
-            font-size: 1em; 
-            margin-top: 0; 
-            margin-bottom: 20px; 
-            font-weight: 500;
-        }
-        p { 
-            margin-bottom: 20px; 
-            font-size: 1em; 
-            color: #555; 
-            font-weight: 500;
-        }
-        ul { 
-            list-style-type: none; 
-            padding: 0; 
-            margin-bottom: 25px; 
-        }
-        li { 
-            margin-bottom: 15px; 
-        }
-        a { 
-            color: #007bff; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 1em; 
-            transition: color 0.3s ease, transform 0.2s ease; 
-            display: inline-block; 
-        }
-        a:hover { 
-            color: #0056b3; 
-            text-decoration: underline; 
-            transform: translateY(-2px); 
-        }
-        .contact-info { 
-            margin-top: 25px; 
-            padding-top: 20px; 
-            border-top: 1px solid #eee; 
-            font-size: 0.95em; 
-            color: #666; 
-            text-align: center; 
-        }
-        .contact-line { 
-            display: flex; 
-            align-items: center; 
-            margin: 8px 0; 
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .contact-info strong { 
-            color: #2c3e50; 
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .note { 
-            font-size: 0.85em; 
-            color: #888; 
-            margin-top: 10px; 
-        }
-
-        #visitor-info {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
-            text-align: left;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 8px 12px;
-            border-radius: 6px;
-            max-width: 80%;
-        }
-
-        #visitor-counter {
-            color: #fff;
-            font-size: 0.95em;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        #visitor-hint {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.75em;
-            margin-top: 5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            display: block;
-        }
-
-        #visitor-counter.golden-glow {
-            color: #FFD700;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8),
-                         0 0 10px rgba(255, 215, 0, 0.6),
-                         0 0 15px rgba(255, 215, 0, 0.4),
-                         0 0 20px rgba(255, 215, 0, 0.2);
-        }
-
-        #color-controls {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 8px 10px;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.8em;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 10;
-            align-items: flex-start;
-            max-width: 80%;
-        }
-
-        #color-controls label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            width: auto;
-            padding: 4px 5px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        #color-controls input[type="color"] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border: none;
-            width: 22px;
-            height: 22px;
-            background-color: transparent;
-            cursor: pointer;
             padding: 0;
         }
-
-        #color-controls input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        #color-controls input[type="color"]::-webkit-color-swatch { border: 2px solid #ccc; border-radius: 4px; }
-        #color-controls input[type="color"]::-moz-color-swatch { border: 2px solid #ccc; border-radius: 4px; }
-
-        #color-controls input[type="checkbox"] {
-            margin-right: 5px;
-            cursor: pointer;
-            width: 12px;
-            height: 12px;
-            accent-color: #4CAF50;
-        }
-
-        .qq-number-container, .discord-container {
-            display: inline-flex;
-            align-items: center;
-            background-color: #f5f5f5;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-right: 5px;
-        }
-
-        .copy-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            margin-left: 5px;
-            font-weight: 500;
-        }
-
-        .copy-button:hover {
-            background-color: #0056b3;
-        }
-
-        .copy-button.copied {
-            background-color: #28a745;
-        }
-
-        .copy-button img {
-            width: 14px;
-            height: 14px;
-            margin-right: 4px;
-        }
-
-        .toutiao-egg {
-            margin-top: 30px;
+        
+        body { 
+            background: #a7b9ce; 
+            
+            /* ==================== Chromium内核浏览器背景图片 ==================== */
+            /* 如需更换Chromium内核浏览器的背景图，请替换下面的图片地址 */
+            background-image: url('https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            
+            font-family: '宋体', SimSun, '宋体', 'SimSun', '仿宋', 'FangSong', serif !important; 
+            font-size: 14px; 
+            
+            margin: 0;
+            padding: 40px 0;
+            color: #333;
             text-align: center;
-        }
-
-        .toutiao-egg img {
-            max-width: 100%;
+            
+            min-height: 100vh;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #000;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 15px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 99;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            font-weight: 500;
+        
+        .title-avatar-wrapper {
+            width: 1000px;
+            margin: 0 auto 35px auto;
+            text-align: left;
+            overflow: hidden;
+            zoom: 1;
         }
-
-        .back-to-top:hover {
-            opacity: 1;
-            transform: translateY(-3px);
-        }
-
-        .back-to-top::before {
-            content: '↑';
-            font-size: 18px;
-            margin-right: 5px;
+        .welcome-title {
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            font-size: 56px;
             font-weight: bold;
+            color: #FFFFFF;
+            text-shadow: 4px 4px 8px #1e3b6b;
+            background: transparent;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            
+            float: left;
+            width: 700px;
+            margin: 0;
+            padding: 10px 0;
         }
-
-        /* 深色模式切换按钮 */
-        .theme-toggle {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #f8f9fa;
-            border: 2px solid #dee2e6;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        
+        .avatar-square {
+            float: right;
+            width: 120px;
+            height: 120px;
+            background: #e8edf4;
+            border: 3px solid #7f9db9;
+            border-radius: 0;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            overflow: hidden;
+            margin-top: 5px;
+            text-align: center;
+            font-family: '宋体', SimSun, serif !important;
+        }
+        
+        .windows-container {
+            width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            zoom: 1;
+            /* 修改为表格布局使三栏等高，同时保持IE8兼容 */
+            display: table;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+        }
+        
+        .window {
+            display: table-cell;
+            vertical-align: top;
+            
+            background: rgba(232, 237, 244, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(127, 157, 185, 0.6);
+            border-radius: 12px;
+            padding: 20px 15px;
+            width: 280px;
+            margin-right: 20px;
+            float: none; /* 移除浮动 */
+            margin: 0; /* 移除margin，改用border-spacing */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            
+            min-height: 450px;
+            height: 100%;
+            
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            
             transition: all 0.3s ease;
         }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        
+        /* 调整圆角，保持视觉一致 */
+        .window:first-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
-
-        .theme-toggle.dark {
-            background-color: #343a40;
-            border-color: #495057;
+        .window:last-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            margin-right: 0;
         }
-
-        .theme-toggle svg {
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
+        .window:only-child {
+            border-radius: 12px;
         }
-
-        .theme-toggle svg.sun-icon {
-            fill: #FFA500;
+        
+        .window:hover {
+            background: rgba(232, 237, 244, 0.95);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
         }
-
-        .theme-toggle svg.moon-icon {
-            fill: #495057;
+        
+        .window-title { 
+            color: #1e3b6b; 
+            font-size: 22px; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            padding-bottom: 8px; 
+            border-bottom: 1px solid rgba(192, 203, 216, 0.8);
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
         }
-
-        .theme-toggle.dark svg.sun-icon {
-            display: none;
+        
+        .row { 
+            margin: 8px 0; 
+            padding: 4px 0;
+            text-align: center;
         }
-
-        .theme-toggle svg.moon-icon {
-            display: none;
-        }
-
-        .theme-toggle.dark svg.moon-icon {
-            display: block;
-            fill: #f8f9fa;
-        }
-
-        /* 平台分类样式 */
-        .platform-section {
-            margin-bottom: 25px;
-        }
-
-        .platform-section h3 {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            color: #555;
-            font-weight: 600;
-            position: relative;
+        
+        .plat-link { 
+            color: #0066cc; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 16px;
             display: inline-block;
-            padding: 0 15px;
+            padding: 3px 0;
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
         }
-
-        .platform-section h3::before,
-        .platform-section h3::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 80px;
+        
+        .plat-link:hover { 
+            color: #ff6600; 
+            text-decoration: underline; 
+        }
+        
+        .contact-section {
+            margin-top: 15px;
+            border-top: 1px dashed rgba(179, 195, 212, 0.8);
+            padding-top: 10px;
+        }
+        
+        .contact-block {
+            margin: 15px 0;
+            padding: 8px;
+            background: rgba(240, 245, 250, 0.7);
+            border: 1px solid rgba(179, 195, 212, 0.6);
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        
+        .contact-label {
+            font-weight: bold;
+            color: #1e3b6b;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 6px;
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+        }
+        
+        .contact-value {
+            font-family: 'Courier New', '宋体', SimSun, monospace !important;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            display: block;
+            margin: 8px 0;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+        
+        .copy-btn { 
+            background: #d4d0c8; 
+            border: 2px solid #fefefe; 
+            border-color: #fefefe #404040 #404040 #fefefe; 
+            padding: 8px 0; 
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            font-size: 15px; 
+            cursor: pointer; 
+            display: block;
+            color: #1e2b3c;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5px;
+            border-radius: 6px;
+        }
+        
+        .copy-btn:hover { 
+            background: #f2f1e6; 
+            border-color: #fefefe #2f2f2f #2f2f2f #fefefe; 
+        }
+        
+        .copy-btn:active { 
+            border-color: #404040 #fefefe #fefefe #404040; 
+            background: #ceceb6; 
+        }
+        
+        .copy-btn.copied { 
+            background: #28a745; 
+            color: white; 
+            border-color: #fefefe #1e7e34 #1e7e34 #fefefe; 
+        }
+        
+        .character-content {
+            text-align: left;
+            color: #1e3b6b;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+            padding: 5px 0;
+        }
+        
+        .character-item {
+            margin-bottom: 12px;
+            border-left: 3px solid #7f9db9;
+            padding-left: 12px;
+        }
+        
+        .character-label {
+            font-weight: bold;
+            color: #1e3b6b;
+            font-size: 16px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .character-divider {
             height: 1px;
-            background-color: #ddd;
+            background: linear-gradient(to right, #c0cbd8, transparent);
+            margin: 15px 0 10px 0;
         }
-
-        .platform-section h3::before {
-            right: 100%;
+        
+        .story-text {
+            background: rgba(240, 245, 250, 0.7);
+            padding: 12px;
+            border: 1px solid #b3c3d4;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-style: italic;
+            color: #2c3e50;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
-
-        .platform-section h3::after {
-            left: 100%;
+        
+        .announcement-content {
+            text-align: left;
+            color: #1e3b6b;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
         }
-
-        .container.dark-mode .platform-section h3 {
-            color: #bdc3c7;
+        
+        .sticky-tag {
+            background: #ff6600;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-right: 8px;
+            letter-spacing: 1px;
         }
-
-        .container.dark-mode .platform-section h3::before,
-        .container.dark-mode .platform-section h3::after {
-            background-color: #555;
+        
+        .announcement-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(240, 245, 250, 0.7);
+            border: 1px solid rgba(179, 195, 212, 0.6);
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 20px 15px;
-                width: calc(100% - 30px);
-            }
-            h1 {
-                font-size: 1.6em;
-            }
-            .subtitle {
-                font-size: 0.9em;
-            }
-            .contact-line {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .qq-label, .discord-label {
-                min-width: auto;
-                margin-bottom: 2px;
-            }
-            .qq-number-container, .discord-container {
-                margin-bottom: 5px;
-                margin-right: 0;
-            }
-            .copy-button {
-                margin-left: 0;
-                margin-top: 5px;
-            }
-            #visitor-info, #color-controls {
-                font-size: 0.75em;
-                padding: 6px 8px;
-            }
-            #visitor-counter {
-                font-size: 0.85em;
-            }
-            .back-to-top {
-                padding: 8px 12px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 0.9em;
-            }
-            .back-to-top::before {
-                font-size: 16px;
-            }
-            .theme-toggle {
-                width: 40px;
-                height: 40px;
-                top: 10px;
-                right: 10px;
-            }
-            .theme-toggle svg {
-                width: 20px;
-                height: 20px;
-            }
-            .platform-section h3::before,
-            .platform-section h3::after {
-                width: 40px;
-            }
+        
+        .announcement-title {
+            font-weight: bold;
+            color: #1e3b6b;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .announcement-link {
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 8px;
+            background: rgba(232, 237, 244, 0.8);
+            border: 1px solid #7f9db9;
+            border-radius: 6px;
+        }
+        
+        .announcement-link:hover {
+            color: #ff6600;
+            text-decoration: underline;
+            background: #d4e0f0;
+        }
+        
+        .static-text {
+            background: rgba(240, 245, 250, 0.7);
+            border: 1px solid #b3c3d4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            color: #2c3e50;
+            font-size: 15px;
+            line-height: 1.6;
+            border-left: 3px solid #ff6600;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        
+        .empty-content {
+            text-align: center;
+            color: #7f9db9;
+            font-size: 15px;
+            padding-top: 80px;
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
+        }
+        
+        .clearfix {
+            zoom: 1;
+        }
+        
+        .platform-section {
+            margin-bottom: 15px;
+        }
+        
+        div, span, a, button, p, h1, h2, h3 {
+            font-family: '宋体', SimSun, '宋体', 'SimSun', serif !important;
         }
     </style>
 </head>
 <body>
-    <div id="visitor-info">
-        <span id="visitor-counter">正在访问人数: 30,542</span>
-        <span id="visitor-hint">不停点击的话会发生惊喜哦</span>
-    </div>
 
-    <div id="color-controls">
-        <label for="color-picker">这里选择背景色:</label>
-        <input type="color" id="color-picker" value="#FF6347">
-        <label for="color-cycle-checkbox">
-            <input type="checkbox" id="color-cycle-checkbox" checked> 背景色循环
-        </label>
+<!-- ==================== 头像地址 ==================== -->
+<!-- 如需更换头像，请替换下面 img 标签中的 src 地址 -->
+<div class="title-avatar-wrapper">
+    <div class="welcome-title">欢迎来到MT的小空间uwu</div>
+    
+    <div class="avatar-square">
+        <img src="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/profile%20photo.png" alt="头像" style="width:100%; height:auto; border:none; display:block;">
     </div>
+</div>
 
-    <!-- 深色模式切换按钮 -->
-    <div class="theme-toggle" id="theme-toggle">
-        <svg class="sun-icon" viewBox="0 0 24 24">
-            <path d="M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M6.34,7.34l-1.41,1.41c-0.39,0.39-0.39,1.02,0,1.41s1.02,0.39,1.41,0l1.41-1.41c0.39-0.39,0.39-1.02,0-1.41S6.73,6.95,6.34,7.34z M19.07,18.93l-1.41,1.41c-0.39,0.39-0.39,1.02,0,1.41s1.02,0.39,1.41,0l1.41-1.41c0.39-0.39,0.39-1.02,0-1.41S19.46,18.54,19.07,18.93z M4.93,5.69c0.39,0.39,1.02,0.39,1.41,0l1.41-1.41c0.39-0.39,0.39-1.02,0-1.41s-1.02-0.39-1.41,0L4.93,4.28C4.54,4.67,4.54,5.3,4.93,5.69z M18.36,17.52c0.39,0.39,1.02,0.39,1.41,0l1.41-1.41c0.39-0.39,0.39-1.02,0-1.41s-1.02-0.39-1.41,0l-1.41,1.41C17.97,16.5,17.97,17.13,18.36,17.52z"/>
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24">
-            <path d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>
-        </svg>
-    </div>
-
-    <div class="container" id="content-container">
-        <h1>Hey! There~</h1>
-        <p class="subtitle">这里是米特的小空间 awa</p>
-        <p>我各个平台的主页链接都在这里🐾：</p>
+<div class="windows-container clearfix">
+    
+    <div class="window">
+        <div class="window-title">🐾 我的平台</div>
         
-        <!-- 国内空间 -->
         <div class="platform-section">
-            <h3>国内空间</h3>
-            <ul>
-                <li><a href="https://space.bilibili.com/1044109952?spm_id_from=333.1007.0.0" target="_blank">哔哩哔哩</a></li>
-                <li><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank">今日头条</a></li>
-                <li><a href="https://www.ixigua.com/home/3839145926210555/?is_new_connect=0&is_new_user=0&list_entrance=search" target="_blank">西瓜视频</a></li>
-                <li><a href="https://my.furwall.net/author/18006">Furwall</a></li>
-            </ul>
-        </div>
-        
-        <!-- 国外空间 -->
-        <div class="platform-section">
-            <h3>国外空间</h3>
-            <ul>
-                <li><a href="https://www.youtube.com/channel/UCO-JYikgEzqTTNizukLuz0Q">YouTube</a></li>
-                <li><a href="https://x.com/xilng6389818456">X(Twitter)</a></li>
-                <li><a href="https://www.roblox.com/users/7251746834/profile">Roblox</a></li>
-            </ul>
-        </div>
-        
-        <div class="contact-info">
-            <p><strong>想加我好友在这里：</strong></p>
-            <div class="contact-line">
-                <span class="qq-label">QQ号码:</span>
-                <div class="qq-number-container">
-                    <span class="qq-number">3877559035</span>
-                </div>
-                <button class="copy-button" data-clipboard-text="3877559035">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制">
-                    复制
-                </button>
-            </div>
-            <div class="contact-line">
-                <span class="qq-label">来我的群聊玩:</span>
-                <div class="qq-number-container">
-                    <span class="qq-number">1026977461</span>
-                </div>
-                <button class="copy-button" data-clipboard-text="1026977461">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制">
-                    复制
-                </button>
-            </div>
-            <div class="contact-line">
-                <span class="discord-label">Discord用户名:</span>
-                <div class="discord-container">
-                    <span class="discord-username">xielang0215_94527</span>
-                </div>
-                <button class="copy-button" data-clipboard-text="xielang0215_94527">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E" alt="复制">
-                    复制
-                </button>
-            </div>
-            <p class="note">虽然目前本作者学业繁忙，但周末还是会尽量回复消息的</p>
-        </div>
-        
-        <div class="toutiao-egg">
-            <img src="https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/99%2B.png" alt="今日头条彩蛋">
-        </div>
-    </div>
-
-    <div class="back-to-top">返回顶部</div>
-
-    <script>
-        // 防止文本选择（除了可复制的部分）
-        document.addEventListener('selectstart', function(e) {
-            if (!e.target.classList.contains('qq-number') && 
-                !e.target.classList.contains('copy-button') && 
-                !e.target.classList.contains('qq-number-container') &&
-                !e.target.classList.contains('discord-username') &&
-                !e.target.classList.contains('discord-container')) {
-                e.preventDefault();
-            }
-        });
-
-        // 创建粒子效果
-        const body = document.body;
-        const numberOfParticles = 30;
-        const minParticleSize = 2;
-        const maxParticleSize = 6;
-        const minAnimationDuration = 15;
-        const maxAnimationDuration = 30;
-        const windStrength = 150;
-
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            body.appendChild(particle);
-            const size = Math.random() * (maxParticleSize - minParticleSize) + minParticleSize;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            const startX = Math.random() * window.innerWidth;
-            const startY = Math.random() * window.innerHeight;
-            particle.style.left = `${startX}px`;
-            particle.style.top = `${startY}px`;
-            const endX = startX + (Math.random() - 0.5) * windStrength;
-            const endY = startY + (Math.random() - 0.5) * windStrength;
-            const clampedEndX = Math.max(-100, Math.min(window.innerWidth + 100, endX));
-            const clampedEndY = Math.max(-100, Math.min(window.innerHeight + 100, endY));
-            particle.style.setProperty('--endX', `${clampedEndX - startX}px`);
-            particle.style.setProperty('--endY', `${clampedEndY - startY}px`);
-            const duration = Math.random() * (maxAnimationDuration - minAnimationDuration) + minAnimationDuration;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `${Math.random() * -duration}s`;
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-                createParticle();
-            });
-        }
-
-        for (let i = 0; i < numberOfParticles; i++) {
-            createParticle();
-        }
-
-        // 创建流星效果
-        const numberOfStars = 10;
-        const minStarDuration = 3;
-        const maxStarDuration = 6;
-        const minStarDelay = 0;
-        const maxStarDelay = 3;
-
-        function createShootingStar() {
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
-            body.appendChild(star);
-            const startY = Math.random() * window.innerHeight;
-            const startX = Math.random() * window.innerWidth;
-            const travelDistance = Math.sqrt(window.innerWidth * window.innerWidth + window.innerHeight * window.innerHeight) + star.offsetWidth;
-            const endX = startX - travelDistance;
-            const endY = startY + travelDistance;
-            star.style.top = `${startY}px`;
-            star.style.left = `${startX}px`;
-            star.style.setProperty('--translateX', `${endX - startX}px`);
-            star.style.setProperty('--translateY', `${endY - startY}px`);
-            const duration = Math.random() * (maxStarDuration - minStarDuration) + minStarDuration;
-            star.style.animationDuration = `${duration}s`;
-            star.style.animationDelay = `${Math.random() * (maxStarDelay - minStarDelay) + minStarDelay}s`;
-            star.addEventListener('animationend', () => {
-                star.remove();
-                createShootingStar();
-            });
-        }
-
-        for (let i = 0; i < numberOfStars; i++) {
-            createShootingStar();
-        }
-
-        // 窗口大小调整时重新定位流星
-        window.addEventListener('resize', function() {
-            document.querySelectorAll('.shooting-star').forEach(star => {
-                star.style.top = `${Math.random() * window.innerHeight}px`;
-                star.style.left = `${Math.random() * window.innerWidth}px`;
-            });
-        });
-
-        // 访客计数器功能
-        const visitorCounterElement = document.getElementById('visitor-counter');
-        const MIN_INITIAL_COUNT = 30000;
-        const MAX_INITIAL_COUNT = 31000;
-        const MIN_AUTO_INCREASE = 300;
-        const MAX_AUTO_INCREASE = 500;
-        const CLICK_INCREASE = 9999;
-        const MAX_COUNT = 999999;
-        const MIN_AUTO_INCREASE_INTERVAL_MS = 1500;
-        const MAX_AUTO_INCREASE_INTERVAL_MS = 2500;
-        let currentSimulatedVisitors;
-        let autoIncreaseTimer;
-
-        function initializeSimulatedVisitors() {
-            currentSimulatedVisitors = Math.floor(Math.random() * (MAX_INITIAL_COUNT - MIN_INITIAL_COUNT + 1)) + MIN_INITIAL_COUNT;
-            updateVisitorCountDisplay();
-            if (autoIncreaseTimer) {
-                clearInterval(autoIncreaseTimer);
-            }
-            startAutoIncreaseTimer();
-        }
-
-        function updateVisitorCountDisplay() {
-            let displayCount = currentSimulatedVisitors;
-            if (currentSimulatedVisitors >= MAX_COUNT) {
-                displayCount = MAX_COUNT + '+';
-                visitorCounterElement.classList.add('golden-glow');
-                if (autoIncreaseTimer) {
-                    clearInterval(autoIncreaseTimer);
-                }
-            } else {
-                visitorCounterElement.classList.remove('golden-glow');
-            }
-            visitorCounterElement.textContent = `正在访问人数: ${displayCount.toLocaleString()}`;
-        }
-
-        function autoIncreaseVisitors() {
-            const increaseAmount = Math.floor(Math.random() * (MAX_AUTO_INCREASE - MIN_AUTO_INCREASE + 1)) + MIN_AUTO_INCREASE;
-            currentSimulatedVisitors += increaseAmount;
-            if (currentSimulatedVisitors > MAX_COUNT) {
-                currentSimulatedVisitors = MAX_COUNT;
-            }
-            updateVisitorCountDisplay();
-        }
-
-        function startAutoIncreaseTimer() {
-            const interval = Math.floor(Math.random() * (MAX_AUTO_INCREASE_INTERVAL_MS - MIN_AUTO_INCREASE_INTERVAL_MS + 1)) + MIN_AUTO_INCREASE_INTERVAL_MS;
-            autoIncreaseTimer = setInterval(autoIncreaseVisitors, interval);
-        }
-
-        visitorCounterElement.addEventListener('click', () => {
-            currentSimulatedVisitors += CLICK_INCREASE;
-            if (currentSimulatedVisitors > MAX_COUNT) {
-                currentSimulatedVisitors = MAX_COUNT;
-            }
-            updateVisitorCountDisplay();
-        });
-
-        // 背景颜色控制
-        const colorPicker = document.getElementById('color-picker');
-        const colorCycleCheckbox = document.getElementById('color-cycle-checkbox');
-        const bodyElement = document.body;
-        const backgroundColors = ['#FF6347', '#FFD700', '#32CD32', '#1E90FF', '#9370DB', '#FF1493'];
-        let currentColorIndex = 0;
-        let colorCycleInterval;
-
-        function startColorCycle() {
-            if (colorCycleInterval) {
-                clearInterval(colorCycleInterval);
-            }
-            bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
-            colorCycleInterval = setInterval(() => {
-                currentColorIndex = (currentColorIndex + 1) % backgroundColors.length;
-                bodyElement.style.backgroundColor = backgroundColors[currentColorIndex];
-            }, 4000);
-        }
-
-        function stopColorCycle() {
-            if (colorCycleInterval) {
-                clearInterval(colorCycleInterval);
-                colorCycleInterval = null;
-            }
-        }
-
-        colorPicker.addEventListener('input', (event) => {
-            colorCycleCheckbox.checked = false;
-            stopColorCycle();
-            bodyElement.style.backgroundColor = event.target.value;
-        });
-
-        colorCycleCheckbox.addEventListener('change', () => {
-            if (colorCycleCheckbox.checked) {
-                startColorCycle();
-            } else {
-                stopColorCycle();
-            }
-        });
-
-        // 返回顶部按钮
-        const backToTopButton = document.querySelector('.back-to-top');
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // 深色模式切换功能
-        const themeToggle = document.getElementById('theme-toggle');
-        const contentContainer = document.getElementById('content-container');
-        
-        // 检查本地存储中的主题设置，默认设为light
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        
-        // 应用保存的主题
-        if (currentTheme === 'dark') {
-            contentContainer.classList.add('dark-mode');
-            themeToggle.classList.add('dark');
-        } else {
-            // 确保默认是明亮模式
-            contentContainer.classList.remove('dark-mode');
-            themeToggle.classList.remove('dark');
-        }
-        
-        // 切换主题
-        themeToggle.addEventListener('click', () => {
-            contentContainer.classList.toggle('dark-mode');
-            themeToggle.classList.toggle('dark');
+            <div class="row"><a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-link">哔哩哔哩</a></div>
+            <div class="row"><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-link">今日头条</a></div>
+            <div class="row"><a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-link">西瓜视频</a></div>
+            <div class="row"><a href="https://my.furwall.net/author/18006" target="_blank" class="plat-link">Furwall</a></div>
             
-            // 保存主题设置到本地存储
-            if (contentContainer.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
+            <div style="height:5px"></div>
+            
+            <div class="row"><a href="https://www.youtube.com/channel/UCO-JYikgEzqTTNizukLuz0Q" target="_blank" class="plat-link">YouTube</a></div>
+            <div class="row"><a href="https://x.com/xilng6389818456" target="_blank" class="plat-link">X(Twitter)</a></div>
+            <div class="row"><a href="https://www.roblox.com/users/7251746834/profile" target="_blank" class="plat-link">Roblox</a></div>
+        </div>
+        
+        <div class="contact-section">
+            <div class="contact-block">
+                <div class="contact-label">我的QQ：</div>
+                <div class="contact-value" id="qq-number">3877559035</div>
+                <button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button>
+            </div>
+            
+            <div class="contact-block">
+                <div class="contact-label">我的Q群：</div>
+                <div class="contact-value" id="qq-group">1026977461</div>
+                <button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button>
+            </div>
+            
+            <div class="contact-block">
+                <div class="contact-label">Discord：</div>
+                <div class="contact-value" id="discord">xielang0215_94527</div>
+                <button class="copy-btn" onclick="copyText('discord', this)">点这里复制</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="window">
+        <div class="window-title">✨ 设定介绍</div>
+        <div class="character-content">
+            <div class="character-item">
+                <span class="character-label">🐾 姓名：</span>米特（国际名Mitte，可简称MT）
+            </div>
+            <div class="character-item">
+                <span class="character-label">♂️ 性别：</span>男性
+            </div>
+            <div class="character-item">
+                <span class="character-label">💫 性格：</span>纯洁，好奇，包容，同时又有些开放
+            </div>
+            <div class="character-item">
+                <span class="character-label">🌌 身份：</span>来自宇宙的MT，喜欢漫游太空，并且能同时带来许多好运~
+            </div>
+            <div class="character-item">
+                <span class="character-label">❤️ 喜好：</span>在宇宙中畅游，经常带其他兽兽一起看星星owo
+            </div>
+            <div class="character-item">
+                <span class="character-label">🔮 技能：</span>能召唤传送门，自由穿越不同的时空或地点
+            </div>
+            
+            <div class="character-divider"></div>
+            
+            <div class="character-item">
+                <span class="character-label">📖 故事背景：</span>
+                <div class="story-text">
+                    很久以前，天狼星上划过一道非同寻常光芒的流星……<br>
+                    那颗流星后来逐渐化为了米特的雏形……<br>
+                    MT狼便由此诞生了。
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ==================== 公告区域 ==================== -->
+    <!-- 如需修改公告内容，请编辑以下整个 .window.last 内的 HTML 结构 -->
+    <div class="window last">
+        <div class="window-title">📢 公告：</div>
+        <div class="announcement-content">
+            
+            <!-- 置顶公告 - 可修改标题、说明文字和视频链接 -->
+            <div class="announcement-item">
+                <div class="announcement-title">
+                    <span class="sticky-tag">置顶</span> 我的经历视频
+                </div>
+                <div>如果想要了解我的经历可以点击下面访问视频页面：</div>
+                <!-- 如需更换视频链接，请替换下面的 href 地址 -->
+                <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">
+                    https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web
+                </a>
+            </div>
+            
+            <!-- 静态文字 - 如需修改，请直接编辑下面的文字内容 -->
+            <div class="static-text">
+                虽然本作者学业可能繁忙，但还是会尽量及时回复的啦
+            </div>
+        </div>
+    </div>
+    
+</div>
 
-        // 复制功能
-        const copyButtons = document.querySelectorAll('.copy-button');
-        copyButtons.forEach(button => {
-            button.addEventListener('click', async function() {
-                const textToCopy = this.getAttribute('data-clipboard-text');
-                
-                try {
-                    await navigator.clipboard.writeText(textToCopy);
-                    
-                    // 显示复制成功状态
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\'/%3E%3C/svg%3E" alt="成功"> 已复制';
-                    this.classList.add('copied');
-                    
-                    // 2秒后恢复原始状态
-                    setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.classList.remove('copied');
-                    }, 2000);
-                } catch (err) {
-                    console.error('复制失败:', err);
-                    // 备用复制方法
-                    const textArea = document.createElement('textarea');
-                    textArea.value = textToCopy;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    
-                    // 显示复制成功状态
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'white\'%3E%3Cpath d=\'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\'/%3E%3C/svg%3E" alt="成功"> 已复制';
-                    this.classList.add('copied');
-                    
-                    // 2秒后恢复原始状态
-                    setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.classList.remove('copied');
-                    }, 2000);
+<script>
+    function copyText(elementId, button) {
+        var text = document.getElementById(elementId).innerHTML;
+        
+        if (window.clipboardData) {
+            window.clipboardData.setData('Text', text);
+            showCopied(button);
+        }
+        else {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.focus();
+            
+            try {
+                var successful = document.execCommand('copy');
+                if (successful) {
+                    showCopied(button);
                 }
-            });
-        });
+            } catch (err) {
+                alert('复制失败，请手动复制：' + text);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+    }
+    
+    function showCopied(button) {
+        var originalText = button.innerHTML;
+        button.innerHTML = '已复制！';
+        button.className = 'copy-btn copied';
+        
+        setTimeout(function() {
+            button.innerHTML = originalText;
+            button.className = 'copy-btn';
+        }, 2000);
+    }
+</script>
 
-        // 初始化
-        initializeSimulatedVisitors();
-        startColorCycle();
-
-        // 页面加载完成后显示内容
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
-    </script>
+<!--[if IE 8]>
+<style>
+    /* ==================== IE背景图片（至少IE8） ==================== */
+    /* 如需更换 IE 的背景图，请替换下面 filter 属性中的图片地址（应与Chromium内核浏览器的图片地址一致） */
+    body {
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://raw.githubusercontent.com/MitteWolf/MitteWolf/refs/heads/main/bg.jpg', sizingMethod='scale');
+        background: #a7b9ce;
+    }
+    
+    .windows-container {
+        display: table;
+        border-spacing: 20px 0;
+    }
+    
+    .window {
+        display: table-cell;
+        background: #e8edf4;
+        filter: progid:DXImageTransform.Microsoft.Shadow(Color=#cccccc, Strength=3, Direction=135);
+        border: 1px solid #7f9db9;
+        border-radius: 6px;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        vertical-align: top;
+        height: 100%;
+        margin: 0;
+        float: none;
+    }
+    
+    .window:hover {
+        background: #e8edf4;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .contact-block {
+        background: #f0f5fa;
+        filter: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid #b3c3d4;
+        border-radius: 4px;
+    }
+    
+    .story-text {
+        background: #f0f5fa;
+        filter: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid #b3c3d4;
+        border-radius: 4px;
+    }
+    
+    .announcement-item {
+        background: #f0f5fa;
+        filter: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid #b3c3d4;
+        border-radius: 4px;
+    }
+    
+    .static-text {
+        background: #f0f5fa;
+        filter: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid #b3c3d4;
+        border-radius: 4px;
+    }
+    
+    .announcement-link {
+        background: #e8edf4;
+        filter: none;
+    }
+    
+    .window-title {
+        border-bottom: 1px solid #c0cbd8;
+    }
+    
+    .contact-section {
+        border-top: 1px dashed #b3c3d4;
+    }
+    
+    .welcome-title {
+        filter: dropshadow(color=#1e3b6b, offX=4, offY=4);
+    }
+    
+    .avatar-square {
+        filter: progid:DXImageTransform.Microsoft.Shadow(Color=#aaaaaa, Strength=3, Direction=135);
+    }
+    
+    .window, .window:first-child, .window:last-child {
+        border-radius: 0;
+    }
+    .window {
+        border: 1px solid #7f9db9;
+    }
+</style>
+<![endif]-->
 </body>
 </html>
