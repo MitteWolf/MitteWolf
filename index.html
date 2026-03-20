@@ -3,15 +3,23 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <!-- 添加 viewport 适配移动设备，同时保留用户缩放能力，不影响原有布局 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MT的小空间</title>
     <!-- ==================== 网页图标 ==================== -->
     <!-- 如需更换网页图标，请替换下面两行中的 icon.ico 地址 -->
     <link rel="shortcut icon" href="https://s41.ax1x.com/2026/03/04/pe9ewv9.png" type="image/x-icon">
     <link rel="icon" href="https://s41.ax1x.com/2026/03/04/pe9ewv9.png" type="image/x-icon">
+    
+    <!-- ========== APlayer 样式与脚本 (仅现代浏览器加载) ========== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
     <style>
+        /* ---------- 原有样式完全保留，不做任何破坏性修改 ---------- */
         * {
             margin: 0;
             padding: 0;
+            /* 添加 box-sizing 以辅助移动端适配，但不影响IE8 (IE8不支持box-sizing，无影响) */
+            box-sizing: border-box; 
         }
         
         body { 
@@ -19,7 +27,7 @@
             
             /* ==================== Chromium内核浏览器背景图片 ==================== */
             /* 如需更换Chromium内核浏览器的背景图，请替换下面的图片地址 */
-            background-image: url('https://s41.ax1x.com/2026/03/10/peFsSRP.png');
+            background-image: url('https://s41.ax1x.com/2026/03/12/pekf0tU.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -29,7 +37,7 @@
             font-size: 14px; 
             
             margin: 0;
-            padding: 40px 0;
+            padding: 40px 0 80px 0;  /* 增加底部内边距，为播放器留出空间 */
             color: #333;
             text-align: center;
             
@@ -371,14 +379,293 @@
         div, span, a, button, p, h1, h2, h3 {
             font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif !important;
         }
+
+        /* ---------- 新增移动端适配样式 (不影响原有桌面和IE8) ---------- */
+        @media screen and (max-width: 1020px) {
+            /* 当屏幕宽度小于等于1020px时，让容器自适应，不再固定1000px */
+            .title-avatar-wrapper,
+            .windows-container {
+                width: auto;
+                max-width: 1000px;
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            
+            /* 标题区域自适应 */
+            .title-avatar-wrapper {
+                overflow: hidden; /* 保持清除浮动 */
+            }
+            
+            .welcome-title {
+                float: none; /* 取消浮动，让标题和头像上下排列 */
+                width: auto;
+                font-size: 10vw;  /* 视口宽度的10%，但设置最大最小值保护阅读 */
+                max-font-size: 56px;
+                min-font-size: 32px;
+                text-align: center;
+                padding-bottom: 5px;
+                word-break: break-word;
+            }
+            
+            .avatar-square {
+                float: none;
+                margin: 10px auto; /* 居中 */
+                width: 120px;
+                height: 120px;
+            }
+            
+            /* 三栏容器从表格布局改为块级，方便堆叠 */
+            .windows-container {
+                display: block;
+                overflow: visible;
+                border-spacing: 0; /* 取消表格的border-spacing */
+            }
+            
+            .window {
+                display: block;      /* 改为块级，垂直排列 */
+                width: 100%;         /* 占满容器 */
+                margin: 0 0 20px 0;  /* 底部间距 */
+                float: none;
+                min-height: auto;    /* 取消最小高度限制 */
+                height: auto;
+                border-radius: 12px; /* 统一圆角 */
+            }
+            
+            /* 还原所有圆角 */
+            .window:first-child,
+            .window:last-child,
+            .window:only-child {
+                border-radius: 12px;
+            }
+            
+            /* 调整内部间距，保持可读性 */
+            .contact-value {
+                font-size: 15px;
+                word-break: break-word;
+            }
+            
+            .announcement-link {
+                word-break: break-all;
+                white-space: normal;
+            }
+            
+            /* 故事文本内边距微调 */
+            .story-text {
+                padding: 10px;
+            }
+        }
+
+        /* 小屏幕下字体再优化一下 */
+        @media screen and (max-width: 600px) {
+            .welcome-title {
+                font-size: 42px;     /* 固定稍小值，避免过小 */
+                letter-spacing: 2px;
+            }
+            
+            .window {
+                padding: 15px 12px;
+            }
+            
+            .window-title {
+                font-size: 20px;
+            }
+            
+            .contact-label {
+                font-size: 15px;
+            }
+            
+            .contact-value {
+                font-size: 15px;
+                padding: 6px 8px;
+            }
+            
+            .copy-btn {
+                padding: 7px 0;
+                font-size: 14px;
+            }
+        }
+
+        /* 非常窄的手机 (小于400px) 再调整 */
+        @media screen and (max-width: 400px) {
+            .welcome-title {
+                font-size: 36px;
+            }
+            
+            .avatar-square {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .window {
+                padding: 12px 10px;
+            }
+            
+            .character-item {
+                padding-left: 8px;
+            }
+        }
+
+        /* ---------- 欢迎图层样式 (仅非IE浏览器可见) ---------- */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(167, 185, 206, 0.92);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif !important;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid #7f9db9;
+            border-radius: 32px;
+            padding: 30px 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(30, 59, 107, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .welcome-card h1 {
+            font-size: 48px;
+            color: #1e3b6b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .welcome-card p {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .enter-button {
+            background: #d4d0c8;
+            border: 3px solid #fefefe;
+            border-color: #fefefe #404040 #404040 #fefefe;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px 40px;
+            font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif !important;
+            cursor: pointer;
+            color: #1e2b3c;
+            border-radius: 0;
+            box-shadow: 0 8px 0 #404040;
+            transition: all 0.1s ease;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .enter-button:hover {
+            background: #f2f1e6;
+            border-color: #fefefe #2f2f2f #2f2f2f #fefefe;
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #404040;
+        }
+
+        .enter-button:active {
+            border-color: #404040 #fefefe #fefefe #404040;
+            background: #ceceb6;
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #404040;
+        }
+
+        /* 隐藏欢迎图层 */
+        .welcome-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ---------- APlayer 播放器容器样式 (仅现代浏览器) ---------- */
+        #aplayer-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease;
+            /* 默认隐藏，直到点击进入按钮后才显示 */
+            opacity: 0;
+            pointer-events: none;
+        }
+        #aplayer-container.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* 自定义播放器主题色，与页面风格融合 */
+        .aplayer {
+            background: rgba(232, 237, 244, 0.85) !important;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-top: 1px solid #7f9db9;
+        }
+        .aplayer .aplayer-info .aplayer-music .aplayer-title {
+            color: #1e3b6b !important;
+            font-family: '仿宋_GB2312', 'FangSong', '仿宋', serif !important;
+        }
+        .aplayer .aplayer-info .aplayer-music .aplayer-author {
+            color: #2c3e50 !important;
+            font-family: '仿宋_GB2312', 'FangSong', '仿宋', serif !important;
+        }
+        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar {
+            background: #b3c3d4 !important;
+        }
+        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-loaded {
+            background: #c0cbd8 !important;
+        }
+        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played {
+            background: #ff6600 !important;
+        }
+        .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+            fill: #1e3b6b !important;
+        }
+
+        /* 在IE中隐藏播放器容器 (IE不支持 fixed 配合 backdrop-filter，但为了保险再用条件注释隐藏) */
     </style>
+    <!--[if IE]>
+    <style>
+        /* 针对所有IE版本：隐藏欢迎图层和播放器容器 */
+        .welcome-overlay,
+        #aplayer-container {
+            display: none !important;
+        }
+        body {
+            padding-bottom: 40px; /* 恢复原底部内边距，因为播放器不存在 */
+        }
+    </style>
+    <![endif]-->
 </head>
 <body>
 
-<!-- ==================== 头像地址 ==================== -->
-<!-- 如需更换头像，请替换下面 img 标签中的 src 地址 -->
+<!-- ==================== 欢迎图层 (开始) ==================== -->
+<div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-card">
+        <h1>Hey!</h1>
+        <p>欢迎来到MT的小空间（awa）</p>
+        <button class="enter-button" id="enterButton">点击进入</button>
+    </div>
+</div>
+<!-- ==================== 欢迎图层 (结束) ==================== -->
+
+<!-- ==================== 原有内容 (完全保留) ==================== -->
+
+<!-- 头像地址（如需更换头像，请替换下面 img 标签中的 src 地址） -->
 <div class="title-avatar-wrapper">
-    <div class="welcome-title">欢迎来到MT的小空间uwu</div>
+    <div class="welcome-title">这里是MT的小空间uwu</div>
     
     <div class="avatar-square">
         <img src="https://s41.ax1x.com/2026/03/07/pePrUu4.jpg" alt="头像" style="width:100%; height:auto; border:none; display:block;">
@@ -459,8 +746,7 @@
         </div>
     </div>
     
-    <!-- ==================== 公告区域 ==================== -->
-    <!-- 如需修改公告内容，请编辑以下整个 .window.last 内的 HTML 结构 -->
+    <!-- 公告区域 - 如需修改公告内容，请编辑以下整个 .window.last 内的 HTML 结构 -->
     <div class="window last">
         <div class="window-title">📢 公告：</div>
         <div class="announcement-content">
@@ -486,7 +772,11 @@
     
 </div>
 
+<!-- ==================== APlayer 容器 (仅现代浏览器可见) ==================== -->
+<div id="aplayer-container"></div>
+
 <script>
+    // 复制按钮功能 (保持不变)
     function copyText(elementId, button) {
         var text = document.getElementById(elementId).innerHTML;
         
@@ -524,15 +814,72 @@
             button.className = 'copy-btn';
         }, 2000);
     }
+
+    // 主要逻辑：欢迎图层消失 + 初始化播放器并自动播放 (仅非IE浏览器)
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检测是否为IE浏览器（通过条件注释添加的标志或特性检测）
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        if (isIE) {
+            // IE浏览器：无需任何操作，播放器和欢迎图层已被CSS隐藏
+            return;
+        }
+
+        // --- 以下是现代浏览器 (Chrome, Edge, Firefox等) 的逻辑 ---
+        var overlay = document.getElementById('welcomeOverlay');
+        var enterBtn = document.getElementById('enterButton');
+        var aplayerContainer = document.getElementById('aplayer-container');
+
+        // 初始化 APlayer 但先不显示
+        var ap = null;
+
+        if (enterBtn && overlay && aplayerContainer) {
+            enterBtn.addEventListener('click', function() {
+                // 隐藏欢迎图层
+                overlay.classList.add('hidden');
+
+                // 如果播放器还未初始化，则创建并自动播放
+                if (!ap) {
+                    // 使用提供的音乐地址
+                    ap = new APlayer({
+                        container: aplayerContainer,
+                        audio: [{
+                            name: '背景音乐',      // 音频名称
+                            artist: '这里控制音乐播放',  // 艺术家名或提示
+                            url: 'https://a.xmcdn.com/group51/M09/1A/5A/wKgKmlvhBxzjmi3WACEAZlBiBok843.m4a?sign=b16627d9dc4e5eb823e81435fffcfbac&buy_key=www2_eec29e38-8209414:0&timestamp=1774008957056000&token=7995&duration=266',
+                            cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' // 歌曲封面
+                        }],
+                        theme: '#ff6600',
+                        autoplay: true,          // 自动播放
+                        loop: 'all',
+                        order: 'list',
+                        preload: 'auto',
+                        volume: 0.7,
+                        mutex: true,
+                        lrcType: 0
+                    });
+
+                    // 显示播放器容器
+                    aplayerContainer.classList.add('show');
+                } else {
+                    // 如果已存在，确保显示并尝试播放
+                    aplayerContainer.classList.add('show');
+                    ap.play();
+                }
+            });
+        }
+    });
 </script>
+
+<!-- 加载 APlayer 脚本 (只在现代浏览器生效，但通过JS控制，IE不会执行) -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 
 <!--[if IE 8]>
 <style>
-    /* ==================== IE背景图片（至少IE8） ==================== */
-    /* 如需更换 IE 的背景图，请替换下面 filter 属性中的图片地址（应与Chromium内核浏览器的图片地址一致） */
+    /* ==================== IE8 原有兼容样式，下面是网站图片壁纸地址 ==================== */
     body {
-        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://s41.ax1x.com/2026/03/10/peFsSRP.png');
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://s41.ax1x.com/2026/03/12/pekf0tU.jpg');
         background: #a7b9ce;
+        padding-bottom: 40px; /* 覆盖之前增加的底部内边距 */
     }
     
     .windows-container {
@@ -626,5 +973,18 @@
     }
 </style>
 <![endif]-->
+
+<!-- 针对IE8的额外保险：再次确保隐藏欢迎图层和播放器 (虽然上面[if IE]已做，但再次确认) -->
+<!--[if IE]>
+<script>
+    (function() {
+        var overlay = document.getElementById('welcomeOverlay');
+        if (overlay) overlay.style.display = 'none';
+        var aplayerDiv = document.getElementById('aplayer-container');
+        if (aplayerDiv) aplayerDiv.style.display = 'none';
+    })();
+</script>
+<![endif]-->
+
 </body>
 </html>
