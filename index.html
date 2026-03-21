@@ -34,6 +34,7 @@
             color: #333;
             text-align: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
         .title-avatar-wrapper {
@@ -429,14 +430,14 @@
             }
         }
         
-        /* 欢迎图层样式 */
+        /* 欢迎图层样式 - 全屏半透明白色，无横线，字体颜色统一为深蓝色 */
         .welcome-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(167, 185, 206, 0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             display: flex;
@@ -444,65 +445,56 @@
             justify-content: center;
             z-index: 9999;
             transition: opacity 0.5s ease;
+            cursor: pointer;
         }
         
         .welcome-card {
-            background: rgba(255, 255, 255, 0.85);
-            border: 2px solid #7f9db9;
-            border-radius: 32px;
-            padding: 30px 40px;
-            max-width: 600px;
-            width: 90%;
+            background: transparent;
+            max-width: 700px;
+            width: 85%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(30, 59, 107, 0.5);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            padding: 30px 25px;
+            border-radius: 48px;
+            animation: fadeInUp 0.6s ease-out;
         }
         
         .welcome-card h1 {
-            font-size: 48px;
+            font-size: 64px;
             color: #1e3b6b;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            text-shadow: 2px 2px 6px rgba(255,255,240,0.9);
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif;
         }
         
         .welcome-card p {
-            font-size: 22px;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            font-size: 24px;
+            color: #1e3b6b;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-weight: 500;
+            letter-spacing: 1px;
         }
         
-        .enter-button {
-            background: #d4d0c8;
-            border: 3px solid #fefefe;
-            border-color: #fefefe #404040 #404040 #fefefe;
-            font-size: 28px;
-            font-weight: bold;
-            padding: 15px 40px;
-            font-family: inherit;
-            cursor: pointer;
-            color: #1e2b3c;
-            box-shadow: 0 8px 0 #404040;
-            transition: all 0.1s ease;
-            margin-top: 10px;
-            display: inline-block;
+        .click-hint {
+            font-size: 18px;
+            color: #1e3b6b;
+            margin-top: 20px;
+            opacity: 0.85;
+            letter-spacing: 2px;
+            font-weight: normal;
         }
         
-        .enter-button:hover {
-            background: #f2f1e6;
-            border-color: #fefefe #2f2f2f #2f2f2f #fefefe;
-            transform: translateY(2px);
-            box-shadow: 0 4px 0 #404040;
-        }
-        
-        .enter-button:active {
-            border-color: #404040 #fefefe #fefefe #404040;
-            background: #ceceb6;
-            transform: translateY(6px);
-            box-shadow: none;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .welcome-overlay.hidden {
@@ -510,14 +502,13 @@
             pointer-events: none;
         }
         
-        /* APlayer 播放器容器样式 */
+        /* APlayer 播放器容器样式 - 完全贴边无空隙 */
         #aplayer-container {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
             transition: opacity 0.3s ease;
             opacity: 0;
             pointer-events: none;
@@ -528,11 +519,49 @@
             pointer-events: auto;
         }
         
+        /* 覆盖 APlayer 默认样式，移除所有内边距和左边距 */
         .aplayer {
             background: rgba(232, 237, 244, 0.85) !important;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             border-top: 1px solid #7f9db9;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+        }
+        
+        /* 移除播放器内部容器的左边距 */
+        .aplayer .aplayer-body {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .aplayer .aplayer-info {
+            padding: 12px 10px 12px 10px !important;
+            margin: 0 !important;
+        }
+        
+        .aplayer .aplayer-pic {
+            margin-left: 0 !important;
+        }
+        
+        /* 确保播放器完全贴边 */
+        .aplayer .aplayer-list {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .aplayer .aplayer-info .aplayer-music {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+        
+        .aplayer .aplayer-info .aplayer-controller {
+            padding-left: 0 !important;
+        }
+        
+        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap {
+            margin-left: 0 !important;
         }
         
         .aplayer .aplayer-info .aplayer-music .aplayer-title {
@@ -561,22 +590,26 @@
             fill: #1e3b6b !important;
         }
         
-        /* 禁止图片拖拽和保存 */
+        /* 禁止图片复制 */
         img {
             -webkit-user-drag: none;
             user-drag: none;
             -webkit-touch-callout: none;
         }
+        
+        body {
+            overflow-x: hidden;
+        }
     </style>
 </head>
 <body>
 
-<!-- 欢迎图层 -->
+<!-- 欢迎图层：全屏半透明白色，点击任意处关闭并播放音乐，无横线，字体颜色统一为 #1e3b6b -->
 <div class="welcome-overlay" id="welcomeOverlay">
     <div class="welcome-card">
         <h1>Hey!</h1>
-        <p>欢迎来到MT的小空间（awa）</p>
-        <button class="enter-button" id="enterButton">点击进入</button>
+        <p>欢迎来到MT的小空间</p>
+        <div class="click-hint">点击网页任意处浏览awa</div>
     </div>
 </div>
 
@@ -684,21 +717,16 @@
     (function() {
         var avatarContainer = document.getElementById('avatarContainer');
         if (avatarContainer) {
-            // 禁止右键菜单
             avatarContainer.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 return false;
             });
-            
-            // 禁止拖拽
             avatarContainer.addEventListener('dragstart', function(e) {
                 e.preventDefault();
                 return false;
             });
-            
-            // 禁止长按菜单（移动端）
+            // 长按菜单简单保护（移动端）
             avatarContainer.addEventListener('touchstart', function(e) {
-                // 不阻止正常触摸，但阻止长按菜单
                 var timer = setTimeout(function() {
                     e.preventDefault();
                 }, 500);
@@ -708,7 +736,6 @@
             });
         }
         
-        // 全局禁止图片拖拽
         var allImages = document.querySelectorAll('img');
         allImages.forEach(function(img) {
             img.setAttribute('draggable', 'false');
@@ -758,7 +785,7 @@
     
     function showCopied(button) {
         var originalText = button.innerHTML;
-        button.innerHTML = '已复制！';
+        button.innerHTML = '复制成功';
         button.classList.add('copied');
         setTimeout(function() {
             button.innerHTML = originalText;
@@ -766,28 +793,25 @@
         }, 2000);
     }
     
-    // 页面加载完成后的逻辑
+    // 页面加载完成后：绑定欢迎图层点击任意处继续，并播放背景音乐
     document.addEventListener('DOMContentLoaded', function() {
         var overlay = document.getElementById('welcomeOverlay');
-        var enterBtn = document.getElementById('enterButton');
         var aplayerContainer = document.getElementById('aplayer-container');
         var ap = null;
         
-        if (enterBtn && overlay && aplayerContainer) {
-            enterBtn.addEventListener('click', function() {
-                overlay.classList.add('hidden');
-                
+        if (overlay && aplayerContainer) {
+            function initAndPlayMusic() {
                 if (!ap) {
                     ap = new APlayer({
                         container: aplayerContainer,
                         audio: [{
                             name: '背景音乐',
                             artist: 'owo',
-                            url: 'https://a.xmcdn.com/group51/M09/1A/5A/wKgKmlvhBxzjmi3WACEAZlBiBok843.m4a?sign=b16627d9dc4e5eb823e81435fffcfbac&buy_key=www2_eec29e38-8209414:0&timestamp=1774008957056000&token=7995&duration=266',
+                            url: 'https://cdn.furwall.net/user_files/18006/bg-music/7336570_1774060024.mp3',
                             cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png'
                         }],
                         theme: '#ff6600',
-                        autoplay: true,
+                        autoplay: false,
                         loop: 'all',
                         order: 'list',
                         preload: 'auto',
@@ -796,11 +820,43 @@
                         lrcType: 0
                     });
                     aplayerContainer.classList.add('show');
-                } else {
-                    aplayerContainer.classList.add('show');
-                    ap.play();
+                }
+                if (ap && ap.paused) {
+                    ap.play().catch(e => {
+                        console.log('自动播放受限，但用户已经点击交互，理应播放成功', e);
+                        setTimeout(() => {
+                            if (ap.paused) ap.play();
+                        }, 100);
+                    });
+                }
+            }
+            
+            overlay.addEventListener('click', function(e) {
+                if (!overlay.classList.contains('hidden')) {
+                    overlay.classList.add('hidden');
+                    initAndPlayMusic();
                 }
             });
+            
+            overlay.style.cursor = 'pointer';
+        } else {
+            if (aplayerContainer) {
+                var apFallback = new APlayer({
+                    container: aplayerContainer,
+                    audio: [{
+                        name: '背景音乐',
+                        artist: 'owo',
+                        url: 'https://cdn.furwall.net/user_files/18006/bg-music/7336570_1774060024.mp3',
+                        cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png'
+                    }],
+                    theme: '#ff6600',
+                    autoplay: false,
+                    loop: 'all',
+                    preload: 'auto',
+                    volume: 0.7
+                });
+                aplayerContainer.classList.add('show');
+            }
         }
     });
 </script>
