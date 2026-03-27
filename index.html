@@ -22,7 +22,7 @@
         
         body { 
             background: #a7b9ce;
-            background-image: url('https://mittewolf.netlify.app/wallpaper.jpg');
+            background-image: url('https://s41.ax1x.com/2026/03/13/peAjxMt.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -35,13 +35,18 @@
             text-align: center;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
         
         .title-avatar-wrapper {
             width: 1000px;
             margin: 0 auto 35px auto;
-            text-align: left;
-            overflow: hidden;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
         }
         
         .welcome-title {
@@ -53,43 +58,40 @@
             background: transparent;
             letter-spacing: 3px;
             line-height: 1.2;
-            float: left;
-            width: 700px;
             margin: 0;
             padding: 10px 0;
         }
         
-        .avatar-square {
-            float: right;
+        /* 头像容器 - 响应式优化 */
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
             width: 120px;
             height: 120px;
-            background: #e8edf4;
-            border: 3px solid #7f9db9;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-            overflow: hidden;
-            margin-top: 5px;
-            text-align: center;
-            position: relative;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            flex-shrink: 0;
         }
         
-        .avatar-square img {
+        .avatar-circle {
             width: 100%;
-            height: auto;
+            height: 100%;
+            background: #e8edf4;
+            border: 3px solid #fef7c0;
+            box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            border-radius: 50%;
+        }
+        
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
             pointer-events: none;
             user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
         }
         
-        /* 遮罩 */
         .avatar-protection {
             position: absolute;
             top: 0;
@@ -99,6 +101,28 @@
             background: transparent;
             z-index: 10;
             cursor: default;
+            border-radius: 50%;
+        }
+        
+        /* 头像挂件样式 - 响应式尺寸 */
+        .avatar-pendant {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 210px;
+            height: 210px;
+            z-index: 20;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+        
+        .avatar-pendant img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 50%;
         }
         
         .windows-container {
@@ -115,7 +139,6 @@
             vertical-align: top;
             background: rgba(232, 237, 244, 0.5);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(127, 157, 185, 0.6);
             border-radius: 12px;
             padding: 20px 15px;
@@ -177,7 +200,6 @@
             border-radius: 8px;
             text-align: center;
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
         }
         
         .contact-label {
@@ -234,46 +256,6 @@
             border-color: #fefefe #1e7e34 #1e7e34 #fefefe; 
         }
         
-        .character-content {
-            text-align: left;
-            color: #1e3b6b;
-            font-size: 15px;
-            line-height: 1.8;
-            padding: 5px 0;
-        }
-        
-        .character-item {
-            margin-bottom: 12px;
-            border-left: 3px solid #7f9db9;
-            padding-left: 12px;
-        }
-        
-        .character-label {
-            font-weight: bold;
-            color: #1e3b6b;
-            font-size: 16px;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        
-        .character-divider {
-            height: 1px;
-            background: linear-gradient(to right, #c0cbd8, transparent);
-            margin: 15px 0 10px 0;
-        }
-        
-        .story-text {
-            background: rgba(240, 245, 250, 0.7);
-            padding: 12px;
-            border: 1px solid #b3c3d4;
-            border-radius: 8px;
-            margin-top: 8px;
-            font-style: italic;
-            color: #2c3e50;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-        
         .announcement-content {
             text-align: left;
             color: #1e3b6b;
@@ -300,7 +282,6 @@
             border: 1px solid rgba(179, 195, 212, 0.6);
             border-radius: 8px;
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
         }
         
         .announcement-title {
@@ -343,17 +324,311 @@
             line-height: 1.6;
             border-left: 3px solid #ff6600;
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
         }
         
-        .platform-section {
+        .calendar-panel {
+            text-align: center;
+        }
+        
+        .live-clock {
+            font-size: 28px;
+            font-weight: bold;
+            font-family: monospace;
+            color: #1e3b6b;
+            margin-bottom: 12px;
+            background: rgba(255,255,240,0.7);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+        }
+        
+        .live-date {
+            font-size: 18px;
+            color: #1e3b6b;
+            margin-bottom: 8px;
+        }
+        
+        .weekday {
+            font-size: 18px;
+            color: #ff6600;
             margin-bottom: 15px;
+            font-weight: bold;
         }
         
-        /* 移动端适配 */
+        .calendar {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 5px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 5px;
+        }
+        
+        .calendar-nav {
+            background: #d4d0c8;
+            border: 1px solid #999;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .calendar-nav:hover {
+            background: #f2f1e6;
+            transform: scale(0.95);
+        }
+        
+        .month-year {
+            font-weight: bold;
+            font-size: 16px;
+            color: #1e3b6b;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 6px 0;
+            font-size: 13px;
+            border-radius: 20px;
+            background: rgba(255,255,245,0.7);
+            transition: all 0.1s;
+        }
+        
+        .calendar-day.today {
+            background: #ff6600;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .calendar-day.other-month {
+            color: #aaa;
+            background: rgba(230,230,220,0.5);
+        }
+        
+        .new-three-cols {
+            width: 1000px;
+            margin: 40px auto 0 auto;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .new-col {
+            flex: 1;
+            background: rgba(232, 237, 244, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(127, 157, 185, 0.6);
+            border-radius: 12px;
+            padding: 20px 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .new-col:hover {
+            background: rgba(232, 237, 244, 0.95);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .new-col-title {
+            color: #1e3b6b;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(192, 203, 216, 0.8);
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .image-display {
+            width: 100%;
+            flex: 1;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(30, 59, 107, 0.2);
+        }
+        
+        .image-display img {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+        }
+        
+        .character-content {
+            text-align: left;
+            color: #1e3b6b;
+            font-size: 15px;
+            line-height: 1.8;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 480px;
+        }
+        
+        .character-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .character-content::-webkit-scrollbar-track {
+            background: rgba(127, 157, 185, 0.3);
+            border-radius: 4px;
+        }
+        
+        .character-content::-webkit-scrollbar-thumb {
+            background: #7f9db9;
+            border-radius: 4px;
+        }
+        
+        .character-item {
+            margin-bottom: 12px;
+            border-left: 3px solid #7f9db9;
+            padding-left: 12px;
+        }
+        
+        .character-label {
+            font-weight: bold;
+            color: #1e3b6b;
+            font-size: 16px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .character-divider {
+            height: 1px;
+            background: linear-gradient(to right, #c0cbd8, transparent);
+            margin: 15px 0 10px 0;
+        }
+        
+        .story-text {
+            background: rgba(240, 245, 250, 0.7);
+            padding: 12px;
+            border: 1px solid #b3c3d4;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-style: italic;
+            color: #2c3e50;
+        }
+        
+        .pet-container {
+            position: fixed;
+            z-index: 2000;
+            cursor: grab;
+            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3));
+            user-select: none;
+        }
+        
+        .pet-container:active {
+            cursor: grabbing;
+        }
+        
+        .pet-image {
+            width: 80px;
+            height: auto;
+            display: block;
+            pointer-events: none;
+        }
+        
+        .pet-container.dragging {
+            cursor: grabbing;
+            z-index: 2001;
+        }
+        
+        @keyframes bounceMoveRight {
+            0% { transform: translateY(0px) rotate(0deg) scaleY(1); }
+            30% { transform: translateY(-14px) rotate(10deg) scaleY(0.92); }
+            70% { transform: translateY(4px) rotate(4deg) scaleY(1.03); }
+            100% { transform: translateY(0px) rotate(0deg) scaleY(1); }
+        }
+        
+        @keyframes bounceMoveLeft {
+            0% { transform: translateY(0px) rotate(0deg) scaleY(1); }
+            30% { transform: translateY(-14px) rotate(-10deg) scaleY(0.92); }
+            70% { transform: translateY(4px) rotate(-4deg) scaleY(1.03); }
+            100% { transform: translateY(0px) rotate(0deg) scaleY(1); }
+        }
+        
+        @keyframes squash {
+            0% { transform: scaleY(1) scaleX(1); }
+            50% { transform: scaleY(0.7) scaleX(1.15); }
+            100% { transform: scaleY(1) scaleX(1); }
+        }
+        
+        .pet-container.bounce-right {
+            animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+        
+        .pet-container.bounce-left {
+            animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+        
+        .pet-container.landing {
+            animation: squash 0.2s ease-out;
+        }
+        
+        /* 响应式优化 - 手机端头像挂件尺寸 */
+        @media screen and (max-width: 768px) {
+            .avatar-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            .avatar-pendant {
+                width: 175px;
+                height: 175px;
+            }
+        }
+        
+        @media screen and (max-width: 600px) {
+            .pet-image {
+                width: 60px;
+            }
+            .avatar-wrapper {
+                width: 85px;
+                height: 85px;
+            }
+            .avatar-pendant {
+                width: 150px;
+                height: 150px;
+            }
+            .welcome-title {
+                font-size: 42px;
+            }
+        }
+        
         @media screen and (max-width: 1020px) {
             .title-avatar-wrapper,
-            .windows-container {
+            .windows-container,
+            .new-three-cols {
                 width: auto;
                 max-width: 1000px;
                 margin-left: 15px;
@@ -361,16 +636,13 @@
             }
             
             .welcome-title {
-                float: none;
-                width: auto;
                 font-size: 10vw;
                 text-align: center;
-                padding-bottom: 5px;
             }
             
-            .avatar-square {
-                float: none;
-                margin: 10px auto;
+            .title-avatar-wrapper {
+                justify-content: center;
+                gap: 20px;
             }
             
             .windows-container {
@@ -382,55 +654,21 @@
                 width: 100%;
                 margin: 0 0 20px 0;
                 min-height: auto;
-                border-radius: 12px;
             }
             
-            .contact-value {
-                font-size: 15px;
-                word-break: break-word;
+            .new-three-cols {
+                flex-direction: column;
             }
             
-            .announcement-link {
-                word-break: break-all;
+            .image-display {
+                min-height: 200px;
+            }
+            
+            .image-display img {
+                min-height: 200px;
             }
         }
         
-        @media screen and (max-width: 600px) {
-            .welcome-title {
-                font-size: 42px;
-                letter-spacing: 2px;
-            }
-            
-            .window {
-                padding: 15px 12px;
-            }
-            
-            .window-title {
-                font-size: 20px;
-            }
-            
-            .contact-value {
-                font-size: 15px;
-                padding: 6px 8px;
-            }
-        }
-        
-        @media screen and (max-width: 400px) {
-            .welcome-title {
-                font-size: 36px;
-            }
-            
-            .avatar-square {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .window {
-                padding: 12px 10px;
-            }
-        }
-        
-        /* 欢迎图层样式 - 全屏半透明白色，无横线，字体颜色统一为深蓝色 */
         .welcome-overlay {
             position: fixed;
             top: 0;
@@ -439,7 +677,6 @@
             height: 100%;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -454,7 +691,6 @@
             width: 85%;
             text-align: center;
             padding: 30px 25px;
-            border-radius: 48px;
             animation: fadeInUp 0.6s ease-out;
         }
         
@@ -462,28 +698,20 @@
             font-size: 64px;
             color: #1e3b6b;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 6px rgba(255,255,240,0.9);
             font-weight: bold;
-            letter-spacing: 3px;
-            font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif;
+            font-family: '仿宋_GB2312', 'FangSong', serif;
         }
         
         .welcome-card p {
             font-size: 24px;
             color: #1e3b6b;
             margin-bottom: 15px;
-            line-height: 1.5;
-            font-weight: 500;
-            letter-spacing: 1px;
         }
         
         .click-hint {
             font-size: 18px;
             color: #1e3b6b;
             margin-top: 20px;
-            opacity: 0.85;
-            letter-spacing: 2px;
-            font-weight: normal;
         }
         
         @keyframes fadeInUp {
@@ -502,14 +730,12 @@
             pointer-events: none;
         }
         
-        /* APlayer 播放器容器样式 - 完全贴边无空隙 */
         #aplayer-container {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            transition: opacity 0.3s ease;
             opacity: 0;
             pointer-events: none;
         }
@@ -519,92 +745,22 @@
             pointer-events: auto;
         }
         
-        /* 覆盖 APlayer 默认样式，移除所有内边距和左边距 */
         .aplayer {
             background: rgba(232, 237, 244, 0.85) !important;
             backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
             border-top: 1px solid #7f9db9;
             margin: 0 !important;
-            padding: 0 !important;
             border-radius: 0 !important;
         }
         
-        /* 移除播放器内部容器的左边距 */
-        .aplayer .aplayer-body {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .aplayer .aplayer-info {
-            padding: 12px 10px 12px 10px !important;
-            margin: 0 !important;
-        }
-        
-        .aplayer .aplayer-pic {
-            margin-left: 0 !important;
-        }
-        
-        /* 确保播放器完全贴边 */
-        .aplayer .aplayer-list {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-music {
-            margin-left: 0 !important;
-            padding-left: 0 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller {
-            padding-left: 0 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap {
-            margin-left: 0 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-music .aplayer-title {
-            color: #1e3b6b !important;
-            font-family: '仿宋_GB2312', 'FangSong', serif !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-music .aplayer-author {
-            color: #2c3e50 !important;
-            font-family: '仿宋_GB2312', 'FangSong', serif !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar {
-            background: #b3c3d4 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-loaded {
-            background: #c0cbd8 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played {
-            background: #ff6600 !important;
-        }
-        
-        .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
-            fill: #1e3b6b !important;
-        }
-        
-        /* 禁止图片复制 */
         img {
             -webkit-user-drag: none;
-            user-drag: none;
-            -webkit-touch-callout: none;
-        }
-        
-        body {
-            overflow-x: hidden;
+            user-select: none;
         }
     </style>
 </head>
 <body>
 
-<!-- 欢迎图层：全屏半透明白色，点击任意处关闭并播放音乐，无横线，字体颜色统一为 #1e3b6b -->
 <div class="welcome-overlay" id="welcomeOverlay">
     <div class="welcome-card">
         <h1>Hey!</h1>
@@ -613,51 +769,90 @@
     </div>
 </div>
 
-<!-- 主内容区 -->
 <div class="title-avatar-wrapper">
     <div class="welcome-title">这里是MT的小空间uwu</div>
-    <div class="avatar-square" id="avatarContainer">
-        <img src="https://s41.ax1x.com/2026/03/07/pePrUu4.jpg" alt="头像" draggable="false">
-        <div class="avatar-protection"></div>
+    <div class="avatar-wrapper">
+        <div class="avatar-circle" id="avatarContainer">
+            <img src="https://s41.ax1x.com/2026/03/07/pePrUu4.jpg" alt="头像" draggable="false">
+            <div class="avatar-protection"></div>
+        </div>
+        <div class="avatar-pendant">
+            <img src="https://s41.ax1x.com/2026/03/27/pelhURH.png" alt="头像挂件" draggable="false">
+        </div>
     </div>
 </div>
 
 <div class="windows-container">
-    <!-- 平台信息栏 -->
     <div class="window">
         <div class="window-title">🐾 我的平台</div>
-        <div class="platform-section">
-            <div class="row"><a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-link">哔哩哔哩</a></div>
-            <div class="row"><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-link">今日头条</a></div>
-            <div class="row"><a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-link">西瓜视频</a></div>
-            <div class="row"><a href="https://my.furwall.net/author/18006" target="_blank" class="plat-link">Furwall</a></div>
-            <div class="row"><a href="https://www.youtube.com/channel/UCO-JYikgEzqTTNizukLuz0Q" target="_blank" class="plat-link">YouTube</a></div>
-            <div class="row"><a href="https://x.com/xilng6389818456" target="_blank" class="plat-link">X(Twitter)</a></div>
-            <div class="row"><a href="https://www.roblox.com/users/7251746834/profile" target="_blank" class="plat-link">Roblox</a></div>
-        </div>
+        <div class="row"><a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-link">哔哩哔哩</a></div>
+        <div class="row"><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-link">今日头条</a></div>
+        <div class="row"><a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-link">西瓜视频</a></div>
+        <div class="row"><a href="https://my.furwall.net/author/18006" target="_blank" class="plat-link">Furwall</a></div>
         
         <div class="contact-section">
             <div class="contact-block">
-                <div class="contact-label">我的QQ：</div>
+                <div class="contact-label">QQ：</div>
                 <div class="contact-value" id="qq-number">3877559035</div>
                 <button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button>
             </div>
             <div class="contact-block">
-                <div class="contact-label">我的Q群：</div>
+                <div class="contact-label">Q群小窝：</div>
                 <div class="contact-value" id="qq-group">1026977461</div>
                 <button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button>
-            </div>
-            <div class="contact-block">
-                <div class="contact-label">Discord：</div>
-                <div class="contact-value" id="discord">xielang0215_94527</div>
-                <button class="copy-btn" onclick="copyText('discord', this)">点这里复制</button>
             </div>
         </div>
     </div>
     
-    <!-- 设定介绍栏 -->
     <div class="window">
-        <div class="window-title">✨ 设定介绍</div>
+        <div class="window-title">📅 时空日历</div>
+        <div class="calendar-panel">
+            <div class="live-clock" id="liveClock">--:--:--</div>
+            <div class="live-date" id="liveDate">加载中...</div>
+            <div class="weekday" id="weekday"></div>
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="prevMonth">◀</button>
+                    <span class="month-year" id="monthYear">2024年1月</span>
+                    <button class="calendar-nav" id="nextMonth">▶</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+                </div>
+                <div class="calendar-days" id="calendarDays"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="window">
+        <div class="window-title">📢 公告：</div>
+        <div class="announcement-content">
+            <div class="announcement-item">
+                <div class="announcement-title">
+                    <span class="sticky-tag">置顶</span> 我的经历视频
+                </div>
+                <div>如果想要了解我的经历可以点击下面访问视频页面：</div>
+                <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">
+                    https://www.bilibili.com/video/BV16fAiz8Eo3/
+                </a>
+            </div>
+            <div class="static-text">
+                虽然本作者学业可能繁忙，但还是会尽量及时回复的啦
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="new-three-cols">
+    <div class="new-col">
+        <div class="new-col-title"> </div>
+        <div class="image-display">
+            <img src="https://s41.ax1x.com/2026/03/04/pe9et4U.png" alt=" ">
+        </div>
+    </div>
+    
+    <div class="new-col">
+        <div class="new-col-title">✨ 设定介绍</div>
         <div class="character-content">
             <div class="character-item">
                 <span class="character-label">🐾 姓名：</span>米特（国际名Mitte，可简称MT）
@@ -689,180 +884,477 @@
         </div>
     </div>
     
-    <!-- 公告栏 -->
-    <div class="window">
-        <div class="window-title">📢 公告：</div>
-        <div class="announcement-content">
-            <div class="announcement-item">
-                <div class="announcement-title">
-                    <span class="sticky-tag">置顶</span> 我的经历视频
-                </div>
-                <div>如果想要了解我的经历可以点击下面访问视频页面：</div>
-                <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">
-                    https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web
-                </a>
-            </div>
-            <div class="static-text">
-                虽然本作者学业可能繁忙，但还是会尽量及时回复的啦
-            </div>
+    <div class="new-col">
+        <div class="new-col-title"> </div>
+        <div class="image-display">
+            <img src="https://s41.ax1x.com/2026/03/26/peQyW5R.jpg" alt=" ">
         </div>
     </div>
 </div>
 
-<!-- APlayer 播放器容器 -->
+<div class="pet-container" id="petContainer">
+    <img class="pet-image" id="petImage" src="https://s41.ax1x.com/2026/03/27/pelhNJe.png" alt="小宠物" draggable="false">
+</div>
+
 <div id="aplayer-container"></div>
 
 <script>
-    // 禁止头像区域的所有复制、保存操作
+    // ======================= 重力系统：初始位置在音乐栏上方 =======================
     (function() {
-        var avatarContainer = document.getElementById('avatarContainer');
-        if (avatarContainer) {
-            avatarContainer.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            avatarContainer.addEventListener('dragstart', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            // 长按菜单简单保护（移动端）
-            avatarContainer.addEventListener('touchstart', function(e) {
-                var timer = setTimeout(function() {
-                    e.preventDefault();
-                }, 500);
-                avatarContainer.addEventListener('touchend', function() {
-                    clearTimeout(timer);
-                }, { once: true });
-            });
+        const pet = document.getElementById('petContainer');
+        const petImage = document.getElementById('petImage');
+        if (!pet || !petImage) return;
+        
+        let isDragging = false;
+        let dragStartX = 0, dragStartY = 0;
+        let velocityY = 0;
+        let isFalling = false;
+        let animFrameId = null;
+        let bounceTimer = null;
+        let isBouncing = false;
+        
+        // 获取所有可作为"地面"的平台元素
+        function getPlatformElements() {
+            const platforms = [];
+            document.querySelectorAll('.window').forEach(el => platforms.push(el));
+            document.querySelectorAll('.new-col').forEach(el => platforms.push(el));
+            const musicBar = document.getElementById('aplayer-container');
+            if (musicBar && musicBar.classList.contains('show')) {
+                platforms.push(musicBar);
+            }
+            return platforms;
         }
         
-        var allImages = document.querySelectorAll('img');
-        allImages.forEach(function(img) {
-            img.setAttribute('draggable', 'false');
-            img.addEventListener('dragstart', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            img.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
+        // 获取当前宠物下方可站立的高度
+        function getGroundY(currentLeft, petWidth, petHeight) {
+            let groundY = window.innerHeight - petHeight - 10;
+            
+            const platforms = getPlatformElements();
+            for (let platform of platforms) {
+                const rect = platform.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) continue;
+                
+                const petLeft = currentLeft;
+                const petRight = currentLeft + petWidth;
+                const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5);
+                
+                if (overlapX) {
+                    const candidateY = rect.top - petHeight;
+                    if (candidateY > 0 && candidateY < groundY) {
+                        groundY = candidateY;
+                    }
+                }
+            }
+            
+            return Math.max(5, groundY);
+        }
+        
+        function setDirection(isRight) {
+            petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)';
+        }
+        
+        function stopPhysics() {
+            if (animFrameId) {
+                cancelAnimationFrame(animFrameId);
+                animFrameId = null;
+            }
+            isFalling = false;
+        }
+        
+        function stopBounceLoop() {
+            if (bounceTimer) {
+                clearTimeout(bounceTimer);
+                bounceTimer = null;
+            }
+        }
+        
+        function startGravity(initialVelocity = 0) {
+            if (isDragging) return;
+            stopPhysics();
+            stopBounceLoop();
+            isFalling = true;
+            velocityY = initialVelocity;
+            
+            function updateGravity() {
+                if (!isFalling || isDragging) {
+                    if (!isDragging) startBounceLoop();
+                    animFrameId = null;
+                    return;
+                }
+                
+                let currentTop = parseFloat(pet.style.top);
+                if (isNaN(currentTop)) {
+                    const rect = pet.getBoundingClientRect();
+                    currentTop = rect.top;
+                }
+                let currentLeft = parseFloat(pet.style.left);
+                if (isNaN(currentLeft)) {
+                    const rect = pet.getBoundingClientRect();
+                    currentLeft = rect.left;
+                }
+                
+                const petWidth = pet.offsetWidth;
+                const petHeight = pet.offsetHeight;
+                
+                velocityY += 0.6;
+                let newTop = currentTop + velocityY;
+                const groundY = getGroundY(currentLeft, petWidth, petHeight);
+                
+                if (newTop + petHeight >= groundY) {
+                    newTop = groundY;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 200);
+                    
+                    if (Math.abs(velocityY) > 1.2) {
+                        velocityY = -velocityY * 0.45;
+                        if (Math.abs(velocityY) < 0.8) velocityY = 0;
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    } else {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    }
+                } else {
+                    pet.style.top = newTop + 'px';
+                    animFrameId = requestAnimationFrame(updateGravity);
+                }
+                
+                const maxLeft = window.innerWidth - petWidth - 10;
+                const minLeft = 10;
+                let finalLeft = currentLeft;
+                if (currentLeft < minLeft) finalLeft = minLeft;
+                if (currentLeft > maxLeft) finalLeft = maxLeft;
+                if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px';
+            }
+            
+            animFrameId = requestAnimationFrame(updateGravity);
+        }
+        
+        function performBounce() {
+            if (isDragging || isFalling || isBouncing) return;
+            isBouncing = true;
+            
+            const isRight = Math.random() < 0.5;
+            const moveDist = Math.random() * 60 + 30;
+            let currentLeft = parseFloat(pet.style.left);
+            const petWidth = pet.offsetWidth;
+            const maxLeft = window.innerWidth - petWidth - 15;
+            const minLeft = 15;
+            let targetLeft = currentLeft + (isRight ? moveDist : -moveDist);
+            targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft));
+            
+            setDirection(isRight);
+            pet.classList.remove('bounce-right', 'bounce-left');
+            void pet.offsetWidth;
+            pet.classList.add(isRight ? 'bounce-right' : 'bounce-left');
+            
+            const startLeft = currentLeft;
+            const startTime = performance.now();
+            const duration = 400;
+            
+            function animateMove(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                const ease = 1 - Math.pow(1 - progress, 2);
+                pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px';
+                if (progress < 1) {
+                    requestAnimationFrame(animateMove);
+                } else {
+                    pet.style.left = targetLeft + 'px';
+                    setTimeout(() => {
+                        pet.classList.remove('bounce-right', 'bounce-left');
+                        isBouncing = false;
+                    }, 50);
+                }
+            }
+            requestAnimationFrame(animateMove);
+        }
+        
+        function startBounceLoop() {
+            if (bounceTimer) clearTimeout(bounceTimer);
+            function schedule() {
+                if (!isDragging && !isFalling && !isBouncing) {
+                    performBounce();
+                }
+                bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000);
+            }
+            bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
+        }
+        
+        // 拖拽逻辑
+        function onMouseDown(e) {
+            if (e.button !== 0) return;
+            e.preventDefault();
+            e.stopPropagation();
+            
+            stopPhysics();
+            stopBounceLoop();
+            isDragging = true;
+            pet.classList.add('dragging');
+            
+            const rect = pet.getBoundingClientRect();
+            dragStartX = e.clientX - rect.left;
+            dragStartY = e.clientY - rect.top;
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+        
+        let lastMouseX = 0;
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            let newLeft = e.clientX - dragStartX;
+            let newTop = e.clientY - dragStartY;
+            const petWidth = pet.offsetWidth;
+            const petHeight = pet.offsetHeight;
+            
+            newLeft = Math.min(window.innerWidth - petWidth - 10, Math.max(10, newLeft));
+            newTop = Math.min(window.innerHeight - petHeight - 10, Math.max(0, newTop));
+            
+            pet.style.left = newLeft + 'px';
+            pet.style.top = newTop + 'px';
+            
+            if (Math.abs(e.clientX - lastMouseX) > 1) {
+                setDirection(e.clientX > lastMouseX);
+            }
+            lastMouseX = e.clientX;
+        }
+        
+        function onMouseUp(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            pet.classList.remove('dragging');
+            velocityY = 2;
+            startGravity(velocityY);
+            
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        
+        // 初始化宠物位置：放在音乐栏上方（底部）
+        function initPetPosition() {
+            const petWidth = pet.offsetWidth;
+            const petHeight = pet.offsetHeight;
+            
+            // 水平居中
+            let defaultLeft = window.innerWidth / 2 - petWidth / 2;
+            defaultLeft = Math.min(window.innerWidth - petWidth - 10, Math.max(10, defaultLeft));
+            pet.style.left = defaultLeft + 'px';
+            
+            // 等待音乐栏加载后计算位置
+            const setInitialTop = () => {
+                const groundY = getGroundY(defaultLeft, petWidth, petHeight);
+                pet.style.top = groundY + 'px';
+                setDirection(false);
+                velocityY = 0;
+                isFalling = false;
+                startGravity(0);
+            };
+            
+            // 如果音乐栏还未显示，等待一下
+            const musicBar = document.getElementById('aplayer-container');
+            if (musicBar && !musicBar.classList.contains('show')) {
+                const checkInterval = setInterval(() => {
+                    if (musicBar.classList.contains('show')) {
+                        clearInterval(checkInterval);
+                        setInitialTop();
+                    }
+                }, 100);
+                setTimeout(() => {
+                    clearInterval(checkInterval);
+                    setInitialTop();
+                }, 2000);
+            } else {
+                setInitialTop();
+            }
+        }
+        
+        // 监听音乐栏显示变化
+        const musicObserver = new MutationObserver(() => {
+            if (!isDragging && !isFalling) {
+                const currentLeft = parseFloat(pet.style.left);
+                const petWidth = pet.offsetWidth;
+                const petHeight = pet.offsetHeight;
+                const newGround = getGroundY(currentLeft, petWidth, petHeight);
+                const currentTop = parseFloat(pet.style.top);
+                if (Math.abs(currentTop - newGround) > 5) {
+                    pet.style.top = newGround + 'px';
+                }
+            }
         });
+        const musicContainer = document.getElementById('aplayer-container');
+        if (musicContainer) {
+            musicObserver.observe(musicContainer, { attributes: true, attributeFilter: ['class'] });
+        }
+        
+        window.addEventListener('resize', () => {
+            if (!isDragging && !isFalling) {
+                let left = parseFloat(pet.style.left);
+                const pw = pet.offsetWidth, ph = pet.offsetHeight;
+                left = Math.min(window.innerWidth - pw - 10, Math.max(10, left));
+                const newGround = getGroundY(left, pw, ph);
+                pet.style.left = left + 'px';
+                pet.style.top = newGround + 'px';
+            }
+        });
+        
+        // 欢迎页消失后初始化
+        const overlay = document.getElementById('welcomeOverlay');
+        if (overlay) {
+            const obs = new MutationObserver(() => {
+                if (overlay.classList.contains('hidden')) {
+                    initPetPosition();
+                    obs.disconnect();
+                }
+            });
+            obs.observe(overlay, { attributes: true });
+            if (overlay.classList.contains('hidden')) initPetPosition();
+        } else {
+            initPetPosition();
+        }
+        
+        pet.addEventListener('mousedown', onMouseDown);
+        pet.addEventListener('dragstart', e => e.preventDefault());
+        petImage.addEventListener('dragstart', e => e.preventDefault());
     })();
     
-    // 复制文本功能
-    function copyText(elementId, button) {
-        var text = document.getElementById(elementId).innerText || document.getElementById(elementId).innerHTML;
-        
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function() {
-                showCopied(button);
-            }).catch(function() {
-                fallbackCopy(text, button);
-            });
+    // 复制功能
+    function copyText(id, btn) {
+        const text = document.getElementById(id).innerText;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => showCopied(btn)).catch(() => fallbackCopy(text, btn));
         } else {
-            fallbackCopy(text, button);
+            fallbackCopy(text, btn);
         }
     }
     
-    function fallbackCopy(text, button) {
-        var textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            var successful = document.execCommand('copy');
-            if (successful) {
-                showCopied(button);
+    function fallbackCopy(text, btn) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied(btn);
+    }
+    
+    function showCopied(btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '复制成功';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    }
+    
+    // 日历和时钟
+    let year = new Date().getFullYear(), month = new Date().getMonth();
+    function updateClock() {
+        const now = new Date();
+        const clock = document.getElementById('liveClock');
+        if (clock) clock.textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+        const dateElem = document.getElementById('liveDate');
+        if (dateElem) dateElem.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
+        const weekdayElem = document.getElementById('weekday');
+        if (weekdayElem) weekdayElem.textContent = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][now.getDay()];
+    }
+    
+    function renderCalendar() {
+        const first = new Date(year, month, 1);
+        let start = first.getDay();
+        start = start === 0 ? 6 : start - 1;
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const prevDays = new Date(year, month, 0).getDate();
+        const today = new Date();
+        const isCurr = today.getFullYear() === year && today.getMonth() === month;
+        const todayDate = today.getDate();
+        const monthElem = document.getElementById('monthYear');
+        if (monthElem) monthElem.textContent = `${year}年${month+1}月`;
+        const container = document.getElementById('calendarDays');
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 0; i < 42; i++) {
+            let day, isOther = false;
+            if (i < start) {
+                day = prevDays - (start - i) + 1;
+                isOther = true;
+            } else if (i >= start + daysInMonth) {
+                day = i - (start + daysInMonth) + 1;
+                isOther = true;
             } else {
-                alert('复制失败，请手动复制：' + text);
+                day = i - start + 1;
             }
-        } catch (err) {
-            alert('复制失败，请手动复制：' + text);
+            const div = document.createElement('div');
+            div.className = 'calendar-day' + (isOther ? ' other-month' : '') + (!isOther && isCurr && day === todayDate ? ' today' : '');
+            div.textContent = day;
+            container.appendChild(div);
         }
-        document.body.removeChild(textarea);
     }
     
-    function showCopied(button) {
-        var originalText = button.innerHTML;
-        button.innerHTML = '复制成功';
-        button.classList.add('copied');
-        setTimeout(function() {
-            button.innerHTML = originalText;
-            button.classList.remove('copied');
-        }, 2000);
-    }
+    const prevBtn = document.getElementById('prevMonth');
+    const nextBtn = document.getElementById('nextMonth');
+    if (prevBtn) prevBtn.addEventListener('click', () => { if (month === 0) { month = 11; year--; } else month--; renderCalendar(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { if (month === 11) { month = 0; year++; } else month++; renderCalendar(); });
     
-    // 页面加载完成后：绑定欢迎图层点击任意处继续，并播放背景音乐
-    document.addEventListener('DOMContentLoaded', function() {
-        var overlay = document.getElementById('welcomeOverlay');
-        var aplayerContainer = document.getElementById('aplayer-container');
-        var ap = null;
-        
-        if (overlay && aplayerContainer) {
-            function initAndPlayMusic() {
+    setInterval(updateClock, 1000);
+    updateClock();
+    renderCalendar();
+    
+    // 音乐播放器
+    document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('welcomeOverlay');
+        const apContainer = document.getElementById('aplayer-container');
+        let ap = null;
+        if (overlay && apContainer) {
+            const initMusic = () => {
                 if (!ap) {
                     ap = new APlayer({
-                        container: aplayerContainer,
-                        audio: [{
-                            name: '背景音乐',
-                            artist: 'owo',
-                            url: 'https://mittewolf.netlify.app/music.mp3',
-                            cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png'
-                        }],
+                        container: apContainer,
+                        audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' }],
                         theme: '#ff6600',
                         autoplay: false,
                         loop: 'all',
-                        order: 'list',
                         preload: 'auto',
-                        volume: 0.7,
-                        mutex: true,
-                        lrcType: 0
+                        volume: 0.7
                     });
-                    aplayerContainer.classList.add('show');
+                    apContainer.classList.add('show');
                 }
-                if (ap && ap.paused) {
-                    ap.play().catch(e => {
-                        console.log('自动播放受限，但用户已经点击交互，理应播放成功', e);
-                        setTimeout(() => {
-                            if (ap.paused) ap.play();
-                        }, 100);
-                    });
-                }
-            }
-            
-            overlay.addEventListener('click', function(e) {
+                if (ap && ap.paused) ap.play().catch(() => {});
+            };
+            overlay.addEventListener('click', () => {
                 if (!overlay.classList.contains('hidden')) {
                     overlay.classList.add('hidden');
-                    initAndPlayMusic();
+                    initMusic();
                 }
             });
-            
-            overlay.style.cursor = 'pointer';
-        } else {
-            if (aplayerContainer) {
-                var apFallback = new APlayer({
-                    container: aplayerContainer,
-                    audio: [{
-                        name: '背景音乐',
-                        artist: 'owo',
-                        url: 'https://mittewolf.netlify.app/music.mp3',
-                        cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png'
-                    }],
-                    theme: '#ff6600',
-                    autoplay: false,
-                    loop: 'all',
-                    preload: 'auto',
-                    volume: 0.7
-                });
-                aplayerContainer.classList.add('show');
-            }
+        } else if (apContainer) {
+            new APlayer({
+                container: apContainer,
+                audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' }],
+                theme: '#ff6600',
+                autoplay: false,
+                loop: 'all'
+            });
+            apContainer.classList.add('show');
         }
     });
+    
+    // 禁止图片拖拽
+    (function() {
+        const container = document.getElementById('avatarContainer');
+        if (container) {
+            container.addEventListener('contextmenu', e => e.preventDefault());
+            container.addEventListener('dragstart', e => e.preventDefault());
+        }
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', 'false');
+            img.addEventListener('dragstart', e => e.preventDefault());
+            img.addEventListener('contextmenu', e => e.preventDefault());
+        });
+    })();
 </script>
-
-<!-- 加载 APlayer 脚本 -->
 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-
 </body>
 </html>
