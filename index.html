@@ -6,12 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MT的小空间</title>
     
-    <!-- 网页图标 -->
     <link rel="shortcut icon" href="https://s41.ax1x.com/2026/03/04/pe9ewv9.png" type="image/x-icon">
     <link rel="icon" href="https://s41.ax1x.com/2026/03/04/pe9ewv9.png" type="image/x-icon">
-    
-    <!-- APlayer 样式 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
         * {
@@ -62,7 +59,6 @@
             padding: 10px 0;
         }
         
-        /* 头像容器 - 响应式优化 */
         .avatar-wrapper {
             position: relative;
             display: inline-block;
@@ -104,7 +100,6 @@
             border-radius: 50%;
         }
         
-        /* 头像挂件样式 - 响应式尺寸 */
         .avatar-pendant {
             position: absolute;
             top: 50%;
@@ -165,267 +160,41 @@
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
         }
         
-        .row { 
-            margin: 8px 0; 
-            padding: 4px 0;
-            text-align: center;
-        }
+        .row { margin: 8px 0; padding: 4px 0; text-align: center; }
+        .plat-link { color: #0066cc; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; padding: 3px 0; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3); }
+        .plat-link:hover { color: #ff6600; text-decoration: underline; }
         
-        .plat-link { 
-            color: #0066cc; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 16px;
-            display: inline-block;
-            padding: 3px 0;
-            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
-        }
+        .contact-section { margin-top: 15px; border-top: 1px dashed rgba(179, 195, 212, 0.8); padding-top: 10px; }
+        .contact-block { margin: 15px 0; padding: 8px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; text-align: center; backdrop-filter: blur(4px); }
+        .contact-label { font-weight: bold; color: #1e3b6b; font-size: 16px; display: block; margin-bottom: 6px; }
+        .contact-value { font-family: 'Courier New', monospace; background: rgba(255, 255, 255, 0.9); padding: 8px 10px; border: 1px solid #ccc; font-size: 16px; display: block; margin: 8px 0; font-weight: bold; border-radius: 6px; }
+        .copy-btn { background: #d4d0c8; border: 2px solid #fefefe; border-color: #fefefe #404040 #404040 #fefefe; padding: 8px 0; font-size: 15px; cursor: pointer; display: block; color: #1e2b3c; width: 100%; text-align: center; font-weight: bold; margin-top: 5px; border-radius: 6px; }
+        .copy-btn:hover { background: #f2f1e6; }
+        .copy-btn:active { border-color: #404040 #fefefe #fefefe #404040; background: #ceceb6; }
+        .copy-btn.copied { background: #28a745; color: white; }
         
-        .plat-link:hover { 
-            color: #ff6600; 
-            text-decoration: underline; 
-        }
+        .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
+        .sticky-tag { background: #ff6600; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
+        .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; }
+        .announcement-title { font-weight: bold; color: #1e3b6b; font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; }
+        .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232, 237, 244, 0.8); border: 1px solid #7f9db9; border-radius: 6px; }
+        .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
+        .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
         
-        .contact-section {
-            margin-top: 15px;
-            border-top: 1px dashed rgba(179, 195, 212, 0.8);
-            padding-top: 10px;
-        }
-        
-        .contact-block {
-            margin: 15px 0;
-            padding: 8px;
-            background: rgba(240, 245, 250, 0.7);
-            border: 1px solid rgba(179, 195, 212, 0.6);
-            border-radius: 8px;
-            text-align: center;
-            backdrop-filter: blur(4px);
-        }
-        
-        .contact-label {
-            font-weight: bold;
-            color: #1e3b6b;
-            font-size: 16px;
-            display: block;
-            margin-bottom: 6px;
-        }
-        
-        .contact-value {
-            font-family: 'Courier New', '仿宋_GB2312', 'FangSong', monospace;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            display: block;
-            margin: 8px 0;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 6px;
-        }
-        
-        .copy-btn { 
-            background: #d4d0c8; 
-            border: 2px solid #fefefe; 
-            border-color: #fefefe #404040 #404040 #fefefe; 
-            padding: 8px 0; 
-            font-size: 15px; 
-            cursor: pointer; 
-            display: block;
-            color: #1e2b3c;
-            text-decoration: none;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            margin-top: 5px;
-            border-radius: 6px;
-        }
-        
-        .copy-btn:hover { 
-            background: #f2f1e6; 
-            border-color: #fefefe #2f2f2f #2f2f2f #fefefe; 
-        }
-        
-        .copy-btn:active { 
-            border-color: #404040 #fefefe #fefefe #404040; 
-            background: #ceceb6; 
-        }
-        
-        .copy-btn.copied { 
-            background: #28a745; 
-            color: white; 
-            border-color: #fefefe #1e7e34 #1e7e34 #fefefe; 
-        }
-        
-        .announcement-content {
-            text-align: left;
-            color: #1e3b6b;
-            font-size: 15px;
-            line-height: 1.8;
-        }
-        
-        .sticky-tag {
-            background: #ff6600;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 3px;
-            display: inline-block;
-            margin-right: 8px;
-            letter-spacing: 1px;
-        }
-        
-        .announcement-item {
-            margin-bottom: 20px;
-            padding: 10px;
-            background: rgba(240, 245, 250, 0.7);
-            border: 1px solid rgba(179, 195, 212, 0.6);
-            border-radius: 8px;
-            backdrop-filter: blur(4px);
-        }
-        
-        .announcement-title {
-            font-weight: bold;
-            color: #1e3b6b;
-            font-size: 16px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .announcement-link {
-            color: #0066cc;
-            text-decoration: none;
-            word-break: break-all;
-            font-size: 14px;
-            display: inline-block;
-            margin-top: 8px;
-            padding: 5px 8px;
-            background: rgba(232, 237, 244, 0.8);
-            border: 1px solid #7f9db9;
-            border-radius: 6px;
-        }
-        
-        .announcement-link:hover {
-            color: #ff6600;
-            text-decoration: underline;
-            background: #d4e0f0;
-        }
-        
-        .static-text {
-            background: rgba(240, 245, 250, 0.7);
-            border: 1px solid #b3c3d4;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-            color: #2c3e50;
-            font-size: 15px;
-            line-height: 1.6;
-            border-left: 3px solid #ff6600;
-            backdrop-filter: blur(4px);
-        }
-        
-        .calendar-panel {
-            text-align: center;
-        }
-        
-        .live-clock {
-            font-size: 28px;
-            font-weight: bold;
-            font-family: monospace;
-            color: #1e3b6b;
-            margin-bottom: 12px;
-            background: rgba(255,255,240,0.7);
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 30px;
-        }
-        
-        .live-date {
-            font-size: 18px;
-            color: #1e3b6b;
-            margin-bottom: 8px;
-        }
-        
-        .weekday {
-            font-size: 18px;
-            color: #ff6600;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .calendar {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 5px;
-        }
-        
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 0 5px;
-        }
-        
-        .calendar-nav {
-            background: #d4d0c8;
-            border: 1px solid #999;
-            cursor: pointer;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        
-        .calendar-nav:hover {
-            background: #f2f1e6;
-            transform: scale(0.95);
-        }
-        
-        .month-year {
-            font-weight: bold;
-            font-size: 16px;
-            color: #1e3b6b;
-        }
-        
-        .calendar-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-        
-        .calendar-day {
-            text-align: center;
-            padding: 6px 0;
-            font-size: 13px;
-            border-radius: 20px;
-            background: rgba(255,255,245,0.7);
-            transition: all 0.1s;
-        }
-        
-        .calendar-day.today {
-            background: #ff6600;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .calendar-day.other-month {
-            color: #aaa;
-            background: rgba(230,230,220,0.5);
-        }
+        .calendar-panel { text-align: center; }
+        .live-clock { font-size: 28px; font-weight: bold; font-family: monospace; color: #1e3b6b; margin-bottom: 12px; background: rgba(255,255,240,0.7); display: inline-block; padding: 4px 16px; border-radius: 30px; }
+        .live-date { font-size: 18px; color: #1e3b6b; margin-bottom: 8px; }
+        .weekday { font-size: 18px; color: #ff6600; margin-bottom: 15px; font-weight: bold; }
+        .calendar { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 12px; margin-top: 5px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .calendar-nav { background: #d4d0c8; border: 1px solid #999; cursor: pointer; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+        .calendar-nav:hover { background: #f2f1e6; transform: scale(0.95); }
+        .month-year { font-weight: bold; font-size: 16px; color: #1e3b6b; }
+        .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 8px; font-size: 12px; color: #666; }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .calendar-day { text-align: center; padding: 6px 0; font-size: 13px; border-radius: 20px; background: rgba(255,255,245,0.7); }
+        .calendar-day.today { background: #ff6600; color: white; font-weight: bold; }
+        .calendar-day.other-month { color: #aaa; background: rgba(230,230,220,0.5); }
         
         .new-three-cols {
             width: 1000px;
@@ -547,126 +316,27 @@
             filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3));
             user-select: none;
         }
+        .pet-container:active { cursor: grabbing; }
+        .pet-image { width: 80px; height: auto; display: block; pointer-events: none; }
+        .pet-container.dragging { cursor: grabbing; z-index: 2001; }
         
-        .pet-container:active {
-            cursor: grabbing;
-        }
+        @keyframes bounceMoveRight { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(10deg); } 70% { transform: translateY(4px) rotate(4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        @keyframes bounceMoveLeft { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(-10deg); } 70% { transform: translateY(4px) rotate(-4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        @keyframes squash { 0% { transform: scaleY(1) scaleX(1); } 50% { transform: scaleY(0.7) scaleX(1.15); } 100% { transform: scaleY(1) scaleX(1); } }
+        .pet-container.bounce-right { animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
+        .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
+        .pet-container.landing { animation: squash 0.2s ease-out; }
         
-        .pet-image {
-            width: 80px;
-            height: auto;
-            display: block;
-            pointer-events: none;
-        }
-        
-        .pet-container.dragging {
-            cursor: grabbing;
-            z-index: 2001;
-        }
-        
-        @keyframes bounceMoveRight {
-            0% { transform: translateY(0px) rotate(0deg) scaleY(1); }
-            30% { transform: translateY(-14px) rotate(10deg) scaleY(0.92); }
-            70% { transform: translateY(4px) rotate(4deg) scaleY(1.03); }
-            100% { transform: translateY(0px) rotate(0deg) scaleY(1); }
-        }
-        
-        @keyframes bounceMoveLeft {
-            0% { transform: translateY(0px) rotate(0deg) scaleY(1); }
-            30% { transform: translateY(-14px) rotate(-10deg) scaleY(0.92); }
-            70% { transform: translateY(4px) rotate(-4deg) scaleY(1.03); }
-            100% { transform: translateY(0px) rotate(0deg) scaleY(1); }
-        }
-        
-        @keyframes squash {
-            0% { transform: scaleY(1) scaleX(1); }
-            50% { transform: scaleY(0.7) scaleX(1.15); }
-            100% { transform: scaleY(1) scaleX(1); }
-        }
-        
-        .pet-container.bounce-right {
-            animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-        }
-        
-        .pet-container.bounce-left {
-            animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-        }
-        
-        .pet-container.landing {
-            animation: squash 0.2s ease-out;
-        }
-        
-        /* 响应式优化 - 手机端头像挂件尺寸 */
-        @media screen and (max-width: 768px) {
-            .avatar-wrapper {
-                width: 100px;
-                height: 100px;
-            }
-            .avatar-pendant {
-                width: 175px;
-                height: 175px;
-            }
-        }
-        
-        @media screen and (max-width: 600px) {
-            .pet-image {
-                width: 60px;
-            }
-            .avatar-wrapper {
-                width: 85px;
-                height: 85px;
-            }
-            .avatar-pendant {
-                width: 150px;
-                height: 150px;
-            }
-            .welcome-title {
-                font-size: 42px;
-            }
-        }
-        
-        @media screen and (max-width: 1020px) {
-            .title-avatar-wrapper,
-            .windows-container,
-            .new-three-cols {
-                width: auto;
-                max-width: 1000px;
-                margin-left: 15px;
-                margin-right: 15px;
-            }
-            
-            .welcome-title {
-                font-size: 10vw;
-                text-align: center;
-            }
-            
-            .title-avatar-wrapper {
-                justify-content: center;
-                gap: 20px;
-            }
-            
-            .windows-container {
-                display: block;
-            }
-            
-            .window {
-                display: block;
-                width: 100%;
-                margin: 0 0 20px 0;
-                min-height: auto;
-            }
-            
-            .new-three-cols {
-                flex-direction: column;
-            }
-            
-            .image-display {
-                min-height: 200px;
-            }
-            
-            .image-display img {
-                min-height: 200px;
-            }
+        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .avatar-pendant { width: 175px; height: 175px; } }
+        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .avatar-pendant { width: 150px; height: 150px; } .welcome-title { font-size: 42px; } }
+        @media (max-width: 1020px) {
+            .title-avatar-wrapper, .windows-container, .new-three-cols { width: auto; max-width: 1000px; margin-left: 15px; margin-right: 15px; }
+            .welcome-title { font-size: 10vw; text-align: center; }
+            .title-avatar-wrapper { justify-content: center; gap: 20px; }
+            .windows-container { display: block; }
+            .window { display: block; width: 100%; margin-bottom: 20px; min-height: auto; }
+            .new-three-cols { flex-direction: column; }
+            .image-display, .image-display img { min-height: 200px; }
         }
         
         .welcome-overlay {
@@ -684,51 +354,12 @@
             transition: opacity 0.5s ease;
             cursor: pointer;
         }
-        
-        .welcome-card {
-            background: transparent;
-            max-width: 700px;
-            width: 85%;
-            text-align: center;
-            padding: 30px 25px;
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .welcome-card h1 {
-            font-size: 64px;
-            color: #1e3b6b;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-family: '仿宋_GB2312', 'FangSong', serif;
-        }
-        
-        .welcome-card p {
-            font-size: 24px;
-            color: #1e3b6b;
-            margin-bottom: 15px;
-        }
-        
-        .click-hint {
-            font-size: 18px;
-            color: #1e3b6b;
-            margin-top: 20px;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .welcome-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        .welcome-card { background: transparent; max-width: 700px; width: 85%; text-align: center; padding: 30px 25px; animation: fadeInUp 0.6s ease-out; }
+        .welcome-card h1 { font-size: 64px; color: #1e3b6b; margin-bottom: 20px; font-family: '仿宋', serif; }
+        .welcome-card p { font-size: 24px; color: #1e3b6b; margin-bottom: 15px; }
+        .click-hint { font-size: 18px; color: #1e3b6b; margin-top: 20px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .welcome-overlay.hidden { opacity: 0; pointer-events: none; }
         
         #aplayer-container {
             position: fixed;
@@ -738,25 +369,11 @@
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
+            transition: opacity 0.3s;
         }
-        
-        #aplayer-container.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .aplayer {
-            background: rgba(232, 237, 244, 0.85) !important;
-            backdrop-filter: blur(5px);
-            border-top: 1px solid #7f9db9;
-            margin: 0 !important;
-            border-radius: 0 !important;
-        }
-        
-        img {
-            -webkit-user-drag: none;
-            user-select: none;
-        }
+        #aplayer-container.show { opacity: 1; pointer-events: auto; }
+        .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
+        img { -webkit-user-drag: none; user-select: none; }
     </style>
 </head>
 <body>
@@ -808,12 +425,12 @@
         <div class="window-title">📅 时空日历</div>
         <div class="calendar-panel">
             <div class="live-clock" id="liveClock">--:--:--</div>
-            <div class="live-date" id="liveDate">加载中...</div>
+            <div class="live-date" id="liveDate"></div>
             <div class="weekday" id="weekday"></div>
             <div class="calendar">
                 <div class="calendar-header">
                     <button class="calendar-nav" id="prevMonth">◀</button>
-                    <span class="month-year" id="monthYear">2024年1月</span>
+                    <span class="month-year" id="monthYear"></span>
                     <button class="calendar-nav" id="nextMonth">▶</button>
                 </div>
                 <div class="calendar-weekdays">
@@ -847,7 +464,7 @@
     <div class="new-col">
         <div class="new-col-title"> </div>
         <div class="image-display">
-            <img src="https://s41.ax1x.com/2026/03/04/pe9et4U.png" alt=" ">
+            <img src="https://s41.ax1x.com/2026/03/04/pe9et4U.md.png" alt=" " draggable="false">
         </div>
     </div>
     
@@ -870,7 +487,7 @@
                 <span class="character-label">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。
             </div>
             <div class="character-item">
-                <span class="character-label">🔮 技能：</span>能召唤传送门，自由穿越不同的时空或地点。
+                <span class="character-label">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。
             </div>
             <div class="character-divider"></div>
             <div class="character-item">
@@ -887,7 +504,7 @@
     <div class="new-col">
         <div class="new-col-title"> </div>
         <div class="image-display">
-            <img src="https://s41.ax1x.com/2026/03/26/peQyW5R.jpg" alt=" ">
+            <img src="https://s41.ax1x.com/2026/03/26/peQyW5R.md.jpg" alt=" " draggable="false">
         </div>
     </div>
 </div>
@@ -898,8 +515,9 @@
 
 <div id="aplayer-container"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-    // ======================= 重力系统：初始位置在音乐栏上方 =======================
+    // ======================= 宠物重力系统 - 修复拖拽掉落问题 =======================
     (function() {
         const pet = document.getElementById('petContainer');
         const petImage = document.getElementById('petImage');
@@ -912,8 +530,9 @@
         let animFrameId = null;
         let bounceTimer = null;
         let isBouncing = false;
+        let currentDirection = false;
         
-        // 获取所有可作为"地面"的平台元素
+        // 获取所有可作为地面的元素
         function getPlatformElements() {
             const platforms = [];
             document.querySelectorAll('.window').forEach(el => platforms.push(el));
@@ -925,31 +544,34 @@
             return platforms;
         }
         
-        // 获取当前宠物下方可站立的高度
-        function getGroundY(currentLeft, petWidth, petHeight) {
-            let groundY = window.innerHeight - petHeight - 10;
-            
+        // 获取宠物正下方的地面Y坐标
+        function getGroundY(currentLeft, currentTop, petWidth, petHeight) {
+            let bestGroundY = null;
+            let bestPlatformTop = Infinity;
             const platforms = getPlatformElements();
+            const petBottom = currentTop + petHeight;
+            
             for (let platform of platforms) {
                 const rect = platform.getBoundingClientRect();
                 if (rect.width === 0 || rect.height === 0) continue;
                 
                 const petLeft = currentLeft;
                 const petRight = currentLeft + petWidth;
-                const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5);
+                const overlapX = (petRight > rect.left + 3) && (petLeft < rect.right - 3);
                 
                 if (overlapX) {
-                    const candidateY = rect.top - petHeight;
-                    if (candidateY > 0 && candidateY < groundY) {
-                        groundY = candidateY;
+                    const platformTop = rect.top;
+                    if (platformTop >= petBottom - 10 && platformTop < bestPlatformTop) {
+                        bestPlatformTop = platformTop;
+                        bestGroundY = platformTop - petHeight;
                     }
                 }
             }
-            
-            return Math.max(5, groundY);
+            return bestGroundY;
         }
         
         function setDirection(isRight) {
+            currentDirection = isRight;
             petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)';
         }
         
@@ -972,43 +594,38 @@
             if (isDragging) return;
             stopPhysics();
             stopBounceLoop();
+            
             isFalling = true;
             velocityY = initialVelocity;
             
             function updateGravity() {
                 if (!isFalling || isDragging) {
-                    if (!isDragging) startBounceLoop();
+                    if (!isDragging && !isFalling) startBounceLoop();
                     animFrameId = null;
                     return;
                 }
                 
                 let currentTop = parseFloat(pet.style.top);
-                if (isNaN(currentTop)) {
-                    const rect = pet.getBoundingClientRect();
-                    currentTop = rect.top;
-                }
+                if (isNaN(currentTop)) currentTop = pet.getBoundingClientRect().top;
                 let currentLeft = parseFloat(pet.style.left);
-                if (isNaN(currentLeft)) {
-                    const rect = pet.getBoundingClientRect();
-                    currentLeft = rect.left;
-                }
+                if (isNaN(currentLeft)) currentLeft = pet.getBoundingClientRect().left;
                 
                 const petWidth = pet.offsetWidth;
                 const petHeight = pet.offsetHeight;
                 
-                velocityY += 0.6;
+                velocityY += 0.55;
                 let newTop = currentTop + velocityY;
-                const groundY = getGroundY(currentLeft, petWidth, petHeight);
+                const groundY = getGroundY(currentLeft, newTop, petWidth, petHeight);
                 
-                if (newTop + petHeight >= groundY) {
+                if (groundY !== null && newTop + petHeight >= groundY + petHeight - 2) {
                     newTop = groundY;
                     pet.style.top = newTop + 'px';
                     pet.classList.add('landing');
-                    setTimeout(() => pet.classList.remove('landing'), 200);
+                    setTimeout(() => pet.classList.remove('landing'), 180);
                     
-                    if (Math.abs(velocityY) > 1.2) {
+                    if (Math.abs(velocityY) > 0.8) {
                         velocityY = -velocityY * 0.45;
-                        if (Math.abs(velocityY) < 0.8) velocityY = 0;
+                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
                         animFrameId = requestAnimationFrame(updateGravity);
                     } else {
                         velocityY = 0;
@@ -1016,7 +633,25 @@
                         animFrameId = null;
                         startBounceLoop();
                     }
-                } else {
+                } 
+                else if (newTop + petHeight >= window.innerHeight - 10) {
+                    newTop = window.innerHeight - petHeight - 10;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 180);
+                    
+                    if (Math.abs(velocityY) > 0.8) {
+                        velocityY = -velocityY * 0.45;
+                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    } else {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    }
+                }
+                else {
                     pet.style.top = newTop + 'px';
                     animFrameId = requestAnimationFrame(updateGravity);
                 }
@@ -1035,7 +670,6 @@
         function performBounce() {
             if (isDragging || isFalling || isBouncing) return;
             isBouncing = true;
-            
             const isRight = Math.random() < 0.5;
             const moveDist = Math.random() * 60 + 30;
             let currentLeft = parseFloat(pet.style.left);
@@ -1044,29 +678,22 @@
             const minLeft = 15;
             let targetLeft = currentLeft + (isRight ? moveDist : -moveDist);
             targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft));
-            
             setDirection(isRight);
             pet.classList.remove('bounce-right', 'bounce-left');
             void pet.offsetWidth;
             pet.classList.add(isRight ? 'bounce-right' : 'bounce-left');
-            
             const startLeft = currentLeft;
             const startTime = performance.now();
             const duration = 400;
-            
             function animateMove(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(1, elapsed / duration);
                 const ease = 1 - Math.pow(1 - progress, 2);
                 pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px';
-                if (progress < 1) {
-                    requestAnimationFrame(animateMove);
-                } else {
+                if (progress < 1) requestAnimationFrame(animateMove);
+                else {
                     pet.style.left = targetLeft + 'px';
-                    setTimeout(() => {
-                        pet.classList.remove('bounce-right', 'bounce-left');
-                        isBouncing = false;
-                    }, 50);
+                    setTimeout(() => { pet.classList.remove('bounce-right', 'bounce-left'); isBouncing = false; }, 50);
                 }
             }
             requestAnimationFrame(animateMove);
@@ -1075,29 +702,22 @@
         function startBounceLoop() {
             if (bounceTimer) clearTimeout(bounceTimer);
             function schedule() {
-                if (!isDragging && !isFalling && !isBouncing) {
-                    performBounce();
-                }
+                if (!isDragging && !isFalling && !isBouncing) performBounce();
                 bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000);
             }
             bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
         }
         
-        // 拖拽逻辑
         function onMouseDown(e) {
             if (e.button !== 0) return;
             e.preventDefault();
-            e.stopPropagation();
-            
             stopPhysics();
             stopBounceLoop();
             isDragging = true;
             pet.classList.add('dragging');
-            
             const rect = pet.getBoundingClientRect();
             dragStartX = e.clientX - rect.left;
             dragStartY = e.clientY - rect.top;
-            
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         }
@@ -1106,21 +726,14 @@
         function onMouseMove(e) {
             if (!isDragging) return;
             e.preventDefault();
-            
             let newLeft = e.clientX - dragStartX;
             let newTop = e.clientY - dragStartY;
-            const petWidth = pet.offsetWidth;
-            const petHeight = pet.offsetHeight;
-            
-            newLeft = Math.min(window.innerWidth - petWidth - 10, Math.max(10, newLeft));
-            newTop = Math.min(window.innerHeight - petHeight - 10, Math.max(0, newTop));
-            
+            const pw = pet.offsetWidth, ph = pet.offsetHeight;
+            newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft));
+            newTop = Math.min(window.innerHeight - ph - 10, Math.max(0, newTop));
             pet.style.left = newLeft + 'px';
             pet.style.top = newTop + 'px';
-            
-            if (Math.abs(e.clientX - lastMouseX) > 1) {
-                setDirection(e.clientX > lastMouseX);
-            }
+            if (Math.abs(e.clientX - lastMouseX) > 1) setDirection(e.clientX > lastMouseX);
             lastMouseX = e.clientX;
         }
         
@@ -1128,81 +741,80 @@
             if (!isDragging) return;
             isDragging = false;
             pet.classList.remove('dragging');
-            velocityY = 2;
-            startGravity(velocityY);
-            
+            // 拖拽结束后，立即从当前位置开始掉落！
+            startGravity(2);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
         
-        // 初始化宠物位置：放在音乐栏上方（底部）
+        let scrollTimer = null;
+        function onScroll() {
+            if (isDragging) return;
+            if (scrollTimer) clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                if (!isDragging && !isFalling && !isBouncing) {
+                    const currentTop = parseFloat(pet.style.top);
+                    const currentLeft = parseFloat(pet.style.left);
+                    const petHeight = pet.offsetHeight;
+                    const petWidth = pet.offsetWidth;
+                    const groundY = getGroundY(currentLeft, currentTop, petWidth, petHeight);
+                    if (groundY === null || currentTop + petHeight < groundY + petHeight - 10) {
+                        stopBounceLoop();
+                        startGravity(1);
+                    }
+                }
+            }, 50);
+        }
+        
         function initPetPosition() {
-            const petWidth = pet.offsetWidth;
-            const petHeight = pet.offsetHeight;
-            
-            // 水平居中
-            let defaultLeft = window.innerWidth / 2 - petWidth / 2;
-            defaultLeft = Math.min(window.innerWidth - petWidth - 10, Math.max(10, defaultLeft));
+            const pw = pet.offsetWidth, ph = pet.offsetHeight;
+            let defaultLeft = window.innerWidth / 2 - pw / 2;
+            defaultLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, defaultLeft));
             pet.style.left = defaultLeft + 'px';
             
-            // 等待音乐栏加载后计算位置
-            const setInitialTop = () => {
-                const groundY = getGroundY(defaultLeft, petWidth, petHeight);
-                pet.style.top = groundY + 'px';
+            const setTop = () => {
+                const currentTop = 0;
+                const groundY = getGroundY(defaultLeft, currentTop, pw, ph);
+                if (groundY !== null && groundY > 0 && groundY < window.innerHeight) {
+                    pet.style.top = groundY + 'px';
+                } else {
+                    const music = document.getElementById('aplayer-container');
+                    if (music && music.getBoundingClientRect().top) {
+                        pet.style.top = (music.getBoundingClientRect().top - ph - 2) + 'px';
+                    } else {
+                        pet.style.top = (window.innerHeight - ph - 50) + 'px';
+                    }
+                }
                 setDirection(false);
                 velocityY = 0;
-                isFalling = false;
                 startGravity(0);
             };
             
-            // 如果音乐栏还未显示，等待一下
             const musicBar = document.getElementById('aplayer-container');
-            if (musicBar && !musicBar.classList.contains('show')) {
-                const checkInterval = setInterval(() => {
-                    if (musicBar.classList.contains('show')) {
-                        clearInterval(checkInterval);
-                        setInitialTop();
-                    }
-                }, 100);
-                setTimeout(() => {
-                    clearInterval(checkInterval);
-                    setInitialTop();
-                }, 2000);
+            if (musicBar && musicBar.classList.contains('show')) {
+                setTop();
             } else {
-                setInitialTop();
+                const obs = new MutationObserver(() => {
+                    if (musicBar && musicBar.classList.contains('show')) {
+                        setTop();
+                        obs.disconnect();
+                    }
+                });
+                if (musicBar) obs.observe(musicBar, { attributes: true, attributeFilter: ['class'] });
+                setTimeout(() => {
+                    if (!musicBar?.classList.contains('show')) setTop();
+                    obs.disconnect();
+                }, 2000);
             }
         }
         
-        // 监听音乐栏显示变化
-        const musicObserver = new MutationObserver(() => {
-            if (!isDragging && !isFalling) {
-                const currentLeft = parseFloat(pet.style.left);
-                const petWidth = pet.offsetWidth;
-                const petHeight = pet.offsetHeight;
-                const newGround = getGroundY(currentLeft, petWidth, petHeight);
-                const currentTop = parseFloat(pet.style.top);
-                if (Math.abs(currentTop - newGround) > 5) {
-                    pet.style.top = newGround + 'px';
-                }
-            }
-        });
-        const musicContainer = document.getElementById('aplayer-container');
-        if (musicContainer) {
-            musicObserver.observe(musicContainer, { attributes: true, attributeFilter: ['class'] });
-        }
-        
+        window.addEventListener('scroll', onScroll);
         window.addEventListener('resize', () => {
             if (!isDragging && !isFalling) {
-                let left = parseFloat(pet.style.left);
-                const pw = pet.offsetWidth, ph = pet.offsetHeight;
-                left = Math.min(window.innerWidth - pw - 10, Math.max(10, left));
-                const newGround = getGroundY(left, pw, ph);
-                pet.style.left = left + 'px';
-                pet.style.top = newGround + 'px';
+                startGravity(0);
             }
         });
         
-        // 欢迎页消失后初始化
         const overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
             const obs = new MutationObserver(() => {
@@ -1305,39 +917,31 @@
     // 音乐播放器
     document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('welcomeOverlay');
-        const apContainer = document.getElementById('aplayer-container');
+        const container = document.getElementById('aplayer-container');
         let ap = null;
-        if (overlay && apContainer) {
-            const initMusic = () => {
-                if (!ap) {
-                    ap = new APlayer({
-                        container: apContainer,
-                        audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' }],
-                        theme: '#ff6600',
-                        autoplay: false,
-                        loop: 'all',
-                        preload: 'auto',
-                        volume: 0.7
-                    });
-                    apContainer.classList.add('show');
-                }
-                if (ap && ap.paused) ap.play().catch(() => {});
-            };
+        const initPlayer = () => {
+            if (!ap && container) {
+                ap = new APlayer({
+                    container: container,
+                    audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' }],
+                    theme: '#ff6600',
+                    autoplay: false,
+                    loop: 'all',
+                    volume: 0.7
+                });
+                container.classList.add('show');
+                ap.play().catch(() => {});
+            }
+        };
+        if (overlay) {
             overlay.addEventListener('click', () => {
                 if (!overlay.classList.contains('hidden')) {
                     overlay.classList.add('hidden');
-                    initMusic();
+                    initPlayer();
                 }
             });
-        } else if (apContainer) {
-            new APlayer({
-                container: apContainer,
-                audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://s41.ax1x.com/2026/03/20/penZrE8.png' }],
-                theme: '#ff6600',
-                autoplay: false,
-                loop: 'all'
-            });
-            apContainer.classList.add('show');
+        } else {
+            initPlayer();
         }
     });
     
@@ -1355,6 +959,5 @@
         });
     })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 </body>
 </html>
