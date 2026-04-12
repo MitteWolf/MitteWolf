@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MT的小空间</title>
     
-    <link rel="shortcut icon" href="https://mittewolf.netlify.app/icon.png" type="image/x-icon">
-    <link rel="icon" href="https://mittewolf.netlify.app/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
+    <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
@@ -37,26 +37,61 @@
         
         .title-avatar-wrapper {
             width: 1000px;
+            max-width: 90%;
             margin: 0 auto 35px auto;
-            overflow: visible;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            gap: 20px;
             position: relative;
         }
         
         .welcome-title {
             font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif;
-            font-size: 56px;
+            font-size: 44px;
             font-weight: bold;
             color: #FFFFFF;
             text-shadow: 4px 4px 8px #1e3b6b;
             background: transparent;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             line-height: 1.2;
             margin: 0;
             padding: 10px 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(232, 237, 244, 0.55);
+            backdrop-filter: blur(6px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(127, 157, 185, 0.6);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-width: 210px;
+            flex-shrink: 1;
+        }
+        .info-item {
+            font-size: 13px;
+            color: #1e3b6b;
+            text-align: right;
+            line-height: 1.45;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .info-time {
+            font-size: 15px;
+            font-weight: bold;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+            color: #0a2f4d;
         }
         
         .avatar-wrapper {
@@ -76,7 +111,7 @@
             overflow: hidden;
             position: relative;
             user-select: none;
-            border-radius: 50%;
+            border-radius: 20px;
         }
         
         .avatar-circle img {
@@ -97,49 +132,32 @@
             background: transparent;
             z-index: 10;
             cursor: default;
-            border-radius: 50%;
+            border-radius: 20px;
         }
         
         .avatar-pendant {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 210px;
-            height: 210px;
-            z-index: 20;
-            pointer-events: none;
-            border-radius: 50%;
-        }
-        
-        .avatar-pendant img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            border-radius: 50%;
+            display: none;
         }
         
         .windows-container {
             width: 1000px;
+            max-width: 90%;
             margin: 0 auto;
-            display: table;
-            table-layout: fixed;
-            border-collapse: separate;
-            border-spacing: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         
         .window {
-            display: table-cell;
-            vertical-align: top;
+            flex: 1;
+            min-width: 250px;
             background: rgba(232, 237, 244, 0.5);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(127, 157, 185, 0.6);
             border-radius: 12px;
             padding: 20px 15px;
-            width: 280px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            min-height: 450px;
             transition: all 0.3s ease;
         }
         
@@ -181,31 +199,93 @@
         .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
         .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
         
-        .calendar-panel { text-align: center; }
-        .live-clock { font-size: 28px; font-weight: bold; font-family: monospace; color: #1e3b6b; margin-bottom: 12px; background: rgba(255,255,240,0.7); display: inline-block; padding: 4px 16px; border-radius: 30px; }
-        .live-date { font-size: 18px; color: #1e3b6b; margin-bottom: 8px; }
-        .weekday { font-size: 18px; color: #ff6600; margin-bottom: 15px; font-weight: bold; }
-        .calendar { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 12px; margin-top: 5px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .calendar-nav { background: #d4d0c8; border: 1px solid #999; cursor: pointer; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
-        .calendar-nav:hover { background: #f2f1e6; transform: scale(0.95); }
-        .month-year { font-weight: bold; font-size: 16px; color: #1e3b6b; }
-        .calendar-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 8px; font-size: 12px; color: #666; }
-        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-        .calendar-day { text-align: center; padding: 6px 0; font-size: 13px; border-radius: 20px; background: rgba(255,255,245,0.7); }
-        .calendar-day.today { background: #ff6600; color: white; font-weight: bold; }
-        .calendar-day.other-month { color: #aaa; background: rgba(230,230,220,0.5); }
+        .international-content {
+            text-align: center;
+            padding: 15px 5px;
+        }
+        .international-link-area {
+            margin: 20px 0;
+        }
+        .international-link-area .link-line {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3b6b;
+            background: rgba(240, 245, 250, 0.8);
+            padding: 8px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(127, 157, 185, 0.6);
+        }
+        .international-link-area .link-line:hover {
+            background: #ff6600;
+            color: white;
+            transform: scale(1.02);
+        }
+        .international-divider {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent);
+            margin: 20px auto;
+        }
+        .waiting-text {
+            font-size: 18px;
+            color: #ff6600;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: rgba(255,255,240,0.6);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 40px;
+            margin-top: 10px;
+        }
+        
+        .character-content-compact {
+            text-align: left;
+            color: #1e3b6b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .character-item-compact {
+            margin-bottom: 12px;
+            border-left: 3px solid #ff6600;
+            padding-left: 10px;
+        }
+        .character-label-compact {
+            font-weight: bold;
+            color: #1e3b6b;
+            font-size: 15px;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .story-text-compact {
+            background: rgba(240, 245, 250, 0.7);
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+            font-style: italic;
+            font-size: 13px;
+        }
+        .character-divider-compact {
+            height: 1px;
+            background: linear-gradient(to right, #c0cbd8, transparent);
+            margin: 12px 0;
+        }
         
         .new-three-cols {
             width: 1000px;
+            max-width: 90%;
             margin: 40px auto 0 auto;
             display: flex;
             gap: 20px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         
         .new-col {
             flex: 1;
+            min-width: 250px;
             background: rgba(232, 237, 244, 0.5);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(127, 157, 185, 0.6);
@@ -255,60 +335,6 @@
             border-radius: 12px;
         }
         
-        .character-content {
-            text-align: left;
-            color: #1e3b6b;
-            font-size: 15px;
-            line-height: 1.8;
-            flex: 1;
-            overflow-y: auto;
-            max-height: 480px;
-        }
-        
-        .character-content::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .character-content::-webkit-scrollbar-track {
-            background: rgba(127, 157, 185, 0.3);
-            border-radius: 4px;
-        }
-        
-        .character-content::-webkit-scrollbar-thumb {
-            background: #7f9db9;
-            border-radius: 4px;
-        }
-        
-        .character-item {
-            margin-bottom: 12px;
-            border-left: 3px solid #7f9db9;
-            padding-left: 12px;
-        }
-        
-        .character-label {
-            font-weight: bold;
-            color: #1e3b6b;
-            font-size: 16px;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        
-        .character-divider {
-            height: 1px;
-            background: linear-gradient(to right, #c0cbd8, transparent);
-            margin: 15px 0 10px 0;
-        }
-        
-        .story-text {
-            background: rgba(240, 245, 250, 0.7);
-            padding: 12px;
-            border: 1px solid #b3c3d4;
-            border-radius: 8px;
-            margin-top: 8px;
-            font-style: italic;
-            color: #2c3e50;
-        }
-        
         .pet-container {
             position: fixed;
             z-index: 2000;
@@ -327,16 +353,65 @@
         .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
         .pet-container.landing { animation: squash 0.2s ease-out; }
         
-        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .avatar-pendant { width: 175px; height: 175px; } }
-        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .avatar-pendant { width: 150px; height: 150px; } .welcome-title { font-size: 42px; } }
-        @media (max-width: 1020px) {
-            .title-avatar-wrapper, .windows-container, .new-three-cols { width: auto; max-width: 1000px; margin-left: 15px; margin-right: 15px; }
-            .welcome-title { font-size: 10vw; text-align: center; }
-            .title-avatar-wrapper { justify-content: center; gap: 20px; }
-            .windows-container { display: block; }
-            .window { display: block; width: 100%; margin-bottom: 20px; min-height: auto; }
-            .new-three-cols { flex-direction: column; }
-            .image-display, .image-display img { min-height: 200px; }
+        .back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: all 0.2s ease;
+            z-index: 1500;
+            cursor: pointer;
+            border: none;
+            backdrop-filter: blur(2px);
+        }
+        .back-to-top:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .back-to-top:active {
+            transform: scale(0.95);
+        }
+        
+        /* 欢迎页动图样式 */
+        .welcome-gif {
+            margin-top: 20px;
+            max-width: 200px;
+            width: 80%;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 768px) { 
+            .avatar-wrapper { width: 100px; height: 100px; }
+            .info-panel { padding: 6px 12px; min-width: 170px; }
+            .info-time { font-size: 12px; }
+            .info-item { font-size: 11px; white-space: normal; }
+            .welcome-title { font-size: 32px; white-space: normal; }
+            .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; }
+            .welcome-gif { max-width: 150px; }
+        }
+        @media (max-width: 600px) { 
+            .pet-image { width: 60px; } 
+            .avatar-wrapper { width: 85px; height: 85px; } 
+            .welcome-title { font-size: 28px; } 
+            .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; }
+            .info-panel { padding: 5px 10px; min-width: 150px; }
+            .welcome-gif { max-width: 120px; }
         }
         
         .welcome-overlay {
@@ -383,19 +458,24 @@
         <h1>Hey!</h1>
         <p>欢迎来到MT的小空间</p>
         <div class="click-hint">点击网页任意处浏览awa</div>
+        <!-- 新增动图 -->
+        <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
 
 <div class="title-avatar-wrapper">
     <div class="welcome-title">这里是MT的小空间uwu</div>
+    <div class="info-panel" id="infoPanel">
+        <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
+        <div class="info-item" id="weatherInfo">🌡️ 天气: 加载中...</div>
+        <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
+    </div>
     <div class="avatar-wrapper">
         <div class="avatar-circle" id="avatarContainer">
-            <img src="https://mittewolf.netlify.app/avatar.png" alt="头像" draggable="false">
+            <img src="https://pic1.imgdb.cn/item/69db28e9e972b74d7846bac5.png" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
-        <div class="avatar-pendant">
-            <img src="https://mittewolf.netlify.app/123.png" alt="头像挂件" draggable="false">
-        </div>
+        <div class="avatar-pendant" style="display:none;"></div>
     </div>
 </div>
 
@@ -422,21 +502,34 @@
     </div>
     
     <div class="window">
-        <div class="window-title">📅 时空日历</div>
-        <div class="calendar-panel">
-            <div class="live-clock" id="liveClock">--:--:--</div>
-            <div class="live-date" id="liveDate"></div>
-            <div class="weekday" id="weekday"></div>
-            <div class="calendar">
-                <div class="calendar-header">
-                    <button class="calendar-nav" id="prevMonth">◀</button>
-                    <span class="month-year" id="monthYear"></span>
-                    <button class="calendar-nav" id="nextMonth">▶</button>
+        <div class="window-title">✨ 设定介绍</div>
+        <div class="character-content-compact">
+            <div class="character-item-compact">
+                <span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）
+            </div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">♂️ 性别：</span>男性
+            </div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。
+            </div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~
+            </div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。
+            </div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。
+            </div>
+            <div class="character-divider-compact"></div>
+            <div class="character-item-compact">
+                <span class="character-label-compact">📖 故事背景：</span>
+                <div class="story-text-compact">
+                    很久以前，天狼星上划过一道非同寻常光芒的流星……<br>
+                    那颗流星后来逐渐化为了米特的雏形……<br>
+                    MT狼便由此诞生了。
                 </div>
-                <div class="calendar-weekdays">
-                    <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
-                </div>
-                <div class="calendar-days" id="calendarDays"></div>
             </div>
         </div>
     </div>
@@ -464,60 +557,131 @@
     <div class="new-col">
         <div class="new-col-title"> </div>
         <div class="image-display">
-            <img src="https://mittewolf.netlify.app/99+.png" alt=" " draggable="false">
+            <img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false">
         </div>
     </div>
     
     <div class="new-col">
-        <div class="new-col-title">✨ 设定介绍</div>
-        <div class="character-content">
-            <div class="character-item">
-                <span class="character-label">🐾 姓名：</span>米特（国际名Mitte，可简称MT）
+        <div class="new-col-title">🌐 国际站入口</div>
+        <div class="international-content">
+            <div class="international-link-area">
+                <div class="link-line" id="internationalPlaceholder">点击这里可以访问我的国际站</div>
             </div>
-            <div class="character-item">
-                <span class="character-label">♂️ 性别：</span>男性
-            </div>
-            <div class="character-item">
-                <span class="character-label">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。
-            </div>
-            <div class="character-item">
-                <span class="character-label">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~
-            </div>
-            <div class="character-item">
-                <span class="character-label">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。
-            </div>
-            <div class="character-item">
-                <span class="character-label">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。
-            </div>
-            <div class="character-divider"></div>
-            <div class="character-item">
-                <span class="character-label">📖 故事背景：</span>
-                <div class="story-text">
-                    很久以前，天狼星上划过一道非同寻常光芒的流星……<br>
-                    那颗流星后来逐渐化为了米特的雏形……<br>
-                    MT狼便由此诞生了。
-                </div>
-            </div>
+            <div class="international-divider"></div>
+            <div class="waiting-text">✨ 敬请等待 ✨</div>
+            <div style="margin-top: 18px; font-size: 13px; color: #4a627a;">(后续将替换为国际站链接)</div>
         </div>
     </div>
     
     <div class="new-col">
         <div class="new-col-title"> </div>
         <div class="image-display">
-            <img src="https://mittewolf.netlify.app/1w.png" alt=" " draggable="false">
+            <img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false">
         </div>
     </div>
 </div>
 
 <div class="pet-container" id="petContainer">
-    <img class="pet-image" id="petImage" src="https://mittewolf.netlify.app/pet.png" alt="小宠物" draggable="false">
+    <img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe2.png" alt="小宠物" draggable="false">
 </div>
 
 <div id="aplayer-container"></div>
 
+<div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-    // ======================= 宠物重力系统 - 修复拖拽掉落问题 =======================
+    // ======================= 北京时间 =======================
+    function updateBeijingTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        const timeElem = document.getElementById('liveBeijingTime');
+        if (timeElem) timeElem.innerHTML = `北京时间: ${timeStr}`;
+    }
+    setInterval(updateBeijingTime, 1000);
+    updateBeijingTime();
+    
+    // ======================= 天气（修复电脑端emoji显示问题） =======================
+    // 使用更可靠的emoji映射，确保在所有系统上显示
+    function getWeatherEmoji(condition) {
+        const cond = condition.toLowerCase();
+        // 精确匹配常见天气，确保显示标准emoji
+        if (cond.includes('晴') || cond.includes('sun')) return '☀️';
+        if (cond.includes('多云') || cond.includes('cloud')) return '⛅';
+        if (cond.includes('阴') || cond.includes('overcast')) return '☁️';
+        if (cond.includes('小雨') || cond.includes('light rain')) return '🌦️';
+        if (cond.includes('中雨') || cond.includes('moderate rain')) return '🌧️';
+        if (cond.includes('大雨') || cond.includes('heavy rain')) return '⛈️';
+        if (cond.includes('暴雨')) return '⛈️';
+        if (cond.includes('雷') || cond.includes('thunder')) return '⚡';
+        if (cond.includes('雪') || cond.includes('snow')) return '❄️';
+        if (cond.includes('雾') || cond.includes('fog')) return '🌫️';
+        return '🌡️';
+    }
+    
+    async function fetchWeather() {
+        const weatherElem = document.getElementById('weatherInfo');
+        if (!weatherElem) return;
+        try {
+            // 使用 wttr.in 获取天气，格式: 天气状况+温度
+            const response = await fetch('https://wttr.in/Beijing?format=%C+%t&lang=zh', { cache: 'no-cache' });
+            if (response.ok) {
+                let weatherText = await response.text();
+                weatherText = weatherText.trim().replace(/\s+/g, ' ');
+                // 提取天气状况和温度
+                let condition = weatherText;
+                let temp = '';
+                const tempMatch = weatherText.match(/[+-]?\d+°C/);
+                if (tempMatch) {
+                    temp = tempMatch[0];
+                    condition = weatherText.replace(temp, '').trim();
+                }
+                const emoji = getWeatherEmoji(condition);
+                // 确保温度emoji和文本之间有空格，显示清晰
+                weatherElem.innerHTML = `天气: ${emoji} ${condition} ${temp}`;
+            } else {
+                throw new Error('天气服务响应异常');
+            }
+        } catch (err) {
+            console.warn('天气获取失败', err);
+            weatherElem.innerHTML = '天气: 🌡️ 获取失败';
+        }
+    }
+    fetchWeather();
+    setInterval(fetchWeather, 30 * 60 * 1000);
+    
+    // ======================= 星座运势（纯文字） =======================
+    function getConstellationName(month, day) {
+        if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
+        if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座";
+        if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座";
+        if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座";
+        if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "双子座";
+        if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "巨蟹座";
+        if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座";
+        if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座";
+        if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "天秤座";
+        if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "天蝎座";
+        if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "射手座";
+        return "摩羯座";
+    }
+    function updateConstellation() {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const constellation = getConstellationName(month, day);
+        const constElem = document.getElementById('constellationInfo');
+        if (constElem) constElem.innerHTML = `今日时运: ${constellation}`;
+    }
+    updateConstellation();
+    
+    // ======================= 宠物系统（重力+初始位置+防掉落） =======================
     (function() {
         const pet = document.getElementById('petContainer');
         const petImage = document.getElementById('petImage');
@@ -532,7 +696,6 @@
         let isBouncing = false;
         let currentDirection = false;
         
-        // 获取所有可作为地面的元素
         function getPlatformElements() {
             const platforms = [];
             document.querySelectorAll('.window').forEach(el => platforms.push(el));
@@ -544,7 +707,6 @@
             return platforms;
         }
         
-        // 获取宠物正下方的地面Y坐标
         function getGroundY(currentLeft, currentTop, petWidth, petHeight) {
             let bestGroundY = null;
             let bestPlatformTop = Infinity;
@@ -554,20 +716,27 @@
             for (let platform of platforms) {
                 const rect = platform.getBoundingClientRect();
                 if (rect.width === 0 || rect.height === 0) continue;
-                
                 const petLeft = currentLeft;
                 const petRight = currentLeft + petWidth;
-                const overlapX = (petRight > rect.left + 3) && (petLeft < rect.right - 3);
-                
+                const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5);
                 if (overlapX) {
                     const platformTop = rect.top;
-                    if (platformTop >= petBottom - 10 && platformTop < bestPlatformTop) {
+                    if (platformTop >= petBottom - 12 && platformTop < bestPlatformTop) {
                         bestPlatformTop = platformTop;
                         bestGroundY = platformTop - petHeight;
                     }
                 }
             }
             return bestGroundY;
+        }
+        
+        function getMusicBarTop() {
+            const musicBar = document.getElementById('aplayer-container');
+            if (musicBar && musicBar.classList.contains('show')) {
+                const rect = musicBar.getBoundingClientRect();
+                if (rect.top > 0) return rect.top;
+            }
+            return window.innerHeight - pet.offsetHeight - 10;
         }
         
         function setDirection(isRight) {
@@ -594,7 +763,6 @@
             if (isDragging) return;
             stopPhysics();
             stopBounceLoop();
-            
             isFalling = true;
             velocityY = initialVelocity;
             
@@ -615,14 +783,33 @@
                 
                 velocityY += 0.55;
                 let newTop = currentTop + velocityY;
-                const groundY = getGroundY(currentLeft, newTop, petWidth, petHeight);
                 
-                if (groundY !== null && newTop + petHeight >= groundY + petHeight - 2) {
+                let groundY = getGroundY(currentLeft, newTop, petWidth, petHeight);
+                const musicTop = getMusicBarTop();
+                
+                if (musicTop && newTop + petHeight >= musicTop - 1 && newTop + petHeight <= musicTop + 15) {
+                    newTop = musicTop - petHeight;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 180);
+                    if (Math.abs(velocityY) > 0.8) {
+                        velocityY = -velocityY * 0.45;
+                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    } else {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    }
+                    return;
+                }
+                
+                if (groundY !== null && newTop + petHeight >= groundY + petHeight - 3) {
                     newTop = groundY;
                     pet.style.top = newTop + 'px';
                     pet.classList.add('landing');
                     setTimeout(() => pet.classList.remove('landing'), 180);
-                    
                     if (Math.abs(velocityY) > 0.8) {
                         velocityY = -velocityY * 0.45;
                         if (Math.abs(velocityY) < 0.5) velocityY = 0;
@@ -633,37 +820,36 @@
                         animFrameId = null;
                         startBounceLoop();
                     }
-                } 
-                else if (newTop + petHeight >= window.innerHeight - 10) {
-                    newTop = window.innerHeight - petHeight - 10;
+                    return;
+                }
+                
+                if (newTop + petHeight >= musicTop + 2) {
+                    newTop = musicTop - petHeight;
                     pet.style.top = newTop + 'px';
                     pet.classList.add('landing');
                     setTimeout(() => pet.classList.remove('landing'), 180);
-                    
-                    if (Math.abs(velocityY) > 0.8) {
-                        velocityY = -velocityY * 0.45;
-                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
-                        animFrameId = requestAnimationFrame(updateGravity);
-                    } else {
+                    velocityY = -velocityY * 0.3;
+                    if (Math.abs(velocityY) < 0.6) {
                         velocityY = 0;
                         isFalling = false;
                         animFrameId = null;
                         startBounceLoop();
+                    } else {
+                        animFrameId = requestAnimationFrame(updateGravity);
                     }
-                }
-                else {
-                    pet.style.top = newTop + 'px';
-                    animFrameId = requestAnimationFrame(updateGravity);
+                    return;
                 }
                 
+                pet.style.top = newTop + 'px';
                 const maxLeft = window.innerWidth - petWidth - 10;
                 const minLeft = 10;
                 let finalLeft = currentLeft;
                 if (currentLeft < minLeft) finalLeft = minLeft;
                 if (currentLeft > maxLeft) finalLeft = maxLeft;
                 if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px';
+                
+                animFrameId = requestAnimationFrame(updateGravity);
             }
-            
             animFrameId = requestAnimationFrame(updateGravity);
         }
         
@@ -729,8 +915,10 @@
             let newLeft = e.clientX - dragStartX;
             let newTop = e.clientY - dragStartY;
             const pw = pet.offsetWidth, ph = pet.offsetHeight;
+            const musicTop = getMusicBarTop();
+            const maxTop = musicTop - ph;
+            newTop = Math.min(maxTop, Math.max(5, newTop));
             newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft));
-            newTop = Math.min(window.innerHeight - ph - 10, Math.max(0, newTop));
             pet.style.left = newLeft + 'px';
             pet.style.top = newTop + 'px';
             if (Math.abs(e.clientX - lastMouseX) > 1) setDirection(e.clientX > lastMouseX);
@@ -741,8 +929,17 @@
             if (!isDragging) return;
             isDragging = false;
             pet.classList.remove('dragging');
-            // 拖拽结束后，立即从当前位置开始掉落！
-            startGravity(2);
+            const currentTop = parseFloat(pet.style.top);
+            const currentLeft = parseFloat(pet.style.left);
+            const ph = pet.offsetHeight;
+            const pw = pet.offsetWidth;
+            const groundY = getGroundY(currentLeft, currentTop, pw, ph);
+            const musicTop = getMusicBarTop();
+            if ((groundY !== null && currentTop + ph < groundY + ph - 5) || (currentTop + ph < musicTop - 5)) {
+                startGravity(1);
+            } else {
+                startGravity(0);
+            }
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         }
@@ -755,78 +952,64 @@
                 if (!isDragging && !isFalling && !isBouncing) {
                     const currentTop = parseFloat(pet.style.top);
                     const currentLeft = parseFloat(pet.style.left);
-                    const petHeight = pet.offsetHeight;
-                    const petWidth = pet.offsetWidth;
-                    const groundY = getGroundY(currentLeft, currentTop, petWidth, petHeight);
-                    if (groundY === null || currentTop + petHeight < groundY + petHeight - 10) {
+                    const ph = pet.offsetHeight;
+                    const pw = pet.offsetWidth;
+                    const groundY = getGroundY(currentLeft, currentTop, pw, ph);
+                    const musicTop = getMusicBarTop();
+                    if ((groundY !== null && currentTop + ph < groundY + ph - 8) || 
+                        (currentTop + ph < musicTop - 8 && groundY === null)) {
                         stopBounceLoop();
                         startGravity(1);
                     }
                 }
-            }, 50);
+            }, 60);
         }
         
-        function initPetPosition() {
-            const pw = pet.offsetWidth, ph = pet.offsetHeight;
-            let defaultLeft = window.innerWidth / 2 - pw / 2;
-            defaultLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, defaultLeft));
-            pet.style.left = defaultLeft + 'px';
-            
-            const setTop = () => {
-                const currentTop = 0;
-                const groundY = getGroundY(defaultLeft, currentTop, pw, ph);
-                if (groundY !== null && groundY > 0 && groundY < window.innerHeight) {
-                    pet.style.top = groundY + 'px';
-                } else {
-                    const music = document.getElementById('aplayer-container');
-                    if (music && music.getBoundingClientRect().top) {
-                        pet.style.top = (music.getBoundingClientRect().top - ph - 2) + 'px';
-                    } else {
-                        pet.style.top = (window.innerHeight - ph - 50) + 'px';
-                    }
-                }
-                setDirection(false);
-                velocityY = 0;
-                startGravity(0);
-            };
-            
-            const musicBar = document.getElementById('aplayer-container');
-            if (musicBar && musicBar.classList.contains('show')) {
-                setTop();
+        function setInitialPosition() {
+            const targetWindow = document.querySelectorAll('.window')[1];
+            if (targetWindow) {
+                const rect = targetWindow.getBoundingClientRect();
+                const petWidth = pet.offsetWidth;
+                const petHeight = pet.offsetHeight;
+                let leftPos = rect.left + (rect.width / 2) - petWidth / 2;
+                leftPos = Math.min(window.innerWidth - petWidth - 15, Math.max(15, leftPos));
+                let topPos = rect.top - petHeight - 5;
+                topPos = Math.max(10, topPos);
+                pet.style.left = leftPos + 'px';
+                pet.style.top = topPos + 'px';
             } else {
-                const obs = new MutationObserver(() => {
-                    if (musicBar && musicBar.classList.contains('show')) {
-                        setTop();
-                        obs.disconnect();
-                    }
-                });
-                if (musicBar) obs.observe(musicBar, { attributes: true, attributeFilter: ['class'] });
-                setTimeout(() => {
-                    if (!musicBar?.classList.contains('show')) setTop();
-                    obs.disconnect();
-                }, 2000);
+                pet.style.left = '70%';
+                pet.style.top = '60%';
             }
+            setDirection(false);
+            velocityY = 0;
+            stopPhysics();
+            stopBounceLoop();
+            setTimeout(() => {
+                if (!isDragging) startGravity(0.5);
+            }, 100);
         }
         
-        window.addEventListener('scroll', onScroll);
-        window.addEventListener('resize', () => {
-            if (!isDragging && !isFalling) {
-                startGravity(0);
-            }
-        });
+        function initPet() {
+            setInitialPosition();
+            window.addEventListener('resize', () => {
+                if (!isDragging && !isFalling) setInitialPosition();
+            });
+            window.addEventListener('scroll', onScroll);
+        }
         
         const overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
             const obs = new MutationObserver(() => {
                 if (overlay.classList.contains('hidden')) {
-                    initPetPosition();
+                    initPet();
                     obs.disconnect();
                 }
             });
             obs.observe(overlay, { attributes: true });
-            if (overlay.classList.contains('hidden')) initPetPosition();
+            if (overlay.classList.contains('hidden')) initPet();
         } else {
-            initPetPosition();
+            initPet();
         }
         
         pet.addEventListener('mousedown', onMouseDown);
@@ -843,7 +1026,6 @@
             fallbackCopy(text, btn);
         }
     }
-    
     function fallbackCopy(text, btn) {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -853,66 +1035,12 @@
         document.body.removeChild(ta);
         showCopied(btn);
     }
-    
     function showCopied(btn) {
         const orig = btn.innerHTML;
         btn.innerHTML = '复制成功';
         btn.classList.add('copied');
         setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
     }
-    
-    // 日历和时钟
-    let year = new Date().getFullYear(), month = new Date().getMonth();
-    function updateClock() {
-        const now = new Date();
-        const clock = document.getElementById('liveClock');
-        if (clock) clock.textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-        const dateElem = document.getElementById('liveDate');
-        if (dateElem) dateElem.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
-        const weekdayElem = document.getElementById('weekday');
-        if (weekdayElem) weekdayElem.textContent = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][now.getDay()];
-    }
-    
-    function renderCalendar() {
-        const first = new Date(year, month, 1);
-        let start = first.getDay();
-        start = start === 0 ? 6 : start - 1;
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const prevDays = new Date(year, month, 0).getDate();
-        const today = new Date();
-        const isCurr = today.getFullYear() === year && today.getMonth() === month;
-        const todayDate = today.getDate();
-        const monthElem = document.getElementById('monthYear');
-        if (monthElem) monthElem.textContent = `${year}年${month+1}月`;
-        const container = document.getElementById('calendarDays');
-        if (!container) return;
-        container.innerHTML = '';
-        for (let i = 0; i < 42; i++) {
-            let day, isOther = false;
-            if (i < start) {
-                day = prevDays - (start - i) + 1;
-                isOther = true;
-            } else if (i >= start + daysInMonth) {
-                day = i - (start + daysInMonth) + 1;
-                isOther = true;
-            } else {
-                day = i - start + 1;
-            }
-            const div = document.createElement('div');
-            div.className = 'calendar-day' + (isOther ? ' other-month' : '') + (!isOther && isCurr && day === todayDate ? ' today' : '');
-            div.textContent = day;
-            container.appendChild(div);
-        }
-    }
-    
-    const prevBtn = document.getElementById('prevMonth');
-    const nextBtn = document.getElementById('nextMonth');
-    if (prevBtn) prevBtn.addEventListener('click', () => { if (month === 0) { month = 11; year--; } else month--; renderCalendar(); });
-    if (nextBtn) nextBtn.addEventListener('click', () => { if (month === 11) { month = 0; year++; } else month++; renderCalendar(); });
-    
-    setInterval(updateClock, 1000);
-    updateClock();
-    renderCalendar();
     
     // 音乐播放器
     document.addEventListener('DOMContentLoaded', () => {
@@ -923,7 +1051,7 @@
             if (!ap && container) {
                 ap = new APlayer({
                     container: container,
-                    audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://mittewolf.netlify.app/music.png' }],
+                    audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }],
                     theme: '#ff6600',
                     autoplay: false,
                     loop: 'all',
@@ -945,7 +1073,24 @@
         }
     });
     
-    // 禁止图片拖拽
+    // 返回顶部
+    const backBtn = document.getElementById('backToTopBtn');
+    if (backBtn) {
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // 国际站占位
+    const internationalDiv = document.getElementById('internationalPlaceholder');
+    if (internationalDiv) {
+        internationalDiv.addEventListener('click', () => {
+            alert('国际站正在建设中，敬请期待～');
+        });
+    }
+    
+    // 禁止拖拽图片
     (function() {
         const container = document.getElementById('avatarContainer');
         if (container) {
