@@ -6,18 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MTの小空间</title>
     
-    <!-- 替换为MT的小空间.html中的图标链接 -->
     <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #a7b9ce;
             background-image: url('https://mittewolf.netlify.app/bg.png');
@@ -35,7 +29,6 @@
             overflow-x: hidden;
             position: relative;
         }
-        
         .title-avatar-wrapper {
             width: 1000px;
             max-width: 90%;
@@ -47,7 +40,6 @@
             gap: 20px;
             position: relative;
         }
-        
         .welcome-title {
             font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif;
             font-size: 44px;
@@ -62,7 +54,6 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-        
         .info-panel {
             display: flex;
             flex-direction: column;
@@ -79,24 +70,8 @@
             flex-shrink: 1;
             position: relative;
         }
-        .info-item {
-            font-size: 13px;
-            color: #1e3b6b;
-            text-align: right;
-            line-height: 1.45;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        .info-time {
-            font-size: 15px;
-            font-weight: bold;
-            font-family: monospace;
-            letter-spacing: 0.3px;
-            color: #0a2f4d;
-        }
-        
-        /* 城市切换按钮 */
+        .info-item { font-size: 13px; color: #1e3b6b; text-align: right; line-height: 1.45; text-shadow: 0 1px 0 rgba(255,255,255,0.3); font-weight: 500; white-space: nowrap; }
+        .info-time { font-size: 15px; font-weight: bold; font-family: monospace; letter-spacing: 0.3px; color: #0a2f4d; }
         .city-edit-btn {
             position: absolute;
             top: -8px;
@@ -112,11 +87,7 @@
             transition: opacity 0.2s;
             font-family: inherit;
         }
-        .city-edit-btn:hover {
-            opacity: 1;
-        }
-        
-        /* 城市选择弹窗 */
+        .city-edit-btn:hover { opacity: 1; }
         .city-modal {
             position: fixed;
             top: 0;
@@ -133,10 +104,7 @@
             opacity: 0;
             transition: 0.2s;
         }
-        .city-modal.show {
-            visibility: visible;
-            opacity: 1;
-        }
+        .city-modal.show { visibility: visible; opacity: 1; }
         .city-modal-content {
             background: rgba(232, 237, 244, 0.95);
             backdrop-filter: blur(10px);
@@ -148,122 +116,22 @@
             border: 1px solid #7f9db9;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .city-modal-content h3 {
-            color: #1e3b6b;
-            margin-bottom: 15px;
-        }
-        .city-modal-content input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 30px;
-            border: 1px solid #7f9db9;
-            background: rgba(255,255,255,0.8);
-            font-size: 16px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .city-modal-content button {
-            background: #ff6600;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 14px;
-            margin: 0 5px;
-        }
-        .city-modal-content button:hover {
-            background: #e05500;
-        }
-        
-        .avatar-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 120px;
-            height: 120px;
-            flex-shrink: 0;
-        }
-        
-        .avatar-circle {
-            width: 100%;
-            height: 100%;
-            background: #e8edf4;
-            border: 3px solid #fef7c0;
-            box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3);
-            overflow: hidden;
-            position: relative;
-            user-select: none;
-            border-radius: 20px;
-        }
-        
-        .avatar-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            pointer-events: none;
-            user-select: none;
-        }
-        
-        .avatar-protection {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 10;
-            cursor: default;
-            border-radius: 20px;
-        }
-        
-        .avatar-pendant {
-            display: none;
-        }
-        
-        .windows-container {
-            width: 1000px;
-            max-width: 90%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .window {
-            flex: 1;
-            min-width: 250px;
-            background: rgba(232, 237, 244, 0.5);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(127, 157, 185, 0.6);
-            border-radius: 12px;
-            padding: 20px 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .window:hover {
-            background: rgba(232, 237, 244, 0.95);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .window-title { 
-            color: #1e3b6b; 
-            font-size: 22px; 
-            font-weight: bold; 
-            margin-bottom: 15px; 
-            padding-bottom: 8px; 
-            border-bottom: 1px solid rgba(192, 203, 216, 0.8);
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-        
+        .city-modal-content h3 { color: #1e3b6b; margin-bottom: 15px; }
+        .city-modal-content input { width: 100%; padding: 10px; border-radius: 30px; border: 1px solid #7f9db9; background: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 15px; text-align: center; }
+        .city-modal-content button { background: #ff6600; color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; font-size: 14px; margin: 0 5px; }
+        .city-modal-content button:hover { background: #e05500; }
+        .avatar-wrapper { position: relative; display: inline-block; width: 120px; height: 120px; flex-shrink: 0; }
+        .avatar-circle { width: 100%; height: 100%; background: #e8edf4; border: 3px solid #fef7c0; box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; position: relative; user-select: none; border-radius: 20px; }
+        .avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; }
+        .avatar-protection { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 10; cursor: default; border-radius: 20px; }
+        .avatar-pendant { display: none; }
+        .windows-container { width: 1000px; max-width: 90%; margin: 0 auto; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .window { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
+        .window:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
+        .window-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); }
         .row { margin: 8px 0; padding: 4px 0; text-align: center; }
         .plat-link { color: #0066cc; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; padding: 3px 0; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3); }
         .plat-link:hover { color: #ff6600; text-decoration: underline; }
-        
         .contact-section { margin-top: 15px; border-top: 1px dashed rgba(179, 195, 212, 0.8); padding-top: 10px; }
         .contact-block { margin: 15px 0; padding: 8px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; text-align: center; backdrop-filter: blur(4px); }
         .contact-label { font-weight: bold; color: #1e3b6b; font-size: 16px; display: block; margin-bottom: 6px; }
@@ -272,7 +140,6 @@
         .copy-btn:hover { background: #f2f1e6; }
         .copy-btn:active { border-color: #404040 #fefefe #fefefe #404040; background: #ceceb6; }
         .copy-btn.copied { background: #28a745; color: white; }
-        
         .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
         .sticky-tag { background: #ff6600; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
         .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; }
@@ -280,253 +147,47 @@
         .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232, 237, 244, 0.8); border: 1px solid #7f9db9; border-radius: 6px; }
         .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
         .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
-        
-        .international-content {
-            text-align: center;
-            padding: 15px 5px;
-        }
-        .international-link-area {
-            margin: 20px 0;
-        }
-        .international-link-area .link-line {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1e3b6b;
-            background: rgba(240, 245, 250, 0.8);
-            padding: 8px 12px;
-            border-radius: 30px;
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid rgba(127, 157, 185, 0.6);
-        }
-        .international-link-area .link-line:hover {
-            background: #ff6600;
-            color: white;
-            transform: scale(1.02);
-        }
-        .international-divider {
-            width: 80%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent);
-            margin: 20px auto;
-        }
-        .waiting-text {
-            font-size: 18px;
-            color: #ff6600;
-            font-weight: bold;
-            letter-spacing: 2px;
-            background: rgba(255,255,240,0.6);
-            display: inline-block;
-            padding: 5px 20px;
-            border-radius: 40px;
-            margin-top: 10px;
-        }
-        
-        .character-content-compact {
-            text-align: left;
-            color: #1e3b6b;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-        .character-item-compact {
-            margin-bottom: 12px;
-            border-left: 3px solid #ff6600;
-            padding-left: 10px;
-        }
-        .character-label-compact {
-            font-weight: bold;
-            color: #1e3b6b;
-            font-size: 15px;
-            display: inline-block;
-            margin-right: 6px;
-        }
-        .story-text-compact {
-            background: rgba(240, 245, 250, 0.7);
-            padding: 8px 10px;
-            border-radius: 8px;
-            margin-top: 6px;
-            font-style: italic;
-            font-size: 13px;
-        }
-        .character-divider-compact {
-            height: 1px;
-            background: linear-gradient(to right, #c0cbd8, transparent);
-            margin: 12px 0;
-        }
-        
-        .new-three-cols {
-            width: 1000px;
-            max-width: 90%;
-            margin: 40px auto 0 auto;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .new-col {
-            flex: 1;
-            min-width: 250px;
-            background: rgba(232, 237, 244, 0.5);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(127, 157, 185, 0.6);
-            border-radius: 12px;
-            padding: 20px 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .new-col:hover {
-            background: rgba(232, 237, 244, 0.95);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .new-col-title {
-            color: #1e3b6b;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(192, 203, 216, 0.8);
-            text-align: center;
-            flex-shrink: 0;
-        }
-        
-        .image-display {
-            width: 100%;
-            flex: 1;
-            min-height: 280px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: 12px;
-            background: rgba(30, 59, 107, 0.2);
-        }
-        
-        .image-display img {
-            width: 100%;
-            height: 100%;
-            min-height: 280px;
-            object-fit: cover;
-            display: block;
-            border-radius: 12px;
-        }
-        
-        .pet-container {
-            position: fixed;
-            z-index: 2000;
-            cursor: grab;
-            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3));
-            user-select: none;
-        }
+        .international-content { text-align: center; padding: 15px 5px; }
+        .international-link-area { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; }
+        .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); }
+        .link-line:hover { background: #ff6600; color: white; transform: scale(1.02); }
+        .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
+        .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
+        .character-content-compact { text-align: left; color: #1e3b6b; font-size: 14px; line-height: 1.7; }
+        .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
+        .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
+        .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
+        .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
+        .new-three-cols { width: 1000px; max-width: 90%; margin: 40px auto 0 auto; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .new-col { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .new-col:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
+        .new-col-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; flex-shrink: 0; }
+        .image-display { width: 100%; flex: 1; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; background: rgba(30, 59, 107, 0.2); }
+        .image-display img { width: 100%; height: 100%; min-height: 280px; object-fit: cover; display: block; border-radius: 12px; }
+        .pet-container { position: fixed; z-index: 2000; cursor: grab; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3)); user-select: none; }
         .pet-container:active { cursor: grabbing; }
         .pet-image { width: 80px; height: auto; display: block; pointer-events: none; }
         .pet-container.dragging { cursor: grabbing; z-index: 2001; }
-        
         @keyframes bounceMoveRight { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(10deg); } 70% { transform: translateY(4px) rotate(4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         @keyframes bounceMoveLeft { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(-10deg); } 70% { transform: translateY(4px) rotate(-4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         @keyframes squash { 0% { transform: scaleY(1) scaleX(1); } 50% { transform: scaleY(0.7) scaleX(1.15); } 100% { transform: scaleY(1) scaleX(1); } }
         .pet-container.bounce-right { animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
         .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
         .pet-container.landing { animation: squash 0.2s ease-out; }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 48px;
-            height: 48px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transition: all 0.2s ease;
-            z-index: 1500;
-            cursor: pointer;
-            border: none;
-            backdrop-filter: blur(2px);
-        }
-        .back-to-top:hover {
-            background: #2563eb;
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
-        .back-to-top:active {
-            transform: scale(0.95);
-        }
-        
-        .welcome-gif {
-            margin-top: 20px;
-            max-width: 200px;
-            width: 80%;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        @media (max-width: 768px) { 
-            .avatar-wrapper { width: 100px; height: 100px; }
-            .info-panel { padding: 6px 12px; min-width: 200px; }
-            .info-time { font-size: 12px; }
-            .info-item { font-size: 11px; white-space: normal; }
-            .welcome-title { font-size: 32px; white-space: normal; }
-            .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; }
-            .welcome-gif { max-width: 150px; }
-        }
-        @media (max-width: 600px) { 
-            .pet-image { width: 60px; } 
-            .avatar-wrapper { width: 85px; height: 85px; } 
-            .welcome-title { font-size: 28px; } 
-            .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; }
-            .info-panel { padding: 5px 10px; min-width: 180px; }
-            .welcome-gif { max-width: 120px; }
-        }
-        
-        .welcome-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(6px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-            cursor: pointer;
-        }
+        .back-to-top { position: fixed; bottom: 80px; right: 20px; width: 48px; height: 48px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; z-index: 1500; cursor: pointer; border: none; backdrop-filter: blur(2px); }
+        .back-to-top:hover { background: #2563eb; transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+        .back-to-top:active { transform: scale(0.95); }
+        .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; }
+        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 200px; } .info-time { font-size: 12px; } .info-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .welcome-gif { max-width: 150px; } }
+        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; } .info-panel { padding: 5px 10px; min-width: 180px; } .welcome-gif { max-width: 120px; } }
+        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; cursor: pointer; }
         .welcome-card { background: transparent; max-width: 700px; width: 85%; text-align: center; padding: 30px 25px; animation: fadeInUp 0.6s ease-out; }
         .welcome-card h1 { font-size: 64px; color: #1e3b6b; margin-bottom: 20px; font-family: '仿宋', serif; }
         .welcome-card p { font-size: 24px; color: #1e3b6b; margin-bottom: 15px; }
         .click-hint { font-size: 18px; color: #1e3b6b; margin-top: 20px; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .welcome-overlay.hidden { opacity: 0; pointer-events: none; }
-        
-        #aplayer-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
+        #aplayer-container { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         #aplayer-container.show { opacity: 1; pointer-events: auto; }
         .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
         img { -webkit-user-drag: none; user-select: none; }
@@ -539,7 +200,6 @@
         <h1>Hey!</h1>
         <p>欢迎来到MT的小空间</p>
         <div class="click-hint">点击网页任意处浏览awa</div>
-        <!-- 完全替换为 MT的小空间.html 中的动图链接 -->
         <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
@@ -547,14 +207,13 @@
 <div class="title-avatar-wrapper">
     <div class="welcome-title">这里是MT的小空间uwu</div>
     <div class="info-panel" id="infoPanel">
-        <button class="city-edit-btn" id="cityEditBtn" title="点击修改城市">✎</button>
+        <button class="city-edit-btn" id="cityEditBtn" title="修改省份">✎</button>
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
         <div class="info-item" id="weatherInfo">🌡️ 天气: 定位中...</div>
         <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
     </div>
     <div class="avatar-wrapper">
         <div class="avatar-circle" id="avatarContainer">
-            <!-- 替换为 MT的小空间.html 中的头像链接 -->
             <img src="https://pic1.imgdb.cn/item/69db28e9e972b74d7846bac5.png" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
@@ -562,16 +221,12 @@
     </div>
 </div>
 
-<!-- 城市选择弹窗（保留原11.html的增强功能，与图片替换无关） -->
 <div id="cityModal" class="city-modal">
     <div class="city-modal-content">
-        <h3>✏️ 修改城市</h3>
-        <input type="text" id="cityInput" placeholder="输入城市名 (如: 山亭区, 上海, Tokyo)" value="">
-        <div>
-            <button id="modalConfirmBtn">确认</button>
-            <button id="modalCancelBtn">取消</button>
-        </div>
-        <p style="font-size: 12px; margin-top: 12px; color: #666;">支持中文/拼音/英文</p>
+        <h3>✏️ 修改省份/地区</h3>
+        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东, 广东, 江苏)" value="">
+        <div><button id="modalConfirmBtn">确认</button><button id="modalCancelBtn">取消</button></div>
+        <p style="font-size: 12px; margin-top: 12px; color: #666;">支持中文省份名，天气将显示中文</p>
     </div>
 </div>
 
@@ -582,114 +237,56 @@
         <div class="row"><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-link">今日头条</a></div>
         <div class="row"><a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-link">西瓜视频</a></div>
         <div class="row"><a href="https://my.furwall.net/author/18006" target="_blank" class="plat-link">Furwall</a></div>
-        
         <div class="contact-section">
-            <div class="contact-block">
-                <div class="contact-label">QQ：</div>
-                <div class="contact-value" id="qq-number">3877559035</div>
-                <button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button>
-            </div>
-            <div class="contact-block">
-                <div class="contact-label">Q群小窝：</div>
-                <div class="contact-value" id="qq-group">1026977461</div>
-                <button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button>
-            </div>
+            <div class="contact-block"><div class="contact-label">QQ：</div><div class="contact-value" id="qq-number">3877559035</div><button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button></div>
+            <div class="contact-block"><div class="contact-label">Q群小窝：</div><div class="contact-value" id="qq-group">1026977461</div><button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button></div>
         </div>
     </div>
-    
     <div class="window">
         <div class="window-title">✨ 设定介绍</div>
         <div class="character-content-compact">
-            <div class="character-item-compact">
-                <span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）
-            </div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">♂️ 性别：</span>男性
-            </div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。
-            </div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~
-            </div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。
-            </div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。
-            </div>
+            <div class="character-item-compact"><span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）</div>
+            <div class="character-item-compact"><span class="character-label-compact">♂️ 性别：</span>男性</div>
+            <div class="character-item-compact"><span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。</div>
+            <div class="character-item-compact"><span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~</div>
+            <div class="character-item-compact"><span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。</div>
+            <div class="character-item-compact"><span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。</div>
             <div class="character-divider-compact"></div>
-            <div class="character-item-compact">
-                <span class="character-label-compact">📖 故事背景：</span>
-                <div class="story-text-compact">
-                    很久以前，天狼星上划过一道非同寻常光芒的流星……<br>
-                    那颗流星后来逐渐化为了米特的雏形……<br>
-                    MT狼便由此诞生了。
-                </div>
-            </div>
+            <div class="character-item-compact"><span class="character-label-compact">📖 故事背景：</span><div class="story-text-compact">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div></div>
         </div>
     </div>
-    
     <div class="window">
         <div class="window-title">📢 公告：</div>
         <div class="announcement-content">
-            <div class="announcement-item">
-                <div class="announcement-title">
-                    <span class="sticky-tag">置顶</span> 我的经历视频
-                </div>
-                <div>如果想要了解我的经历可以点击下面访问视频页面：</div>
-                <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">
-                    https://www.bilibili.com/video/BV16fAiz8Eo3/
-                </a>
-            </div>
-            <div class="static-text">
-                虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。近期作者要期中了，记得给我加加油~
-            </div>
+            <div class="announcement-item"><div class="announcement-title"><span class="sticky-tag">置顶</span> 我的经历视频</div><div>如果想要了解我的经历可以点击下面访问视频页面：</div><a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a></div>
+            <div class="static-text">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。近期作者要期中了，记得给我加加油~</div>
         </div>
     </div>
 </div>
 
 <div class="new-three-cols">
-    <div class="new-col">
-        <div class="new-col-title"> </div>
-        <div class="image-display">
-            <!-- 替换为 MT的小空间.html 中左侧图片链接 -->
-            <img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false">
-        </div>
-    </div>
-    
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false"></div></div>
     <div class="new-col">
         <div class="new-col-title">🌐 国际站入口</div>
         <div class="international-content">
             <div class="international-link-area">
                 <div class="link-line" id="internationalPlaceholder">点击这里可以访问我de国际站</div>
+                <div class="link-line" id="watermelonSnapshotLink">🍉 我的西瓜快照</div>
             </div>
             <div class="international-divider"></div>
             <div class="waiting-text">正在施工</div>
         </div>
     </div>
-    
-    <div class="new-col">
-        <div class="new-col-title"> </div>
-        <div class="image-display">
-            <!-- 替换为 MT的小空间.html 中右侧图片链接 -->
-            <img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false">
-        </div>
-    </div>
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false"></div></div>
 </div>
 
-<div class="pet-container" id="petContainer">
-    <!-- 替换为 MT的小空间.html 中的宠物图片链接（原MT的小空间使用的宠物图片） -->
-    <img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false">
-</div>
-
+<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false"></div>
 <div id="aplayer-container"></div>
-
 <div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-    // ======================= 北京时间 =======================
+    // 北京时间
     function updateBeijingTime() {
         const now = new Date();
         const year = now.getFullYear();
@@ -705,108 +302,145 @@
     setInterval(updateBeijingTime, 1000);
     updateBeijingTime();
     
-    // ======================= 天气核心功能（保留原11.html的城市切换增强） =======================
-    let currentCity = null;
+    // ========= 天气: 自动检测IP省份，强制显示中文省份名，天气描述汉字 =========
+    let currentProvince = null;
+    
+    // 英文/拼音省份 -> 中文映射表（覆盖常见省份及wttr.in返回的英文名）
+    const provinceNameMap = {
+        "shandong": "山东", "beijing": "北京", "shanghai": "上海", "guangdong": "广东", "jiangsu": "江苏",
+        "zhejiang": "浙江", "sichuan": "四川", "hubei": "湖北", "hunan": "湖南", "henan": "河南",
+        "hebei": "河北", "anhui": "安徽", "fujian": "福建", "liaoning": "辽宁", "shanxi": "山西",
+        "shaanxi": "陕西", "yunnan": "云南", "guizhou": "贵州", "gansu": "甘肃", "heilongjiang": "黑龙江",
+        "jilin": "吉林", "jiangxi": "江西", "qinghai": "青海", "hainan": "海南", "ningxia": "宁夏",
+        "xinjiang": "新疆", "xizang": "西藏", "neimenggu": "内蒙古", "guangxi": "广西", "tianjin": "天津",
+        "chongqing": "重庆", "hongkong": "香港", "macau": "澳门", "taiwan": "台湾"
+    };
+    
+    function toChineseProvince(engName) {
+        if (!engName) return engName;
+        const lower = engName.toLowerCase().trim();
+        if (provinceNameMap[lower]) return provinceNameMap[lower];
+        // 如果已经是中文或无法映射，则原样返回（但通常英文会被映射）
+        return engName;
+    }
     
     function getWeatherEmoji(condition) {
         const cond = condition.toLowerCase();
-        if (cond.includes('晴') || cond.includes('sun')) return '☀️';
-        if (cond.includes('多云') || cond.includes('cloud')) return '⛅';
-        if (cond.includes('阴') || cond.includes('overcast')) return '☁️';
-        if (cond.includes('小雨') || cond.includes('light rain')) return '🌦️';
-        if (cond.includes('中雨') || cond.includes('moderate rain')) return '🌧️';
-        if (cond.includes('大雨') || cond.includes('heavy rain')) return '⛈️';
+        if (cond.includes('晴')) return '☀️';
+        if (cond.includes('多云')) return '⛅';
+        if (cond.includes('阴')) return '☁️';
+        if (cond.includes('小雨')) return '🌦️';
+        if (cond.includes('中雨')) return '🌧️';
+        if (cond.includes('大雨')) return '⛈️';
         if (cond.includes('暴雨')) return '⛈️';
-        if (cond.includes('雷') || cond.includes('thunder')) return '⚡';
-        if (cond.includes('雪') || cond.includes('snow')) return '❄️';
-        if (cond.includes('雾') || cond.includes('fog')) return '🌫️';
+        if (cond.includes('雷')) return '⚡';
+        if (cond.includes('雪')) return '❄️';
+        if (cond.includes('雾')) return '🌫️';
         return '🌡️';
     }
     
-    async function fetchWeatherByCity(cityName) {
+    async function fetchWeatherByProvince(provinceName) {
         const weatherElem = document.getElementById('weatherInfo');
-        if (!weatherElem) return;
-        if (!cityName) {
-            weatherElem.innerHTML = '天气: 🌡 请输入城市名';
-            return;
+        if (!weatherElem) return false;
+        if (!provinceName) {
+            weatherElem.innerHTML = '天气: 🌡 未定位省份';
+            return false;
         }
         try {
-            const encodedCity = encodeURIComponent(cityName);
-            const weatherRes = await fetch(`https://wttr.in/${encodedCity}?format=%C+%t&lang=zh`, { cache: 'no-cache' });
-            if (weatherRes.ok) {
-                let weatherText = await weatherRes.text();
-                weatherText = weatherText.trim().replace(/\s+/g, ' ');
-                if (weatherText.includes('Unknown') || weatherText.includes('location') || weatherText === '') {
-                    throw new Error('城市不存在');
-                }
-                let condition = weatherText;
+            // 使用省份名（中文或英文）请求，wttr.in 支持中文拼音自动转英文
+            const encoded = encodeURIComponent(provinceName);
+            const res = await fetch(`https://wttr.in/${encoded}?format=%C+%t&lang=zh`, { cache: 'no-cache' });
+            if (res.ok) {
+                let text = await res.text();
+                text = text.trim().replace(/\s+/g, ' ');
+                if (text.includes('Unknown') || text.includes('location') || text === '') throw new Error('无数据');
+                
+                let condition = text;
                 let temp = '';
-                const tempMatch = weatherText.match(/[+-]?\d+°C/);
+                const tempMatch = text.match(/[+-]?\d+°C/);
                 if (tempMatch) {
                     temp = tempMatch[0];
-                    condition = weatherText.replace(temp, '').trim();
+                    condition = text.replace(temp, '').trim();
                 }
+                // 注意：wttr.in 返回的地点名称可能包含在 condition 中？实际格式是 "地点 天气状况 温度"
+                // 但根据测试，当用省份查询时，返回的文本开头可能是英文省份名+天气+温度，例如 "Shandong 晴 +15°C"
+                // 我们需要提取出实际的省份英文名并转换为中文显示
+                let displayLocation = provinceName; // 默认显示用户传入的省份名（可能是中文）
+                // 如果 condition 开头包含英文省份名，则提取并转换，让显示更准确
+                const lowerText = text.toLowerCase();
+                for (let [eng, chn] of Object.entries(provinceNameMap)) {
+                    if (lowerText.startsWith(eng)) {
+                        displayLocation = chn;
+                        // 从 condition 中移除省份名部分，保留天气描述
+                        const afterLoc = text.substring(eng.length).trim();
+                        if (afterLoc) condition = afterLoc;
+                        break;
+                    }
+                }
+                // 确保 displayLocation 是中文（用户可能直接输入中文）
+                displayLocation = toChineseProvince(displayLocation);
+                
                 const emoji = getWeatherEmoji(condition);
-                weatherElem.innerHTML = `天气: ${emoji} ${cityName} ${condition} ${temp}`;
+                weatherElem.innerHTML = `天气: ${emoji} ${displayLocation} ${condition} ${temp}`;
                 return true;
-            } else {
-                throw new Error('天气查询失败');
-            }
+            } else throw new Error('请求失败');
         } catch (err) {
-            console.warn('天气查询失败:', cityName, err);
-            weatherElem.innerHTML = `天气:  未找到城市 "${cityName}"，点击✎修改`;
+            console.warn('天气查询失败', provinceName, err);
+            weatherElem.innerHTML = `天气: ⚠️ 未找到“${provinceName}”，点击✎修改省份`;
             return false;
         }
     }
     
-    async function getCityByIP() {
-        const ipServices = [
-            { url: 'https://ipapi.co/json/', parser: (data) => data.city || data.region || 'Beijing' },
-            { url: 'https://ip-api.com/json/?fields=city', parser: (data) => data.city || 'Beijing' },
-            { url: 'https://api.ip.sb/geoip', parser: (data) => data.city || 'Beijing' }
+    // 通过IP获取省份（省级行政区，返回中文名）
+    async function getProvinceByIP() {
+        const services = [
+            { url: 'https://ipapi.co/json/', parser: (data) => { let region = data.region || ''; if (region && region !== '') return toChineseProvince(region); else return '北京'; } },
+            { url: 'https://ip-api.com/json/?fields=region,country', parser: (data) => { if (data.country === 'CN') return toChineseProvince(data.region || '北京'); else return '北京'; } },
+            { url: 'https://api.ip.sb/geoip', parser: (data) => { if (data.country_code === 'CN') return toChineseProvince(data.region || '北京'); else return '北京'; } }
         ];
-        for (const service of ipServices) {
+        for (const svc of services) {
             try {
-                const res = await fetch(service.url, { cache: 'no-cache' });
-                if (res.ok) {
-                    const data = await res.json();
-                    let city = service.parser(data);
-                    if (city && city !== '' && city !== 'null') return city;
+                const resp = await fetch(svc.url, { cache: 'no-cache' });
+                if (resp.ok) {
+                    const json = await resp.json();
+                    let province = svc.parser(json);
+                    if (province && province !== '' && province !== 'null') return province;
                 }
-            } catch (e) {}
+            } catch(e) {}
         }
         return null;
     }
     
-    async function initWeather() {
-        const savedCity = localStorage.getItem('mt_weather_city');
-        if (savedCity && savedCity !== '') {
-            currentCity = savedCity;
-            await fetchWeatherByCity(currentCity);
+    async function initWeatherProvince() {
+        const saved = localStorage.getItem('mt_weather_province');
+        if (saved && saved.trim() !== '') {
+            currentProvince = saved;
+            await fetchWeatherByProvince(currentProvince);
         } else {
-            const ipCity = await getCityByIP();
-            if (ipCity) {
-                currentCity = ipCity;
-                localStorage.setItem('mt_weather_city', currentCity);
-                await fetchWeatherByCity(currentCity);
+            const ipProvince = await getProvinceByIP();
+            if (ipProvince) {
+                currentProvince = ipProvince;
+                localStorage.setItem('mt_weather_province', currentProvince);
+                await fetchWeatherByProvince(currentProvince);
             } else {
-                currentCity = '北京';
-                localStorage.setItem('mt_weather_city', currentCity);
-                await fetchWeatherByCity(currentCity);
+                currentProvince = '山东';
+                localStorage.setItem('mt_weather_province', currentProvince);
+                await fetchWeatherByProvince(currentProvince);
             }
         }
     }
     
-    async function setCustomCity(cityName) {
-        if (!cityName || cityName.trim() === '') return false;
-        const success = await fetchWeatherByCity(cityName);
+    async function setProvince(provinceName) {
+        if (!provinceName || provinceName.trim() === '') return false;
+        const success = await fetchWeatherByProvince(provinceName);
         if (success) {
-            currentCity = cityName;
-            localStorage.setItem('mt_weather_city', currentCity);
+            currentProvince = provinceName;
+            localStorage.setItem('mt_weather_province', currentProvince);
         }
         return success;
     }
     
+    // 省份弹窗
     const modal = document.getElementById('cityModal');
     const cityInput = document.getElementById('cityInput');
     const modalConfirm = document.getElementById('modalConfirmBtn');
@@ -814,21 +448,21 @@
     const cityEditBtn = document.getElementById('cityEditBtn');
     
     cityEditBtn.addEventListener('click', () => {
-        cityInput.value = currentCity || '';
+        cityInput.value = currentProvince || '';
         modal.classList.add('show');
     });
     modalConfirm.addEventListener('click', async () => {
-        const newCity = cityInput.value.trim();
-        if (newCity) await setCustomCity(newCity);
+        const newProv = cityInput.value.trim();
+        if (newProv) await setProvince(newProv);
         modal.classList.remove('show');
     });
     modalCancel.addEventListener('click', () => { modal.classList.remove('show'); });
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
     
-    initWeather();
-    setInterval(() => { if (currentCity) fetchWeatherByCity(currentCity); }, 30 * 60 * 1000);
+    initWeatherProvince();
+    setInterval(() => { if (currentProvince) fetchWeatherByProvince(currentProvince); }, 30 * 60 * 1000);
     
-    // ======================= 星座运势 =======================
+    // 星座运势
     function getConstellationName(month, day) {
         if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
         if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座";
@@ -853,7 +487,7 @@
     }
     updateConstellation();
     
-    // 复制功能（保留）
+    // 复制
     function copyText(id, btn) {
         const text = document.getElementById(id).innerText;
         if (navigator.clipboard) {
@@ -878,7 +512,7 @@
         setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
     }
     
-    // 音乐播放器（背景音乐链接沿用 MT的小空间.html 的音乐地址，但保留原结构）
+    // 音乐播放器
     document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('welcomeOverlay');
         const container = document.getElementById('aplayer-container');
@@ -904,18 +538,18 @@
                     initPlayer();
                 }
             });
-        } else {
-            initPlayer();
-        }
+        } else { initPlayer(); }
     });
     
     // 返回顶部
     const backBtn = document.getElementById('backToTopBtn');
     if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     
-    // 国际站占位
+    // 国际站占位 & 西瓜快照链接
     const internationalDiv = document.getElementById('internationalPlaceholder');
     if (internationalDiv) internationalDiv.addEventListener('click', () => { alert('网站正在建设中，敬请期待～'); });
+    const snapshotLink = document.getElementById('watermelonSnapshotLink');
+    if (snapshotLink) snapshotLink.addEventListener('click', () => { alert('我的西瓜快照 · 施工中，稍后开放~'); });
     
     // 禁止拖拽图片
     (function() {
@@ -931,7 +565,7 @@
         });
     })();
 </script>
-<!-- 宠物系统脚本（完整从 MT的小空间.html 移植并整合，保持完全一致且不影响图片替换） -->
+<!-- 宠物系统脚本（完整保留） -->
 <script>
     (function() {
         const pet = document.getElementById('petContainer');
