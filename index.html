@@ -236,8 +236,8 @@
     <div class="welcome-title">这里是MT的小空间uwu</div>
     <div class="info-panel" id="infoPanel">
         <div class="city-edit-wrapper">
-            <span class="city-edit-label">🌍 修改天气城市</span>
-            <button class="city-edit-btn" id="cityEditBtn" title="修改天气城市">✎ 修改</button>
+            <span class="city-edit-label">🌍 修改省份</span>
+            <button class="city-edit-btn" id="cityEditBtn" title="修改省份">✎ 修改</button>
         </div>
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
         <div class="info-item" id="weatherInfo">🌡️ 天气: 定位中...</div>
@@ -253,9 +253,9 @@
 
 <div id="cityModal" class="city-modal">
     <div class="city-modal-content">
-        <h3>✏️ 修改天气城市</h3>
-        <input type="text" id="cityInput" placeholder="输入城市名 (如: 山亭, 北京, 上海)" value="">
-        <div class="hint-text">💡 支持全国区县级地名，如：山亭、枣庄、市中区等</div>
+        <h3>✏️ 修改省份</h3>
+        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东, 北京, 广东)" value="">
+        <div class="hint-text">💡 支持：山东、北京、上海、广东、江苏、浙江等省份</div>
         <div>
             <button id="modalConfirmBtn">确认修改</button>
             <button id="modalCancelBtn" class="cancel-btn">取消</button>
@@ -335,78 +335,21 @@
     setInterval(updateBeijingTime, 1000);
     updateBeijingTime();
     
-    // ================= 城市代码映射表（中国天气网专用）=================
-    // 中国天气网使用9位数字代码，支持全国区县级地名
-    // 来源：weather.com.cn 官方接口 [citation:4]
-    const cityCodeMap = {
-        // 山东省枣庄市及下属区县
-        "枣庄": "101121401", "市中区": "101121401", "薛城": "101121402", "峄城": "101121403", 
-        "台儿庄": "101121404", "山亭": "101121405", "山亭区": "101121405", "滕州": "101121406",
-        // 北京
-        "北京": "101010100", "朝阳": "101010300", "海淀": "101010200", "丰台": "101010900",
-        // 上海
-        "上海": "101020100", "浦东": "101020300",
-        // 广东省
-        "广州": "101280101", "深圳": "101280601", "佛山": "101280800", "东莞": "101281601",
-        // 江苏省
-        "南京": "101190101", "苏州": "101190401", "无锡": "101190201",
-        // 浙江省
-        "杭州": "101210101", "宁波": "101210401",
-        // 四川省
-        "成都": "101270101",
-        // 湖北省
-        "武汉": "101200101",
-        // 湖南省
-        "长沙": "101250101",
-        // 河南省
-        "郑州": "101180101",
-        // 河北省
-        "石家庄": "101090101",
-        // 安徽省
-        "合肥": "101220101",
-        // 福建省
-        "福州": "101230101", "厦门": "101230201",
-        // 天津市
-        "天津": "101030100",
-        // 重庆市
-        "重庆": "101040100",
-        // 陕西省
-        "西安": "101110101",
-        // 辽宁省
-        "沈阳": "101070101", "大连": "101070201",
-        // 黑龙江省
-        "哈尔滨": "101050101",
-        // 吉林省
-        "长春": "101060101",
-        // 江西省
-        "南昌": "101240101",
-        // 广西
-        "南宁": "101300101",
-        // 云南省
-        "昆明": "101290101",
-        // 贵州省
-        "贵阳": "101260101",
-        // 山西省
-        "太原": "101100101",
-        // 内蒙古
-        "呼和浩特": "101080101",
-        // 新疆
-        "乌鲁木齐": "101130101",
-        // 甘肃省
-        "兰州": "101160101",
-        // 宁夏
-        "银川": "101170101",
-        // 青海
-        "西宁": "101150101",
-        // 西藏
-        "拉萨": "101140101",
-        // 海南省
-        "海口": "101310101", "三亚": "101310201",
-        // 香港澳门台湾
-        "香港": "101320101", "澳门": "101330101", "台北": "101340101"
+    // ================= 省份城市代码映射（中国天气网）=================
+    // 精确到省/直辖市，数据稳定，无需任何密钥
+    const provinceCodeMap = {
+        "北京": "101010100", "上海": "101020100", "天津": "101030100", "重庆": "101040100",
+        "山东": "101120101", "江苏": "101190101", "浙江": "101210101", "广东": "101280101",
+        "福建": "101230101", "安徽": "101220101", "江西": "101240101", "河南": "101180101",
+        "湖北": "101200101", "湖南": "101250101", "四川": "101270101", "贵州": "101260101",
+        "云南": "101290101", "陕西": "101110101", "甘肃": "101160101", "青海": "101150101",
+        "海南": "101310101", "黑龙江": "101050101", "吉林": "101060101", "辽宁": "101070101",
+        "山西": "101100101", "河北": "101090101", "内蒙古": "101080101", "广西": "101300101",
+        "宁夏": "101170101", "新疆": "101130101", "西藏": "101140101", "香港": "101320101",
+        "澳门": "101330101", "台湾": "101340101"
     };
     
-    let currentCity = "";
+    let currentProvince = "";
     let weatherRefreshInterval = null;
     const weatherElem = document.getElementById('weatherInfo');
     
@@ -426,27 +369,34 @@
         return "🌡️";
     }
     
-    // ========== API 1: 中国天气网官方接口（免Key，最权威）==========
-    // 参考：https://blog.csdn.net/weixin_29322553/article/details/158514377 [citation:4]
-    async function fetchWeatherChina(cityName) {
-        try {
-            // 获取城市代码
-            let cityCode = cityCodeMap[cityName];
-            if (!cityCode) {
-                // 模糊匹配
-                for (let [key, code] of Object.entries(cityCodeMap)) {
-                    if (cityName.includes(key) || key.includes(cityName)) {
-                        cityCode = code;
-                        break;
-                    }
+    // ========== 中国天气网省级接口（完全免费，无需密钥）==========
+    async function fetchWeatherByProvince(provinceName) {
+        if (!weatherElem) return false;
+        if (!provinceName || provinceName.trim() === "") {
+            weatherElem.innerHTML = '🌡️ 天气: 请输入省份';
+            return false;
+        }
+        
+        // 获取省份代码
+        let provinceCode = provinceCodeMap[provinceName];
+        if (!provinceCode) {
+            // 模糊匹配
+            for (let [key, code] of Object.entries(provinceCodeMap)) {
+                if (provinceName.includes(key) || key.includes(provinceName)) {
+                    provinceCode = code;
+                    provinceName = key;
+                    break;
                 }
             }
-            if (!cityCode) {
-                throw new Error(`未找到城市代码: ${cityName}`);
-            }
-            
-            // 调用中国天气网实况接口
-            const url = `https://www.weather.com.cn/data/sk/${cityCode}.html`;
+        }
+        if (!provinceCode) {
+            weatherElem.innerHTML = `天气: ⚠️ 未找到“${provinceName}”，可尝试“山东”、“北京”等省份`;
+            return false;
+        }
+        
+        try {
+            // 中国天气网实况接口（省级数据）
+            const url = `https://www.weather.com.cn/data/sk/${provinceCode}.html`;
             const response = await fetch(url, { cache: 'no-cache' });
             
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -455,7 +405,7 @@
             
             if (data && data.weatherinfo) {
                 const info = data.weatherinfo;
-                const city = info.city || cityName;
+                const city = info.city || provinceName;
                 const weather = info.weather || "未知";
                 const temp = info.temp || "";
                 const WD = info.WD || "";      // 风向
@@ -463,7 +413,8 @@
                 const SD = info.SD || "";      // 湿度
                 
                 const emoji = getWeatherEmoji(weather);
-                let displayText = `天气: ${emoji} ${city} ${weather}`;
+                let displayText = `天气: ${emoji} ${city}`;
+                if (weather) displayText += ` ${weather}`;
                 if (temp) displayText += ` ${temp}°C`;
                 if (SD) displayText += ` 💧${SD}`;
                 if (WD) displayText += ` ${WD}`;
@@ -475,149 +426,67 @@
             throw new Error("数据格式错误");
         } catch (err) {
             console.warn("中国天气网查询失败:", err.message);
+            weatherElem.innerHTML = `天气: ⚠️ 查询失败，可尝试切换省份`;
             return false;
         }
     }
     
-    // ========== API 2: Open-Meteo 全球天气接口（免Key，无限制）==========
-    // 参考：https://apify.com/taroyamada/weather-forecast-fetcher [citation:5]
-    // Open-Meteo 特性：无需API密钥、无请求限制、整合ECMWF/GFS全球模型 [citation:8]
-    async function fetchWeatherOpenMeteo(cityName) {
+    // ========== IP定位获取省份（免Key）==========
+    async function getProvinceByIP() {
         try {
-            // 先通过地理编码获取坐标（Open-Meteo 免费地理编码服务）
-            const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=zh&format=json`;
-            const geoResp = await fetch(geoUrl, { cache: 'no-cache' });
-            
-            if (!geoResp.ok) throw new Error("地理编码失败");
-            const geoData = await geoResp.json();
-            
-            if (!geoData.results || geoData.results.length === 0) {
-                throw new Error("未找到该城市");
-            }
-            
-            const location = geoData.results[0];
-            const lat = location.latitude;
-            const lon = location.longitude;
-            const displayName = location.name + (location.admin1 ? `, ${location.admin1}` : "");
-            
-            // 获取当前天气（Open-Meteo 完全免费，无需任何密钥）[citation:5][citation:7]
-            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`;
-            const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' });
-            
-            if (!weatherResp.ok) throw new Error("天气查询失败");
-            const weatherData = await weatherResp.json();
-            
-            if (!weatherData.current_weather) throw new Error("无天气数据");
-            
-            const current = weatherData.current_weather;
-            const temp = current.temperature;
-            const windSpeed = current.windspeed;
-            const weatherCode = current.weather_code;
-            
-            // WMO天气代码转中文描述 [citation:5]
-            const weatherDescMap = {
-                0: "晴天", 1: "晴", 2: "局部多云", 3: "多云", 45: "雾", 48: "雾",
-                51: "小雨", 53: "中雨", 55: "大雨", 56: "冻雨", 57: "冻雨",
-                61: "小雨", 63: "中雨", 65: "大雨", 66: "冻雨", 67: "冻雨",
-                71: "小雪", 73: "中雪", 75: "大雪", 77: "雪粒", 80: "阵雨", 
-                81: "阵雨", 82: "强阵雨", 85: "阵雪", 86: "强阵雪", 95: "雷雨", 
-                96: "雷雨", 99: "强雷雨"
-            };
-            const weatherText = weatherDescMap[weatherCode] || "晴";
-            const emoji = getWeatherEmoji(weatherText);
-            
-            let displayText = `天气: ${emoji} ${displayName} ${weatherText}`;
-            if (temp !== undefined) displayText += ` ${Math.round(temp)}°C`;
-            if (windSpeed !== undefined) displayText += ` 💨${windSpeed}km/h`;
-            
-            // 尝试获取湿度（可选字段）
-            if (weatherData.current_weather.relative_humidity_2m !== undefined) {
-                displayText += ` 💧${weatherData.current_weather.relative_humidity_2m}%`;
-            }
-            
-            weatherElem.innerHTML = displayText;
-            return true;
-        } catch (err) {
-            console.warn("Open-Meteo查询失败:", err.message);
-            return false;
-        }
-    }
-    
-    // ========== 主天气获取函数（自动切换备用）==========
-    async function fetchWeatherWithFallback(cityName) {
-        if (!weatherElem) return false;
-        if (!cityName || cityName.trim() === "") {
-            weatherElem.innerHTML = '🌡️ 天气: 请输入城市名';
-            return false;
-        }
-        
-        const trimmedName = cityName.trim();
-        weatherElem.innerHTML = `天气: 🔄 查询“${trimmedName}”天气中...`;
-        
-        // API列表，按优先级排序（中国天气网优先，因为支持区县级地名更准确）
-        const apis = [
-            { name: "中国天气网", fn: fetchWeatherChina },
-            { name: "Open-Meteo", fn: fetchWeatherOpenMeteo }
-        ];
-        
-        for (const api of apis) {
-            console.log(`尝试 ${api.name} API...`);
-            const success = await api.fn(trimmedName);
-            if (success) {
-                console.log(`${api.name} 查询成功`);
-                return true;
-            }
-        }
-        
-        weatherElem.innerHTML = `天气: ⚠️ 未能获取“${trimmedName}”天气，可尝试输入“枣庄”或“山亭区”`;
-        return false;
-    }
-    
-    // ========== IP定位获取城市（免Key）==========
-    async function getCityByIP() {
-        try {
-            // 使用 ip-api.com 免费定位（无需Key，国内可用）
-            const resp = await fetch('https://ip-api.com/json/?fields=city,region,countryCode', { cache: 'no-cache' });
+            // 使用 ip-api.com 免费定位，获取省份信息
+            const resp = await fetch('https://ip-api.com/json/?fields=region,countryCode', { cache: 'no-cache' });
             if (resp.ok) {
                 const data = await resp.json();
-                if (data.countryCode === 'CN' && data.city) {
-                    return data.city;
+                if (data.countryCode === 'CN' && data.region) {
+                    // 返回省份名（如"Shandong"转成"山东"）
+                    const provinceMap = {
+                        "Beijing": "北京", "Shanghai": "上海", "Tianjin": "天津", "Chongqing": "重庆",
+                        "Shandong": "山东", "Jiangsu": "江苏", "Zhejiang": "浙江", "Guangdong": "广东",
+                        "Fujian": "福建", "Anhui": "安徽", "Jiangxi": "江西", "Henan": "河南",
+                        "Hubei": "湖北", "Hunan": "湖南", "Sichuan": "四川", "Guizhou": "贵州",
+                        "Yunnan": "云南", "Shaanxi": "陕西", "Gansu": "甘肃", "Qinghai": "青海",
+                        "Hainan": "海南", "Heilongjiang": "黑龙江", "Jilin": "吉林", "Liaoning": "辽宁",
+                        "Shanxi": "山西", "Hebei": "河北", "Neimenggu": "内蒙古", "Guangxi": "广西",
+                        "Ningxia": "宁夏", "Xinjiang": "新疆", "Xizang": "西藏"
+                    };
+                    return provinceMap[data.region] || data.region || "山东";
                 }
             }
         } catch (e) {
             console.warn("IP定位失败:", e);
         }
-        return "北京";
+        return "山东";
     }
     
     // ========== 初始化天气 ==========
     async function initWeather() {
-        const saved = localStorage.getItem('mt_weather_city');
+        const saved = localStorage.getItem('mt_weather_province');
         if (saved && saved.trim() !== "") {
-            currentCity = saved;
-            await fetchWeatherWithFallback(currentCity);
+            currentProvince = saved;
+            await fetchWeatherByProvince(currentProvince);
         } else {
-            const ipCity = await getCityByIP();
-            currentCity = ipCity || "北京";
-            localStorage.setItem('mt_weather_city', currentCity);
-            await fetchWeatherWithFallback(currentCity);
+            const ipProvince = await getProvinceByIP();
+            currentProvince = ipProvince || "山东";
+            localStorage.setItem('mt_weather_province', currentProvince);
+            await fetchWeatherByProvince(currentProvince);
         }
         
         // 每30分钟自动刷新
         if (weatherRefreshInterval) clearInterval(weatherRefreshInterval);
         weatherRefreshInterval = setInterval(() => {
-            if (currentCity) fetchWeatherWithFallback(currentCity);
+            if (currentProvince) fetchWeatherByProvince(currentProvince);
         }, 30 * 60 * 1000);
     }
     
-    // ========== 手动设置城市 ==========
-    async function setCity(cityName) {
-        if (!cityName || cityName.trim() === "") return false;
-        const trimmed = cityName.trim();
-        const success = await fetchWeatherWithFallback(trimmed);
+    // ========== 手动设置省份 ==========
+    async function setProvince(provinceName) {
+        if (!provinceName || provinceName.trim() === "") return false;
+        const trimmed = provinceName.trim();
+        const success = await fetchWeatherByProvince(trimmed);
         if (success) {
-            currentCity = trimmed;
-            localStorage.setItem('mt_weather_city', currentCity);
+            currentProvince = trimmed;
+            localStorage.setItem('mt_weather_province', currentProvince);
         }
         return success;
     }
@@ -630,14 +499,14 @@
     const cityEditBtn = document.getElementById('cityEditBtn');
     
     cityEditBtn.addEventListener('click', () => {
-        cityInput.value = currentCity || '';
+        cityInput.value = currentProvince || '';
         modal.classList.add('show');
     });
     
     modalConfirm.addEventListener('click', async () => {
-        const newCity = cityInput.value.trim();
-        if (newCity) {
-            await setCity(newCity);
+        const newProvince = cityInput.value.trim();
+        if (newProvince) {
+            await setProvince(newProvince);
         }
         modal.classList.remove('show');
     });
