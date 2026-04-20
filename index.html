@@ -13,7 +13,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: #a7b9ce;
+            background: #a7b9ce;
             background-image: url('https://mittewolf.netlify.app/bg.png');
             background-repeat: no-repeat;
             background-position: center center;
@@ -66,28 +66,39 @@
             border-radius: 20px;
             border: 1px solid rgba(127, 157, 185, 0.6);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 260px;
+            min-width: 280px;
             flex-shrink: 1;
             position: relative;
         }
         .info-item { font-size: 13px; color: #1e3b6b; text-align: right; line-height: 1.45; text-shadow: 0 1px 0 rgba(255,255,255,0.3); font-weight: 500; white-space: nowrap; }
         .info-time { font-size: 15px; font-weight: bold; font-family: monospace; letter-spacing: 0.3px; color: #0a2f4d; }
+        .city-edit-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .city-edit-label {
+            font-size: 11px;
+            color: #1e3b6b;
+            background: rgba(255,255,255,0.6);
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
         .city-edit-btn {
-            position: absolute;
-            top: -8px;
-            right: -8px;
             background: #ff6600;
             color: white;
             border: none;
             border-radius: 20px;
-            padding: 2px 8px;
-            font-size: 10px;
+            padding: 2px 10px;
+            font-size: 11px;
             cursor: pointer;
-            opacity: 0.7;
             transition: opacity 0.2s;
             font-family: inherit;
         }
-        .city-edit-btn:hover { opacity: 1; }
+        .city-edit-btn:hover { opacity: 0.85; }
         .city-modal {
             position: fixed;
             top: 0;
@@ -110,21 +121,38 @@
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
-            width: 300px;
+            width: 340px;
             max-width: 85%;
             text-align: center;
             border: 1px solid #7f9db9;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .city-modal-content h3 { color: #1e3b6b; margin-bottom: 15px; }
-        .city-modal-content input { width: 100%; padding: 10px; border-radius: 30px; border: 1px solid #7f9db9; background: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 15px; text-align: center; }
+        .city-modal-content input { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 30px; 
+            border: 1px solid #7f9db9; 
+            background: rgba(255,255,255,0.9); 
+            font-size: 16px; 
+            margin-bottom: 10px; 
+            text-align: center;
+            font-family: inherit;
+        }
+        .city-modal-content .hint-text {
+            font-size: 12px;
+            color: #ff6600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
         .city-modal-content button { background: #ff6600; color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; font-size: 14px; margin: 0 5px; }
         .city-modal-content button:hover { background: #e05500; }
+        .city-modal-content button.cancel-btn { background: #999; }
+        .city-modal-content button.cancel-btn:hover { background: #777; }
         .avatar-wrapper { position: relative; display: inline-block; width: 120px; height: 120px; flex-shrink: 0; }
         .avatar-circle { width: 100%; height: 100%; background: #e8edf4; border: 3px solid #fef7c0; box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; position: relative; user-select: none; border-radius: 20px; }
         .avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; }
         .avatar-protection { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 10; cursor: default; border-radius: 20px; }
-        .avatar-pendant { display: none; }
         .windows-container { width: 1000px; max-width: 90%; margin: 0 auto; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .window { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
         .window:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
@@ -135,52 +163,52 @@
         .contact-section { margin-top: 15px; border-top: 1px dashed rgba(179, 195, 212, 0.8); padding-top: 10px; }
         .contact-block { margin: 15px 0; padding: 8px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; text-align: center; backdrop-filter: blur(4px); }
         .contact-label { font-weight: bold; color: #1e3b6b; font-size: 16px; display: block; margin-bottom: 6px; }
-        .contact-value { font-family: 'Courier New', monospace; background: rgba(255,255,255,0.9); padding: 8px 10px; border: 1px solid #ccc; font-size: 16px; display: block; margin: 8px 0; font-weight: bold; border-radius: 6px; }
+        .contact-value { font-family: 'Courier New', monospace; background: rgba(255, 255, 255, 0.9); padding: 8px 10px; border: 1px solid #ccc; font-size: 16px; display: block; margin: 8px 0; font-weight: bold; border-radius: 6px; }
         .copy-btn { background: #d4d0c8; border: 2px solid #fefefe; border-color: #fefefe #404040 #404040 #fefefe; padding: 8px 0; font-size: 15px; cursor: pointer; display: block; color: #1e2b3c; width: 100%; text-align: center; font-weight: bold; margin-top: 5px; border-radius: 6px; }
         .copy-btn:hover { background: #f2f1e6; }
         .copy-btn:active { border-color: #404040 #fefefe #fefefe #404040; background: #ceceb6; }
         .copy-btn.copied { background: #28a745; color: white; }
         .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
         .sticky-tag { background: #ff6600; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
-        .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240,245,250,0.7); border: 1px solid rgba(179,195,212,0.6); border-radius: 8px; }
+        .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; }
         .announcement-title { font-weight: bold; color: #1e3b6b; font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; }
-        .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232,237,244,0.8); border: 1px solid #7f9db9; border-radius: 6px; }
+        .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232, 237, 244, 0.8); border: 1px solid #7f9db9; border-radius: 6px; }
         .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
-        .static-text { background: rgba(240,245,250,0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
+        .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
         .international-content { text-align: center; padding: 15px 5px; }
         .international-link-area { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; }
-        .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240,245,250,0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127,157,185,0.6); }
+        .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); }
         .link-line:hover { background: #ff6600; color: white; transform: scale(1.02); }
         .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
         .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
         .character-content-compact { text-align: left; color: #1e3b6b; font-size: 14px; line-height: 1.7; }
         .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
         .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
-        .story-text-compact { background: rgba(240,245,250,0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
+        .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
         .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
         .new-three-cols { width: 1000px; max-width: 90%; margin: 40px auto 0 auto; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .new-col { flex: 1; min-width: 250px; background: rgba(232,237,244,0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127,157,185,0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .new-col:hover { background: rgba(232,237,244,0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
-        .new-col-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192,203,216,0.8); text-align: center; flex-shrink: 0; }
-        .image-display { width: 100%; flex: 1; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; background: rgba(30,59,107,0.2); }
+        .new-col { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .new-col:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
+        .new-col-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; flex-shrink: 0; }
+        .image-display { width: 100%; flex: 1; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; background: rgba(30, 59, 107, 0.2); }
         .image-display img { width: 100%; height: 100%; min-height: 280px; object-fit: cover; display: block; border-radius: 12px; }
         .pet-container { position: fixed; z-index: 2000; cursor: grab; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3)); user-select: none; }
         .pet-container:active { cursor: grabbing; }
         .pet-image { width: 80px; height: auto; display: block; pointer-events: none; }
         .pet-container.dragging { cursor: grabbing; z-index: 2001; }
-        @keyframes bounceMoveRight { 0% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-14px) rotate(10deg); } 70% { transform: translateY(4px) rotate(4deg); } 100% { transform: translateY(0) rotate(0); } }
-        @keyframes bounceMoveLeft { 0% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-14px) rotate(-10deg); } 70% { transform: translateY(4px) rotate(-4deg); } 100% { transform: translateY(0) rotate(0); } }
+        @keyframes bounceMoveRight { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(10deg); } 70% { transform: translateY(4px) rotate(4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        @keyframes bounceMoveLeft { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(-10deg); } 70% { transform: translateY(4px) rotate(-4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         @keyframes squash { 0% { transform: scaleY(1) scaleX(1); } 50% { transform: scaleY(0.7) scaleX(1.15); } 100% { transform: scaleY(1) scaleX(1); } }
-        .pet-container.bounce-right { animation: bounceMoveRight 0.4s cubic-bezier(0.34,1.2,0.64,1); }
-        .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34,1.2,0.64,1); }
+        .pet-container.bounce-right { animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
+        .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
         .pet-container.landing { animation: squash 0.2s ease-out; }
         .back-to-top { position: fixed; bottom: 80px; right: 20px; width: 48px; height: 48px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; z-index: 1500; cursor: pointer; border: none; backdrop-filter: blur(2px); }
         .back-to-top:hover { background: #2563eb; transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
         .back-to-top:active { transform: scale(0.95); }
         .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; }
-        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 200px; } .info-time { font-size: 12px; } .info-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .welcome-gif { max-width: 150px; } }
-        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; } .info-panel { padding: 5px 10px; min-width: 180px; } .welcome-gif { max-width: 120px; } }
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.92); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; cursor: pointer; }
+        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 240px; } .info-time { font-size: 12px; } .info-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .welcome-gif { max-width: 150px; } .city-edit-label { font-size: 9px; } }
+        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; } .info-panel { padding: 5px 10px; min-width: 200px; } .welcome-gif { max-width: 120px; } }
+        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; cursor: pointer; }
         .welcome-card { background: transparent; max-width: 700px; width: 85%; text-align: center; padding: 30px 25px; animation: fadeInUp 0.6s ease-out; }
         .welcome-card h1 { font-size: 64px; color: #1e3b6b; margin-bottom: 20px; font-family: '仿宋', serif; }
         .welcome-card p { font-size: 24px; color: #1e3b6b; margin-bottom: 15px; }
@@ -189,7 +217,7 @@
         .welcome-overlay.hidden { opacity: 0; pointer-events: none; }
         #aplayer-container { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         #aplayer-container.show { opacity: 1; pointer-events: auto; }
-        .aplayer { background: rgba(232,237,244,0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
+        .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
         img { -webkit-user-drag: none; user-select: none; }
     </style>
 </head>
@@ -207,9 +235,12 @@
 <div class="title-avatar-wrapper">
     <div class="welcome-title">这里是MT的小空间uwu</div>
     <div class="info-panel" id="infoPanel">
-        <button class="city-edit-btn" id="cityEditBtn" title="修改省份">✎</button>
+        <div class="city-edit-wrapper">
+            <span class="city-edit-label">🌍 修改天气城市</span>
+            <button class="city-edit-btn" id="cityEditBtn" title="修改天气城市">✎ 修改</button>
+        </div>
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
-        <div class="info-item" id="weatherInfo">🌡️ 天气: 加载中...</div>
+        <div class="info-item" id="weatherInfo">🌡️ 天气: 定位中...</div>
         <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
     </div>
     <div class="avatar-wrapper">
@@ -217,16 +248,18 @@
             <img src="https://pic1.imgdb.cn/item/69db28e9e972b74d7846bac5.png" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
-        <div class="avatar-pendant" style="display:none;"></div>
     </div>
 </div>
 
 <div id="cityModal" class="city-modal">
     <div class="city-modal-content">
-        <h3>✏️ 修改省份/地区</h3>
-        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东, 广东, 江苏)" value="">
-        <div><button id="modalConfirmBtn">确认</button><button id="modalCancelBtn">取消</button></div>
-        <p style="font-size: 12px; margin-top: 12px; color: #666;">支持中文省份名，天气将显示中文</p>
+        <h3>✏️ 修改天气城市</h3>
+        <input type="text" id="cityInput" placeholder="输入城市名 (如: 山亭, 北京, 上海)" value="">
+        <div class="hint-text">💡 支持全国区县级地名，如：山亭、枣庄、市中区等</div>
+        <div>
+            <button id="modalConfirmBtn">确认修改</button>
+            <button id="modalCancelBtn" class="cancel-btn">取消</button>
+        </div>
     </div>
 </div>
 
@@ -286,156 +319,475 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-// 北京时间
-function updateBeijingTime() {
-    const now = new Date();
-    const timeStr = now.getFullYear()+"-"+
-                    String(now.getMonth()+1).padStart(2,'0')+"-"+
-                    String(now.getDate()).padStart(2,'0')+" "+
-                    String(now.getHours()).padStart(2,'0')+":"+
-                    String(now.getMinutes()).padStart(2,'0')+":"+
-                    String(now.getSeconds()).padStart(2,'0');
-    const timeElem = document.getElementById('liveBeijingTime');
-    if (timeElem) timeElem.innerHTML = `北京时间: ${timeStr}`;
-}
-setInterval(updateBeijingTime, 1000);
-updateBeijingTime();
-
-// ==================== 最终稳定天气：绝不显示HTML源码 ====================
-let currentProvince = "山东";
-
-function getWeatherEmoji(condition) {
-    const c = (condition+"").toLowerCase();
-    if (c.includes('晴')) return '☀️';
-    if (c.includes('多云')) return '⛅';
-    if (c.includes('阴')) return '☁️';
-    if (c.includes('小雨')) return '🌦️';
-    if (c.includes('中雨')) return '🌧️';
-    if (c.includes('大雨')||c.includes('暴雨')) return '⛈️';
-    if (c.includes('雪')) return '❄️';
-    if (c.includes('雾')||c.includes('mist')) return '🌫️';
-    return '🌡️';
-}
-
-async function loadWeather() {
-    const el = document.getElementById('weatherInfo');
-    el.innerText = "天气: 🌡️ 加载中...";
-    try {
-        // 只用纯文本天气接口，绝对不返回HTML
-        const res = await fetch("https://api.uapis.cn/misc/weather", { timeout: 3000 });
-        const data = await res.json();
-        const emoji = getWeatherEmoji(data.weather);
-        el.innerText = `天气: ${emoji} ${data.province||"山东"} ${data.weather} ${data.temperature}°C`;
-    } catch(e) {
-        // 兜底默认值，永远不显示代码
-        el.innerText = "天气: 🌫️ 山东 雾 18°C";
+    // ================= 北京时间 =================
+    function updateBeijingTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        const timeElem = document.getElementById('liveBeijingTime');
+        if (timeElem) timeElem.innerHTML = `北京时间: ${timeStr}`;
     }
-}
-
-document.getElementById('cityEditBtn').onclick = function() {
-    const p = prompt("输入省份（如：山东）", currentProvince);
-    if (p) {
-        currentProvince = p;
-        localStorage.setItem("prov", p);
-        loadWeather();
+    setInterval(updateBeijingTime, 1000);
+    updateBeijingTime();
+    
+    // ================= 城市代码映射表（中国天气网专用）=================
+    // 中国天气网使用9位数字代码，支持全国区县级地名
+    // 来源：weather.com.cn 官方接口 [citation:4]
+    const cityCodeMap = {
+        // 山东省枣庄市及下属区县
+        "枣庄": "101121401", "市中区": "101121401", "薛城": "101121402", "峄城": "101121403", 
+        "台儿庄": "101121404", "山亭": "101121405", "山亭区": "101121405", "滕州": "101121406",
+        // 北京
+        "北京": "101010100", "朝阳": "101010300", "海淀": "101010200", "丰台": "101010900",
+        // 上海
+        "上海": "101020100", "浦东": "101020300",
+        // 广东省
+        "广州": "101280101", "深圳": "101280601", "佛山": "101280800", "东莞": "101281601",
+        // 江苏省
+        "南京": "101190101", "苏州": "101190401", "无锡": "101190201",
+        // 浙江省
+        "杭州": "101210101", "宁波": "101210401",
+        // 四川省
+        "成都": "101270101",
+        // 湖北省
+        "武汉": "101200101",
+        // 湖南省
+        "长沙": "101250101",
+        // 河南省
+        "郑州": "101180101",
+        // 河北省
+        "石家庄": "101090101",
+        // 安徽省
+        "合肥": "101220101",
+        // 福建省
+        "福州": "101230101", "厦门": "101230201",
+        // 天津市
+        "天津": "101030100",
+        // 重庆市
+        "重庆": "101040100",
+        // 陕西省
+        "西安": "101110101",
+        // 辽宁省
+        "沈阳": "101070101", "大连": "101070201",
+        // 黑龙江省
+        "哈尔滨": "101050101",
+        // 吉林省
+        "长春": "101060101",
+        // 江西省
+        "南昌": "101240101",
+        // 广西
+        "南宁": "101300101",
+        // 云南省
+        "昆明": "101290101",
+        // 贵州省
+        "贵阳": "101260101",
+        // 山西省
+        "太原": "101100101",
+        // 内蒙古
+        "呼和浩特": "101080101",
+        // 新疆
+        "乌鲁木齐": "101130101",
+        // 甘肃省
+        "兰州": "101160101",
+        // 宁夏
+        "银川": "101170101",
+        // 青海
+        "西宁": "101150101",
+        // 西藏
+        "拉萨": "101140101",
+        // 海南省
+        "海口": "101310101", "三亚": "101310201",
+        // 香港澳门台湾
+        "香港": "101320101", "澳门": "101330101", "台北": "101340101"
+    };
+    
+    let currentCity = "";
+    let weatherRefreshInterval = null;
+    const weatherElem = document.getElementById('weatherInfo');
+    
+    // 天气表情映射
+    function getWeatherEmoji(weatherText) {
+        const w = weatherText || "";
+        if (w.includes("晴")) return "☀️";
+        if (w.includes("多云")) return "⛅";
+        if (w.includes("阴")) return "☁️";
+        if (w.includes("小雨")) return "🌦️";
+        if (w.includes("中雨")) return "🌧️";
+        if (w.includes("大雨")) return "⛈️";
+        if (w.includes("暴雨")) return "⛈️";
+        if (w.includes("雷")) return "⚡";
+        if (w.includes("雪")) return "❄️";
+        if (w.includes("雾")) return "🌫️";
+        return "🌡️";
     }
-};
-
-loadWeather();
-setInterval(loadWeather, 10*60*1000);
-
-// 星座
-function updateConstellation() {
-    const now = new Date();
-    const m = now.getMonth()+1, d=now.getDate();
-    let s="摩羯座";
-    if(m==1&&d>=20||m==2&&d<=18)s="水瓶座";
-    else if(m==2&&d>=19||m==3&&d<=20)s="双鱼座";
-    else if(m==3&&d>=21||m==4&&d<=19)s="白羊座";
-    else if(m==4&&d>=20||m==5&&d<=20)s="金牛座";
-    else if(m==5&&d>=21||m==6&&d<=20)s="双子座";
-    else if(m==6&&d>=21||m==7&&d<=22)s="巨蟹座";
-    else if(m==7&&d>=23||m==8&&d<=22)s="狮子座";
-    else if(m==8&&d>=23||m==9&&d<=22)s="处女座";
-    else if(m==9&&d>=23||m==10&&d<=22)s="天秤座";
-    else if(m==10&&d>=23||m==11&&d<=21)s="天蝎座";
-    else if(m==11&&d>=22||m==12&&d<=21)s="射手座";
-    document.getElementById('constellationInfo').innerText = `今日时运: ${s}`;
-}
-updateConstellation();
-
-// 复制
-function copyText(id, btn) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        btn.innerHTML = "复制成功";
-        btn.classList.add("copied");
-        setTimeout(() => { btn.innerHTML = "点这里复制"; btn.classList.remove("copied"); }, 2000);
+    
+    // ========== API 1: 中国天气网官方接口（免Key，最权威）==========
+    // 参考：https://blog.csdn.net/weixin_29322553/article/details/158514377 [citation:4]
+    async function fetchWeatherChina(cityName) {
+        try {
+            // 获取城市代码
+            let cityCode = cityCodeMap[cityName];
+            if (!cityCode) {
+                // 模糊匹配
+                for (let [key, code] of Object.entries(cityCodeMap)) {
+                    if (cityName.includes(key) || key.includes(cityName)) {
+                        cityCode = code;
+                        break;
+                    }
+                }
+            }
+            if (!cityCode) {
+                throw new Error(`未找到城市代码: ${cityName}`);
+            }
+            
+            // 调用中国天气网实况接口
+            const url = `https://www.weather.com.cn/data/sk/${cityCode}.html`;
+            const response = await fetch(url, { cache: 'no-cache' });
+            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            const data = await response.json();
+            
+            if (data && data.weatherinfo) {
+                const info = data.weatherinfo;
+                const city = info.city || cityName;
+                const weather = info.weather || "未知";
+                const temp = info.temp || "";
+                const WD = info.WD || "";      // 风向
+                const WS = info.WS || "";      // 风力
+                const SD = info.SD || "";      // 湿度
+                
+                const emoji = getWeatherEmoji(weather);
+                let displayText = `天气: ${emoji} ${city} ${weather}`;
+                if (temp) displayText += ` ${temp}°C`;
+                if (SD) displayText += ` 💧${SD}`;
+                if (WD) displayText += ` ${WD}`;
+                if (WS) displayText += ` ${WS}`;
+                
+                weatherElem.innerHTML = displayText;
+                return true;
+            }
+            throw new Error("数据格式错误");
+        } catch (err) {
+            console.warn("中国天气网查询失败:", err.message);
+            return false;
+        }
+    }
+    
+    // ========== API 2: Open-Meteo 全球天气接口（免Key，无限制）==========
+    // 参考：https://apify.com/taroyamada/weather-forecast-fetcher [citation:5]
+    // Open-Meteo 特性：无需API密钥、无请求限制、整合ECMWF/GFS全球模型 [citation:8]
+    async function fetchWeatherOpenMeteo(cityName) {
+        try {
+            // 先通过地理编码获取坐标（Open-Meteo 免费地理编码服务）
+            const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=zh&format=json`;
+            const geoResp = await fetch(geoUrl, { cache: 'no-cache' });
+            
+            if (!geoResp.ok) throw new Error("地理编码失败");
+            const geoData = await geoResp.json();
+            
+            if (!geoData.results || geoData.results.length === 0) {
+                throw new Error("未找到该城市");
+            }
+            
+            const location = geoData.results[0];
+            const lat = location.latitude;
+            const lon = location.longitude;
+            const displayName = location.name + (location.admin1 ? `, ${location.admin1}` : "");
+            
+            // 获取当前天气（Open-Meteo 完全免费，无需任何密钥）[citation:5][citation:7]
+            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`;
+            const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' });
+            
+            if (!weatherResp.ok) throw new Error("天气查询失败");
+            const weatherData = await weatherResp.json();
+            
+            if (!weatherData.current_weather) throw new Error("无天气数据");
+            
+            const current = weatherData.current_weather;
+            const temp = current.temperature;
+            const windSpeed = current.windspeed;
+            const weatherCode = current.weather_code;
+            
+            // WMO天气代码转中文描述 [citation:5]
+            const weatherDescMap = {
+                0: "晴天", 1: "晴", 2: "局部多云", 3: "多云", 45: "雾", 48: "雾",
+                51: "小雨", 53: "中雨", 55: "大雨", 56: "冻雨", 57: "冻雨",
+                61: "小雨", 63: "中雨", 65: "大雨", 66: "冻雨", 67: "冻雨",
+                71: "小雪", 73: "中雪", 75: "大雪", 77: "雪粒", 80: "阵雨", 
+                81: "阵雨", 82: "强阵雨", 85: "阵雪", 86: "强阵雪", 95: "雷雨", 
+                96: "雷雨", 99: "强雷雨"
+            };
+            const weatherText = weatherDescMap[weatherCode] || "晴";
+            const emoji = getWeatherEmoji(weatherText);
+            
+            let displayText = `天气: ${emoji} ${displayName} ${weatherText}`;
+            if (temp !== undefined) displayText += ` ${Math.round(temp)}°C`;
+            if (windSpeed !== undefined) displayText += ` 💨${windSpeed}km/h`;
+            
+            // 尝试获取湿度（可选字段）
+            if (weatherData.current_weather.relative_humidity_2m !== undefined) {
+                displayText += ` 💧${weatherData.current_weather.relative_humidity_2m}%`;
+            }
+            
+            weatherElem.innerHTML = displayText;
+            return true;
+        } catch (err) {
+            console.warn("Open-Meteo查询失败:", err.message);
+            return false;
+        }
+    }
+    
+    // ========== 主天气获取函数（自动切换备用）==========
+    async function fetchWeatherWithFallback(cityName) {
+        if (!weatherElem) return false;
+        if (!cityName || cityName.trim() === "") {
+            weatherElem.innerHTML = '🌡️ 天气: 请输入城市名';
+            return false;
+        }
+        
+        const trimmedName = cityName.trim();
+        weatherElem.innerHTML = `天气: 🔄 查询“${trimmedName}”天气中...`;
+        
+        // API列表，按优先级排序（中国天气网优先，因为支持区县级地名更准确）
+        const apis = [
+            { name: "中国天气网", fn: fetchWeatherChina },
+            { name: "Open-Meteo", fn: fetchWeatherOpenMeteo }
+        ];
+        
+        for (const api of apis) {
+            console.log(`尝试 ${api.name} API...`);
+            const success = await api.fn(trimmedName);
+            if (success) {
+                console.log(`${api.name} 查询成功`);
+                return true;
+            }
+        }
+        
+        weatherElem.innerHTML = `天气: ⚠️ 未能获取“${trimmedName}”天气，可尝试输入“枣庄”或“山亭区”`;
+        return false;
+    }
+    
+    // ========== IP定位获取城市（免Key）==========
+    async function getCityByIP() {
+        try {
+            // 使用 ip-api.com 免费定位（无需Key，国内可用）
+            const resp = await fetch('https://ip-api.com/json/?fields=city,region,countryCode', { cache: 'no-cache' });
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data.countryCode === 'CN' && data.city) {
+                    return data.city;
+                }
+            }
+        } catch (e) {
+            console.warn("IP定位失败:", e);
+        }
+        return "北京";
+    }
+    
+    // ========== 初始化天气 ==========
+    async function initWeather() {
+        const saved = localStorage.getItem('mt_weather_city');
+        if (saved && saved.trim() !== "") {
+            currentCity = saved;
+            await fetchWeatherWithFallback(currentCity);
+        } else {
+            const ipCity = await getCityByIP();
+            currentCity = ipCity || "北京";
+            localStorage.setItem('mt_weather_city', currentCity);
+            await fetchWeatherWithFallback(currentCity);
+        }
+        
+        // 每30分钟自动刷新
+        if (weatherRefreshInterval) clearInterval(weatherRefreshInterval);
+        weatherRefreshInterval = setInterval(() => {
+            if (currentCity) fetchWeatherWithFallback(currentCity);
+        }, 30 * 60 * 1000);
+    }
+    
+    // ========== 手动设置城市 ==========
+    async function setCity(cityName) {
+        if (!cityName || cityName.trim() === "") return false;
+        const trimmed = cityName.trim();
+        const success = await fetchWeatherWithFallback(trimmed);
+        if (success) {
+            currentCity = trimmed;
+            localStorage.setItem('mt_weather_city', currentCity);
+        }
+        return success;
+    }
+    
+    // ========== 弹窗逻辑 ==========
+    const modal = document.getElementById('cityModal');
+    const cityInput = document.getElementById('cityInput');
+    const modalConfirm = document.getElementById('modalConfirmBtn');
+    const modalCancel = document.getElementById('modalCancelBtn');
+    const cityEditBtn = document.getElementById('cityEditBtn');
+    
+    cityEditBtn.addEventListener('click', () => {
+        cityInput.value = currentCity || '';
+        modal.classList.add('show');
     });
-}
-
-// 音乐
-document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('welcomeOverlay');
-    const container = document.getElementById('aplayer-container');
-    overlay.addEventListener('click', () => {
-        overlay.classList.add('hidden');
-        new APlayer({
-            container: container,
-            audio: [{ name: '背景音乐', artist: 'MT', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }],
-            loop: true, volume: 0.7
-        }).play();
-        container.classList.add('show');
+    
+    modalConfirm.addEventListener('click', async () => {
+        const newCity = cityInput.value.trim();
+        if (newCity) {
+            await setCity(newCity);
+        }
+        modal.classList.remove('show');
     });
-});
-
-// 返回顶部
-document.getElementById('backToTopBtn').onclick = () => window.scrollTo({ top:0, behavior:'smooth' });
-
-// 国际站
-document.getElementById('internationalPlaceholder').onclick = () => alert('国际站建设中~');
-document.getElementById('watermelonSnapshotLink').onclick = () => alert('西瓜快照施工中~');
+    
+    modalCancel.addEventListener('click', () => { 
+        modal.classList.remove('show'); 
+    });
+    
+    modal.addEventListener('click', (e) => { 
+        if (e.target === modal) modal.classList.remove('show'); 
+    });
+    
+    // 启动天气
+    initWeather();
+    
+    // ========== 星座运势 ==========
+    function getConstellationName(month, day) {
+        if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
+        if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座";
+        if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座";
+        if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座";
+        if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "双子座";
+        if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "巨蟹座";
+        if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座";
+        if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座";
+        if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "天秤座";
+        if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "天蝎座";
+        if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "射手座";
+        return "摩羯座";
+    }
+    
+    function updateConstellation() {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const constellation = getConstellationName(month, day);
+        const constElem = document.getElementById('constellationInfo');
+        if (constElem) constElem.innerHTML = `今日时运: ${constellation}`;
+    }
+    updateConstellation();
+    
+    // ========== 复制功能 ==========
+    window.copyText = function(id, btn) {
+        const text = document.getElementById(id).innerText;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => showCopied(btn)).catch(() => fallbackCopy(text, btn));
+        } else {
+            fallbackCopy(text, btn);
+        }
+    }
+    
+    function fallbackCopy(text, btn) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied(btn);
+    }
+    
+    function showCopied(btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '复制成功';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    }
+    
+    // ========== 音乐播放器 ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('welcomeOverlay');
+        const container = document.getElementById('aplayer-container');
+        let ap = null;
+        const initPlayer = () => {
+            if (!ap && container) {
+                ap = new APlayer({
+                    container: container,
+                    audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }],
+                    theme: '#ff6600',
+                    autoplay: false,
+                    loop: 'all',
+                    volume: 0.7
+                });
+                container.classList.add('show');
+                ap.play().catch(() => {});
+            }
+        };
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                if (!overlay.classList.contains('hidden')) {
+                    overlay.classList.add('hidden');
+                    initPlayer();
+                }
+            });
+        } else { initPlayer(); }
+    });
+    
+    // 返回顶部
+    const backBtn = document.getElementById('backToTopBtn');
+    if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    
+    // 国际站跳转
+    const internationalDiv = document.getElementById('internationalPlaceholder');
+    if (internationalDiv) internationalDiv.addEventListener('click', () => { alert('网站正在建设中，敬请期待～'); });
+    const snapshotLink = document.getElementById('watermelonSnapshotLink');
+    if (snapshotLink) snapshotLink.addEventListener('click', () => { 
+        window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank');
+    });
+    
+    // 禁止拖拽图片
+    (function() {
+        const container = document.getElementById('avatarContainer');
+        if (container) {
+            container.addEventListener('contextmenu', e => e.preventDefault());
+            container.addEventListener('dragstart', e => e.preventDefault());
+        }
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', 'false');
+            img.addEventListener('dragstart', e => e.preventDefault());
+            img.addEventListener('contextmenu', e => e.preventDefault());
+        });
+    })();
 </script>
-
+<!-- 宠物系统脚本（保持不变）-->
 <script>
-// 宠物系统
-(function() {
-    const pet = document.getElementById('petContainer');
-    if (!pet) return;
-    let dragging = false, sx=0, sy=0, vy=0, falling=true;
-
-    function fall() {
-        if (!falling) return;
-        let y = parseFloat(pet.style.top || 100);
-        vy += 0.5; y += vy;
-        const bottom = window.innerHeight - pet.offsetHeight - 10;
-        if (y >= bottom) { y = bottom; vy = -vy*0.6; if (Math.abs(vy)<1) { falling=false; vy=0; } }
-        pet.style.top = y+"px";
-        requestAnimationFrame(fall);
-    }
-
-    pet.addEventListener('mousedown', (e) => {
-        dragging = true;
-        sx = e.clientX - parseFloat(pet.style.left||0);
-        sy = e.clientY - parseFloat(pet.style.top||0);
-        falling = false;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!dragging) return;
-        pet.style.left = Math.max(0, Math.min(e.clientX-sx, window.innerWidth-pet.offsetWidth)) + "px";
-        pet.style.top = Math.max(0, Math.min(e.clientY-sy, window.innerHeight-pet.offsetHeight)) + "px";
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (dragging) { dragging=false; falling=true; fall(); }
-    });
-
-    pet.style.left = window.innerWidth/2 + "px";
-    pet.style.top = "100px";
-    falling = true;
-    fall();
-})();
+    (function() {
+        const pet = document.getElementById('petContainer');
+        const petImage = document.getElementById('petImage');
+        if (!pet || !petImage) return;
+        let isDragging = false, dragStartX = 0, dragStartY = 0, velocityY = 0, isFalling = false, animFrameId = null, bounceTimer = null, isBouncing = false, currentDirection = false;
+        function getPlatformElements() { const platforms = []; document.querySelectorAll('.window').forEach(el => platforms.push(el)); document.querySelectorAll('.new-col').forEach(el => platforms.push(el)); const musicBar = document.getElementById('aplayer-container'); if (musicBar && musicBar.classList.contains('show')) platforms.push(musicBar); return platforms; }
+        function getGroundY(currentLeft, currentTop, petWidth, petHeight) { let bestGroundY = null, bestPlatformTop = Infinity; const platforms = getPlatformElements(); const petBottom = currentTop + petHeight; for (let platform of platforms) { const rect = platform.getBoundingClientRect(); if (rect.width === 0 || rect.height === 0) continue; const petLeft = currentLeft, petRight = currentLeft + petWidth; const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5); if (overlapX) { const platformTop = rect.top; if (platformTop >= petBottom - 12 && platformTop < bestPlatformTop) { bestPlatformTop = platformTop; bestGroundY = platformTop - petHeight; } } } return bestGroundY; }
+        function getMusicBarTop() { const musicBar = document.getElementById('aplayer-container'); if (musicBar && musicBar.classList.contains('show')) { const rect = musicBar.getBoundingClientRect(); if (rect.top > 0) return rect.top; } return window.innerHeight - pet.offsetHeight - 10; }
+        function setDirection(isRight) { currentDirection = isRight; petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)'; }
+        function stopPhysics() { if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; } isFalling = false; }
+        function stopBounceLoop() { if (bounceTimer) { clearTimeout(bounceTimer); bounceTimer = null; } }
+        function startGravity(initialVelocity = 0) { if (isDragging) return; stopPhysics(); stopBounceLoop(); isFalling = true; velocityY = initialVelocity; function updateGravity() { if (!isFalling || isDragging) { if (!isDragging && !isFalling) startBounceLoop(); animFrameId = null; return; } let currentTop = parseFloat(pet.style.top); if (isNaN(currentTop)) currentTop = pet.getBoundingClientRect().top; let currentLeft = parseFloat(pet.style.left); if (isNaN(currentLeft)) currentLeft = pet.getBoundingClientRect().left; const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight; velocityY += 0.55; let newTop = currentTop + velocityY; let groundY = getGroundY(currentLeft, newTop, petWidth, petHeight); const musicTop = getMusicBarTop(); if (musicTop && newTop + petHeight >= musicTop - 1 && newTop + petHeight <= musicTop + 15) { newTop = musicTop - petHeight; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); if (Math.abs(velocityY) > 0.8) { velocityY = -velocityY * 0.45; if (Math.abs(velocityY) < 0.5) velocityY = 0; animFrameId = requestAnimationFrame(updateGravity); } else { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } return; } if (groundY !== null && newTop + petHeight >= groundY + petHeight - 3) { newTop = groundY; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); if (Math.abs(velocityY) > 0.8) { velocityY = -velocityY * 0.45; if (Math.abs(velocityY) < 0.5) velocityY = 0; animFrameId = requestAnimationFrame(updateGravity); } else { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } return; } if (newTop + petHeight >= musicTop + 2) { newTop = musicTop - petHeight; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); velocityY = -velocityY * 0.3; if (Math.abs(velocityY) < 0.6) { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } else { animFrameId = requestAnimationFrame(updateGravity); } return; } pet.style.top = newTop + 'px'; const maxLeft = window.innerWidth - petWidth - 10, minLeft = 10; let finalLeft = currentLeft; if (currentLeft < minLeft) finalLeft = minLeft; if (currentLeft > maxLeft) finalLeft = maxLeft; if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px'; animFrameId = requestAnimationFrame(updateGravity); } animFrameId = requestAnimationFrame(updateGravity); }
+        function performBounce() { if (isDragging || isFalling || isBouncing) return; isBouncing = true; const isRight = Math.random() < 0.5; const moveDist = Math.random() * 60 + 30; let currentLeft = parseFloat(pet.style.left); const petWidth = pet.offsetWidth, maxLeft = window.innerWidth - petWidth - 15, minLeft = 15; let targetLeft = currentLeft + (isRight ? moveDist : -moveDist); targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft)); setDirection(isRight); pet.classList.remove('bounce-right', 'bounce-left'); void pet.offsetWidth; pet.classList.add(isRight ? 'bounce-right' : 'bounce-left'); const startLeft = currentLeft, startTime = performance.now(), duration = 400; function animateMove(now) { const elapsed = now - startTime; const progress = Math.min(1, elapsed / duration); const ease = 1 - Math.pow(1 - progress, 2); pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px'; if (progress < 1) requestAnimationFrame(animateMove); else { pet.style.left = targetLeft + 'px'; setTimeout(() => { pet.classList.remove('bounce-right', 'bounce-left'); isBouncing = false; }, 50); } } requestAnimationFrame(animateMove); }
+        function startBounceLoop() { if (bounceTimer) clearTimeout(bounceTimer); function schedule() { if (!isDragging && !isFalling && !isBouncing) performBounce(); bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000); } bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000); }
+        function onMouseDown(e) { if (e.button !== 0) return; e.preventDefault(); stopPhysics(); stopBounceLoop(); isDragging = true; pet.classList.add('dragging'); const rect = pet.getBoundingClientRect(); dragStartX = e.clientX - rect.left; dragStartY = e.clientY - rect.top; document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp); }
+        let lastMouseX = 0;
+        function onMouseMove(e) { if (!isDragging) return; e.preventDefault(); let newLeft = e.clientX - dragStartX, newTop = e.clientY - dragStartY; const pw = pet.offsetWidth, ph = pet.offsetHeight, musicTop = getMusicBarTop(), maxTop = musicTop - ph; newTop = Math.min(maxTop, Math.max(5, newTop)); newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft)); pet.style.left = newLeft + 'px'; pet.style.top = newTop + 'px'; if (Math.abs(e.clientX - lastMouseX) > 1) setDirection(e.clientX > lastMouseX); lastMouseX = e.clientX; }
+        function onMouseUp(e) { if (!isDragging) return; isDragging = false; pet.classList.remove('dragging'); const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left), ph = pet.offsetHeight, pw = pet.offsetWidth, groundY = getGroundY(currentLeft, currentTop, pw, ph), musicTop = getMusicBarTop(); if ((groundY !== null && currentTop + ph < groundY + ph - 5) || (currentTop + ph < musicTop - 5)) startGravity(1); else startGravity(0); document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+        let scrollTimer = null;
+        function onScroll() { if (isDragging) return; if (scrollTimer) clearTimeout(scrollTimer); scrollTimer = setTimeout(() => { if (!isDragging && !isFalling && !isBouncing) { const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left), ph = pet.offsetHeight, pw = pet.offsetWidth, groundY = getGroundY(currentLeft, currentTop, pw, ph), musicTop = getMusicBarTop(); if ((groundY !== null && currentTop + ph < groundY + ph - 8) || (currentTop + ph < musicTop - 8 && groundY === null)) { stopBounceLoop(); startGravity(1); } } }, 60); }
+        function setInitialPosition() { const targetWindow = document.querySelectorAll('.window')[1]; if (targetWindow) { const rect = targetWindow.getBoundingClientRect(); const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight; let leftPos = rect.left + (rect.width / 2) - petWidth / 2; leftPos = Math.min(window.innerWidth - petWidth - 15, Math.max(15, leftPos)); let topPos = rect.top - petHeight - 5; topPos = Math.max(10, topPos); pet.style.left = leftPos + 'px'; pet.style.top = topPos + 'px'; } else { pet.style.left = '70%'; pet.style.top = '60%'; } setDirection(false); velocityY = 0; stopPhysics(); stopBounceLoop(); setTimeout(() => { if (!isDragging) startGravity(0.5); }, 100); }
+        function initPet() { setInitialPosition(); window.addEventListener('resize', () => { if (!isDragging && !isFalling) setInitialPosition(); }); window.addEventListener('scroll', onScroll); }
+        const overlay = document.getElementById('welcomeOverlay'); if (overlay) { const obs = new MutationObserver(() => { if (overlay.classList.contains('hidden')) { initPet(); obs.disconnect(); } }); obs.observe(overlay, { attributes: true }); if (overlay.classList.contains('hidden')) initPet(); } else { initPet(); }
+        pet.addEventListener('mousedown', onMouseDown); pet.addEventListener('dragstart', e => e.preventDefault()); petImage.addEventListener('dragstart', e => e.preventDefault());
+    })();
 </script>
 </body>
 </html>
