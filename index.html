@@ -192,7 +192,7 @@
         .new-col-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; flex-shrink: 0; }
         .image-display { width: 100%; flex: 1; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; background: rgba(30, 59, 107, 0.2); }
         .image-display img { width: 100%; height: 100%; min-height: 280px; object-fit: cover; display: block; border-radius: 12px; }
-        .pet-container { position: fixed; z-index: 2000; cursor: grab; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3)); user-select: none; }
+        .pet-container { position: fixed; z-index: 2000; cursor: grab; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3)); user-select: none; touch-action: none; }
         .pet-container:active { cursor: grabbing; }
         .pet-image { width: 80px; height: auto; display: block; pointer-events: none; }
         .pet-container.dragging { cursor: grabbing; z-index: 2001; }
@@ -236,8 +236,8 @@
     <div class="welcome-title">这里是MT的小空间uwu</div>
     <div class="info-panel" id="infoPanel">
         <div class="city-edit-wrapper">
-            <span class="city-edit-label">🌍 修改省份</span>
-            <button class="city-edit-btn" id="cityEditBtn" title="修改省份">✎ 修改</button>
+            <span class="city-edit-label">🌍 地区不对？这里修改你的天气省份</span>
+            <button class="city-edit-btn" id="cityEditBtn" title="修改天气省份">✎ 修改</button>
         </div>
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
         <div class="info-item" id="weatherInfo">🌡️ 天气: 定位中...</div>
@@ -254,8 +254,8 @@
 <div id="cityModal" class="city-modal">
     <div class="city-modal-content">
         <h3>✏️ 修改省份</h3>
-        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东, 北京, 广东)" value="">
-        <div class="hint-text">💡 支持：山东、北京、上海、广东、江苏、浙江等省份</div>
+        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东省, 北京, 广东省)" value="">
+        <div class="hint-text">💡 支持：山东省、北京、广东省、江苏省、浙江省等</div>
         <div>
             <button id="modalConfirmBtn">确认修改</button>
             <button id="modalCancelBtn" class="cancel-btn">取消</button>
@@ -300,14 +300,14 @@
 <div class="new-three-cols">
     <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false"></div></div>
     <div class="new-col">
-        <div class="new-col-title">🌐 国际站入口</div>
+        <div class="new-col-title">🌐其他网站</div>
         <div class="international-content">
             <div class="international-link-area">
-                <div class="link-line" id="internationalPlaceholder">点击这里可以访问我de国际站</div>
-                <div class="link-line" id="watermelonSnapshotLink">🍉 我的西瓜快照</div>
+                <div class="link-line" id="internationalPlaceholder">点这里可以访问我de国际站</div>
+                <div class="link-line" id="watermelonSnapshotLink">我de西瓜视频网页端快照（RIP2025.2）</div>
             </div>
             <div class="international-divider"></div>
-            <div class="waiting-text">正在施工</div>
+            <div class="waiting-text">正在施工ing~</div>
         </div>
     </div>
     <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false"></div></div>
@@ -335,327 +335,429 @@
     setInterval(updateBeijingTime, 1000);
     updateBeijingTime();
     
-    // ================= 省份城市代码映射（中国天气网）=================
-    // 精确到省/直辖市，数据稳定，无需任何密钥
-    const provinceCodeMap = {
-        "北京": "101010100", "上海": "101020100", "天津": "101030100", "重庆": "101040100",
-        "山东": "101120101", "江苏": "101190101", "浙江": "101210101", "广东": "101280101",
-        "福建": "101230101", "安徽": "101220101", "江西": "101240101", "河南": "101180101",
-        "湖北": "101200101", "湖南": "101250101", "四川": "101270101", "贵州": "101260101",
-        "云南": "101290101", "陕西": "101110101", "甘肃": "101160101", "青海": "101150101",
-        "海南": "101310101", "黑龙江": "101050101", "吉林": "101060101", "辽宁": "101070101",
-        "山西": "101100101", "河北": "101090101", "内蒙古": "101080101", "广西": "101300101",
-        "宁夏": "101170101", "新疆": "101130101", "西藏": "101140101", "香港": "101320101",
-        "澳门": "101330101", "台湾": "101340101"
-    };
-    
+    // ================= 天气系统（原样保留）=================
     let currentProvince = "";
     let weatherRefreshInterval = null;
     const weatherElem = document.getElementById('weatherInfo');
     
-    // 天气表情映射
-    function getWeatherEmoji(weatherText) {
-        const w = weatherText || "";
-        if (w.includes("晴")) return "☀️";
-        if (w.includes("多云")) return "⛅";
-        if (w.includes("阴")) return "☁️";
-        if (w.includes("小雨")) return "🌦️";
-        if (w.includes("中雨")) return "🌧️";
-        if (w.includes("大雨")) return "⛈️";
-        if (w.includes("暴雨")) return "⛈️";
-        if (w.includes("雷")) return "⚡";
-        if (w.includes("雪")) return "❄️";
-        if (w.includes("雾")) return "🌫️";
+    function normalizeProvince(input) {
+        if (!input) return "山东";
+        let clean = input.replace(/省$/, "");
+        if (clean === "北京" || clean === "上海" || clean === "天津" || clean === "重庆") return clean;
+        if (clean === "内蒙古") return "内蒙古";
+        if (clean === "广西") return "广西";
+        if (clean === "宁夏") return "宁夏";
+        if (clean === "新疆") return "新疆";
+        if (clean === "西藏") return "西藏";
+        return clean;
+    }
+    
+    function getWeatherEmoji(condition) {
+        const c = (condition || "").toLowerCase();
+        if (c.includes("晴") || c.includes("clear") || c.includes("sunny")) return "☀️";
+        if (c.includes("多云") || c.includes("cloud") || c.includes("partly")) return "⛅";
+        if (c.includes("阴") || c.includes("overcast")) return "☁️";
+        if (c.includes("小雨") || c.includes("light rain")) return "🌦️";
+        if (c.includes("中雨") || c.includes("moderate rain")) return "🌧️";
+        if (c.includes("大雨") || c.includes("heavy rain")) return "⛈️";
+        if (c.includes("暴雨") || c.includes("storm")) return "⛈️";
+        if (c.includes("雷") || c.includes("thunder")) return "⚡";
+        if (c.includes("雪") || c.includes("snow")) return "❄️";
+        if (c.includes("雾") || c.includes("fog")) return "🌫️";
         return "🌡️";
     }
     
-    // ========== 中国天气网省级接口（完全免费，无需密钥）==========
-    async function fetchWeatherByProvince(provinceName) {
-        if (!weatherElem) return false;
-        if (!provinceName || provinceName.trim() === "") {
-            weatherElem.innerHTML = '🌡️ 天气: 请输入省份';
-            return false;
-        }
-        
-        // 获取省份代码
-        let provinceCode = provinceCodeMap[provinceName];
-        if (!provinceCode) {
-            // 模糊匹配
-            for (let [key, code] of Object.entries(provinceCodeMap)) {
-                if (provinceName.includes(key) || key.includes(provinceName)) {
-                    provinceCode = code;
-                    provinceName = key;
-                    break;
-                }
-            }
-        }
-        if (!provinceCode) {
-            weatherElem.innerHTML = `天气: ⚠️ 未找到“${provinceName}”，可尝试“山东”、“北京”等省份`;
-            return false;
-        }
-        
-        try {
-            // 中国天气网实况接口（省级数据）
-            const url = `https://www.weather.com.cn/data/sk/${provinceCode}.html`;
-            const response = await fetch(url, { cache: 'no-cache' });
-            
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const data = await response.json();
-            
-            if (data && data.weatherinfo) {
-                const info = data.weatherinfo;
-                const city = info.city || provinceName;
-                const weather = info.weather || "未知";
-                const temp = info.temp || "";
-                const WD = info.WD || "";      // 风向
-                const WS = info.WS || "";      // 风力
-                const SD = info.SD || "";      // 湿度
-                
-                const emoji = getWeatherEmoji(weather);
-                let displayText = `天气: ${emoji} ${city}`;
-                if (weather) displayText += ` ${weather}`;
-                if (temp) displayText += ` ${temp}°C`;
-                if (SD) displayText += ` 💧${SD}`;
-                if (WD) displayText += ` ${WD}`;
-                if (WS) displayText += ` ${WS}`;
-                
-                weatherElem.innerHTML = displayText;
-                return true;
-            }
-            throw new Error("数据格式错误");
-        } catch (err) {
-            console.warn("中国天气网查询失败:", err.message);
-            weatherElem.innerHTML = `天气: ⚠️ 查询失败，可尝试切换省份`;
-            return false;
-        }
-    }
-    
-    // ========== IP定位获取省份（免Key）==========
-    async function getProvinceByIP() {
-        try {
-            // 使用 ip-api.com 免费定位，获取省份信息
-            const resp = await fetch('https://ip-api.com/json/?fields=region,countryCode', { cache: 'no-cache' });
-            if (resp.ok) {
-                const data = await resp.json();
-                if (data.countryCode === 'CN' && data.region) {
-                    // 返回省份名（如"Shandong"转成"山东"）
-                    const provinceMap = {
-                        "Beijing": "北京", "Shanghai": "上海", "Tianjin": "天津", "Chongqing": "重庆",
-                        "Shandong": "山东", "Jiangsu": "江苏", "Zhejiang": "浙江", "Guangdong": "广东",
-                        "Fujian": "福建", "Anhui": "安徽", "Jiangxi": "江西", "Henan": "河南",
-                        "Hubei": "湖北", "Hunan": "湖南", "Sichuan": "四川", "Guizhou": "贵州",
-                        "Yunnan": "云南", "Shaanxi": "陕西", "Gansu": "甘肃", "Qinghai": "青海",
-                        "Hainan": "海南", "Heilongjiang": "黑龙江", "Jilin": "吉林", "Liaoning": "辽宁",
-                        "Shanxi": "山西", "Hebei": "河北", "Neimenggu": "内蒙古", "Guangxi": "广西",
-                        "Ningxia": "宁夏", "Xinjiang": "新疆", "Xizang": "西藏"
-                    };
-                    return provinceMap[data.region] || data.region || "山东";
-                }
-            }
-        } catch (e) {
-            console.warn("IP定位失败:", e);
-        }
-        return "山东";
-    }
-    
-    // ========== 初始化天气 ==========
-    async function initWeather() {
-        const saved = localStorage.getItem('mt_weather_province');
-        if (saved && saved.trim() !== "") {
-            currentProvince = saved;
-            await fetchWeatherByProvince(currentProvince);
-        } else {
-            const ipProvince = await getProvinceByIP();
-            currentProvince = ipProvince || "山东";
-            localStorage.setItem('mt_weather_province', currentProvince);
-            await fetchWeatherByProvince(currentProvince);
-        }
-        
-        // 每30分钟自动刷新
-        if (weatherRefreshInterval) clearInterval(weatherRefreshInterval);
-        weatherRefreshInterval = setInterval(() => {
-            if (currentProvince) fetchWeatherByProvince(currentProvince);
-        }, 30 * 60 * 1000);
-    }
-    
-    // ========== 手动设置省份 ==========
-    async function setProvince(provinceName) {
-        if (!provinceName || provinceName.trim() === "") return false;
-        const trimmed = provinceName.trim();
-        const success = await fetchWeatherByProvince(trimmed);
-        if (success) {
-            currentProvince = trimmed;
-            localStorage.setItem('mt_weather_province', currentProvince);
-        }
-        return success;
-    }
-    
-    // ========== 弹窗逻辑 ==========
+    async function fetchWeatherChina(province) { try { const codeMap = { "北京":"101010100","上海":"101020100","天津":"101030100","重庆":"101040100","山东":"101120101","江苏":"101190101","浙江":"101210101","广东":"101280101","福建":"101230101","安徽":"101220101","江西":"101240101","河南":"101180101","湖北":"101200101","湖南":"101250101","四川":"101270101","贵州":"101260101","云南":"101290101","陕西":"101110101","甘肃":"101160101","青海":"101150101","海南":"101310101","黑龙江":"101050101","吉林":"101060101","辽宁":"101070101","山西":"101100101","河北":"101090101","内蒙古":"101080101","广西":"101300101","宁夏":"101170101","新疆":"101130101","西藏":"101140101" }; let code = codeMap[province]; if (!code) { for (let [key, val] of Object.entries(codeMap)) { if (province.includes(key) || key.includes(province)) { code = val; break; } } } if (!code) throw new Error(); const url = `https://www.weather.com.cn/data/sk/${code}.html`; const resp = await fetch(url, { cache: 'no-cache' }); if (!resp.ok) throw new Error(); const data = await resp.json(); if (data?.weatherinfo) { const info = data.weatherinfo; const weather = info.weather || "未知"; const temp = info.temp || ""; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } throw new Error(); } catch (e) { return { success: false }; } }
+    async function fetchWeatherYr(province) { try { const geoUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(province)}&format=json&limit=1`; const geoResp = await fetch(geoUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.length) throw new Error(); const lat = geoData[0].lat, lon = geoData[0].lon; const weatherUrl = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const current = data.properties?.timeseries?.[0]?.data?.instant?.details; if (!current) throw new Error(); const temp = Math.round(current.air_temperature); const symbol = data.properties?.timeseries?.[0]?.data?.next_1_hours?.summary?.symbol_code || "clearsky"; const weatherMap = { "clearsky":"晴","cloudy":"多云","rain":"雨","snow":"雪","fog":"雾" }; let weather = weatherMap[symbol] || "晴"; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
+    async function fetchWeatherOpenMeteo(province) { try { const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(province)}&count=1&language=zh&format=json`; const geoResp = await fetch(geoUrl, { cache: 'no-cache' }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.results?.length) throw new Error(); const { latitude, longitude } = geoData.results[0]; const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const temp = Math.round(data.current_weather.temperature); const code = data.current_weather.weather_code; const weatherMap = { 0:"晴",1:"晴",2:"多云",3:"多云",45:"雾",51:"小雨",61:"雨",71:"雪",95:"雷雨" }; let weather = weatherMap[code] || "晴"; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
+    async function fetchWeather7Timer(province) { try { const geoUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(province)}&format=json&limit=1`; const geoResp = await fetch(geoUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.length) throw new Error(); const lat = geoData[0].lat, lon = geoData[0].lon; const weatherUrl = `https://www.7timer.info/bin/api.pl?lon=${lon}&lat=${lat}&product=civil&output=json`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const current = data.dataseries?.[0]; if (!current) throw new Error(); const weatherMap = { "clear":"晴","cloudy":"多云","overcast":"阴","rain":"雨","snow":"雪","fog":"雾" }; let weather = weatherMap[current.weather] || "晴"; let temp = current.temp2m?.max || ""; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
+    async function fetchWeatherIpApi(province) { try { const ipResp = await fetch('https://ip-api.com/json/?fields=city,region,countryCode', { cache: 'no-cache' }); if (!ipResp.ok) throw new Error(); const ipData = await ipResp.json(); if (ipData.countryCode !== 'CN') throw new Error(); const city = ipData.city || province; const weatherUrl = `https://wttr.in/${encodeURIComponent(city)}?format=%C+%t&lang=zh`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); let text = await weatherResp.text(); text = text.trim().replace(/\s+/g, ' '); if (text.includes("Unknown") || text === "") throw new Error(); let condition = text; let temp = ""; const tempMatch = text.match(/[+-]?\d+°C/); if (tempMatch) { temp = tempMatch[0]; condition = text.replace(temp, "").trim(); } const emoji = getWeatherEmoji(condition); return { success: true, text: `天气: ${emoji} ${province}省 ${condition} ${temp}` }; } catch (e) { return { success: false }; } }
+    async function getProvinceByIP() { try { const resp = await fetch('https://ip-api.com/json/?fields=region,countryCode', { cache: 'no-cache' }); if (resp.ok) { const data = await resp.json(); if (data.countryCode === 'CN' && data.region) { const map = { "Shandong":"山东","Beijing":"北京","Shanghai":"上海","Guangdong":"广东","Jiangsu":"江苏","Zhejiang":"浙江","Sichuan":"四川","Hubei":"湖北","Hunan":"湖南","Henan":"河南","Hebei":"河北","Anhui":"安徽","Fujian":"福建","Liaoning":"辽宁","Shaanxi":"陕西","Yunnan":"云南","Guizhou":"贵州","Gansu":"甘肃","Heilongjiang":"黑龙江","Jilin":"吉林","Jiangxi":"江西","Qinghai":"青海","Hainan":"海南","Ningxia":"宁夏","Xinjiang":"新疆","Xizang":"西藏","Neimenggu":"内蒙古","Guangxi":"广西","Tianjin":"天津","Chongqing":"重庆" }; return map[data.region] || "山东"; } } } catch (e) {} return "山东"; }
+    async function fetchWeatherWithFallback(province) { if (!weatherElem) return false; if (!province || province.trim() === "") { weatherElem.innerHTML = '🌡️ 天气: 请输入省份'; return false; } const normalized = normalizeProvince(province); weatherElem.innerHTML = `天气: 🔄 查询“${normalized}省”天气中...`; const apis = [ { name: "中国天气网", fn: fetchWeatherChina }, { name: "Yr.no", fn: fetchWeatherYr }, { name: "Open-Meteo", fn: fetchWeatherOpenMeteo }, { name: "7Timer", fn: fetchWeather7Timer }, { name: "ip-api", fn: fetchWeatherIpApi } ]; for (const api of apis) { const result = await api.fn(normalized); if (result.success) { weatherElem.innerHTML = result.text; return true; } } weatherElem.innerHTML = `天气: ⚠️ 未能获取“${normalized}省”天气，可点击修改重试`; return false; }
+    async function initWeather() { const saved = localStorage.getItem('mt_weather_province'); if (saved && saved.trim() !== "") { currentProvince = saved; await fetchWeatherWithFallback(currentProvince); } else { const ipProvince = await getProvinceByIP(); currentProvince = ipProvince || "山东"; localStorage.setItem('mt_weather_province', currentProvince); await fetchWeatherWithFallback(currentProvince); } if (weatherRefreshInterval) clearInterval(weatherRefreshInterval); weatherRefreshInterval = setInterval(() => { if (currentProvince) fetchWeatherWithFallback(currentProvince); }, 30 * 60 * 1000); }
+    async function setProvince(provinceName) { if (!provinceName || provinceName.trim() === "") return false; const success = await fetchWeatherWithFallback(provinceName); if (success) { currentProvince = provinceName; localStorage.setItem('mt_weather_province', currentProvince); } return success; }
     const modal = document.getElementById('cityModal');
     const cityInput = document.getElementById('cityInput');
     const modalConfirm = document.getElementById('modalConfirmBtn');
     const modalCancel = document.getElementById('modalCancelBtn');
     const cityEditBtn = document.getElementById('cityEditBtn');
-    
-    cityEditBtn.addEventListener('click', () => {
-        cityInput.value = currentProvince || '';
-        modal.classList.add('show');
-    });
-    
-    modalConfirm.addEventListener('click', async () => {
-        const newProvince = cityInput.value.trim();
-        if (newProvince) {
-            await setProvince(newProvince);
-        }
-        modal.classList.remove('show');
-    });
-    
-    modalCancel.addEventListener('click', () => { 
-        modal.classList.remove('show'); 
-    });
-    
-    modal.addEventListener('click', (e) => { 
-        if (e.target === modal) modal.classList.remove('show'); 
-    });
-    
-    // 启动天气
+    cityEditBtn.addEventListener('click', () => { cityInput.value = currentProvince || ''; modal.classList.add('show'); });
+    modalConfirm.addEventListener('click', async () => { const newProvince = cityInput.value.trim(); if (newProvince) await setProvince(newProvince); modal.classList.remove('show'); });
+    modalCancel.addEventListener('click', () => { modal.classList.remove('show'); });
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
     initWeather();
     
-    // ========== 星座运势 ==========
-    function getConstellationName(month, day) {
-        if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
-        if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座";
-        if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座";
-        if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座";
-        if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "双子座";
-        if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "巨蟹座";
-        if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座";
-        if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座";
-        if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "天秤座";
-        if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "天蝎座";
-        if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "射手座";
-        return "摩羯座";
-    }
-    
-    function updateConstellation() {
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const day = now.getDate();
-        const constellation = getConstellationName(month, day);
-        const constElem = document.getElementById('constellationInfo');
-        if (constElem) constElem.innerHTML = `今日时运: ${constellation}`;
-    }
+    function getConstellationName(month, day) { if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座"; if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座"; if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座"; if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座"; if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "双子座"; if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "巨蟹座"; if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座"; if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座"; if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "天秤座"; if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "天蝎座"; if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "射手座"; return "摩羯座"; }
+    function updateConstellation() { const now = new Date(); const month = now.getMonth() + 1; const day = now.getDate(); const constellation = getConstellationName(month, day); const constElem = document.getElementById('constellationInfo'); if (constElem) constElem.innerHTML = `今日时运: ${constellation}`; }
     updateConstellation();
     
-    // ========== 复制功能 ==========
-    window.copyText = function(id, btn) {
-        const text = document.getElementById(id).innerText;
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text).then(() => showCopied(btn)).catch(() => fallbackCopy(text, btn));
-        } else {
-            fallbackCopy(text, btn);
-        }
-    }
+    window.copyText = function(id, btn) { const text = document.getElementById(id).innerText; if (navigator.clipboard) { navigator.clipboard.writeText(text).then(() => showCopied(btn)).catch(() => fallbackCopy(text, btn)); } else { fallbackCopy(text, btn); } }
+    function fallbackCopy(text, btn) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(btn); }
+    function showCopied(btn) { const orig = btn.innerHTML; btn.innerHTML = '复制成功'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }
     
-    function fallbackCopy(text, btn) {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showCopied(btn);
-    }
-    
-    function showCopied(btn) {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '复制成功';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
-    }
-    
-    // ========== 音乐播放器 ==========
     document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('welcomeOverlay');
         const container = document.getElementById('aplayer-container');
         let ap = null;
-        const initPlayer = () => {
-            if (!ap && container) {
-                ap = new APlayer({
-                    container: container,
-                    audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }],
-                    theme: '#ff6600',
-                    autoplay: false,
-                    loop: 'all',
-                    volume: 0.7
-                });
-                container.classList.add('show');
-                ap.play().catch(() => {});
-            }
-        };
-        if (overlay) {
-            overlay.addEventListener('click', () => {
-                if (!overlay.classList.contains('hidden')) {
-                    overlay.classList.add('hidden');
-                    initPlayer();
-                }
-            });
-        } else { initPlayer(); }
+        const initPlayer = () => { if (!ap && container) { ap = new APlayer({ container: container, audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }], theme: '#ff6600', autoplay: false, loop: 'all', volume: 0.7 }); container.classList.add('show'); ap.play().catch(() => {}); } };
+        if (overlay) { overlay.addEventListener('click', () => { if (!overlay.classList.contains('hidden')) { overlay.classList.add('hidden'); initPlayer(); } }); } else { initPlayer(); }
     });
     
-    // 返回顶部
     const backBtn = document.getElementById('backToTopBtn');
     if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-    
-    // 国际站跳转
     const internationalDiv = document.getElementById('internationalPlaceholder');
     if (internationalDiv) internationalDiv.addEventListener('click', () => { alert('网站正在建设中，敬请期待～'); });
     const snapshotLink = document.getElementById('watermelonSnapshotLink');
-    if (snapshotLink) snapshotLink.addEventListener('click', () => { 
-        window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank');
-    });
+    if (snapshotLink) snapshotLink.addEventListener('click', () => { window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank'); });
     
-    // 禁止拖拽图片
-    (function() {
-        const container = document.getElementById('avatarContainer');
-        if (container) {
-            container.addEventListener('contextmenu', e => e.preventDefault());
-            container.addEventListener('dragstart', e => e.preventDefault());
-        }
-        document.querySelectorAll('img').forEach(img => {
-            img.setAttribute('draggable', 'false');
-            img.addEventListener('dragstart', e => e.preventDefault());
-            img.addEventListener('contextmenu', e => e.preventDefault());
-        });
-    })();
+    (function() { const container = document.getElementById('avatarContainer'); if (container) { container.addEventListener('contextmenu', e => e.preventDefault()); container.addEventListener('dragstart', e => e.preventDefault()); } document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); img.addEventListener('dragstart', e => e.preventDefault()); img.addEventListener('contextmenu', e => e.preventDefault()); }); })();
 </script>
-<!-- 宠物系统脚本（保持不变）-->
+
+<!-- 宠物系统：完美支持鼠标 + 触摸（手指）拖动 -->
 <script>
     (function() {
         const pet = document.getElementById('petContainer');
         const petImage = document.getElementById('petImage');
         if (!pet || !petImage) return;
-        let isDragging = false, dragStartX = 0, dragStartY = 0, velocityY = 0, isFalling = false, animFrameId = null, bounceTimer = null, isBouncing = false, currentDirection = false;
-        function getPlatformElements() { const platforms = []; document.querySelectorAll('.window').forEach(el => platforms.push(el)); document.querySelectorAll('.new-col').forEach(el => platforms.push(el)); const musicBar = document.getElementById('aplayer-container'); if (musicBar && musicBar.classList.contains('show')) platforms.push(musicBar); return platforms; }
-        function getGroundY(currentLeft, currentTop, petWidth, petHeight) { let bestGroundY = null, bestPlatformTop = Infinity; const platforms = getPlatformElements(); const petBottom = currentTop + petHeight; for (let platform of platforms) { const rect = platform.getBoundingClientRect(); if (rect.width === 0 || rect.height === 0) continue; const petLeft = currentLeft, petRight = currentLeft + petWidth; const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5); if (overlapX) { const platformTop = rect.top; if (platformTop >= petBottom - 12 && platformTop < bestPlatformTop) { bestPlatformTop = platformTop; bestGroundY = platformTop - petHeight; } } } return bestGroundY; }
-        function getMusicBarTop() { const musicBar = document.getElementById('aplayer-container'); if (musicBar && musicBar.classList.contains('show')) { const rect = musicBar.getBoundingClientRect(); if (rect.top > 0) return rect.top; } return window.innerHeight - pet.offsetHeight - 10; }
-        function setDirection(isRight) { currentDirection = isRight; petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)'; }
-        function stopPhysics() { if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; } isFalling = false; }
-        function stopBounceLoop() { if (bounceTimer) { clearTimeout(bounceTimer); bounceTimer = null; } }
-        function startGravity(initialVelocity = 0) { if (isDragging) return; stopPhysics(); stopBounceLoop(); isFalling = true; velocityY = initialVelocity; function updateGravity() { if (!isFalling || isDragging) { if (!isDragging && !isFalling) startBounceLoop(); animFrameId = null; return; } let currentTop = parseFloat(pet.style.top); if (isNaN(currentTop)) currentTop = pet.getBoundingClientRect().top; let currentLeft = parseFloat(pet.style.left); if (isNaN(currentLeft)) currentLeft = pet.getBoundingClientRect().left; const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight; velocityY += 0.55; let newTop = currentTop + velocityY; let groundY = getGroundY(currentLeft, newTop, petWidth, petHeight); const musicTop = getMusicBarTop(); if (musicTop && newTop + petHeight >= musicTop - 1 && newTop + petHeight <= musicTop + 15) { newTop = musicTop - petHeight; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); if (Math.abs(velocityY) > 0.8) { velocityY = -velocityY * 0.45; if (Math.abs(velocityY) < 0.5) velocityY = 0; animFrameId = requestAnimationFrame(updateGravity); } else { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } return; } if (groundY !== null && newTop + petHeight >= groundY + petHeight - 3) { newTop = groundY; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); if (Math.abs(velocityY) > 0.8) { velocityY = -velocityY * 0.45; if (Math.abs(velocityY) < 0.5) velocityY = 0; animFrameId = requestAnimationFrame(updateGravity); } else { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } return; } if (newTop + petHeight >= musicTop + 2) { newTop = musicTop - petHeight; pet.style.top = newTop + 'px'; pet.classList.add('landing'); setTimeout(() => pet.classList.remove('landing'), 180); velocityY = -velocityY * 0.3; if (Math.abs(velocityY) < 0.6) { velocityY = 0; isFalling = false; animFrameId = null; startBounceLoop(); } else { animFrameId = requestAnimationFrame(updateGravity); } return; } pet.style.top = newTop + 'px'; const maxLeft = window.innerWidth - petWidth - 10, minLeft = 10; let finalLeft = currentLeft; if (currentLeft < minLeft) finalLeft = minLeft; if (currentLeft > maxLeft) finalLeft = maxLeft; if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px'; animFrameId = requestAnimationFrame(updateGravity); } animFrameId = requestAnimationFrame(updateGravity); }
-        function performBounce() { if (isDragging || isFalling || isBouncing) return; isBouncing = true; const isRight = Math.random() < 0.5; const moveDist = Math.random() * 60 + 30; let currentLeft = parseFloat(pet.style.left); const petWidth = pet.offsetWidth, maxLeft = window.innerWidth - petWidth - 15, minLeft = 15; let targetLeft = currentLeft + (isRight ? moveDist : -moveDist); targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft)); setDirection(isRight); pet.classList.remove('bounce-right', 'bounce-left'); void pet.offsetWidth; pet.classList.add(isRight ? 'bounce-right' : 'bounce-left'); const startLeft = currentLeft, startTime = performance.now(), duration = 400; function animateMove(now) { const elapsed = now - startTime; const progress = Math.min(1, elapsed / duration); const ease = 1 - Math.pow(1 - progress, 2); pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px'; if (progress < 1) requestAnimationFrame(animateMove); else { pet.style.left = targetLeft + 'px'; setTimeout(() => { pet.classList.remove('bounce-right', 'bounce-left'); isBouncing = false; }, 50); } } requestAnimationFrame(animateMove); }
-        function startBounceLoop() { if (bounceTimer) clearTimeout(bounceTimer); function schedule() { if (!isDragging && !isFalling && !isBouncing) performBounce(); bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000); } bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000); }
-        function onMouseDown(e) { if (e.button !== 0) return; e.preventDefault(); stopPhysics(); stopBounceLoop(); isDragging = true; pet.classList.add('dragging'); const rect = pet.getBoundingClientRect(); dragStartX = e.clientX - rect.left; dragStartY = e.clientY - rect.top; document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp); }
-        let lastMouseX = 0;
-        function onMouseMove(e) { if (!isDragging) return; e.preventDefault(); let newLeft = e.clientX - dragStartX, newTop = e.clientY - dragStartY; const pw = pet.offsetWidth, ph = pet.offsetHeight, musicTop = getMusicBarTop(), maxTop = musicTop - ph; newTop = Math.min(maxTop, Math.max(5, newTop)); newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft)); pet.style.left = newLeft + 'px'; pet.style.top = newTop + 'px'; if (Math.abs(e.clientX - lastMouseX) > 1) setDirection(e.clientX > lastMouseX); lastMouseX = e.clientX; }
-        function onMouseUp(e) { if (!isDragging) return; isDragging = false; pet.classList.remove('dragging'); const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left), ph = pet.offsetHeight, pw = pet.offsetWidth, groundY = getGroundY(currentLeft, currentTop, pw, ph), musicTop = getMusicBarTop(); if ((groundY !== null && currentTop + ph < groundY + ph - 5) || (currentTop + ph < musicTop - 5)) startGravity(1); else startGravity(0); document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+        
+        let isDragging = false;
+        let dragStartX = 0, dragStartY = 0;
+        let startLeft = 0, startTop = 0;
+        let velocityY = 0, isFalling = false, animFrameId = null, bounceTimer = null, isBouncing = false;
+        let currentDirection = false;
+        let lastClientX = 0;
+        
+        function getPlatformElements() {
+            const platforms = [];
+            document.querySelectorAll('.window').forEach(el => platforms.push(el));
+            document.querySelectorAll('.new-col').forEach(el => platforms.push(el));
+            const musicBar = document.getElementById('aplayer-container');
+            if (musicBar && musicBar.classList.contains('show')) platforms.push(musicBar);
+            return platforms;
+        }
+        
+        function getGroundY(currentLeft, currentTop, petWidth, petHeight) {
+            let bestGroundY = null, bestPlatformTop = Infinity;
+            const platforms = getPlatformElements();
+            const petBottom = currentTop + petHeight;
+            for (let platform of platforms) {
+                const rect = platform.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) continue;
+                const petLeft = currentLeft, petRight = currentLeft + petWidth;
+                const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5);
+                if (overlapX) {
+                    const platformTop = rect.top;
+                    if (platformTop >= petBottom - 12 && platformTop < bestPlatformTop) {
+                        bestPlatformTop = platformTop;
+                        bestGroundY = platformTop - petHeight;
+                    }
+                }
+            }
+            return bestGroundY;
+        }
+        
+        function getMusicBarTop() {
+            const musicBar = document.getElementById('aplayer-container');
+            if (musicBar && musicBar.classList.contains('show')) {
+                const rect = musicBar.getBoundingClientRect();
+                if (rect.top > 0) return rect.top;
+            }
+            return window.innerHeight - pet.offsetHeight - 10;
+        }
+        
+        function setDirection(isRight) {
+            currentDirection = isRight;
+            petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)';
+        }
+        
+        function stopPhysics() {
+            if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+            isFalling = false;
+        }
+        
+        function stopBounceLoop() {
+            if (bounceTimer) { clearTimeout(bounceTimer); bounceTimer = null; }
+        }
+        
+        function startGravity(initialVelocity = 0) {
+            if (isDragging) return;
+            stopPhysics();
+            stopBounceLoop();
+            isFalling = true;
+            velocityY = initialVelocity;
+            
+            function updateGravity() {
+                if (!isFalling || isDragging) {
+                    if (!isDragging && !isFalling) startBounceLoop();
+                    animFrameId = null;
+                    return;
+                }
+                let currentTop = parseFloat(pet.style.top);
+                if (isNaN(currentTop)) currentTop = pet.getBoundingClientRect().top;
+                let currentLeft = parseFloat(pet.style.left);
+                if (isNaN(currentLeft)) currentLeft = pet.getBoundingClientRect().left;
+                const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight;
+                velocityY += 0.55;
+                let newTop = currentTop + velocityY;
+                let groundY = getGroundY(currentLeft, newTop, petWidth, petHeight);
+                const musicTop = getMusicBarTop();
+                
+                if (musicTop && newTop + petHeight >= musicTop - 1 && newTop + petHeight <= musicTop + 15) {
+                    newTop = musicTop - petHeight;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 180);
+                    if (Math.abs(velocityY) > 0.8) {
+                        velocityY = -velocityY * 0.45;
+                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    } else {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    }
+                    return;
+                }
+                
+                if (groundY !== null && newTop + petHeight >= groundY + petHeight - 3) {
+                    newTop = groundY;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 180);
+                    if (Math.abs(velocityY) > 0.8) {
+                        velocityY = -velocityY * 0.45;
+                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    } else {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    }
+                    return;
+                }
+                
+                if (newTop + petHeight >= musicTop + 2) {
+                    newTop = musicTop - petHeight;
+                    pet.style.top = newTop + 'px';
+                    pet.classList.add('landing');
+                    setTimeout(() => pet.classList.remove('landing'), 180);
+                    velocityY = -velocityY * 0.3;
+                    if (Math.abs(velocityY) < 0.6) {
+                        velocityY = 0;
+                        isFalling = false;
+                        animFrameId = null;
+                        startBounceLoop();
+                    } else {
+                        animFrameId = requestAnimationFrame(updateGravity);
+                    }
+                    return;
+                }
+                
+                pet.style.top = newTop + 'px';
+                const maxLeft = window.innerWidth - petWidth - 10, minLeft = 10;
+                let finalLeft = currentLeft;
+                if (currentLeft < minLeft) finalLeft = minLeft;
+                if (currentLeft > maxLeft) finalLeft = maxLeft;
+                if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px';
+                animFrameId = requestAnimationFrame(updateGravity);
+            }
+            animFrameId = requestAnimationFrame(updateGravity);
+        }
+        
+        function performBounce() {
+            if (isDragging || isFalling || isBouncing) return;
+            isBouncing = true;
+            const isRight = Math.random() < 0.5;
+            const moveDist = Math.random() * 60 + 30;
+            let currentLeft = parseFloat(pet.style.left);
+            const petWidth = pet.offsetWidth, maxLeft = window.innerWidth - petWidth - 15, minLeft = 15;
+            let targetLeft = currentLeft + (isRight ? moveDist : -moveDist);
+            targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft));
+            setDirection(isRight);
+            pet.classList.remove('bounce-right', 'bounce-left');
+            void pet.offsetWidth;
+            pet.classList.add(isRight ? 'bounce-right' : 'bounce-left');
+            const startLeft = currentLeft, startTime = performance.now(), duration = 400;
+            function animateMove(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                const ease = 1 - Math.pow(1 - progress, 2);
+                pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px';
+                if (progress < 1) requestAnimationFrame(animateMove);
+                else {
+                    pet.style.left = targetLeft + 'px';
+                    setTimeout(() => { pet.classList.remove('bounce-right', 'bounce-left'); isBouncing = false; }, 50);
+                }
+            }
+            requestAnimationFrame(animateMove);
+        }
+        
+        function startBounceLoop() {
+            if (bounceTimer) clearTimeout(bounceTimer);
+            function schedule() {
+                if (!isDragging && !isFalling && !isBouncing) performBounce();
+                bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000);
+            }
+            bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
+        }
+        
+        // ========== 统一的拖拽处理（同时支持鼠标和触摸） ==========
+        function handleDragStart(clientX, clientY) {
+            stopPhysics();
+            stopBounceLoop();
+            isDragging = true;
+            pet.classList.add('dragging');
+            const rect = pet.getBoundingClientRect();
+            dragStartX = clientX - rect.left;
+            dragStartY = clientY - rect.top;
+            startLeft = rect.left;
+            startTop = rect.top;
+            lastClientX = clientX;
+        }
+        
+        function handleDragMove(clientX, clientY) {
+            if (!isDragging) return;
+            let newLeft = clientX - dragStartX;
+            let newTop = clientY - dragStartY;
+            const pw = pet.offsetWidth, ph = pet.offsetHeight;
+            const musicTop = getMusicBarTop();
+            const maxTop = musicTop - ph;
+            newTop = Math.min(maxTop, Math.max(5, newTop));
+            newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft));
+            pet.style.left = newLeft + 'px';
+            pet.style.top = newTop + 'px';
+            // 根据移动方向设置宠物朝向
+            if (Math.abs(clientX - lastClientX) > 1) {
+                setDirection(clientX > lastClientX);
+            }
+            lastClientX = clientX;
+        }
+        
+        function handleDragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            pet.classList.remove('dragging');
+            const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left);
+            const ph = pet.offsetHeight, pw = pet.offsetWidth;
+            const groundY = getGroundY(currentLeft, currentTop, pw, ph);
+            const musicTop = getMusicBarTop();
+            if ((groundY !== null && currentTop + ph < groundY + ph - 5) || (currentTop + ph < musicTop - 5)) {
+                startGravity(1);
+            } else {
+                startGravity(0);
+            }
+        }
+        
+        // ========== 鼠标事件 ==========
+        pet.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            e.preventDefault();
+            handleDragStart(e.clientX, e.clientY);
+            
+            const onMouseMove = (moveEvent) => {
+                handleDragMove(moveEvent.clientX, moveEvent.clientY);
+            };
+            const onMouseUp = () => {
+                handleDragEnd();
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+        
+        // ========== 触摸事件（手指拖动） ==========
+        pet.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            if (touch) {
+                handleDragStart(touch.clientX, touch.clientY);
+            }
+        });
+        
+        const onTouchMove = (moveEvent) => {
+            if (!isDragging) return;
+            moveEvent.preventDefault();
+            const touch = moveEvent.touches[0];
+            if (touch) {
+                handleDragMove(touch.clientX, touch.clientY);
+            }
+        };
+        
+        const onTouchEnd = () => {
+            handleDragEnd();
+        };
+        
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('touchend', onTouchEnd);
+        document.addEventListener('touchcancel', onTouchEnd);
+        
+        // 禁止图片默认拖拽
+        pet.addEventListener('dragstart', e => e.preventDefault());
+        petImage.addEventListener('dragstart', e => e.preventDefault());
+        
+        // 滚动时的重力处理
         let scrollTimer = null;
-        function onScroll() { if (isDragging) return; if (scrollTimer) clearTimeout(scrollTimer); scrollTimer = setTimeout(() => { if (!isDragging && !isFalling && !isBouncing) { const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left), ph = pet.offsetHeight, pw = pet.offsetWidth, groundY = getGroundY(currentLeft, currentTop, pw, ph), musicTop = getMusicBarTop(); if ((groundY !== null && currentTop + ph < groundY + ph - 8) || (currentTop + ph < musicTop - 8 && groundY === null)) { stopBounceLoop(); startGravity(1); } } }, 60); }
-        function setInitialPosition() { const targetWindow = document.querySelectorAll('.window')[1]; if (targetWindow) { const rect = targetWindow.getBoundingClientRect(); const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight; let leftPos = rect.left + (rect.width / 2) - petWidth / 2; leftPos = Math.min(window.innerWidth - petWidth - 15, Math.max(15, leftPos)); let topPos = rect.top - petHeight - 5; topPos = Math.max(10, topPos); pet.style.left = leftPos + 'px'; pet.style.top = topPos + 'px'; } else { pet.style.left = '70%'; pet.style.top = '60%'; } setDirection(false); velocityY = 0; stopPhysics(); stopBounceLoop(); setTimeout(() => { if (!isDragging) startGravity(0.5); }, 100); }
-        function initPet() { setInitialPosition(); window.addEventListener('resize', () => { if (!isDragging && !isFalling) setInitialPosition(); }); window.addEventListener('scroll', onScroll); }
-        const overlay = document.getElementById('welcomeOverlay'); if (overlay) { const obs = new MutationObserver(() => { if (overlay.classList.contains('hidden')) { initPet(); obs.disconnect(); } }); obs.observe(overlay, { attributes: true }); if (overlay.classList.contains('hidden')) initPet(); } else { initPet(); }
-        pet.addEventListener('mousedown', onMouseDown); pet.addEventListener('dragstart', e => e.preventDefault()); petImage.addEventListener('dragstart', e => e.preventDefault());
+        function onScroll() {
+            if (isDragging) return;
+            if (scrollTimer) clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                if (!isDragging && !isFalling && !isBouncing) {
+                    const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left);
+                    const ph = pet.offsetHeight, pw = pet.offsetWidth;
+                    const groundY = getGroundY(currentLeft, currentTop, pw, ph);
+                    const musicTop = getMusicBarTop();
+                    if ((groundY !== null && currentTop + ph < groundY + ph - 8) || (currentTop + ph < musicTop - 8 && groundY === null)) {
+                        stopBounceLoop();
+                        startGravity(1);
+                    }
+                }
+            }, 60);
+        }
+        
+        function setInitialPosition() {
+            const targetWindow = document.querySelectorAll('.window')[1];
+            if (targetWindow) {
+                const rect = targetWindow.getBoundingClientRect();
+                const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight;
+                let leftPos = rect.left + (rect.width / 2) - petWidth / 2;
+                leftPos = Math.min(window.innerWidth - petWidth - 15, Math.max(15, leftPos));
+                let topPos = rect.top - petHeight - 5;
+                topPos = Math.max(10, topPos);
+                pet.style.left = leftPos + 'px';
+                pet.style.top = topPos + 'px';
+            } else {
+                pet.style.left = '70%';
+                pet.style.top = '60%';
+            }
+            setDirection(false);
+            velocityY = 0;
+            stopPhysics();
+            stopBounceLoop();
+            setTimeout(() => { if (!isDragging) startGravity(0.5); }, 100);
+        }
+        
+        function initPetSystem() {
+            setInitialPosition();
+            window.addEventListener('resize', () => { if (!isDragging && !isFalling) setInitialPosition(); });
+            window.addEventListener('scroll', onScroll);
+        }
+        
+        const overlay = document.getElementById('welcomeOverlay');
+        if (overlay) {
+            const obs = new MutationObserver(() => {
+                if (overlay.classList.contains('hidden')) {
+                    initPetSystem();
+                    obs.disconnect();
+                }
+            });
+            obs.observe(overlay, { attributes: true });
+            if (overlay.classList.contains('hidden')) initPetSystem();
+        } else {
+            initPetSystem();
+        }
     })();
 </script>
 </body>
