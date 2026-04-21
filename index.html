@@ -14,7 +14,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #a7b9ce;
-            background-image: url('https://mittewolf.netlify.app/bg.png');
+            background-image: url('https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/bg.png');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -399,7 +399,7 @@
         const overlay = document.getElementById('welcomeOverlay');
         const container = document.getElementById('aplayer-container');
         let ap = null;
-        const initPlayer = () => { if (!ap && container) { ap = new APlayer({ container: container, audio: [{ name: '背景音乐', artist: 'owo', url: 'https://mittewolf.netlify.app/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }], theme: '#ff6600', autoplay: false, loop: 'all', volume: 0.7 }); container.classList.add('show'); ap.play().catch(() => {}); } };
+        const initPlayer = () => { if (!ap && container) { ap = new APlayer({ container: container, audio: [{ name: '背景音乐', artist: 'owo', url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }], theme: '#ff6600', autoplay: false, loop: 'all', volume: 0.7 }); container.classList.add('show'); ap.play().catch(() => {}); } };
         if (overlay) { overlay.addEventListener('click', () => { if (!overlay.classList.contains('hidden')) { overlay.classList.add('hidden'); initPlayer(); } }); } else { initPlayer(); }
     });
     
