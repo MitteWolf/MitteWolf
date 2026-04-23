@@ -215,9 +215,70 @@
         .click-hint { font-size: 18px; color: #1e3b6b; margin-top: 20px; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .welcome-overlay.hidden { opacity: 0; pointer-events: none; }
-        #aplayer-container { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-        #aplayer-container.show { opacity: 1; pointer-events: auto; }
-        .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
+        
+        /* 播放器容器和自定义歌词区域 */
+        #aplayer-container { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.3s; 
+        }
+        #aplayer-container.show { 
+            opacity: 1; 
+            pointer-events: auto; 
+        }
+        .aplayer { 
+            background: rgba(232, 237, 244, 0.85) !important; 
+            backdrop-filter: blur(5px); 
+            border-top: 1px solid #7f9db9; 
+            margin: 0 !important; 
+            border-radius: 0 !important; 
+        }
+        /* 隐藏默认的歌名和艺术家区域 */
+        .aplayer-info .aplayer-music {
+            display: none !important;
+        }
+        /* 自定义歌词显示区域 - 透明背景 + 白色文字 + 黑色描边 */
+        .custom-lyrics-panel {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            z-index: 999;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        .custom-lyrics-panel::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-lyrics-panel::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.2);
+        }
+        .custom-lyrics-panel::-webkit-scrollbar-thumb {
+            background: #ff6600;
+            border-radius: 4px;
+        }
+        .custom-lyrics-panel.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
         img { -webkit-user-drag: none; user-select: none; }
     </style>
 </head>
@@ -315,6 +376,7 @@
 
 <div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false"></div>
 <div id="aplayer-container"></div>
+<div class="custom-lyrics-panel" id="customLyricsPanel">🎵 加载歌词中...</div>
 <div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
@@ -335,7 +397,7 @@
     setInterval(updateBeijingTime, 1000);
     updateBeijingTime();
     
-    // ================= 天气系统（原样保留）=================
+    // ================= 天气系统 =================
     let currentProvince = "";
     let weatherRefreshInterval = null;
     const weatherElem = document.getElementById('weatherInfo');
@@ -395,12 +457,130 @@
     function fallbackCopy(text, btn) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(btn); }
     function showCopied(btn) { const orig = btn.innerHTML; btn.innerHTML = '复制成功'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }
     
+    // ================= 核心：自定义歌词滚动 =================
+    let lyricsData = [];      // 存储解析后的 { time, text }
+    let currentLyricIndex = -1;
+    let lyricUpdateInterval = null;
+    let currentAPlayer = null;
+    
+    // 解析 LRC 文件
+    async function loadLyrics(lrcUrl) {
+        try {
+            const response = await fetch(lrcUrl);
+            const lrcText = await response.text();
+            parseLRC(lrcText);
+            if (lyricsData.length > 0) {
+                updateLyricsDisplay(0);
+            } else {
+                document.getElementById('customLyricsPanel').innerHTML = '📃 暂无歌词';
+            }
+        } catch (error) {
+            console.error('加载歌词失败:', error);
+            document.getElementById('customLyricsPanel').innerHTML = '❌ 歌词加载失败';
+        }
+    }
+    
+    function parseLRC(lrcText) {
+        lyricsData = [];
+        const lines = lrcText.split(/\r?\n/);
+        const timeRegex = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/;
+        
+        for (let line of lines) {
+            const match = timeRegex.exec(line);
+            if (match) {
+                const minutes = parseInt(match[1]);
+                const seconds = parseInt(match[2]);
+                const millis = parseInt(match[3].padEnd(3, '0'));
+                const time = minutes * 60 + seconds + millis / 1000;
+                let text = line.replace(timeRegex, '').trim();
+                if (text === '') text = '♪';
+                lyricsData.push({ time, text });
+            }
+        }
+        lyricsData.sort((a, b) => a.time - b.time);
+    }
+    
+    function updateLyricsDisplay(currentTime) {
+        if (!lyricsData.length) return;
+        
+        let newIndex = -1;
+        for (let i = lyricsData.length - 1; i >= 0; i--) {
+            if (currentTime >= lyricsData[i].time) {
+                newIndex = i;
+                break;
+            }
+        }
+        
+        if (newIndex !== currentLyricIndex) {
+            currentLyricIndex = newIndex;
+            const panel = document.getElementById('customLyricsPanel');
+            if (currentLyricIndex >= 0) {
+                const currentLyric = lyricsData[currentLyricIndex].text;
+                panel.innerHTML = `🎵 ${currentLyric} 🎵`;
+                // 自动滚动到可视区域中央（简单滚动效果）
+                panel.scrollLeft = (panel.scrollWidth - panel.clientWidth) / 2;
+            } else {
+                panel.innerHTML = '🎵 等待播放... 🎵';
+            }
+        }
+    }
+    
+    function startLyricSync(ap) {
+        if (lyricUpdateInterval) clearInterval(lyricUpdateInterval);
+        lyricUpdateInterval = setInterval(() => {
+            if (ap && ap.audio && !ap.audio.paused) {
+                const currentTime = ap.audio.currentTime;
+                updateLyricsDisplay(currentTime);
+            } else if (ap && ap.audio && ap.audio.paused) {
+                // 暂停时不清空，保持当前歌词
+            }
+        }, 100);
+    }
+    
+    // ================= 音乐播放器（隐藏歌名区域，显示自定义歌词） =================
     document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('welcomeOverlay');
         const container = document.getElementById('aplayer-container');
-        let ap = null;
-        const initPlayer = () => { if (!ap && container) { ap = new APlayer({ container: container, audio: [{ name: '背景音乐', artist: 'owo', url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3', cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' }], theme: '#ff6600', autoplay: false, loop: 'all', volume: 0.7 }); container.classList.add('show'); ap.play().catch(() => {}); } };
-        if (overlay) { overlay.addEventListener('click', () => { if (!overlay.classList.contains('hidden')) { overlay.classList.add('hidden'); initPlayer(); } }); } else { initPlayer(); }
+        const customPanel = document.getElementById('customLyricsPanel');
+        
+        const initPlayer = () => {
+            if (!currentAPlayer && container) {
+                currentAPlayer = new APlayer({
+                    container: container,
+                    audio: [{
+                        name: ' ',          // 留空，因为被CSS隐藏了
+                        artist: ' ',        // 留空
+                        url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3',
+                        cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png',
+                        lrc: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc'
+                    }],
+                    theme: '#ff6600',
+                    autoplay: false,
+                    loop: 'all',
+                    volume: 0.7
+                });
+                container.classList.add('show');
+                customPanel.classList.remove('hide');
+                
+                // 加载歌词并开始同步
+                loadLyrics('https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc');
+                startLyricSync(currentAPlayer);
+                
+                // 可选：自动播放
+                currentAPlayer.play().catch(() => {});
+            }
+        };
+        
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                if (!overlay.classList.contains('hidden')) {
+                    overlay.classList.add('hidden');
+                    initPlayer();
+                }
+            });
+        } else {
+            initPlayer();
+        }
     });
     
     const backBtn = document.getElementById('backToTopBtn');
@@ -413,7 +593,7 @@
     (function() { const container = document.getElementById('avatarContainer'); if (container) { container.addEventListener('contextmenu', e => e.preventDefault()); container.addEventListener('dragstart', e => e.preventDefault()); } document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); img.addEventListener('dragstart', e => e.preventDefault()); img.addEventListener('contextmenu', e => e.preventDefault()); }); })();
 </script>
 
-<!-- 宠物系统：完美支持鼠标 + 触摸（手指）拖动 -->
+<!-- 宠物系统 -->
 <script>
     (function() {
         const pet = document.getElementById('petContainer');
@@ -603,7 +783,7 @@
             bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
         }
         
-        // ========== 统一的拖拽处理（同时支持鼠标和触摸） ==========
+        // 拖拽处理
         function handleDragStart(clientX, clientY) {
             stopPhysics();
             stopBounceLoop();
@@ -628,7 +808,6 @@
             newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft));
             pet.style.left = newLeft + 'px';
             pet.style.top = newTop + 'px';
-            // 根据移动方向设置宠物朝向
             if (Math.abs(clientX - lastClientX) > 1) {
                 setDirection(clientX > lastClientX);
             }
@@ -650,7 +829,7 @@
             }
         }
         
-        // ========== 鼠标事件 ==========
+        // 鼠标事件
         pet.addEventListener('mousedown', (e) => {
             if (e.button !== 0) return;
             e.preventDefault();
@@ -668,7 +847,7 @@
             document.addEventListener('mouseup', onMouseUp);
         });
         
-        // ========== 触摸事件（手指拖动） ==========
+        // 触摸事件
         pet.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
@@ -694,11 +873,9 @@
         document.addEventListener('touchend', onTouchEnd);
         document.addEventListener('touchcancel', onTouchEnd);
         
-        // 禁止图片默认拖拽
         pet.addEventListener('dragstart', e => e.preventDefault());
         petImage.addEventListener('dragstart', e => e.preventDefault());
         
-        // 滚动时的重力处理
         let scrollTimer = null;
         function onScroll() {
             if (isDragging) return;
