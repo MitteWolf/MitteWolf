@@ -157,6 +157,41 @@
         .window { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
         .window:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
         .window-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); }
+        
+        /* ★ 平台按钮组样式：让链接变成更易点击的按钮，大小不变保持协调 */
+        .platform-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        .plat-btn {
+            display: block;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            border: 1px solid #7f9db9;
+            border-radius: 40px;
+            padding: 8px 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #0066cc;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .plat-btn:hover {
+            background: #ff6600;
+            color: white;
+            border-color: #ff6600;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .plat-btn:active {
+            transform: translateY(1px);
+        }
+        
         .row { margin: 8px 0; padding: 4px 0; text-align: center; }
         .plat-link { color: #0066cc; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; padding: 3px 0; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3); }
         .plat-link:hover { color: #ff6600; text-decoration: underline; }
@@ -238,11 +273,9 @@
             margin: 0 !important; 
             border-radius: 0 !important; 
         }
-        /* 隐藏默认的歌名和艺术家区域 */
         .aplayer-info .aplayer-music {
             display: none !important;
         }
-        /* 自定义歌词显示区域 - 透明背景 + 白色文字 + 黑色描边 */
         .custom-lyrics-panel {
             position: fixed;
             bottom: 70px;
@@ -327,10 +360,13 @@
 <div class="windows-container">
     <div class="window">
         <div class="window-title">🐾 我的平台</div>
-        <div class="row"><a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-link">哔哩哔哩</a></div>
-        <div class="row"><a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-link">今日头条</a></div>
-        <div class="row"><a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-link">西瓜视频</a></div>
-        <div class="row"><a href="https://my.furwall.net/author/18006" target="_blank" class="plat-link">Furwall</a></div>
+        <!-- 平台链接全部改为大按钮样式，保留原有链接和打开方式，大小协调，更易点击 -->
+        <div class="platform-buttons">
+            <a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-btn">哔哩哔哩</a>
+            <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-btn">今日头条</a>
+            <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-btn">西瓜视频</a>
+            <a href="https://my.furwall.net/author/18006" target="_blank" class="plat-btn">Furwall</a>
+        </div>
         <div class="contact-section">
             <div class="contact-block"><div class="contact-label">QQ：</div><div class="contact-value" id="qq-number">3877559035</div><button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button></div>
             <div class="contact-block"><div class="contact-label">Q群小窝：</div><div class="contact-value" id="qq-group">1026977461</div><button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button></div>
@@ -353,7 +389,7 @@
         <div class="window-title">📢 公告：</div>
         <div class="announcement-content">
             <div class="announcement-item"><div class="announcement-title"><span class="sticky-tag">置顶</span> 我的经历视频</div><div>如果想要了解我的经历可以点击下面访问视频页面：</div><a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a></div>
-            <div class="static-text">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。近期作者要期中了，记得给我加加油~</div>
+            <div class="static-text">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
         </div>
     </div>
 </div>
@@ -457,13 +493,12 @@
     function fallbackCopy(text, btn) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(btn); }
     function showCopied(btn) { const orig = btn.innerHTML; btn.innerHTML = '复制成功'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }
     
-    // ================= 核心：自定义歌词滚动 =================
-    let lyricsData = [];      // 存储解析后的 { time, text }
+    // ================= 歌词播放器逻辑不变 =================
+    let lyricsData = [];
     let currentLyricIndex = -1;
     let lyricUpdateInterval = null;
     let currentAPlayer = null;
     
-    // 解析 LRC 文件
     async function loadLyrics(lrcUrl) {
         try {
             const response = await fetch(lrcUrl);
@@ -484,7 +519,6 @@
         lyricsData = [];
         const lines = lrcText.split(/\r?\n/);
         const timeRegex = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/;
-        
         for (let line of lines) {
             const match = timeRegex.exec(line);
             if (match) {
@@ -502,7 +536,6 @@
     
     function updateLyricsDisplay(currentTime) {
         if (!lyricsData.length) return;
-        
         let newIndex = -1;
         for (let i = lyricsData.length - 1; i >= 0; i--) {
             if (currentTime >= lyricsData[i].time) {
@@ -510,14 +543,12 @@
                 break;
             }
         }
-        
         if (newIndex !== currentLyricIndex) {
             currentLyricIndex = newIndex;
             const panel = document.getElementById('customLyricsPanel');
             if (currentLyricIndex >= 0) {
                 const currentLyric = lyricsData[currentLyricIndex].text;
                 panel.innerHTML = `🎵 ${currentLyric} 🎵`;
-                // 自动滚动到可视区域中央（简单滚动效果）
                 panel.scrollLeft = (panel.scrollWidth - panel.clientWidth) / 2;
             } else {
                 panel.innerHTML = '🎵 等待播放... 🎵';
@@ -529,15 +560,11 @@
         if (lyricUpdateInterval) clearInterval(lyricUpdateInterval);
         lyricUpdateInterval = setInterval(() => {
             if (ap && ap.audio && !ap.audio.paused) {
-                const currentTime = ap.audio.currentTime;
-                updateLyricsDisplay(currentTime);
-            } else if (ap && ap.audio && ap.audio.paused) {
-                // 暂停时不清空，保持当前歌词
+                updateLyricsDisplay(ap.audio.currentTime);
             }
         }, 100);
     }
     
-    // ================= 音乐播放器（隐藏歌名区域，显示自定义歌词） =================
     document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('welcomeOverlay');
         const container = document.getElementById('aplayer-container');
@@ -548,8 +575,8 @@
                 currentAPlayer = new APlayer({
                     container: container,
                     audio: [{
-                        name: ' ',          // 留空，因为被CSS隐藏了
-                        artist: ' ',        // 留空
+                        name: ' ',
+                        artist: ' ',
                         url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3',
                         cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png',
                         lrc: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc'
@@ -561,12 +588,8 @@
                 });
                 container.classList.add('show');
                 customPanel.classList.remove('hide');
-                
-                // 加载歌词并开始同步
                 loadLyrics('https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc');
                 startLyricSync(currentAPlayer);
-                
-                // 可选：自动播放
                 currentAPlayer.play().catch(() => {});
             }
         };
@@ -593,7 +616,7 @@
     (function() { const container = document.getElementById('avatarContainer'); if (container) { container.addEventListener('contextmenu', e => e.preventDefault()); container.addEventListener('dragstart', e => e.preventDefault()); } document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); img.addEventListener('dragstart', e => e.preventDefault()); img.addEventListener('contextmenu', e => e.preventDefault()); }); })();
 </script>
 
-<!-- 宠物系统 -->
+<!-- 宠物系统 (完全保留原功能) -->
 <script>
     (function() {
         const pet = document.getElementById('petContainer');
@@ -783,7 +806,6 @@
             bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
         }
         
-        // 拖拽处理
         function handleDragStart(clientX, clientY) {
             stopPhysics();
             stopBounceLoop();
@@ -829,7 +851,6 @@
             }
         }
         
-        // 鼠标事件
         pet.addEventListener('mousedown', (e) => {
             if (e.button !== 0) return;
             e.preventDefault();
@@ -847,7 +868,6 @@
             document.addEventListener('mouseup', onMouseUp);
         });
         
-        // 触摸事件
         pet.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
