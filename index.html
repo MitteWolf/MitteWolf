@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MTの小空间</title>
     
-    <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
-    <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
@@ -322,7 +322,7 @@
         <h1>Hey!</h1>
         <p>欢迎来到MT的小空间</p>
         <div class="click-hint">点击网页任意处浏览awa</div>
-        <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
+        <img class="welcome-gif" src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/hi.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
 
@@ -395,22 +395,23 @@
 </div>
 
 <div class="new-three-cols">
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false"></div></div>
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/99.png" alt=" " draggable="false"></div></div>
     <div class="new-col">
         <div class="new-col-title">🌐其他网站</div>
         <div class="international-content">
             <div class="international-link-area">
-                <div class="link-line" id="internationalPlaceholder">点这里可以访问我de国际站</div>
+                <!-- 国际站链接已按要求替换为 https://mittewolf.github.io/MitteWolfen/ -->
+                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="internationalLink">点这里访问我的国际站</a>
                 <div class="link-line" id="watermelonSnapshotLink">我de西瓜视频网页端快照（RIP2025.2）</div>
             </div>
             <div class="international-divider"></div>
             <div class="waiting-text">正在施工ing~</div>
         </div>
     </div>
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false"></div></div>
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/1w.png" alt=" " draggable="false"></div></div>
 </div>
 
-<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false"></div>
+<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/pet.png" alt="小宠物" draggable="false"></div>
 <div id="aplayer-container"></div>
 <div class="custom-lyrics-panel" id="customLyricsPanel">🎵 加载歌词中...</div>
 <div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
@@ -493,7 +494,7 @@
     function fallbackCopy(text, btn) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(btn); }
     function showCopied(btn) { const orig = btn.innerHTML; btn.innerHTML = '复制成功'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }
     
-    // ================= 歌词播放器逻辑不变 =================
+    // ================= 歌词播放器逻辑 =================
     let lyricsData = [];
     let currentLyricIndex = -1;
     let lyricUpdateInterval = null;
@@ -578,7 +579,7 @@
                         name: ' ',
                         artist: ' ',
                         url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3',
-                        cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png',
+                        cover: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.png',
                         lrc: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc'
                     }],
                     theme: '#ff6600',
@@ -608,8 +609,8 @@
     
     const backBtn = document.getElementById('backToTopBtn');
     if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-    const internationalDiv = document.getElementById('internationalPlaceholder');
-    if (internationalDiv) internationalDiv.addEventListener('click', () => { alert('网站正在建设中，敬请期待～'); });
+    
+    // 西瓜快照链接保持不变
     const snapshotLink = document.getElementById('watermelonSnapshotLink');
     if (snapshotLink) snapshotLink.addEventListener('click', () => { window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank'); });
     
