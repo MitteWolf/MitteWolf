@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MTの小空间</title>
     
-    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.png" type="image/x-icon">
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
+    <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
@@ -212,8 +212,11 @@
         .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
         .international-content { text-align: center; padding: 15px 5px; }
         .international-link-area { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; }
-        .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); }
+        .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); text-decoration: none; }
         .link-line:hover { background: #ff6600; color: white; transform: scale(1.02); }
+        /* 让真正的超链接继承按钮样式 */
+        a.link-line { color: #1e3b6b; text-decoration: none; display: inline-block; }
+        a.link-line:hover { color: white; }
         .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
         .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
         .character-content-compact { text-align: left; color: #1e3b6b; font-size: 14px; line-height: 1.7; }
@@ -322,7 +325,7 @@
         <h1>Hey!</h1>
         <p>欢迎来到MT的小空间</p>
         <div class="click-hint">点击网页任意处浏览awa</div>
-        <img class="welcome-gif" src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/hi.gif" alt="欢迎动图" draggable="false">
+        <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
 
@@ -360,7 +363,6 @@
 <div class="windows-container">
     <div class="window">
         <div class="window-title">🐾 我的平台</div>
-        <!-- 平台链接全部改为大按钮样式，保留原有链接和打开方式，大小协调，更易点击 -->
         <div class="platform-buttons">
             <a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-btn">哔哩哔哩</a>
             <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-btn">今日头条</a>
@@ -395,23 +397,23 @@
 </div>
 
 <div class="new-three-cols">
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/99.png" alt=" " draggable="false"></div></div>
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false"></div></div>
     <div class="new-col">
         <div class="new-col-title">🌐其他网站</div>
         <div class="international-content">
             <div class="international-link-area">
-                <!-- 国际站链接已按要求替换为 https://mittewolf.github.io/MitteWolfen/ -->
-                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="internationalLink">点这里访问我的国际站</a>
-                <div class="link-line" id="watermelonSnapshotLink">我de西瓜视频网页端快照（RIP2025.2）</div>
+                <!-- ★ 国际站链接已按要求替换为 https://mittewolf.github.io/MitteWolfen/ ，替换掉占位符 -->
+                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="internationalLink">🌍 访问我的国际站</a>
+                <div class="link-line" id="watermelonSnapshotLink">📸 我de西瓜视频网页端快照（RIP2025.2）</div>
             </div>
             <div class="international-divider"></div>
-            <div class="waiting-text">正在施工ing~</div>
+            <div class="waiting-text">⚡ 正在施工ing~</div>
         </div>
     </div>
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/1w.png" alt=" " draggable="false"></div></div>
+    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false"></div></div>
 </div>
 
-<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/pet.png" alt="小宠物" draggable="false"></div>
+<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false"></div>
 <div id="aplayer-container"></div>
 <div class="custom-lyrics-panel" id="customLyricsPanel">🎵 加载歌词中...</div>
 <div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
@@ -579,7 +581,7 @@
                         name: ' ',
                         artist: ' ',
                         url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.mp3',
-                        cover: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/music.png',
+                        cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png',
                         lrc: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc'
                     }],
                     theme: '#ff6600',
