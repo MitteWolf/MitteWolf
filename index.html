@@ -14,7 +14,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #a7b9ce;
-            background-image: url('https://pic1.imgdb.cn/item/6a09c5cd42582d261d241c5e.png');
+            background-image: url('https://pic1.imgdb.cn/item/6a1704d0cf6856634613ae27.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -72,93 +72,153 @@
         }
         .info-item { font-size: 13px; color: #1e3b6b; text-align: right; line-height: 1.45; text-shadow: 0 1px 0 rgba(255,255,255,0.3); font-weight: 500; white-space: nowrap; }
         .info-time { font-size: 15px; font-weight: bold; font-family: monospace; letter-spacing: 0.3px; color: #0a2f4d; }
-        .city-edit-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-bottom: 4px;
-        }
-        .city-edit-label {
-            font-size: 11px;
-            color: #1e3b6b;
-            background: rgba(255,255,255,0.6);
-            padding: 2px 8px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-        }
-        .city-edit-btn {
-            background: #ff6600;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 2px 10px;
-            font-size: 11px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            font-family: inherit;
-        }
-        .city-edit-btn:hover { opacity: 0.85; }
-        .city-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-        }
-        .city-modal.show { visibility: visible; opacity: 1; }
-        .city-modal-content {
-            background: rgba(232, 237, 244, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            width: 340px;
-            max-width: 85%;
-            text-align: center;
-            border: 1px solid #7f9db9;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .city-modal-content h3 { color: #1e3b6b; margin-bottom: 15px; }
-        .city-modal-content input { 
-            width: 100%; 
-            padding: 12px; 
-            border-radius: 30px; 
-            border: 1px solid #7f9db9; 
-            background: rgba(255,255,255,0.9); 
-            font-size: 16px; 
-            margin-bottom: 10px; 
-            text-align: center;
-            font-family: inherit;
-        }
-        .city-modal-content .hint-text {
-            font-size: 12px;
-            color: #ff6600;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .city-modal-content button { background: #ff6600; color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; font-size: 14px; margin: 0 5px; }
-        .city-modal-content button:hover { background: #e05500; }
-        .city-modal-content button.cancel-btn { background: #999; }
-        .city-modal-content button.cancel-btn:hover { background: #777; }
+        .greeting-item { font-size: 14px; font-weight: bold; color: #ff6600; text-align: right; text-shadow: 0 1px 0 rgba(255,255,255,0.5); letter-spacing: 1px; }
         .avatar-wrapper { position: relative; display: inline-block; width: 120px; height: 120px; flex-shrink: 0; }
         .avatar-circle { width: 100%; height: 100%; background: #e8edf4; border: 3px solid #fef7c0; box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; position: relative; user-select: none; border-radius: 20px; }
         .avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; }
         .avatar-protection { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 10; cursor: default; border-radius: 20px; }
-        .windows-container { width: 1000px; max-width: 90%; margin: 0 auto; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .window { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
-        .window:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
-        .window-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); }
         
-        /* ★ 平台按钮组样式：让链接变成更易点击的按钮，大小不变保持协调 */
+        .tab-bar {
+            width: 1000px;
+            max-width: 90%;
+            margin: 12px auto 25px auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: rgba(232, 237, 244, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(127, 157, 185, 0.7);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e3b6b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+        .tab-btn:hover {
+            background: #ff6600;
+            color: white;
+            border-color: #ff6600;
+            transform: translateY(-2px);
+        }
+        .tab-btn.active {
+            background: #ff6600;
+            color: white;
+            border-color: #ff6600;
+            box-shadow: 0 4px 10px rgba(255,102,0,0.3);
+        }
+        
+        .tab-content-area {
+            width: 1000px;
+            max-width: 90%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .tab-pane {
+            display: none;
+            background: rgba(232, 237, 244, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(127, 157, 185, 0.6);
+            border-radius: 20px;
+            padding: 25px 22px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            margin-bottom: 30px;
+        }
+        .tab-pane.active-pane {
+            display: block;
+            animation: fadeSlideUp 0.3s ease-out;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 设定介绍栏 - 优化图片缩放，响应式完美 */
+        .profile-layout {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .profile-image {
+            flex: 0 0 auto;
+            width: 160px;
+            max-width: 40%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border: 2px solid rgba(255,255,255,0.7);
+            background: rgba(240,245,250,0.4);
+            transition: transform 0.2s;
+        }
+        .profile-image img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 18px;
+        }
+        .profile-image:hover {
+            transform: scale(1.02);
+        }
+        .character-content-compact {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+            color: #1e3b6b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        /* 手机屏幕完美适配：上下排列，图片大小适中不变形 */
+        @media (max-width: 680px) {
+            .profile-layout {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .profile-image {
+                width: 140px;
+                max-width: 50%;
+            }
+            .character-content-compact {
+                width: 100%;
+            }
+        }
+        
+        .honor-wall {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .honor-card {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 12px;
+            transition: transform 0.2s;
+        }
+        .honor-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .honor-img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
         .platform-buttons {
             display: flex;
             flex-direction: column;
@@ -188,21 +248,12 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
-        .plat-btn:active {
-            transform: translateY(1px);
-        }
         
-        .row { margin: 8px 0; padding: 4px 0; text-align: center; }
-        .plat-link { color: #0066cc; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; padding: 3px 0; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3); }
-        .plat-link:hover { color: #ff6600; text-decoration: underline; }
-        .contact-section { margin-top: 15px; border-top: 1px dashed rgba(179, 195, 212, 0.8); padding-top: 10px; }
-        .contact-block { margin: 15px 0; padding: 8px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; text-align: center; backdrop-filter: blur(4px); }
-        .contact-label { font-weight: bold; color: #1e3b6b; font-size: 16px; display: block; margin-bottom: 6px; }
-        .contact-value { font-family: 'Courier New', monospace; background: rgba(255, 255, 255, 0.9); padding: 8px 10px; border: 1px solid #ccc; font-size: 16px; display: block; margin: 8px 0; font-weight: bold; border-radius: 6px; }
-        .copy-btn { background: #d4d0c8; border: 2px solid #fefefe; border-color: #fefefe #404040 #404040 #fefefe; padding: 8px 0; font-size: 15px; cursor: pointer; display: block; color: #1e2b3c; width: 100%; text-align: center; font-weight: bold; margin-top: 5px; border-radius: 6px; }
-        .copy-btn:hover { background: #f2f1e6; }
-        .copy-btn:active { border-color: #404040 #fefefe #fefefe #404040; background: #ceceb6; }
-        .copy-btn.copied { background: #28a745; color: white; }
+        .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
+        .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
+        .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
+        .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
+        
         .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
         .sticky-tag { background: #ff6600; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
         .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; }
@@ -210,51 +261,57 @@
         .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232, 237, 244, 0.8); border: 1px solid #7f9db9; border-radius: 6px; }
         .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
         .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
-        .international-content { text-align: center; padding: 15px 5px; }
-        .international-link-area { margin: 20px 0; display: flex; flex-direction: column; gap: 12px; }
+        
+        .international-content { text-align: center; padding: 5px 5px; }
+        .international-link-area { margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
         .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); text-decoration: none; }
         .link-line:hover { background: #ff6600; color: white; transform: scale(1.02); }
-        /* 让真正的超链接继承按钮样式 */
         a.link-line { color: #1e3b6b; text-decoration: none; display: inline-block; }
         a.link-line:hover { color: white; }
         .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
         .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
-        .character-content-compact { text-align: left; color: #1e3b6b; font-size: 14px; line-height: 1.7; }
-        .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
-        .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
-        .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
-        .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
-        .new-three-cols { width: 1000px; max-width: 90%; margin: 40px auto 0 auto; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .new-col { flex: 1; min-width: 250px; background: rgba(232, 237, 244, 0.5); backdrop-filter: blur(8px); border: 1px solid rgba(127, 157, 185, 0.6); border-radius: 12px; padding: 20px 15px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .new-col:hover { background: rgba(232, 237, 244, 0.95); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3); transform: translateY(-2px); }
-        .new-col-title { color: #1e3b6b; font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; flex-shrink: 0; }
-        .image-display { width: 100%; flex: 1; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 12px; background: rgba(30, 59, 107, 0.2); }
-        .image-display img { width: 100%; height: 100%; min-height: 280px; object-fit: cover; display: block; border-radius: 12px; }
-        .pet-container { position: fixed; z-index: 2000; cursor: grab; filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3)); user-select: none; touch-action: none; }
-        .pet-container:active { cursor: grabbing; }
-        .pet-image { width: 80px; height: auto; display: block; pointer-events: none; }
-        .pet-container.dragging { cursor: grabbing; z-index: 2001; }
-        @keyframes bounceMoveRight { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(10deg); } 70% { transform: translateY(4px) rotate(4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-        @keyframes bounceMoveLeft { 0% { transform: translateY(0px) rotate(0deg); } 30% { transform: translateY(-14px) rotate(-10deg); } 70% { transform: translateY(4px) rotate(-4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-        @keyframes squash { 0% { transform: scaleY(1) scaleX(1); } 50% { transform: scaleY(0.7) scaleX(1.15); } 100% { transform: scaleY(1) scaleX(1); } }
-        .pet-container.bounce-right { animation: bounceMoveRight 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
-        .pet-container.bounce-left { animation: bounceMoveLeft 0.4s cubic-bezier(0.34, 1.2, 0.64, 1); }
-        .pet-container.landing { animation: squash 0.2s ease-out; }
-        .back-to-top { position: fixed; bottom: 80px; right: 20px; width: 48px; height: 48px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; z-index: 1500; cursor: pointer; border: none; backdrop-filter: blur(2px); }
-        .back-to-top:hover { background: #2563eb; transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
-        .back-to-top:active { transform: scale(0.95); }
+        
         .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; }
-        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 240px; } .info-time { font-size: 12px; } .info-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .welcome-gif { max-width: 150px; } .city-edit-label { font-size: 9px; } }
-        @media (max-width: 600px) { .pet-image { width: 60px; } .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .back-to-top { width: 40px; height: 40px; font-size: 24px; bottom: 70px; right: 15px; } .info-panel { padding: 5px 10px; min-width: 200px; } .welcome-gif { max-width: 120px; } }
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; cursor: pointer; }
-        .welcome-card { background: transparent; max-width: 700px; width: 85%; text-align: center; padding: 30px 25px; animation: fadeInUp 0.6s ease-out; }
+        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 240px; } .info-time { font-size: 12px; } .info-item, .greeting-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .tab-btn { padding: 6px 14px; font-size: 13px; } }
+        @media (max-width: 600px) { .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .tab-bar { gap: 6px; } .tab-btn { padding: 5px 10px; font-size: 12px; } }
+        
+        /* 欢迎页覆盖层 */
+        .welcome-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(8px);
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 9999; 
+            transition: opacity 0.5s ease, visibility 0.5s ease; 
+            cursor: pointer;
+            opacity: 1;
+            visibility: visible;
+        }
+        .welcome-overlay.hidden { 
+            opacity: 0; 
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .welcome-card { 
+            background: transparent; 
+            max-width: 700px; 
+            width: 85%; 
+            text-align: center; 
+            padding: 30px 25px; 
+            animation: fadeInUp 0.6s ease-out;
+            pointer-events: none;
+        }
         .welcome-card h1 { font-size: 64px; color: #1e3b6b; margin-bottom: 20px; font-family: '仿宋', serif; }
         .welcome-card p { font-size: 24px; color: #1e3b6b; margin-bottom: 15px; }
         .click-hint { font-size: 18px; color: #1e3b6b; margin-top: 20px; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .welcome-overlay.hidden { opacity: 0; pointer-events: none; }
         
-        /* 播放器容器和自定义歌词区域 */
         #aplayer-container { 
             position: fixed; 
             bottom: 0; 
@@ -276,46 +333,64 @@
             margin: 0 !important; 
             border-radius: 0 !important; 
         }
-        .aplayer-info .aplayer-music {
-            display: none !important;
+        .custom-lyrics-panel { 
+            position: fixed; 
+            bottom: 70px; 
+            left: 0; 
+            right: 0; 
+            width: 100%; 
+            background: transparent; 
+            color: white; 
+            text-align: center; 
+            padding: 12px 20px; 
+            font-size: 18px; 
+            font-family: 'Courier New', monospace; 
+            font-weight: bold; 
+            z-index: 999; 
+            transition: all 0.3s ease; 
+            pointer-events: none; 
+            white-space: nowrap; 
+            overflow-x: auto; 
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; 
         }
-        .custom-lyrics-panel {
-            position: fixed;
-            bottom: 70px;
-            left: 0;
-            right: 0;
-            width: 100%;
-            background: transparent;
-            color: white;
-            text-align: center;
-            padding: 12px 20px;
-            font-size: 18px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            z-index: 999;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            white-space: nowrap;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        }
-        .custom-lyrics-panel::-webkit-scrollbar {
-            height: 4px;
-        }
-        .custom-lyrics-panel::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.2);
-        }
-        .custom-lyrics-panel::-webkit-scrollbar-thumb {
-            background: #ff6600;
-            border-radius: 4px;
-        }
-        .custom-lyrics-panel.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
+        .custom-lyrics-panel.hide { opacity: 0; visibility: hidden; }
         img { -webkit-user-drag: none; user-select: none; }
+        
+        .window-title { color: #1e3b6b; font-size: 24px; font-weight: bold; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; }
+        
+        /* 返回顶部按钮 - 位于音乐栏上方（歌词面板 bottom:70px，音乐栏高度约60px，设为100px正好在两者之间） */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1100;
+            opacity: 1;
+            visibility: visible;
+            text-decoration: none;
+            outline: none;
+        }
+        .back-to-top:hover {
+            background-color: #0b5e9e;
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        @media (max-width: 768px) {
+            .back-to-top { width: 42px; height: 42px; font-size: 24px; bottom: 90px; right: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -324,7 +399,7 @@
     <div class="welcome-card">
         <h1>Hey!</h1>
         <p>欢迎来到MT的小空间</p>
-        <div class="click-hint">点击网页任意处浏览awa</div>
+        <div class="click-hint">✨ 点击任意处进入 ✨</div>
         <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
@@ -332,36 +407,28 @@
 <div class="title-avatar-wrapper">
     <div class="welcome-title">这里是MT的小空间uwu</div>
     <div class="info-panel" id="infoPanel">
-        <div class="city-edit-wrapper">
-            <span class="city-edit-label">🌍 地区不对？这里修改你的天气省份</span>
-            <button class="city-edit-btn" id="cityEditBtn" title="修改天气省份">✎ 修改</button>
-        </div>
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
-        <div class="info-item" id="weatherInfo">🌡️ 天气: 定位中...</div>
+        <div class="greeting-item" id="greetingMessage">✨ 加载问候语中...</div>
         <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
     </div>
     <div class="avatar-wrapper">
         <div class="avatar-circle" id="avatarContainer">
-            <img src="https://pic1.imgdb.cn/item/6a09c57242582d261d241c3a.png" alt="头像" draggable="false">
+            <img src="https://pic1.imgdb.cn/item/6a1702f1cf6856634613ad9f.jpg" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
     </div>
 </div>
 
-<div id="cityModal" class="city-modal">
-    <div class="city-modal-content">
-        <h3>✏️ 修改省份</h3>
-        <input type="text" id="cityInput" placeholder="输入省份名称 (如: 山东省, 北京, 广东省)" value="">
-        <div class="hint-text">💡 支持：山东省、北京、广东省、江苏省、浙江省等</div>
-        <div>
-            <button id="modalConfirmBtn">确认修改</button>
-            <button id="modalCancelBtn" class="cancel-btn">取消</button>
-        </div>
-    </div>
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="tab-platform">🐾 我的平台</button>
+    <button class="tab-btn" data-tab="tab-profile">✨ 设定介绍</button>
+    <button class="tab-btn" data-tab="tab-news">📢 公告</button>
+    <button class="tab-btn" data-tab="tab-websites">🌐 其他</button>
+    <button class="tab-btn" data-tab="tab-honor">🏆 荣誉墙</button>
 </div>
 
-<div class="windows-container">
-    <div class="window">
+<div class="tab-content-area">
+    <div id="tab-platform" class="tab-pane active-pane">
         <div class="window-title">🐾 我的平台</div>
         <div class="platform-buttons">
             <a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-btn">哔哩哔哩</a>
@@ -369,595 +436,242 @@
             <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-btn">西瓜视频</a>
             <a href="https://my.furwall.net/author/18006" target="_blank" class="plat-btn">Furwall</a>
         </div>
-        <div class="contact-section">
-            <div class="contact-block"><div class="contact-label">QQ：</div><div class="contact-value" id="qq-number">3877559035</div><button class="copy-btn" onclick="copyText('qq-number', this)">点这里复制</button></div>
-            <div class="contact-block"><div class="contact-label">Q群小窝：</div><div class="contact-value" id="qq-group">1026977461</div><button class="copy-btn" onclick="copyText('qq-group', this)">点这里复制</button></div>
-        </div>
     </div>
-    <div class="window">
+    
+    <div id="tab-profile" class="tab-pane">
         <div class="window-title">✨ 设定介绍</div>
-        <div class="character-content-compact">
-            <div class="character-item-compact"><span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）</div>
-            <div class="character-item-compact"><span class="character-label-compact">♂️ 性别：</span>男性</div>
-            <div class="character-item-compact"><span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。</div>
-            <div class="character-item-compact"><span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~</div>
-            <div class="character-item-compact"><span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。</div>
-            <div class="character-item-compact"><span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。</div>
-            <div class="character-divider-compact"></div>
-            <div class="character-item-compact"><span class="character-label-compact">📖 故事背景：</span><div class="story-text-compact">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div></div>
+        <!-- 设定介绍：左侧图片 + 右侧文字，图片缩放响应式完美 -->
+        <div class="profile-layout">
+            <div class="profile-image">
+                <img src="https://pic1.imgdb.cn/item/6a170602cf6856634613ae50.jpg" alt="MT设定插图" draggable="false">
+            </div>
+            <div class="character-content-compact">
+                <div class="character-item-compact"><span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）</div>
+                <div class="character-item-compact"><span class="character-label-compact">♂️ 性别：</span>男性</div>
+                <div class="character-item-compact"><span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。</div>
+                <div class="character-item-compact"><span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~</div>
+                <div class="character-item-compact"><span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。</div>
+                <div class="character-item-compact"><span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。</div>
+                <div class="character-divider-compact"></div>
+                <div class="character-item-compact"><span class="character-label-compact">📖 故事背景：</span><div class="story-text-compact">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div></div>
+            </div>
         </div>
     </div>
-    <div class="window">
-        <div class="window-title">📢 公告：</div>
+    
+    <div id="tab-news" class="tab-pane">
+        <div class="window-title">📢 公告</div>
         <div class="announcement-content">
             <div class="announcement-item"><div class="announcement-title"><span class="sticky-tag">置顶</span> 我的经历视频</div><div>如果想要了解我的经历可以点击下面访问视频页面：</div><a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a></div>
             <div class="static-text">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
         </div>
     </div>
-</div>
-
-<div class="new-three-cols">
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt=" " draggable="false"></div></div>
-    <div class="new-col">
-        <div class="new-col-title">🌐其他网站</div>
+    
+    <div id="tab-websites" class="tab-pane">
+        <div class="window-title">其他</div>
         <div class="international-content">
             <div class="international-link-area">
-                <!-- ★ 国际站链接已按要求替换为 https://mittewolf.github.io/MitteWolfen/ ，替换掉占位符 -->
-                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="internationalLink">点这里访问我de国际站</a>
-                <div class="link-line" id="watermelonSnapshotLink">我de西瓜视频网页端快照（RIP2025.2）</div>
+                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line">🌍 点这里访问我的国际站</a>
+                <div class="link-line" id="watermelonSnapshotLink">我的西瓜视频网页端快照（RIP 2025.2）</div>
             </div>
             <div class="international-divider"></div>
-            <div class="waiting-text">⚡ 正在施工ing~</div>
+            <div class="waiting-text">⚡ 正在施工ing ~</div>
         </div>
     </div>
-    <div class="new-col"><div class="new-col-title"> </div><div class="image-display"><img src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt=" " draggable="false"></div></div>
+    
+    <div id="tab-honor" class="tab-pane">
+        <div class="window-title">🏆 荣誉墙</div>
+        <div class="honor-wall">
+            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt="荣誉图片1" draggable="false"></div>
+            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt="荣誉图片2" draggable="false"></div>
+        </div>
+    </div>
 </div>
 
-<div class="pet-container" id="petContainer"><img class="pet-image" id="petImage" src="https://pic1.imgdb.cn/item/69dba990e972b74d784765cd.png" alt="小宠物" draggable="false"></div>
 <div id="aplayer-container"></div>
-<div class="custom-lyrics-panel" id="customLyricsPanel">🎵 加载歌词中...</div>
-<div class="back-to-top" id="backToTopBtn" title="返回顶部">↑</div>
+<div class="custom-lyrics-panel" id="customLyricsPanel">🎵 正在加载歌词...</div>
+
+<button class="back-to-top" id="backToTopBtn" aria-label="返回顶部">↑</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-    // ================= 北京时间 =================
-    function updateBeijingTime() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const timeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        const timeElem = document.getElementById('liveBeijingTime');
-        if (timeElem) timeElem.innerHTML = `北京时间: ${timeStr}`;
-    }
-    setInterval(updateBeijingTime, 1000);
-    updateBeijingTime();
-    
-    // ================= 天气系统 =================
-    let currentProvince = "";
-    let weatherRefreshInterval = null;
-    const weatherElem = document.getElementById('weatherInfo');
-    
-    function normalizeProvince(input) {
-        if (!input) return "山东";
-        let clean = input.replace(/省$/, "");
-        if (clean === "北京" || clean === "上海" || clean === "天津" || clean === "重庆") return clean;
-        if (clean === "内蒙古") return "内蒙古";
-        if (clean === "广西") return "广西";
-        if (clean === "宁夏") return "宁夏";
-        if (clean === "新疆") return "新疆";
-        if (clean === "西藏") return "西藏";
-        return clean;
-    }
-    
-    function getWeatherEmoji(condition) {
-        const c = (condition || "").toLowerCase();
-        if (c.includes("晴") || c.includes("clear") || c.includes("sunny")) return "☀️";
-        if (c.includes("多云") || c.includes("cloud") || c.includes("partly")) return "⛅";
-        if (c.includes("阴") || c.includes("overcast")) return "☁️";
-        if (c.includes("小雨") || c.includes("light rain")) return "🌦️";
-        if (c.includes("中雨") || c.includes("moderate rain")) return "🌧️";
-        if (c.includes("大雨") || c.includes("heavy rain")) return "⛈️";
-        if (c.includes("暴雨") || c.includes("storm")) return "⛈️";
-        if (c.includes("雷") || c.includes("thunder")) return "⚡";
-        if (c.includes("雪") || c.includes("snow")) return "❄️";
-        if (c.includes("雾") || c.includes("fog")) return "🌫️";
-        return "🌡️";
-    }
-    
-    async function fetchWeatherChina(province) { try { const codeMap = { "北京":"101010100","上海":"101020100","天津":"101030100","重庆":"101040100","山东":"101120101","江苏":"101190101","浙江":"101210101","广东":"101280101","福建":"101230101","安徽":"101220101","江西":"101240101","河南":"101180101","湖北":"101200101","湖南":"101250101","四川":"101270101","贵州":"101260101","云南":"101290101","陕西":"101110101","甘肃":"101160101","青海":"101150101","海南":"101310101","黑龙江":"101050101","吉林":"101060101","辽宁":"101070101","山西":"101100101","河北":"101090101","内蒙古":"101080101","广西":"101300101","宁夏":"101170101","新疆":"101130101","西藏":"101140101" }; let code = codeMap[province]; if (!code) { for (let [key, val] of Object.entries(codeMap)) { if (province.includes(key) || key.includes(province)) { code = val; break; } } } if (!code) throw new Error(); const url = `https://www.weather.com.cn/data/sk/${code}.html`; const resp = await fetch(url, { cache: 'no-cache' }); if (!resp.ok) throw new Error(); const data = await resp.json(); if (data?.weatherinfo) { const info = data.weatherinfo; const weather = info.weather || "未知"; const temp = info.temp || ""; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } throw new Error(); } catch (e) { return { success: false }; } }
-    async function fetchWeatherYr(province) { try { const geoUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(province)}&format=json&limit=1`; const geoResp = await fetch(geoUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.length) throw new Error(); const lat = geoData[0].lat, lon = geoData[0].lon; const weatherUrl = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const current = data.properties?.timeseries?.[0]?.data?.instant?.details; if (!current) throw new Error(); const temp = Math.round(current.air_temperature); const symbol = data.properties?.timeseries?.[0]?.data?.next_1_hours?.summary?.symbol_code || "clearsky"; const weatherMap = { "clearsky":"晴","cloudy":"多云","rain":"雨","snow":"雪","fog":"雾" }; let weather = weatherMap[symbol] || "晴"; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
-    async function fetchWeatherOpenMeteo(province) { try { const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(province)}&count=1&language=zh&format=json`; const geoResp = await fetch(geoUrl, { cache: 'no-cache' }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.results?.length) throw new Error(); const { latitude, longitude } = geoData.results[0]; const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const temp = Math.round(data.current_weather.temperature); const code = data.current_weather.weather_code; const weatherMap = { 0:"晴",1:"晴",2:"多云",3:"多云",45:"雾",51:"小雨",61:"雨",71:"雪",95:"雷雨" }; let weather = weatherMap[code] || "晴"; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
-    async function fetchWeather7Timer(province) { try { const geoUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(province)}&format=json&limit=1`; const geoResp = await fetch(geoUrl, { cache: 'no-cache', headers: { 'User-Agent': 'MT-Space/1.0' } }); if (!geoResp.ok) throw new Error(); const geoData = await geoResp.json(); if (!geoData.length) throw new Error(); const lat = geoData[0].lat, lon = geoData[0].lon; const weatherUrl = `https://www.7timer.info/bin/api.pl?lon=${lon}&lat=${lat}&product=civil&output=json`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); const data = await weatherResp.json(); const current = data.dataseries?.[0]; if (!current) throw new Error(); const weatherMap = { "clear":"晴","cloudy":"多云","overcast":"阴","rain":"雨","snow":"雪","fog":"雾" }; let weather = weatherMap[current.weather] || "晴"; let temp = current.temp2m?.max || ""; const emoji = getWeatherEmoji(weather); return { success: true, text: `天气: ${emoji} ${province}省 ${weather} ${temp}°C` }; } catch (e) { return { success: false }; } }
-    async function fetchWeatherIpApi(province) { try { const ipResp = await fetch('https://ip-api.com/json/?fields=city,region,countryCode', { cache: 'no-cache' }); if (!ipResp.ok) throw new Error(); const ipData = await ipResp.json(); if (ipData.countryCode !== 'CN') throw new Error(); const city = ipData.city || province; const weatherUrl = `https://wttr.in/${encodeURIComponent(city)}?format=%C+%t&lang=zh`; const weatherResp = await fetch(weatherUrl, { cache: 'no-cache' }); if (!weatherResp.ok) throw new Error(); let text = await weatherResp.text(); text = text.trim().replace(/\s+/g, ' '); if (text.includes("Unknown") || text === "") throw new Error(); let condition = text; let temp = ""; const tempMatch = text.match(/[+-]?\d+°C/); if (tempMatch) { temp = tempMatch[0]; condition = text.replace(temp, "").trim(); } const emoji = getWeatherEmoji(condition); return { success: true, text: `天气: ${emoji} ${province}省 ${condition} ${temp}` }; } catch (e) { return { success: false }; } }
-    async function getProvinceByIP() { try { const resp = await fetch('https://ip-api.com/json/?fields=region,countryCode', { cache: 'no-cache' }); if (resp.ok) { const data = await resp.json(); if (data.countryCode === 'CN' && data.region) { const map = { "Shandong":"山东","Beijing":"北京","Shanghai":"上海","Guangdong":"广东","Jiangsu":"江苏","Zhejiang":"浙江","Sichuan":"四川","Hubei":"湖北","Hunan":"湖南","Henan":"河南","Hebei":"河北","Anhui":"安徽","Fujian":"福建","Liaoning":"辽宁","Shaanxi":"陕西","Yunnan":"云南","Guizhou":"贵州","Gansu":"甘肃","Heilongjiang":"黑龙江","Jilin":"吉林","Jiangxi":"江西","Qinghai":"青海","Hainan":"海南","Ningxia":"宁夏","Xinjiang":"新疆","Xizang":"西藏","Neimenggu":"内蒙古","Guangxi":"广西","Tianjin":"天津","Chongqing":"重庆" }; return map[data.region] || "山东"; } } } catch (e) {} return "山东"; }
-    async function fetchWeatherWithFallback(province) { if (!weatherElem) return false; if (!province || province.trim() === "") { weatherElem.innerHTML = '🌡️ 天气: 请输入省份'; return false; } const normalized = normalizeProvince(province); weatherElem.innerHTML = `天气: 🔄 查询“${normalized}省”天气中...`; const apis = [ { name: "中国天气网", fn: fetchWeatherChina }, { name: "Yr.no", fn: fetchWeatherYr }, { name: "Open-Meteo", fn: fetchWeatherOpenMeteo }, { name: "7Timer", fn: fetchWeather7Timer }, { name: "ip-api", fn: fetchWeatherIpApi } ]; for (const api of apis) { const result = await api.fn(normalized); if (result.success) { weatherElem.innerHTML = result.text; return true; } } weatherElem.innerHTML = `天气: ⚠️ 未能获取“${normalized}省”天气，可点击修改重试`; return false; }
-    async function initWeather() { const saved = localStorage.getItem('mt_weather_province'); if (saved && saved.trim() !== "") { currentProvince = saved; await fetchWeatherWithFallback(currentProvince); } else { const ipProvince = await getProvinceByIP(); currentProvince = ipProvince || "山东"; localStorage.setItem('mt_weather_province', currentProvince); await fetchWeatherWithFallback(currentProvince); } if (weatherRefreshInterval) clearInterval(weatherRefreshInterval); weatherRefreshInterval = setInterval(() => { if (currentProvince) fetchWeatherWithFallback(currentProvince); }, 30 * 60 * 1000); }
-    async function setProvince(provinceName) { if (!provinceName || provinceName.trim() === "") return false; const success = await fetchWeatherWithFallback(provinceName); if (success) { currentProvince = provinceName; localStorage.setItem('mt_weather_province', currentProvince); } return success; }
-    const modal = document.getElementById('cityModal');
-    const cityInput = document.getElementById('cityInput');
-    const modalConfirm = document.getElementById('modalConfirmBtn');
-    const modalCancel = document.getElementById('modalCancelBtn');
-    const cityEditBtn = document.getElementById('cityEditBtn');
-    cityEditBtn.addEventListener('click', () => { cityInput.value = currentProvince || ''; modal.classList.add('show'); });
-    modalConfirm.addEventListener('click', async () => { const newProvince = cityInput.value.trim(); if (newProvince) await setProvince(newProvince); modal.classList.remove('show'); });
-    modalCancel.addEventListener('click', () => { modal.classList.remove('show'); });
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
-    initWeather();
-    
-    function getConstellationName(month, day) { if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座"; if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座"; if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座"; if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座"; if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "双子座"; if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "巨蟹座"; if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座"; if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座"; if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "天秤座"; if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "天蝎座"; if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "射手座"; return "摩羯座"; }
-    function updateConstellation() { const now = new Date(); const month = now.getMonth() + 1; const day = now.getDate(); const constellation = getConstellationName(month, day); const constElem = document.getElementById('constellationInfo'); if (constElem) constElem.innerHTML = `今日时运: ${constellation}`; }
-    updateConstellation();
-    
-    window.copyText = function(id, btn) { const text = document.getElementById(id).innerText; if (navigator.clipboard) { navigator.clipboard.writeText(text).then(() => showCopied(btn)).catch(() => fallbackCopy(text, btn)); } else { fallbackCopy(text, btn); } }
-    function fallbackCopy(text, btn) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied(btn); }
-    function showCopied(btn) { const orig = btn.innerHTML; btn.innerHTML = '复制成功'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000); }
-    
-    // ================= 歌词播放器逻辑 =================
-    let lyricsData = [];
-    let currentLyricIndex = -1;
-    let lyricUpdateInterval = null;
-    let currentAPlayer = null;
-    
-    async function loadLyrics(lrcUrl) {
-        try {
-            const response = await fetch(lrcUrl);
-            const lrcText = await response.text();
-            parseLRC(lrcText);
-            if (lyricsData.length > 0) {
-                updateLyricsDisplay(0);
-            } else {
-                document.getElementById('customLyricsPanel').innerHTML = '📃 暂无歌词';
-            }
-        } catch (error) {
-            console.error('加载歌词失败:', error);
-            document.getElementById('customLyricsPanel').innerHTML = '❌ 歌词加载失败';
-        }
-    }
-    
-    function parseLRC(lrcText) {
-        lyricsData = [];
-        const lines = lrcText.split(/\r?\n/);
-        const timeRegex = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/;
-        for (let line of lines) {
-            const match = timeRegex.exec(line);
-            if (match) {
-                const minutes = parseInt(match[1]);
-                const seconds = parseInt(match[2]);
-                const millis = parseInt(match[3].padEnd(3, '0'));
-                const time = minutes * 60 + seconds + millis / 1000;
-                let text = line.replace(timeRegex, '').trim();
-                if (text === '') text = '♪';
-                lyricsData.push({ time, text });
-            }
-        }
-        lyricsData.sort((a, b) => a.time - b.time);
-    }
-    
-    function updateLyricsDisplay(currentTime) {
-        if (!lyricsData.length) return;
-        let newIndex = -1;
-        for (let i = lyricsData.length - 1; i >= 0; i--) {
-            if (currentTime >= lyricsData[i].time) {
-                newIndex = i;
-                break;
-            }
-        }
-        if (newIndex !== currentLyricIndex) {
-            currentLyricIndex = newIndex;
-            const panel = document.getElementById('customLyricsPanel');
-            if (currentLyricIndex >= 0) {
-                const currentLyric = lyricsData[currentLyricIndex].text;
-                panel.innerHTML = `🎵 ${currentLyric} 🎵`;
-                panel.scrollLeft = (panel.scrollWidth - panel.clientWidth) / 2;
-            } else {
-                panel.innerHTML = '🎵 等待播放... 🎵';
-            }
-        }
-    }
-    
-    function startLyricSync(ap) {
-        if (lyricUpdateInterval) clearInterval(lyricUpdateInterval);
-        lyricUpdateInterval = setInterval(() => {
-            if (ap && ap.audio && !ap.audio.paused) {
-                updateLyricsDisplay(ap.audio.currentTime);
-            }
-        }, 100);
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const overlay = document.getElementById('welcomeOverlay');
-        const container = document.getElementById('aplayer-container');
-        const customPanel = document.getElementById('customLyricsPanel');
-        
-        const initPlayer = () => {
-            if (!currentAPlayer && container) {
-                currentAPlayer = new APlayer({
-                    container: container,
-                    audio: [{
-                        name: ' ',
-                        artist: ' ',
-                        url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3?v=2026',
-                        cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png',
-                        lrc: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc'
-                    }],
-                    theme: '#ff6600',
-                    autoplay: false,
-                    loop: 'all',
-                    volume: 0.7
-                });
-                container.classList.add('show');
-                customPanel.classList.remove('hide');
-                loadLyrics('https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf@main/lrc.lrc');
-                startLyricSync(currentAPlayer);
-                currentAPlayer.play().catch(() => {});
-            }
-        };
-        
-        if (overlay) {
-            overlay.addEventListener('click', () => {
-                if (!overlay.classList.contains('hidden')) {
-                    overlay.classList.add('hidden');
-                    initPlayer();
-                }
-            });
-        } else {
-            initPlayer();
-        }
-    });
-    
-    const backBtn = document.getElementById('backToTopBtn');
-    if (backBtn) backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-    
-    // 西瓜快照链接保持不变
-    const snapshotLink = document.getElementById('watermelonSnapshotLink');
-    if (snapshotLink) snapshotLink.addEventListener('click', () => { window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank'); });
-    
-    (function() { const container = document.getElementById('avatarContainer'); if (container) { container.addEventListener('contextmenu', e => e.preventDefault()); container.addEventListener('dragstart', e => e.preventDefault()); } document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); img.addEventListener('dragstart', e => e.preventDefault()); img.addEventListener('contextmenu', e => e.preventDefault()); }); })();
-</script>
-
-<!-- 宠物系统 (完全保留原功能) -->
-<script>
     (function() {
-        const pet = document.getElementById('petContainer');
-        const petImage = document.getElementById('petImage');
-        if (!pet || !petImage) return;
-        
-        let isDragging = false;
-        let dragStartX = 0, dragStartY = 0;
-        let startLeft = 0, startTop = 0;
-        let velocityY = 0, isFalling = false, animFrameId = null, bounceTimer = null, isBouncing = false;
-        let currentDirection = false;
-        let lastClientX = 0;
-        
-        function getPlatformElements() {
-            const platforms = [];
-            document.querySelectorAll('.window').forEach(el => platforms.push(el));
-            document.querySelectorAll('.new-col').forEach(el => platforms.push(el));
-            const musicBar = document.getElementById('aplayer-container');
-            if (musicBar && musicBar.classList.contains('show')) platforms.push(musicBar);
-            return platforms;
+        // 标签页切换
+        function initTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+            function switchTab(tabId) {
+                panes.forEach(pane => pane.classList.remove('active-pane'));
+                const targetPane = document.getElementById(tabId);
+                if (targetPane) targetPane.classList.add('active-pane');
+                tabBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+                });
+            }
+            tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab'))));
         }
         
-        function getGroundY(currentLeft, currentTop, petWidth, petHeight) {
-            let bestGroundY = null, bestPlatformTop = Infinity;
-            const platforms = getPlatformElements();
-            const petBottom = currentTop + petHeight;
-            for (let platform of platforms) {
-                const rect = platform.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) continue;
-                const petLeft = currentLeft, petRight = currentLeft + petWidth;
-                const overlapX = (petRight > rect.left + 5) && (petLeft < rect.right - 5);
-                if (overlapX) {
-                    const platformTop = rect.top;
-                    if (platformTop >= petBottom - 12 && platformTop < bestPlatformTop) {
-                        bestPlatformTop = platformTop;
-                        bestGroundY = platformTop - petHeight;
+        // 北京时间更新
+        function updateBeijingTime() {
+            const now = new Date();
+            document.getElementById('liveBeijingTime').innerHTML = `北京时间: ${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            if (now.getMinutes() === 0 && now.getSeconds() === 0) updateGreeting();
+        }
+        
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let msg = "";
+            if (hour >= 5 && hour < 8) msg = "🌅 早上好，又是元气满满的一天呢！";
+            else if (hour >= 8 && hour < 11) msg = "☀️ 上午好，今天也要加油鸭~";
+            else if (hour >= 11 && hour < 13) msg = "🍚 中午好，记得按时吃饭休息哦！";
+            else if (hour >= 13 && hour < 17) msg = "📚 下午好，愿你拥有一个充实的午后~";
+            else if (hour >= 17 && hour < 19) msg = "🌇 傍晚好，夕阳很美，放松一下吧~";
+            else if (hour >= 19 && hour < 22) msg = "🌙 晚上好，星星在陪你呢~";
+            else msg = "💤 夜深了，早点休息，做个好梦~";
+            document.getElementById('greetingMessage').innerHTML = msg;
+        }
+        
+        function getConstellationName(month, day) {
+            if ((month===1&&day>=20)||(month===2&&day<=18)) return "水瓶座♒";
+            if ((month===2&&day>=19)||(month===3&&day<=20)) return "双鱼座♓";
+            if ((month===3&&day>=21)||(month===4&&day<=19)) return "白羊座♈";
+            if ((month===4&&day>=20)||(month===5&&day<=20)) return "金牛座♉";
+            if ((month===5&&day>=21)||(month===6&&day<=20)) return "双子座♊";
+            if ((month===6&&day>=21)||(month===7&&day<=22)) return "巨蟹座♋";
+            if ((month===7&&day>=23)||(month===8&&day<=22)) return "狮子座♌";
+            if ((month===8&&day>=23)||(month===9&&day<=22)) return "处女座♍";
+            if ((month===9&&day>=23)||(month===10&&day<=21)) return "天秤座♎";
+            if ((month===10&&day>=23)||(month===11&&day<=21)) return "天蝎座♏";
+            if ((month===11&&day>=22)||(month===12&&day<=21)) return "射手座♐";
+            return "摩羯座♑";
+        }
+        
+        // 歌词加载与显示
+        let lyricsData = [], currentLyricIndex = -1, lyricInterval = null, aplayer = null;
+        let defaultLyricText = "🎵 纯音乐，请欣赏 🎵";
+        const LRC_URL = 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/lrc.lrc';
+        
+        async function loadLyrics() {
+            const lyricsPanel = document.getElementById('customLyricsPanel');
+            try {
+                const res = await fetch(LRC_URL);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const text = await res.text();
+                lyricsData = [];
+                let hasTimedLyrics = false;
+                text.split(/\r?\n/).forEach(line => {
+                    const match = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line);
+                    if (match) {
+                        hasTimedLyrics = true;
+                        const time = parseInt(match[1])*60 + parseInt(match[2]) + parseInt(match[3].padEnd(3,'0'))/1000;
+                        let txt = line.replace(/\[.*?\]/, '').trim();
+                        if (!txt) txt = '♪';
+                        lyricsData.push({ time, text: txt });
                     }
+                });
+                lyricsData.sort((a,b)=>a.time-b.time);
+                if (lyricsData.length === 0 && !hasTimedLyrics) {
+                    const plainTextLines = text.split(/\r?\n/).filter(line => line.trim() && !line.includes('[') && line.length > 0);
+                    if (plainTextLines.length > 0) defaultLyricText = `🎵 ${plainTextLines[0]} 🎵`;
+                    lyricsPanel.innerHTML = defaultLyricText;
+                } else if (lyricsData.length === 0) {
+                    lyricsPanel.innerHTML = defaultLyricText;
+                } else {
+                    lyricsPanel.innerHTML = '🎵 等待播放 🎵';
                 }
+            } catch(e) { 
+                console.error('歌词加载失败:', e);
+                lyricsPanel.innerHTML = defaultLyricText;
             }
-            return bestGroundY;
         }
         
-        function getMusicBarTop() {
-            const musicBar = document.getElementById('aplayer-container');
-            if (musicBar && musicBar.classList.contains('show')) {
-                const rect = musicBar.getBoundingClientRect();
-                if (rect.top > 0) return rect.top;
+        function updateLyrics(currentTime) {
+            const lyricsPanel = document.getElementById('customLyricsPanel');
+            if (!lyricsData.length) {
+                if (lyricsPanel.innerHTML !== defaultLyricText) lyricsPanel.innerHTML = defaultLyricText;
+                return;
             }
-            return window.innerHeight - pet.offsetHeight - 10;
+            let idx = -1;
+            for (let i=lyricsData.length-1; i>=0; i--) {
+                if (currentTime >= lyricsData[i].time) { idx = i; break; }
+            }
+            if (idx !== currentLyricIndex && idx >= 0) {
+                currentLyricIndex = idx;
+                lyricsPanel.innerHTML = `🎵 ${lyricsData[idx].text} 🎵`;
+            } else if (idx === -1 && currentLyricIndex !== -2) {
+                currentLyricIndex = -2;
+                lyricsPanel.innerHTML = '🎵 即将开始 🎵';
+            }
         }
         
-        function setDirection(isRight) {
-            currentDirection = isRight;
-            petImage.style.transform = isRight ? 'scaleX(-1)' : 'scaleX(1)';
+        function initBackToTop() {
+            const btn = document.getElementById('backToTopBtn');
+            if (btn) btn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
         }
         
-        function stopPhysics() {
-            if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
-            isFalling = false;
-        }
-        
-        function stopBounceLoop() {
-            if (bounceTimer) { clearTimeout(bounceTimer); bounceTimer = null; }
-        }
-        
-        function startGravity(initialVelocity = 0) {
-            if (isDragging) return;
-            stopPhysics();
-            stopBounceLoop();
-            isFalling = true;
-            velocityY = initialVelocity;
+        // 主入口
+        function init() {
+            initTabs();
+            initBackToTop();
+            setInterval(updateBeijingTime, 1000);
+            updateBeijingTime();
+            setInterval(updateGreeting, 30 * 60 * 1000);
+            updateGreeting();
+            document.getElementById('constellationInfo').innerHTML = `✨ 今日时运: ${getConstellationName(new Date().getMonth()+1, new Date().getDate())} ✨`;
             
-            function updateGravity() {
-                if (!isFalling || isDragging) {
-                    if (!isDragging && !isFalling) startBounceLoop();
-                    animFrameId = null;
-                    return;
-                }
-                let currentTop = parseFloat(pet.style.top);
-                if (isNaN(currentTop)) currentTop = pet.getBoundingClientRect().top;
-                let currentLeft = parseFloat(pet.style.left);
-                if (isNaN(currentLeft)) currentLeft = pet.getBoundingClientRect().left;
-                const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight;
-                velocityY += 0.55;
-                let newTop = currentTop + velocityY;
-                let groundY = getGroundY(currentLeft, newTop, petWidth, petHeight);
-                const musicTop = getMusicBarTop();
-                
-                if (musicTop && newTop + petHeight >= musicTop - 1 && newTop + petHeight <= musicTop + 15) {
-                    newTop = musicTop - petHeight;
-                    pet.style.top = newTop + 'px';
-                    pet.classList.add('landing');
-                    setTimeout(() => pet.classList.remove('landing'), 180);
-                    if (Math.abs(velocityY) > 0.8) {
-                        velocityY = -velocityY * 0.45;
-                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
-                        animFrameId = requestAnimationFrame(updateGravity);
-                    } else {
-                        velocityY = 0;
-                        isFalling = false;
-                        animFrameId = null;
-                        startBounceLoop();
-                    }
-                    return;
-                }
-                
-                if (groundY !== null && newTop + petHeight >= groundY + petHeight - 3) {
-                    newTop = groundY;
-                    pet.style.top = newTop + 'px';
-                    pet.classList.add('landing');
-                    setTimeout(() => pet.classList.remove('landing'), 180);
-                    if (Math.abs(velocityY) > 0.8) {
-                        velocityY = -velocityY * 0.45;
-                        if (Math.abs(velocityY) < 0.5) velocityY = 0;
-                        animFrameId = requestAnimationFrame(updateGravity);
-                    } else {
-                        velocityY = 0;
-                        isFalling = false;
-                        animFrameId = null;
-                        startBounceLoop();
-                    }
-                    return;
-                }
-                
-                if (newTop + petHeight >= musicTop + 2) {
-                    newTop = musicTop - petHeight;
-                    pet.style.top = newTop + 'px';
-                    pet.classList.add('landing');
-                    setTimeout(() => pet.classList.remove('landing'), 180);
-                    velocityY = -velocityY * 0.3;
-                    if (Math.abs(velocityY) < 0.6) {
-                        velocityY = 0;
-                        isFalling = false;
-                        animFrameId = null;
-                        startBounceLoop();
-                    } else {
-                        animFrameId = requestAnimationFrame(updateGravity);
-                    }
-                    return;
-                }
-                
-                pet.style.top = newTop + 'px';
-                const maxLeft = window.innerWidth - petWidth - 10, minLeft = 10;
-                let finalLeft = currentLeft;
-                if (currentLeft < minLeft) finalLeft = minLeft;
-                if (currentLeft > maxLeft) finalLeft = maxLeft;
-                if (finalLeft !== currentLeft) pet.style.left = finalLeft + 'px';
-                animFrameId = requestAnimationFrame(updateGravity);
-            }
-            animFrameId = requestAnimationFrame(updateGravity);
-        }
-        
-        function performBounce() {
-            if (isDragging || isFalling || isBouncing) return;
-            isBouncing = true;
-            const isRight = Math.random() < 0.5;
-            const moveDist = Math.random() * 60 + 30;
-            let currentLeft = parseFloat(pet.style.left);
-            const petWidth = pet.offsetWidth, maxLeft = window.innerWidth - petWidth - 15, minLeft = 15;
-            let targetLeft = currentLeft + (isRight ? moveDist : -moveDist);
-            targetLeft = Math.min(maxLeft, Math.max(minLeft, targetLeft));
-            setDirection(isRight);
-            pet.classList.remove('bounce-right', 'bounce-left');
-            void pet.offsetWidth;
-            pet.classList.add(isRight ? 'bounce-right' : 'bounce-left');
-            const startLeft = currentLeft, startTime = performance.now(), duration = 400;
-            function animateMove(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(1, elapsed / duration);
-                const ease = 1 - Math.pow(1 - progress, 2);
-                pet.style.left = startLeft + (targetLeft - startLeft) * ease + 'px';
-                if (progress < 1) requestAnimationFrame(animateMove);
-                else {
-                    pet.style.left = targetLeft + 'px';
-                    setTimeout(() => { pet.classList.remove('bounce-right', 'bounce-left'); isBouncing = false; }, 50);
-                }
-            }
-            requestAnimationFrame(animateMove);
-        }
-        
-        function startBounceLoop() {
-            if (bounceTimer) clearTimeout(bounceTimer);
-            function schedule() {
-                if (!isDragging && !isFalling && !isBouncing) performBounce();
-                bounceTimer = setTimeout(schedule, Math.random() * 3000 + 2000);
-            }
-            bounceTimer = setTimeout(schedule, Math.random() * 1500 + 1000);
-        }
-        
-        function handleDragStart(clientX, clientY) {
-            stopPhysics();
-            stopBounceLoop();
-            isDragging = true;
-            pet.classList.add('dragging');
-            const rect = pet.getBoundingClientRect();
-            dragStartX = clientX - rect.left;
-            dragStartY = clientY - rect.top;
-            startLeft = rect.left;
-            startTop = rect.top;
-            lastClientX = clientX;
-        }
-        
-        function handleDragMove(clientX, clientY) {
-            if (!isDragging) return;
-            let newLeft = clientX - dragStartX;
-            let newTop = clientY - dragStartY;
-            const pw = pet.offsetWidth, ph = pet.offsetHeight;
-            const musicTop = getMusicBarTop();
-            const maxTop = musicTop - ph;
-            newTop = Math.min(maxTop, Math.max(5, newTop));
-            newLeft = Math.min(window.innerWidth - pw - 10, Math.max(10, newLeft));
-            pet.style.left = newLeft + 'px';
-            pet.style.top = newTop + 'px';
-            if (Math.abs(clientX - lastClientX) > 1) {
-                setDirection(clientX > lastClientX);
-            }
-            lastClientX = clientX;
-        }
-        
-        function handleDragEnd() {
-            if (!isDragging) return;
-            isDragging = false;
-            pet.classList.remove('dragging');
-            const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left);
-            const ph = pet.offsetHeight, pw = pet.offsetWidth;
-            const groundY = getGroundY(currentLeft, currentTop, pw, ph);
-            const musicTop = getMusicBarTop();
-            if ((groundY !== null && currentTop + ph < groundY + ph - 5) || (currentTop + ph < musicTop - 5)) {
-                startGravity(1);
-            } else {
-                startGravity(0);
-            }
-        }
-        
-        pet.addEventListener('mousedown', (e) => {
-            if (e.button !== 0) return;
-            e.preventDefault();
-            handleDragStart(e.clientX, e.clientY);
+            const overlay = document.getElementById('welcomeOverlay');
+            const container = document.getElementById('aplayer-container');
+            let playerInitialized = false;
             
-            const onMouseMove = (moveEvent) => {
-                handleDragMove(moveEvent.clientX, moveEvent.clientY);
+            const initPlayer = () => {
+                if (playerInitialized) return;
+                playerInitialized = true;
+                if (!aplayer && container) {
+                    aplayer = new APlayer({
+                        container, 
+                        audio: [{ 
+                            name: ' ', 
+                            artist: ' ', 
+                            url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3', 
+                            cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' 
+                        }],
+                        theme: '#ff6600', 
+                        autoplay: false, 
+                        loop: 'all', 
+                        volume: 0.7
+                    });
+                    container.classList.add('show');
+                    loadLyrics();
+                    if (lyricInterval) clearInterval(lyricInterval);
+                    lyricInterval = setInterval(() => { 
+                        if (aplayer && aplayer.audio && !aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);
+                    }, 100);
+                    aplayer.play().catch(e => console.log('自动播放需要用户交互，欢迎页已点击过可正常播放', e));
+                }
             };
-            const onMouseUp = () => {
-                handleDragEnd();
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-            };
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        });
-        
-        pet.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            if (touch) {
-                handleDragStart(touch.clientX, touch.clientY);
-            }
-        });
-        
-        const onTouchMove = (moveEvent) => {
-            if (!isDragging) return;
-            moveEvent.preventDefault();
-            const touch = moveEvent.touches[0];
-            if (touch) {
-                handleDragMove(touch.clientX, touch.clientY);
-            }
-        };
-        
-        const onTouchEnd = () => {
-            handleDragEnd();
-        };
-        
-        document.addEventListener('touchmove', onTouchMove, { passive: false });
-        document.addEventListener('touchend', onTouchEnd);
-        document.addEventListener('touchcancel', onTouchEnd);
-        
-        pet.addEventListener('dragstart', e => e.preventDefault());
-        petImage.addEventListener('dragstart', e => e.preventDefault());
-        
-        let scrollTimer = null;
-        function onScroll() {
-            if (isDragging) return;
-            if (scrollTimer) clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => {
-                if (!isDragging && !isFalling && !isBouncing) {
-                    const currentTop = parseFloat(pet.style.top), currentLeft = parseFloat(pet.style.left);
-                    const ph = pet.offsetHeight, pw = pet.offsetWidth;
-                    const groundY = getGroundY(currentLeft, currentTop, pw, ph);
-                    const musicTop = getMusicBarTop();
-                    if ((groundY !== null && currentTop + ph < groundY + ph - 8) || (currentTop + ph < musicTop - 8 && groundY === null)) {
-                        stopBounceLoop();
-                        startGravity(1);
+            
+            if (overlay) {
+                overlay.addEventListener('click', function onClickHandler() {
+                    if (!overlay.classList.contains('hidden')) {
+                        overlay.classList.add('hidden');
+                        initPlayer();
                     }
-                }
-            }, 60);
-        }
-        
-        function setInitialPosition() {
-            const targetWindow = document.querySelectorAll('.window')[1];
-            if (targetWindow) {
-                const rect = targetWindow.getBoundingClientRect();
-                const petWidth = pet.offsetWidth, petHeight = pet.offsetHeight;
-                let leftPos = rect.left + (rect.width / 2) - petWidth / 2;
-                leftPos = Math.min(window.innerWidth - petWidth - 15, Math.max(15, leftPos));
-                let topPos = rect.top - petHeight - 5;
-                topPos = Math.max(10, topPos);
-                pet.style.left = leftPos + 'px';
-                pet.style.top = topPos + 'px';
+                });
             } else {
-                pet.style.left = '70%';
-                pet.style.top = '60%';
+                initPlayer();
             }
-            setDirection(false);
-            velocityY = 0;
-            stopPhysics();
-            stopBounceLoop();
-            setTimeout(() => { if (!isDragging) startGravity(0.5); }, 100);
-        }
-        
-        function initPetSystem() {
-            setInitialPosition();
-            window.addEventListener('resize', () => { if (!isDragging && !isFalling) setInitialPosition(); });
-            window.addEventListener('scroll', onScroll);
-        }
-        
-        const overlay = document.getElementById('welcomeOverlay');
-        if (overlay) {
-            const obs = new MutationObserver(() => {
-                if (overlay.classList.contains('hidden')) {
-                    initPetSystem();
-                    obs.disconnect();
-                }
+            
+            const snapshotLink = document.getElementById('watermelonSnapshotLink');
+            if (snapshotLink) snapshotLink.addEventListener('click', () => window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank'));
+            
+            document.querySelectorAll('img').forEach(img => { 
+                img.setAttribute('draggable','false'); 
+                img.addEventListener('dragstart', e => e.preventDefault()); 
             });
-            obs.observe(overlay, { attributes: true });
-            if (overlay.classList.contains('hidden')) initPetSystem();
-        } else {
-            initPetSystem();
         }
+        
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
     })();
 </script>
 </body>
