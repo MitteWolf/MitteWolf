@@ -14,7 +14,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #a7b9ce;
-            background-image: url('https://pic1.imgdb.cn/item/6a1704d0cf6856634613ae27.jpg');
+            background-image: url('https://pic1.imgdb.cn/item/6a09c5cd42582d261d241c5e.png');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -29,6 +29,18 @@
             overflow-x: hidden;
             position: relative;
         }
+        /* 禁止图片右键、长按菜单、拖拽 */
+        img, .profile-image img, .avatar-circle img, .honor-img, .welcome-gif {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: auto;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
         .title-avatar-wrapper {
             width: 1000px;
             max-width: 90%;
@@ -36,9 +48,53 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             gap: 20px;
             position: relative;
+        }
+        /* 顶部区域：左侧标题和右侧头像信息区，语言切换器独立于标题正上方 */
+        .title-section {
+            flex: 1;
+            position: relative;
+            text-align: center;
+            min-width: 200px;
+        }
+        /* 语言切换按钮位于标题文字正上方 */
+        .lang-switch-wrapper {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(232, 237, 244, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 4px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(127, 157, 185, 0.8);
+            display: flex;
+            gap: 16px;
+            z-index: 20;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .lang-option {
+            cursor: pointer;
+            color: #1e3b6b;
+            transition: all 0.2s;
+            background: transparent;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-family: inherit;
+        }
+        .lang-option.active {
+            background: #ff6600;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .lang-option:hover:not(.active) {
+            background: rgba(255,102,0,0.5);
+            color: white;
         }
         .welcome-title {
             font-family: '仿宋_GB2312', 'FangSong', '仿宋', 'FangSong_GB2312', serif;
@@ -50,9 +106,8 @@
             letter-spacing: 2px;
             line-height: 1.2;
             margin: 0;
-            padding: 10px 0;
+            padding: 10px 0 5px 0;
             white-space: nowrap;
-            flex-shrink: 0;
         }
         .info-panel {
             display: flex;
@@ -62,12 +117,12 @@
             gap: 6px;
             background: rgba(232, 237, 244, 0.55);
             backdrop-filter: blur(6px);
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: 20px;
             border: 1px solid rgba(127, 157, 185, 0.6);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 280px;
-            flex-shrink: 1;
+            min-width: 320px;
+            flex-shrink: 0;
             position: relative;
         }
         .info-item { font-size: 13px; color: #1e3b6b; text-align: right; line-height: 1.45; text-shadow: 0 1px 0 rgba(255,255,255,0.3); font-weight: 500; white-space: nowrap; }
@@ -141,7 +196,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 设定介绍栏 - 优化图片缩放，响应式完美 */
         .profile-layout {
             display: flex;
             gap: 28px;
@@ -166,6 +220,7 @@
             object-fit: cover;
             display: block;
             border-radius: 18px;
+            pointer-events: none;
         }
         .profile-image:hover {
             transform: scale(1.02);
@@ -178,20 +233,74 @@
             font-size: 14px;
             line-height: 1.7;
         }
-        /* 手机屏幕完美适配：上下排列，图片大小适中不变形 */
+        /* 平台按钮横向卡片布局 */
+        .platform-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .platform-card {
+            flex: 1;
+            min-width: 140px;
+            max-width: 180px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 16px 12px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(127, 157, 185, 0.5);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .platform-card:hover {
+            transform: translateY(-6px);
+            background: #ff6600;
+            border-color: #ff6600;
+            box-shadow: 0 12px 20px rgba(255,102,0,0.3);
+        }
+        .platform-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: 16px;
+            background: rgba(240,245,250,0.6);
+            padding: 6px;
+            transition: transform 0.2s;
+            pointer-events: none;
+        }
+        .platform-card:hover .platform-icon {
+            transform: scale(1.05);
+        }
+        .platform-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: #1e3b6b;
+            background: transparent;
+            letter-spacing: 1px;
+        }
+        .platform-card:hover .platform-name {
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
         @media (max-width: 680px) {
-            .profile-layout {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-            .profile-image {
-                width: 140px;
-                max-width: 50%;
-            }
-            .character-content-compact {
-                width: 100%;
-            }
+            .profile-layout { flex-direction: column; align-items: center; gap: 20px; }
+            .profile-image { width: 140px; max-width: 50%; }
+            .character-content-compact { width: 100%; }
+            .title-avatar-wrapper { flex-direction: column; align-items: center; }
+            .title-section { width: 100%; }
+            .welcome-title { font-size: 32px; white-space: normal; }
+            .info-panel { min-width: 260px; align-items: center; }
+            .info-item, .greeting-item { text-align: center; white-space: normal; }
+            .platform-card { min-width: 120px; }
+            .platform-icon { width: 48px; height: 48px; }
+            .lang-switch-wrapper { top: -28px; padding: 2px 12px; gap: 12px; }
         }
         
         .honor-wall {
@@ -217,36 +326,7 @@
             border-radius: 12px;
             display: block;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .platform-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 8px 0;
-        }
-        .plat-btn {
-            display: block;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(4px);
-            border: 1px solid #7f9db9;
-            border-radius: 40px;
-            padding: 8px 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            color: #0066cc;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .plat-btn:hover {
-            background: #ff6600;
-            color: white;
-            border-color: #ff6600;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            pointer-events: none;
         }
         
         .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
@@ -271,11 +351,9 @@
         .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
         .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
         
-        .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; }
-        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 240px; } .info-time { font-size: 12px; } .info-item, .greeting-item { font-size: 11px; white-space: normal; } .welcome-title { font-size: 32px; white-space: normal; } .title-avatar-wrapper { flex-wrap: wrap; justify-content: center; } .tab-btn { padding: 6px 14px; font-size: 13px; } }
-        @media (max-width: 600px) { .avatar-wrapper { width: 85px; height: 85px; } .welcome-title { font-size: 28px; } .tab-bar { gap: 6px; } .tab-btn { padding: 5px 10px; font-size: 12px; } }
+        .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; pointer-events: none; }
+        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 260px; } .info-time { font-size: 12px; } .welcome-title { font-size: 28px; } .tab-btn { padding: 6px 14px; font-size: 13px; } }
         
-        /* 欢迎页覆盖层 */
         .welcome-overlay { 
             position: fixed; 
             top: 0; 
@@ -293,20 +371,8 @@
             opacity: 1;
             visibility: visible;
         }
-        .welcome-overlay.hidden { 
-            opacity: 0; 
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .welcome-card { 
-            background: transparent; 
-            max-width: 700px; 
-            width: 85%; 
-            text-align: center; 
-            padding: 30px 25px; 
-            animation: fadeInUp 0.6s ease-out;
-            pointer-events: none;
-        }
+        .welcome-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .welcome-card { background: transparent; max-width: 700px; width: 85%; text-align: center; padding: 30px 25px; animation: fadeInUp 0.6s ease-out; pointer-events: none; }
         .welcome-card h1 { font-size: 64px; color: #1e3b6b; margin-bottom: 20px; font-family: '仿宋', serif; }
         .welcome-card p { font-size: 24px; color: #1e3b6b; margin-bottom: 15px; }
         .click-hint { font-size: 18px; color: #1e3b6b; margin-top: 20px; }
@@ -322,17 +388,8 @@
             pointer-events: none; 
             transition: opacity 0.3s; 
         }
-        #aplayer-container.show { 
-            opacity: 1; 
-            pointer-events: auto; 
-        }
-        .aplayer { 
-            background: rgba(232, 237, 244, 0.85) !important; 
-            backdrop-filter: blur(5px); 
-            border-top: 1px solid #7f9db9; 
-            margin: 0 !important; 
-            border-radius: 0 !important; 
-        }
+        #aplayer-container.show { opacity: 1; pointer-events: auto; }
+        .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
         .custom-lyrics-panel { 
             position: fixed; 
             bottom: 70px; 
@@ -353,12 +410,6 @@
             overflow-x: auto; 
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; 
         }
-        .custom-lyrics-panel.hide { opacity: 0; visibility: hidden; }
-        img { -webkit-user-drag: none; user-select: none; }
-        
-        .window-title { color: #1e3b6b; font-size: 24px; font-weight: bold; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 1px solid rgba(192, 203, 216, 0.8); text-align: center; }
-        
-        /* 返回顶部按钮 - 位于音乐栏上方（歌词面板 bottom:70px，音乐栏高度约60px，设为100px正好在两者之间） */
         .back-to-top {
             position: fixed;
             bottom: 100px;
@@ -378,41 +429,37 @@
             font-weight: bold;
             transition: all 0.3s ease;
             z-index: 1100;
-            opacity: 1;
-            visibility: visible;
-            text-decoration: none;
-            outline: none;
         }
-        .back-to-top:hover {
-            background-color: #0b5e9e;
-            transform: scale(1.08);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
-        @media (max-width: 768px) {
-            .back-to-top { width: 42px; height: 42px; font-size: 24px; bottom: 90px; right: 20px; }
-        }
+        .back-to-top:hover { background-color: #0b5e9e; transform: scale(1.08); }
+        @media (max-width: 768px) { .back-to-top { width: 42px; height: 42px; font-size: 24px; bottom: 90px; right: 20px; } }
     </style>
 </head>
 <body>
 
 <div class="welcome-overlay" id="welcomeOverlay">
     <div class="welcome-card">
-        <h1>Hey!</h1>
-        <p>欢迎来到MT的小空间</p>
-        <div class="click-hint">✨ 点击任意处进入 ✨</div>
+        <h1 id="welcomeH1">Hey!</h1>
+        <p id="welcomeP">欢迎来到MT的小空间</p>
+        <div class="click-hint" id="clickHint">✨ 点击任意处进入 ✨</div>
         <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
     </div>
 </div>
 
 <div class="title-avatar-wrapper">
-    <div class="welcome-title">这里是MT的小空间uwu</div>
+    <div class="title-section">
+        <div class="lang-switch-wrapper">
+            <span class="lang-option" data-lang="en">EN</span>
+            <span class="lang-option" data-lang="zh">中文</span>
+        </div>
+        <div class="welcome-title" id="mainTitleText">这里是MT的小空间uwu</div>
+    </div>
     <div class="info-panel" id="infoPanel">
         <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
         <div class="greeting-item" id="greetingMessage">✨ 加载问候语中...</div>
         <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
     </div>
     <div class="avatar-wrapper">
-        <div class="avatar-circle" id="avatarContainer">
+        <div class="avatar-circle">
             <img src="https://pic1.imgdb.cn/item/6a1702f1cf6856634613ad9f.jpg" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
@@ -420,259 +467,217 @@
 </div>
 
 <div class="tab-bar">
-    <button class="tab-btn active" data-tab="tab-platform">🐾 我的平台</button>
-    <button class="tab-btn" data-tab="tab-profile">✨ 设定介绍</button>
-    <button class="tab-btn" data-tab="tab-news">📢 公告</button>
-    <button class="tab-btn" data-tab="tab-websites">🌐 其他</button>
-    <button class="tab-btn" data-tab="tab-honor">🏆 荣誉墙</button>
+    <button class="tab-btn active" data-tab="tab-platform" id="tabPlatformBtn">🐾 我的平台</button>
+    <button class="tab-btn" data-tab="tab-profile" id="tabProfileBtn">✨ 设定介绍</button>
+    <button class="tab-btn" data-tab="tab-news" id="tabNewsBtn">📢 公告</button>
+    <button class="tab-btn" data-tab="tab-websites" id="tabWebsitesBtn">🌐 其他</button>
+    <button class="tab-btn" data-tab="tab-honor" id="tabHonorBtn">🏆 荣誉墙</button>
 </div>
 
 <div class="tab-content-area">
     <div id="tab-platform" class="tab-pane active-pane">
-        <div class="window-title">🐾 我的平台</div>
-        <div class="platform-buttons">
-            <a href="https://space.bilibili.com/1044109952" target="_blank" class="plat-btn">哔哩哔哩</a>
-            <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="plat-btn">今日头条</a>
-            <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="plat-btn">西瓜视频</a>
-            <a href="https://my.furwall.net/author/18006" target="_blank" class="plat-btn">Furwall</a>
+        <div class="window-title" id="platformTitle">🐾 我的平台</div>
+        <div class="platform-grid" id="platformGrid">
+            <a href="https://space.bilibili.com/1044109952" target="_blank" class="platform-card" id="biliCard">
+                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac5.png" alt="Bilibili" draggable="false">
+                <span class="platform-name" id="biliName">哔哩哔哩</span>
+            </a>
+            <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="platform-card" id="xiguaCard">
+                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac7.png" alt="西瓜视频" draggable="false">
+                <span class="platform-name" id="xiguaName">西瓜视频</span>
+            </a>
+            <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="platform-card" id="ttCard">
+                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac8.png" alt="今日头条" draggable="false">
+                <span class="platform-name" id="ttName">今日头条</span>
+            </a>
+            <a href="https://my.furwall.net/author/18006" target="_blank" class="platform-card" id="furwallCard">
+                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac6.png" alt="Furwall" draggable="false">
+                <span class="platform-name" id="furwallName">Furwall</span>
+            </a>
         </div>
     </div>
     
     <div id="tab-profile" class="tab-pane">
-        <div class="window-title">✨ 设定介绍</div>
-        <!-- 设定介绍：左侧图片 + 右侧文字，图片缩放响应式完美 -->
+        <div class="window-title" id="profileTitle">✨ 设定介绍</div>
         <div class="profile-layout">
-            <div class="profile-image">
-                <img src="https://pic1.imgdb.cn/item/6a170602cf6856634613ae50.jpg" alt="MT设定插图" draggable="false">
+            <div class="profile-image" oncontextmenu="return false">
+                <img src="https://pic1.imgdb.cn/item/6a170602cf6856634613ae50.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
             </div>
             <div class="character-content-compact">
-                <div class="character-item-compact"><span class="character-label-compact">🐾 姓名：</span>米特（国际名Mitte，可简称MT）</div>
-                <div class="character-item-compact"><span class="character-label-compact">♂️ 性别：</span>男性</div>
-                <div class="character-item-compact"><span class="character-label-compact">💫 性格：</span>纯洁，好奇，包容，同时又有些开放。</div>
-                <div class="character-item-compact"><span class="character-label-compact">🌌 身份：</span>来自宇宙的MT，能在最关键的时刻带来好运~</div>
-                <div class="character-item-compact"><span class="character-label-compact">❤️ 喜好：</span>喜欢漫游太空，经常带其他兽兽一起看星星。</div>
-                <div class="character-item-compact"><span class="character-label-compact">🔮 技能：</span>召唤传送门，自由穿越不同的时空或地点。</div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileNameLabel">🐾 姓名：</span><span id="profileNameVal">米特（国际名Mitte，可简称MT）</span></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileGenderLabel">♂️ 性别：</span><span id="profileGenderVal">男性</span></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profilePersonalityLabel">💫 性格：</span><span id="profilePersonalityVal">纯洁，好奇，包容，同时又有些开放。</span></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileIdentityLabel">🌌 身份：</span><span id="profileIdentityVal">来自宇宙的MT，能在最关键的时刻带来好运~</span></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileLikeLabel">❤️ 喜好：</span><span id="profileLikeVal">喜欢漫游太空，经常带其他兽兽一起看星星。</span></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileSkillLabel">🔮 技能：</span><span id="profileSkillVal">召唤传送门，自由穿越不同的时空或地点。</span></div>
                 <div class="character-divider-compact"></div>
-                <div class="character-item-compact"><span class="character-label-compact">📖 故事背景：</span><div class="story-text-compact">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div></div>
+                <div class="character-item-compact"><span class="character-label-compact" id="profileStoryLabel">📖 故事背景：</span><div class="story-text-compact" id="profileStoryVal">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div></div>
             </div>
         </div>
     </div>
     
     <div id="tab-news" class="tab-pane">
-        <div class="window-title">📢 公告</div>
+        <div class="window-title" id="newsTitle">📢 公告</div>
         <div class="announcement-content">
-            <div class="announcement-item"><div class="announcement-title"><span class="sticky-tag">置顶</span> 我的经历视频</div><div>如果想要了解我的经历可以点击下面访问视频页面：</div><a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a></div>
-            <div class="static-text">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
+            <div class="announcement-item"><div class="announcement-title"><span class="sticky-tag" id="stickyTag">置顶</span> <span id="announceTitleText">我的经历视频</span></div><div id="announceDescText">如果想要了解我的经历可以点击下面访问视频页面：</div><a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link" id="announceLink">https://www.bilibili.com/video/BV16fAiz8Eo3/</a></div>
+            <div class="static-text" id="staticNotice">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
         </div>
     </div>
     
     <div id="tab-websites" class="tab-pane">
-        <div class="window-title">其他</div>
+        <div class="window-title" id="otherTitle">其他</div>
         <div class="international-content">
             <div class="international-link-area">
-                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line">🌍 点这里访问我的国际站</a>
+                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="intlLink">🌍 点这里访问我的国际站</a>
                 <div class="link-line" id="watermelonSnapshotLink">我的西瓜视频网页端快照（RIP 2025.2）</div>
             </div>
             <div class="international-divider"></div>
-            <div class="waiting-text">⚡ 正在施工ing ~</div>
+            <div class="waiting-text" id="waitingText">⚡ 正在施工ing ~</div>
         </div>
     </div>
     
     <div id="tab-honor" class="tab-pane">
-        <div class="window-title">🏆 荣誉墙</div>
+        <div class="window-title" id="honorTitle">🏆 荣誉墙</div>
         <div class="honor-wall">
-            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt="荣誉图片1" draggable="false"></div>
-            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt="荣誉图片2" draggable="false"></div>
+            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt="荣誉图片1" draggable="false" oncontextmenu="return false"></div>
+            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt="荣誉图片2" draggable="false" oncontextmenu="return false"></div>
         </div>
     </div>
 </div>
 
 <div id="aplayer-container"></div>
 <div class="custom-lyrics-panel" id="customLyricsPanel">🎵 正在加载歌词...</div>
-
 <button class="back-to-top" id="backToTopBtn" aria-label="返回顶部">↑</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
-    (function() {
-        // 标签页切换
-        function initTabs() {
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const panes = document.querySelectorAll('.tab-pane');
-            function switchTab(tabId) {
-                panes.forEach(pane => pane.classList.remove('active-pane'));
-                const targetPane = document.getElementById(tabId);
-                if (targetPane) targetPane.classList.add('active-pane');
-                tabBtns.forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
-                });
-            }
-            tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab'))));
+(function() {
+    // 多语言数据
+    const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
+    function getConstellationName(month, day, lang) {
+        let cnName = "";
+        if ((month===1&&day>=20)||(month===2&&day<=18)) cnName = "水瓶座♒";
+        else if ((month===2&&day>=19)||(month===3&&day<=20)) cnName = "双鱼座♓";
+        else if ((month===3&&day>=21)||(month===4&&day<=19)) cnName = "白羊座♈";
+        else if ((month===4&&day>=20)||(month===5&&day<=20)) cnName = "金牛座♉";
+        else if ((month===5&&day>=21)||(month===6&&day<=20)) cnName = "双子座♊";
+        else if ((month===6&&day>=21)||(month===7&&day<=22)) cnName = "巨蟹座♋";
+        else if ((month===7&&day>=23)||(month===8&&day<=22)) cnName = "狮子座♌";
+        else if ((month===8&&day>=23)||(month===9&&day<=22)) cnName = "处女座♍";
+        else if ((month===9&&day>=23)||(month===10&&day<=21)) cnName = "天秤座♎";
+        else if ((month===10&&day>=23)||(month===11&&day<=21)) cnName = "天蝎座♏";
+        else if ((month===11&&day>=22)||(month===12&&day<=21)) cnName = "射手座♐";
+        else cnName = "摩羯座♑";
+        return lang === 'en' ? (zodiacMapEn[cnName] || cnName) : cnName;
+    }
+    
+    const locales = {
+        en: {
+            mainTitle: "MT's little space uwu", tabPlatform: "🐾 My Platforms", tabProfile: "✨ Character", tabNews: "📢 News", tabWebsites: "🌐 Others", tabHonor: "🏆 Wall of Honor",
+            platformTitle: "🐾 My Platforms", bili: "Bilibili", xigua: "Xigua Video", toutiao: "Toutiao", furwall: "Furwall",
+            profileTitle: "✨ Character", nameLabel: "🐾 Name: ", nameVal: "Mitte (MT for short)", genderLabel: "♂️ Gender: ", genderVal: "Male",
+            personalityLabel: "💫 Personality: ", personalityVal: "Pure, curious, inclusive, and open.", identityLabel: "🌌 Identity: ", identityVal: "MT from the universe, brings good luck~",
+            likeLabel: "❤️ Likes: ", likeVal: "Stargazing in space, often takes other furry friends to watch stars.", skillLabel: "🔮 Skills: ", skillVal: "Summon portals, freely travel across different times and spaces.",
+            storyLabel: "📖 Backstory: ", storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.",
+            newsTitle: "📢 Announcements", stickyTag: "Sticky", announceTitle: "My Journey Video", announceDesc: "Click below to watch:",
+            staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!",
+            otherTitle: "Others", intlLinkText: "🌍 Visit my International Site", snapshotText: "My Xigua Web Snapshot (RIP 2025.2)", waitingText: "⚡ Under construction ~",
+            honorTitle: "🏆 Wall of Honor", welcomeH1: "Hey!", welcomeP: "Welcome to MT's little space", clickHint: "✨ Click anywhere to enter ✨",
+            constellationPrefix: "Today's Zodiac: ", timePrefix: "Beijing Time: ", greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
+        },
+        zh: {
+            mainTitle: "这里是MT的小空间uwu", tabPlatform: "🐾 我的平台", tabProfile: "✨ 设定介绍", tabNews: "📢 公告", tabWebsites: "🌐 其他", tabHonor: "🏆 荣誉墙",
+            platformTitle: "🐾 我的平台", bili: "哔哩哔哩", xigua: "西瓜视频", toutiao: "今日头条", furwall: "Furwall",
+            profileTitle: "✨ 设定介绍", nameLabel: "🐾 姓名：", nameVal: "米特（国际名Mitte，可简称MT）", genderLabel: "♂️ 性别：", genderVal: "男性",
+            personalityLabel: "💫 性格：", personalityVal: "纯洁，好奇，包容，同时又有些开放。", identityLabel: "🌌 身份：", identityVal: "来自宇宙的MT，能在最关键的时刻带来好运~",
+            likeLabel: "❤️ 喜好：", likeVal: "喜欢漫游太空，经常带其他兽兽一起看星星。", skillLabel: "🔮 技能：", skillVal: "召唤传送门，自由穿越不同的时空或地点。",
+            storyLabel: "📖 故事背景：", storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。",
+            newsTitle: "📢 公告", stickyTag: "置顶", announceTitle: "我的经历视频", announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
+            staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
+            otherTitle: "其他", intlLinkText: "🌍 点这里访问我的国际站", snapshotText: "我的西瓜视频网页端快照（RIP 2025.2）", waitingText: "⚡ 正在施工ing ~",
+            honorTitle: "🏆 荣誉墙", welcomeH1: "Hey!", welcomeP: "欢迎来到MT的小空间", clickHint: "✨ 点击任意处进入 ✨",
+            constellationPrefix: "✨ 今日时运: ", timePrefix: "北京时间: ", greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
         }
-        
-        // 北京时间更新
-        function updateBeijingTime() {
-            const now = new Date();
-            document.getElementById('liveBeijingTime').innerHTML = `北京时间: ${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-            if (now.getMinutes() === 0 && now.getSeconds() === 0) updateGreeting();
+    };
+    
+    let currentLang = localStorage.getItem('mt_lang') || ((navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'zh');
+    
+    function updateConstellation() { const d=new Date(); const z=getConstellationName(d.getMonth()+1,d.getDate(),currentLang); document.getElementById('constellationInfo').innerHTML = `${locales[currentLang].constellationPrefix} ${z} ✨`; }
+    function updateBeijingTime() { const d=new Date(); document.getElementById('liveBeijingTime').innerHTML = `${locales[currentLang].timePrefix}${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; }
+    function updateGreeting() { const h=new Date().getHours(); document.getElementById('greetingMessage').innerHTML = locales[currentLang].greetingMsg(h); }
+    
+    function applyLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('mt_lang', lang);
+        const t = locales[lang];
+        document.getElementById('mainTitleText').innerText = t.mainTitle;
+        document.getElementById('tabPlatformBtn').innerText = t.tabPlatform;
+        document.getElementById('tabProfileBtn').innerText = t.tabProfile;
+        document.getElementById('tabNewsBtn').innerText = t.tabNews;
+        document.getElementById('tabWebsitesBtn').innerText = t.tabWebsites;
+        document.getElementById('tabHonorBtn').innerText = t.tabHonor;
+        document.getElementById('platformTitle').innerText = t.platformTitle;
+        document.getElementById('biliName').innerText = t.bili;
+        document.getElementById('xiguaName').innerText = t.xigua;
+        document.getElementById('ttName').innerText = t.toutiao;
+        document.getElementById('furwallName').innerText = t.furwall;
+        document.getElementById('profileTitle').innerText = t.profileTitle;
+        document.getElementById('profileNameLabel').innerHTML = t.nameLabel;
+        document.getElementById('profileNameVal').innerText = t.nameVal;
+        document.getElementById('profileGenderLabel').innerHTML = t.genderLabel;
+        document.getElementById('profileGenderVal').innerText = t.genderVal;
+        document.getElementById('profilePersonalityLabel').innerHTML = t.personalityLabel;
+        document.getElementById('profilePersonalityVal').innerText = t.personalityVal;
+        document.getElementById('profileIdentityLabel').innerHTML = t.identityLabel;
+        document.getElementById('profileIdentityVal').innerText = t.identityVal;
+        document.getElementById('profileLikeLabel').innerHTML = t.likeLabel;
+        document.getElementById('profileLikeVal').innerText = t.likeVal;
+        document.getElementById('profileSkillLabel').innerHTML = t.skillLabel;
+        document.getElementById('profileSkillVal').innerText = t.skillVal;
+        document.getElementById('profileStoryLabel').innerHTML = t.storyLabel;
+        document.getElementById('profileStoryVal').innerHTML = t.storyVal;
+        document.getElementById('newsTitle').innerText = t.newsTitle;
+        document.getElementById('stickyTag').innerText = t.stickyTag;
+        document.getElementById('announceTitleText').innerText = t.announceTitle;
+        document.getElementById('announceDescText').innerText = t.announceDesc;
+        document.getElementById('staticNotice').innerText = t.staticNotice;
+        document.getElementById('otherTitle').innerText = t.otherTitle;
+        document.getElementById('intlLink').innerHTML = t.intlLinkText;
+        document.getElementById('watermelonSnapshotLink').innerText = t.snapshotText;
+        document.getElementById('waitingText').innerText = t.waitingText;
+        document.getElementById('honorTitle').innerText = t.honorTitle;
+        if(document.getElementById('welcomeOverlay') && !document.getElementById('welcomeOverlay').classList.contains('hidden')) {
+            document.getElementById('welcomeH1').innerText = t.welcomeH1;
+            document.getElementById('welcomeP').innerText = t.welcomeP;
+            document.getElementById('clickHint').innerText = t.clickHint;
         }
-        
-        function updateGreeting() {
-            const hour = new Date().getHours();
-            let msg = "";
-            if (hour >= 5 && hour < 8) msg = "🌅 早上好，又是元气满满的一天呢！";
-            else if (hour >= 8 && hour < 11) msg = "☀️ 上午好，今天也要加油鸭~";
-            else if (hour >= 11 && hour < 13) msg = "🍚 中午好，记得按时吃饭休息哦！";
-            else if (hour >= 13 && hour < 17) msg = "📚 下午好，愿你拥有一个充实的午后~";
-            else if (hour >= 17 && hour < 19) msg = "🌇 傍晚好，夕阳很美，放松一下吧~";
-            else if (hour >= 19 && hour < 22) msg = "🌙 晚上好，星星在陪你呢~";
-            else msg = "💤 夜深了，早点休息，做个好梦~";
-            document.getElementById('greetingMessage').innerHTML = msg;
-        }
-        
-        function getConstellationName(month, day) {
-            if ((month===1&&day>=20)||(month===2&&day<=18)) return "水瓶座♒";
-            if ((month===2&&day>=19)||(month===3&&day<=20)) return "双鱼座♓";
-            if ((month===3&&day>=21)||(month===4&&day<=19)) return "白羊座♈";
-            if ((month===4&&day>=20)||(month===5&&day<=20)) return "金牛座♉";
-            if ((month===5&&day>=21)||(month===6&&day<=20)) return "双子座♊";
-            if ((month===6&&day>=21)||(month===7&&day<=22)) return "巨蟹座♋";
-            if ((month===7&&day>=23)||(month===8&&day<=22)) return "狮子座♌";
-            if ((month===8&&day>=23)||(month===9&&day<=22)) return "处女座♍";
-            if ((month===9&&day>=23)||(month===10&&day<=21)) return "天秤座♎";
-            if ((month===10&&day>=23)||(month===11&&day<=21)) return "天蝎座♏";
-            if ((month===11&&day>=22)||(month===12&&day<=21)) return "射手座♐";
-            return "摩羯座♑";
-        }
-        
-        // 歌词加载与显示
-        let lyricsData = [], currentLyricIndex = -1, lyricInterval = null, aplayer = null;
-        let defaultLyricText = "🎵 纯音乐，请欣赏 🎵";
-        const LRC_URL = 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/lrc.lrc';
-        
-        async function loadLyrics() {
-            const lyricsPanel = document.getElementById('customLyricsPanel');
-            try {
-                const res = await fetch(LRC_URL);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const text = await res.text();
-                lyricsData = [];
-                let hasTimedLyrics = false;
-                text.split(/\r?\n/).forEach(line => {
-                    const match = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line);
-                    if (match) {
-                        hasTimedLyrics = true;
-                        const time = parseInt(match[1])*60 + parseInt(match[2]) + parseInt(match[3].padEnd(3,'0'))/1000;
-                        let txt = line.replace(/\[.*?\]/, '').trim();
-                        if (!txt) txt = '♪';
-                        lyricsData.push({ time, text: txt });
-                    }
-                });
-                lyricsData.sort((a,b)=>a.time-b.time);
-                if (lyricsData.length === 0 && !hasTimedLyrics) {
-                    const plainTextLines = text.split(/\r?\n/).filter(line => line.trim() && !line.includes('[') && line.length > 0);
-                    if (plainTextLines.length > 0) defaultLyricText = `🎵 ${plainTextLines[0]} 🎵`;
-                    lyricsPanel.innerHTML = defaultLyricText;
-                } else if (lyricsData.length === 0) {
-                    lyricsPanel.innerHTML = defaultLyricText;
-                } else {
-                    lyricsPanel.innerHTML = '🎵 等待播放 🎵';
-                }
-            } catch(e) { 
-                console.error('歌词加载失败:', e);
-                lyricsPanel.innerHTML = defaultLyricText;
-            }
-        }
-        
-        function updateLyrics(currentTime) {
-            const lyricsPanel = document.getElementById('customLyricsPanel');
-            if (!lyricsData.length) {
-                if (lyricsPanel.innerHTML !== defaultLyricText) lyricsPanel.innerHTML = defaultLyricText;
-                return;
-            }
-            let idx = -1;
-            for (let i=lyricsData.length-1; i>=0; i--) {
-                if (currentTime >= lyricsData[i].time) { idx = i; break; }
-            }
-            if (idx !== currentLyricIndex && idx >= 0) {
-                currentLyricIndex = idx;
-                lyricsPanel.innerHTML = `🎵 ${lyricsData[idx].text} 🎵`;
-            } else if (idx === -1 && currentLyricIndex !== -2) {
-                currentLyricIndex = -2;
-                lyricsPanel.innerHTML = '🎵 即将开始 🎵';
-            }
-        }
-        
-        function initBackToTop() {
-            const btn = document.getElementById('backToTopBtn');
-            if (btn) btn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        }
-        
-        // 主入口
-        function init() {
-            initTabs();
-            initBackToTop();
-            setInterval(updateBeijingTime, 1000);
-            updateBeijingTime();
-            setInterval(updateGreeting, 30 * 60 * 1000);
-            updateGreeting();
-            document.getElementById('constellationInfo').innerHTML = `✨ 今日时运: ${getConstellationName(new Date().getMonth()+1, new Date().getDate())} ✨`;
-            
-            const overlay = document.getElementById('welcomeOverlay');
-            const container = document.getElementById('aplayer-container');
-            let playerInitialized = false;
-            
-            const initPlayer = () => {
-                if (playerInitialized) return;
-                playerInitialized = true;
-                if (!aplayer && container) {
-                    aplayer = new APlayer({
-                        container, 
-                        audio: [{ 
-                            name: ' ', 
-                            artist: ' ', 
-                            url: 'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3', 
-                            cover: 'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png' 
-                        }],
-                        theme: '#ff6600', 
-                        autoplay: false, 
-                        loop: 'all', 
-                        volume: 0.7
-                    });
-                    container.classList.add('show');
-                    loadLyrics();
-                    if (lyricInterval) clearInterval(lyricInterval);
-                    lyricInterval = setInterval(() => { 
-                        if (aplayer && aplayer.audio && !aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);
-                    }, 100);
-                    aplayer.play().catch(e => console.log('自动播放需要用户交互，欢迎页已点击过可正常播放', e));
-                }
-            };
-            
-            if (overlay) {
-                overlay.addEventListener('click', function onClickHandler() {
-                    if (!overlay.classList.contains('hidden')) {
-                        overlay.classList.add('hidden');
-                        initPlayer();
-                    }
-                });
-            } else {
-                initPlayer();
-            }
-            
-            const snapshotLink = document.getElementById('watermelonSnapshotLink');
-            if (snapshotLink) snapshotLink.addEventListener('click', () => window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank'));
-            
-            document.querySelectorAll('img').forEach(img => { 
-                img.setAttribute('draggable','false'); 
-                img.addEventListener('dragstart', e => e.preventDefault()); 
-            });
-        }
-        
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-        else init();
-    })();
+        updateGreeting(); updateBeijingTime(); updateConstellation();
+        document.querySelectorAll('.lang-option').forEach(opt => { if(opt.dataset.lang === lang) opt.classList.add('active'); else opt.classList.remove('active'); });
+    }
+    
+    function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
+    document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
+    
+    let aplayer=null, lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/lrc.lrc';
+    async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
+    function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
+    
+    function init() {
+        initTabs();
+        setInterval(updateBeijingTime,1000);
+        setInterval(updateGreeting,30*60*1000);
+        updateBeijingTime(); updateGreeting();
+        applyLanguage(currentLang);
+        document.querySelectorAll('.lang-option').forEach(opt=>opt.addEventListener('click',()=>applyLanguage(opt.dataset.lang)));
+        document.getElementById('backToTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+        const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
+        let playerInit=false;
+        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png'}],theme:'#ff6600',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
+        if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
+        document.getElementById('watermelonSnapshotLink')?.addEventListener('click',()=>window.open('https://mittewolf-xigua-snapshot.netlify.app/','_blank'));
+    }
+    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();
 </script>
 </body>
 </html>
