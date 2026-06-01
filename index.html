@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>MTの小空间</title>
     
-    <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
-    <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6a1d90bcb3f09b19e9d22b36.png" type="image/x-icon">
+    <link rel="icon" href="https://pic1.imgdb.cn/item/6a1d90bcb3f09b19e9d22b36.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
     
     <style>
@@ -52,14 +52,12 @@
             gap: 20px;
             position: relative;
         }
-        /* 顶部区域：左侧标题和右侧头像信息区，语言切换器独立于标题正上方 */
         .title-section {
             flex: 1;
             position: relative;
             text-align: center;
             min-width: 200px;
         }
-        /* 语言切换按钮位于标题文字正上方 */
         .lang-switch-wrapper {
             position: absolute;
             top: -32px;
@@ -88,12 +86,12 @@
             font-family: inherit;
         }
         .lang-option.active {
-            background: #ff6600;
+            background: #2196F3;
             color: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(33,150,243,0.3);
         }
         .lang-option:hover:not(.active) {
-            background: rgba(255,102,0,0.5);
+            background: rgba(33,150,243,0.5);
             color: white;
         }
         .welcome-title {
@@ -107,7 +105,9 @@
             line-height: 1.2;
             margin: 0;
             padding: 10px 0 5px 0;
-            white-space: nowrap;
+            white-space: normal;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
         .info-panel {
             display: flex;
@@ -127,7 +127,7 @@
         }
         .info-item { font-size: 13px; color: #1e3b6b; text-align: right; line-height: 1.45; text-shadow: 0 1px 0 rgba(255,255,255,0.3); font-weight: 500; white-space: nowrap; }
         .info-time { font-size: 15px; font-weight: bold; font-family: monospace; letter-spacing: 0.3px; color: #0a2f4d; }
-        .greeting-item { font-size: 14px; font-weight: bold; color: #ff6600; text-align: right; text-shadow: 0 1px 0 rgba(255,255,255,0.5); letter-spacing: 1px; }
+        .greeting-item { font-size: 14px; font-weight: bold; color: #2196F3; text-align: right; text-shadow: 0 1px 0 rgba(255,255,255,0.5); letter-spacing: 1px; }
         .avatar-wrapper { position: relative; display: inline-block; width: 120px; height: 120px; flex-shrink: 0; }
         .avatar-circle { width: 100%; height: 100%; background: #e8edf4; border: 3px solid #fef7c0; box-shadow: 0 0 0 2px #7f9db9, 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; position: relative; user-select: none; border-radius: 20px; }
         .avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; }
@@ -158,16 +158,16 @@
             letter-spacing: 1px;
         }
         .tab-btn:hover {
-            background: #ff6600;
+            background: #2196F3;
             color: white;
-            border-color: #ff6600;
+            border-color: #2196F3;
             transform: translateY(-2px);
         }
         .tab-btn.active {
-            background: #ff6600;
+            background: #2196F3;
             color: white;
-            border-color: #ff6600;
-            box-shadow: 0 4px 10px rgba(255,102,0,0.3);
+            border-color: #2196F3;
+            box-shadow: 0 4px 10px rgba(33,150,243,0.4);
         }
         
         .tab-content-area {
@@ -213,11 +213,12 @@
             background: rgba(240,245,250,0.4);
             transition: transform 0.2s;
         }
+        /* 修改：设定介绍图片使用自然高度，保持竖图比例 */
         .profile-image img {
             width: 100%;
             height: auto;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
+            aspect-ratio: auto;     /* 移除强制1:1，保持原始竖图比例 */
+            object-fit: cover;       /* 确保图片完整显示，不裁切 */
             display: block;
             border-radius: 18px;
             pointer-events: none;
@@ -233,7 +234,6 @@
             font-size: 14px;
             line-height: 1.7;
         }
-        /* 平台按钮横向卡片布局 */
         .platform-grid {
             display: flex;
             flex-wrap: wrap;
@@ -257,12 +257,14 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
+            position: relative;
+            cursor: pointer;
         }
         .platform-card:hover {
             transform: translateY(-6px);
-            background: #ff6600;
-            border-color: #ff6600;
-            box-shadow: 0 12px 20px rgba(255,102,0,0.3);
+            background: #2196F3;
+            border-color: #2196F3;
+            box-shadow: 0 12px 20px rgba(33,150,243,0.4);
         }
         .platform-icon {
             width: 64px;
@@ -287,6 +289,73 @@
         .platform-card:hover .platform-name {
             color: white;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* 自定义浮层提示样式 */
+        .platform-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: rgba(30, 59, 107, 0.9);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 13px;
+            font-weight: normal;
+            white-space: nowrap;
+            padding: 6px 12px;
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 200;
+            transition: opacity 0.2s;
+            opacity: 0;
+            visibility: hidden;
+            font-family: '仿宋', 'FangSong', sans-serif;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .platform-card:hover .platform-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-12px);
+        }
+        /* 文字提示样式 */
+        .platform-tooltip-text {
+            white-space: nowrap;
+        }
+        /* 图片提示样式：放大图片，无边框 */
+        .platform-tooltip-img {
+            white-space: normal;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            min-width: auto;
+        }
+        .platform-tooltip-img img {
+            max-width: 280px;
+            width: auto;
+            height: auto;
+            max-height: 220px;
+            border-radius: 16px;
+            display: block;
+            pointer-events: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: none;
+        }
+        @media (max-width: 680px) {
+            .platform-tooltip-text {
+                white-space: normal;
+                width: max-content;
+                max-width: 160px;
+                font-size: 11px;
+            }
+            .platform-tooltip-img img {
+                max-width: 200px;
+                max-height: 160px;
+            }
         }
         
         @media (max-width: 680px) {
@@ -329,30 +398,36 @@
             pointer-events: none;
         }
         
-        .character-item-compact { margin-bottom: 12px; border-left: 3px solid #ff6600; padding-left: 10px; }
+        .character-item-compact { margin-bottom: 12px; border-left: 3px solid #2196F3; padding-left: 10px; }
         .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
         .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
         .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
         
         .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
-        .sticky-tag { background: #ff6600; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
+        .sticky-tag { background: #2196F3; color: white; font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 3px; display: inline-block; margin-right: 8px; }
         .announcement-item { margin-bottom: 20px; padding: 10px; background: rgba(240, 245, 250, 0.7); border: 1px solid rgba(179, 195, 212, 0.6); border-radius: 8px; }
         .announcement-title { font-weight: bold; color: #1e3b6b; font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; }
         .announcement-link { color: #0066cc; text-decoration: none; word-break: break-all; font-size: 14px; display: inline-block; margin-top: 8px; padding: 5px 8px; background: rgba(232, 237, 244, 0.8); border: 1px solid #7f9db9; border-radius: 6px; }
-        .announcement-link:hover { color: #ff6600; background: #d4e0f0; }
-        .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #ff6600; }
+        .announcement-link:hover { color: #2196F3; background: #d4e0f0; }
+        .static-text { background: rgba(240, 245, 250, 0.7); border: 1px solid #b3c3d4; border-radius: 8px; padding: 15px; margin-top: 20px; text-align: center; border-left: 3px solid #2196F3; }
         
         .international-content { text-align: center; padding: 5px 5px; }
         .international-link-area { margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
         .link-line { font-size: 18px; font-weight: bold; color: #1e3b6b; background: rgba(240, 245, 250, 0.8); padding: 8px 12px; border-radius: 30px; display: inline-block; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(127, 157, 185, 0.6); text-decoration: none; }
-        .link-line:hover { background: #ff6600; color: white; transform: scale(1.02); }
+        .link-line:hover { background: #2196F3; color: white; transform: scale(1.02); }
         a.link-line { color: #1e3b6b; text-decoration: none; display: inline-block; }
         a.link-line:hover { color: white; }
-        .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #ff6600, #7f9db9, transparent); margin: 20px auto; }
-        .waiting-text { font-size: 18px; color: #ff6600; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
+        .international-divider { width: 80%; height: 2px; background: linear-gradient(to right, transparent, #7f9db9, #2196F3, #7f9db9, transparent); margin: 20px auto; }
+        .waiting-text { font-size: 18px; color: #2196F3; font-weight: bold; letter-spacing: 2px; background: rgba(255,255,240,0.6); display: inline-block; padding: 5px 20px; border-radius: 40px; margin-top: 10px; }
         
         .welcome-gif { margin-top: 20px; max-width: 200px; width: 80%; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: block; margin-left: auto; margin-right: auto; pointer-events: none; }
-        @media (max-width: 768px) { .avatar-wrapper { width: 100px; height: 100px; } .info-panel { padding: 6px 12px; min-width: 260px; } .info-time { font-size: 12px; } .welcome-title { font-size: 28px; } .tab-btn { padding: 6px 14px; font-size: 13px; } }
+        @media (max-width: 768px) { 
+            .avatar-wrapper { width: 100px; height: 100px; } 
+            .info-panel { padding: 6px 12px; min-width: 260px; } 
+            .info-time { font-size: 12px; } 
+            .welcome-title { font-size: 28px; } 
+            .tab-btn { padding: 6px 14px; font-size: 13px; } 
+        }
         
         .welcome-overlay { 
             position: fixed; 
@@ -460,7 +535,7 @@
     </div>
     <div class="avatar-wrapper">
         <div class="avatar-circle">
-            <img src="https://pic1.imgdb.cn/item/6a1702f1cf6856634613ad9f.jpg" alt="头像" draggable="false">
+            <img src="https://pic1.imgdb.cn/item/6a1d8e1db3f09b19e9d1f225.jpg" alt="头像" draggable="false">
             <div class="avatar-protection"></div>
         </div>
     </div>
@@ -481,18 +556,24 @@
             <a href="https://space.bilibili.com/1044109952" target="_blank" class="platform-card" id="biliCard">
                 <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac5.png" alt="Bilibili" draggable="false">
                 <span class="platform-name" id="biliName">哔哩哔哩</span>
+                <div class="platform-tooltip platform-tooltip-text">我曾经在西瓜创作，现在来到b站创作啦~</div>
             </a>
             <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="platform-card" id="xiguaCard">
                 <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac7.png" alt="西瓜视频" draggable="false">
                 <span class="platform-name" id="xiguaName">西瓜视频</span>
+                <div class="platform-tooltip platform-tooltip-img">
+                    <img src="https://pic1.imgdb.cn/item/6a1d8b21b3f09b19e9d1ef66.jpg" alt="西瓜视频介绍图" draggable="false">
+                </div>
             </a>
             <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="platform-card" id="ttCard">
                 <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac8.png" alt="今日头条" draggable="false">
                 <span class="platform-name" id="ttName">今日头条</span>
+                <div class="platform-tooltip platform-tooltip-text">这个号跟我的西瓜视频信息同步</div>
             </a>
             <a href="https://my.furwall.net/author/18006" target="_blank" class="platform-card" id="furwallCard">
                 <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a17cbce105bdfb8114f1ac6.png" alt="Furwall" draggable="false">
                 <span class="platform-name" id="furwallName">Furwall</span>
+                <div class="platform-tooltip platform-tooltip-text">这里记录着我的日常生活，要来看看吗~</div>
             </a>
         </div>
     </div>
@@ -501,7 +582,8 @@
         <div class="window-title" id="profileTitle">✨ 设定介绍</div>
         <div class="profile-layout">
             <div class="profile-image" oncontextmenu="return false">
-                <img src="https://pic1.imgdb.cn/item/6a170602cf6856634613ae50.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
+                <!-- 设定图片：竖图，自然比例展示，移除强制1:1约束 -->
+                <img src="https://pic1.imgdb.cn/item/6a1d8f8db3f09b19e9d1f35a.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
             </div>
             <div class="character-content-compact">
                 <div class="character-item-compact"><span class="character-label-compact" id="profileNameLabel">🐾 姓名：</span><span id="profileNameVal">米特（国际名Mitte，可简称MT）</span></div>
@@ -528,7 +610,6 @@
         <div class="window-title" id="otherTitle">其他</div>
         <div class="international-content">
             <div class="international-link-area">
-                <a href="https://mittewolf.github.io/MitteWolfen/" target="_blank" class="link-line" id="intlLink">🌍 点这里访问我的国际站</a>
                 <div class="link-line" id="watermelonSnapshotLink">我的西瓜视频网页端快照（RIP 2025.2）</div>
             </div>
             <div class="international-divider"></div>
@@ -552,7 +633,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
 (function() {
-    // 多语言数据
     const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
     function getConstellationName(month, day, lang) {
         let cnName = "";
@@ -581,7 +661,7 @@
             storyLabel: "📖 Backstory: ", storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.",
             newsTitle: "📢 Announcements", stickyTag: "Sticky", announceTitle: "My Journey Video", announceDesc: "Click below to watch:",
             staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!",
-            otherTitle: "Others", intlLinkText: "🌍 Visit my International Site", snapshotText: "My Xigua Web Snapshot (RIP 2025.2)", waitingText: "⚡ Under construction ~",
+            otherTitle: "Others", snapshotText: "My Xigua Web Snapshot (RIP 2025.2)", waitingText: "⚡ Under construction ~",
             honorTitle: "🏆 Wall of Honor", welcomeH1: "Hey!", welcomeP: "Welcome to MT's little space", clickHint: "✨ Click anywhere to enter ✨",
             constellationPrefix: "Today's Zodiac: ", timePrefix: "Beijing Time: ", greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
         },
@@ -594,7 +674,7 @@
             storyLabel: "📖 故事背景：", storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。",
             newsTitle: "📢 公告", stickyTag: "置顶", announceTitle: "我的经历视频", announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
             staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
-            otherTitle: "其他", intlLinkText: "🌍 点这里访问我的国际站", snapshotText: "我的西瓜视频网页端快照（RIP 2025.2）", waitingText: "⚡ 正在施工ing ~",
+            otherTitle: "其他", snapshotText: "我的西瓜视频网页端快照（RIP 2025.2）", waitingText: "⚡ 正在施工ing ~",
             honorTitle: "🏆 荣誉墙", welcomeH1: "Hey!", welcomeP: "欢迎来到MT的小空间", clickHint: "✨ 点击任意处进入 ✨",
             constellationPrefix: "✨ 今日时运: ", timePrefix: "北京时间: ", greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
         }
@@ -642,7 +722,6 @@
         document.getElementById('announceDescText').innerText = t.announceDesc;
         document.getElementById('staticNotice').innerText = t.staticNotice;
         document.getElementById('otherTitle').innerText = t.otherTitle;
-        document.getElementById('intlLink').innerHTML = t.intlLinkText;
         document.getElementById('watermelonSnapshotLink').innerText = t.snapshotText;
         document.getElementById('waitingText').innerText = t.waitingText;
         document.getElementById('honorTitle').innerText = t.honorTitle;
@@ -672,7 +751,7 @@
         document.getElementById('backToTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
         const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
         let playerInit=false;
-        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png'}],theme:'#ff6600',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
+        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/69db2d7ae972b74d7846bbe3.png'}],theme:'#2196F3',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
         if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
         document.getElementById('watermelonSnapshotLink')?.addEventListener('click',()=>window.open('https://mittewolf-xigua-snapshot.netlify.app/','_blank'));
     }
