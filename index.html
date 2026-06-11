@@ -14,7 +14,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: #a7b9ce;
-            background-image: url('https://pic1.imgdb.cn/item/6a09c5cd42582d261d241c5e.png');
+            background-image: url('https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/bg.png');
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -64,7 +64,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: rgba(232, 237, 244, 0.85);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             padding: 4px 16px;
             border-radius: 40px;
             border: 1px solid rgba(127, 157, 185, 0.8);
@@ -144,7 +144,7 @@
         }
         .tab-btn {
             background: rgba(232, 237, 244, 0.7);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             border: 1px solid rgba(127, 157, 185, 0.7);
             border-radius: 40px;
             padding: 8px 20px;
@@ -179,7 +179,7 @@
         .tab-pane {
             display: none;
             background: rgba(232, 237, 244, 0.65);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             border: 1px solid rgba(127, 157, 185, 0.6);
             border-radius: 20px;
             padding: 25px 22px;
@@ -298,7 +298,7 @@
             left: 50%;
             transform: translateX(-50%) translateY(-8px);
             background: rgba(30, 59, 107, 0.9);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             color: #fff;
             font-size: 13px;
             font-weight: normal;
@@ -400,7 +400,7 @@
         
         .character-item-compact { margin-bottom: 12px; border-left: 3px solid #2196F3; padding-left: 10px; }
         .character-label-compact { font-weight: bold; color: #1e3b6b; font-size: 15px; display: inline-block; margin-right: 6px; }
-        .story-text-compact { background: rgba(240, 245, 250, 0.7); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
+        .story-text-compact { background: rgba(240, 245, 250, 0.3); padding: 8px 10px; border-radius: 8px; margin-top: 6px; font-style: italic; font-size: 13px; }
         .character-divider-compact { height: 1px; background: linear-gradient(to right, #c0cbd8, transparent); margin: 12px 0; }
         
         .announcement-content { text-align: left; color: #1e3b6b; font-size: 15px; line-height: 1.8; }
@@ -436,7 +436,7 @@
             width: 100%; 
             height: 100%; 
             background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -751,7 +751,7 @@
         document.getElementById('backToTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
         const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
         let playerInit=false;
-        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#2196F3',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
+        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#2196F3',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
         if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
         document.getElementById('watermelonSnapshotLink')?.addEventListener('click',()=>window.open('https://mittewolf-xigua-snapshot.netlify.app/','_blank'));
     }
