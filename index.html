@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>MTの小空间</title>
+    <title>MTの小空间 - 烟韵音符</title>
     
     <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6a1d90bcb3f09b19e9d22b36.png" type="image/x-icon">
     <link rel="icon" href="https://pic1.imgdb.cn/item/6a1d90bcb3f09b19e9d22b36.png" type="image/x-icon">
@@ -213,12 +213,11 @@
             background: rgba(240,245,250,0.4);
             transition: transform 0.2s;
         }
-        /* 修改：设定介绍图片使用自然高度，保持竖图比例 */
         .profile-image img {
             width: 100%;
             height: auto;
-            aspect-ratio: auto;     /* 移除强制1:1，保持原始竖图比例 */
-            object-fit: cover;       /* 确保图片完整显示，不裁切 */
+            aspect-ratio: auto;
+            object-fit: cover;
             display: block;
             border-radius: 18px;
             pointer-events: none;
@@ -319,11 +318,9 @@
             visibility: visible;
             transform: translateX(-50%) translateY(-12px);
         }
-        /* 文字提示样式 */
         .platform-tooltip-text {
             white-space: nowrap;
         }
-        /* 图片提示样式：放大图片，无边框 */
         .platform-tooltip-img {
             white-space: normal;
             padding: 0;
@@ -465,6 +462,46 @@
         }
         #aplayer-container.show { opacity: 1; pointer-events: auto; }
         .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
+        
+        /* ----- 如烟飘浮 · 彻底无停顿，舒缓轻盈 ----- */
+        .music-note-float {
+            position: fixed;
+            font-weight: normal;
+            z-index: 1002;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+            font-family: 'Segoe UI', 'Arial', 'Quicksand', sans-serif;
+            will-change: transform, opacity;
+            /* 动画时长4.5秒，全程连续上升，无任何停滞点 */
+            animation: smokeRise 4.5s linear forwards;
+        }
+        @keyframes smokeRise {
+            0% {
+                transform: translateY(0px) translateX(0px) scale(0.5);
+                opacity: 0.55;
+            }
+            20% {
+                transform: translateY(-28px) translateX(6px) scale(0.7);
+                opacity: 0.85;
+            }
+            40% {
+                transform: translateY(-62px) translateX(-8px) scale(0.75);
+                opacity: 0.9;
+            }
+            60% {
+                transform: translateY(-100px) translateX(10px) scale(0.68);
+                opacity: 0.75;
+            }
+            80% {
+                transform: translateY(-140px) translateX(-5px) scale(0.55);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-185px) translateX(0px) scale(0.35);
+                opacity: 0;
+            }
+        }
+        
         .custom-lyrics-panel { 
             position: fixed; 
             bottom: 70px; 
@@ -582,7 +619,6 @@
         <div class="window-title" id="profileTitle">✨ 设定介绍</div>
         <div class="profile-layout">
             <div class="profile-image" oncontextmenu="return false">
-                <!-- 设定图片：竖图，自然比例展示，移除强制1:1约束 -->
                 <img src="https://pic1.imgdb.cn/item/6a1d8f8db3f09b19e9d1f35a.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
             </div>
             <div class="character-content-compact">
@@ -633,6 +669,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 <script>
 (function() {
+    // ========== 保留用户完整的星座/时间/多语言逻辑 ==========
     const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
     function getConstellationName(month, day, lang) {
         let cnName = "";
@@ -652,32 +689,8 @@
     }
     
     const locales = {
-        en: {
-            mainTitle: "MT's little space uwu", tabPlatform: "🐾 My Platforms", tabProfile: "✨ Character", tabNews: "📢 News", tabWebsites: "🌐 Others", tabHonor: "🏆 Wall of Honor",
-            platformTitle: "🐾 My Platforms", bili: "Bilibili", xigua: "Xigua Video", toutiao: "Toutiao", furwall: "Furwall",
-            profileTitle: "✨ Character", nameLabel: "🐾 Name: ", nameVal: "Mitte (MT for short)", genderLabel: "♂️ Gender: ", genderVal: "Male",
-            personalityLabel: "💫 Personality: ", personalityVal: "Pure, curious, inclusive, and open.", identityLabel: "🌌 Identity: ", identityVal: "MT from the universe, brings good luck~",
-            likeLabel: "❤️ Likes: ", likeVal: "Stargazing in space, often takes other furry friends to watch stars.", skillLabel: "🔮 Skills: ", skillVal: "Summon portals, freely travel across different times and spaces.",
-            storyLabel: "📖 Backstory: ", storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.",
-            newsTitle: "📢 Announcements", stickyTag: "Sticky", announceTitle: "My Journey Video", announceDesc: "Click below to watch:",
-            staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!",
-            otherTitle: "Others", snapshotText: "My Xigua Web Snapshot (RIP 2025.2)", waitingText: "⚡ Under construction ~",
-            honorTitle: "🏆 Wall of Honor", welcomeH1: "Hey!", welcomeP: "Welcome to MT's little space", clickHint: "✨ Click anywhere to enter ✨",
-            constellationPrefix: "Today's Zodiac: ", timePrefix: "Beijing Time: ", greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
-        },
-        zh: {
-            mainTitle: "这里是MT的小空间uwu", tabPlatform: "🐾 我的平台", tabProfile: "✨ 设定介绍", tabNews: "📢 公告", tabWebsites: "🌐 其他", tabHonor: "🏆 荣誉墙",
-            platformTitle: "🐾 我的平台", bili: "哔哩哔哩", xigua: "西瓜视频", toutiao: "今日头条", furwall: "Furwall",
-            profileTitle: "✨ 设定介绍", nameLabel: "🐾 姓名：", nameVal: "米特（国际名Mitte，可简称MT）", genderLabel: "♂️ 性别：", genderVal: "男性",
-            personalityLabel: "💫 性格：", personalityVal: "本兽兽好奇，包容，同时又有些开放。", identityLabel: "🌌 身份：", identityVal: "堕天使",
-            likeLabel: "❤️ 喜好：", likeVal: "喜欢漫游太空，经常带其他兽兽一起看星星。", skillLabel: "🔮 技能：", skillVal: "召唤传送门，自由穿越不同的时空或地点。",
-            storyLabel: "📖 故事背景：", storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了MT的雏形……<br>MT狼便由此诞生了。",
-            newsTitle: "📢 公告", stickyTag: "置顶", announceTitle: "我的经历", announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
-            staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
-            otherTitle: "其他", snapshotText: "我的西瓜视频网页端快照（RIP 2025.2）", waitingText: "⚡ 正在施工ing ~",
-            honorTitle: "🏆 荣誉墙", welcomeH1: "Hey!", welcomeP: "欢迎来到MT的小空间", clickHint: "✨ 点击任意处进入 ✨",
-            constellationPrefix: "✨ 今日时运: ", timePrefix: "北京时间: ", greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
-        }
+        en: { mainTitle: "MT's little space uwu", tabPlatform: "🐾 My Platforms", tabProfile: "✨ Character", tabNews: "📢 News", tabWebsites: "🌐 Others", tabHonor: "🏆 Wall of Honor", platformTitle: "🐾 My Platforms", bili: "Bilibili", xigua: "Xigua Video", toutiao: "Toutiao", furwall: "Furwall", profileTitle: "✨ Character", nameLabel: "🐾 Name: ", nameVal: "Mitte (MT for short)", genderLabel: "♂️ Gender: ", genderVal: "Male", personalityLabel: "💫 Personality: ", personalityVal: "Pure, curious, inclusive, and open.", identityLabel: "🌌 Identity: ", identityVal: "MT from the universe, brings good luck~", likeLabel: "❤️ Likes: ", likeVal: "Stargazing in space, often takes other furry friends to watch stars.", skillLabel: "🔮 Skills: ", skillVal: "Summon portals, freely travel across different times and spaces.", storyLabel: "📖 Backstory: ", storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.", newsTitle: "📢 Announcements", stickyTag: "Sticky", announceTitle: "My Journey Video", announceDesc: "Click below to watch:", staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!", otherTitle: "Others", snapshotText: "My Xigua Web Snapshot (RIP 2025.2)", waitingText: "⚡ Under construction ~", honorTitle: "🏆 Wall of Honor", welcomeH1: "Hey!", welcomeP: "Welcome to MT's little space", clickHint: "✨ Click anywhere to enter ✨", constellationPrefix: "Today's Zodiac: ", timePrefix: "Beijing Time: ", greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~" },
+        zh: { mainTitle: "这里是MT的小空间uwu", tabPlatform: "🐾 我的平台", tabProfile: "✨ 设定介绍", tabNews: "📢 公告", tabWebsites: "🌐 其他", tabHonor: "🏆 荣誉墙", platformTitle: "🐾 我的平台", bili: "哔哩哔哩", xigua: "西瓜视频", toutiao: "今日头条", furwall: "Furwall", profileTitle: "✨ 设定介绍", nameLabel: "🐾 姓名：", nameVal: "米特（国际名Mitte，可简称MT）", genderLabel: "♂️ 性别：", genderVal: "男性", personalityLabel: "💫 性格：", personalityVal: "本兽兽好奇，包容，同时又有些开放。", identityLabel: "🌌 身份：", identityVal: "堕天使", likeLabel: "❤️ 喜好：", likeVal: "喜欢漫游太空，经常带其他兽兽一起看星星。", skillLabel: "🔮 技能：", skillVal: "召唤传送门，自由穿越不同的时空或地点。", storyLabel: "📖 故事背景：", storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了MT的雏形……<br>MT狼便由此诞生了。", newsTitle: "📢 公告", stickyTag: "置顶", announceTitle: "我的经历", announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：", staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易", otherTitle: "其他", snapshotText: "我的西瓜视频网页端快照（RIP 2025.2）", waitingText: "⚡ 正在施工ing ~", honorTitle: "🏆 荣誉墙", welcomeH1: "Hey!", welcomeP: "欢迎来到MT的小空间", clickHint: "✨ 点击任意处进入 ✨", constellationPrefix: "✨ 今日时运: ", timePrefix: "北京时间: ", greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~" }
     };
     
     let currentLang = localStorage.getItem('mt_lang') || ((navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'zh');
@@ -737,7 +750,64 @@
     function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
     document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
     
-    let aplayer=null, lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdelivr.net/gh/MitteWolf/MitteWolf/lrc.lrc';
+    // ========== 音符飘浮特效（彻底无停顿，requestAnimationFrame 连续生成）==========
+    let aplayer = null;
+    let noteSpawnActive = false;
+    let lastSpawnTime = 0;
+    const SPAWN_INTERVAL_MS = 1050; // 舒缓节奏，无停顿感
+    let animFrameId = null;
+    
+    function createFloatingNote() {
+        const cover = document.querySelector('.aplayer-pic');
+        let baseX = window.innerWidth * 0.7, baseY = window.innerHeight - 85;
+        if (cover) {
+            const rect = cover.getBoundingClientRect();
+            baseX = rect.left + rect.width/2 + (Math.random() - 0.5) * 28;
+            baseY = rect.top + rect.height/2 - 5;
+        }
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'music-note-float';
+        const notes = ['♪', '♫', '♩', '🎵', '♪', '♫'];
+        noteDiv.innerText = notes[Math.floor(Math.random() * notes.length)];
+        noteDiv.style.left = (baseX + (Math.random() - 0.5) * 58) + 'px';
+        noteDiv.style.top = baseY + 'px';
+        const tinySize = 12 + Math.random() * 12;
+        noteDiv.style.fontSize = tinySize + 'px';
+        noteDiv.style.color = `hsl(${45 + Math.random() * 35}, 80%, 70%)`;
+        noteDiv.style.textShadow = '0 1px 3px rgba(0,0,0,0.2)';
+        document.body.appendChild(noteDiv);
+        noteDiv.addEventListener('animationend', () => noteDiv.remove());
+        setTimeout(() => noteDiv.remove(), 5000);
+    }
+    
+    function startContinuousNotes() {
+        if (noteSpawnActive) return;
+        noteSpawnActive = true;
+        lastSpawnTime = performance.now();
+        function tick(now) {
+            if (!noteSpawnActive) return;
+            if (aplayer && aplayer.audio && !aplayer.audio.paused) {
+                if (now - lastSpawnTime >= SPAWN_INTERVAL_MS) {
+                    createFloatingNote();
+                    lastSpawnTime = now;
+                }
+            }
+            animFrameId = requestAnimationFrame(tick);
+        }
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animFrameId = requestAnimationFrame(tick);
+    }
+    
+    function stopContinuousNotes() {
+        noteSpawnActive = false;
+        if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
+        }
+    }
+    
+    // 歌词及播放器初始化（保留原逻辑）
+    let lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
     async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
     function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
     
@@ -751,7 +821,18 @@
         document.getElementById('backToTopBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
         const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
         let playerInit=false;
-        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#2196F3',autoplay:false,loop:'all',volume:0.7}); container.classList.add('show'); loadLyrics(); if(lyricInterval)clearInterval(lyricInterval); lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100); aplayer.play().catch(e=>{}); } };
+        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ 
+            aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#2196F3',autoplay:false,loop:'all',volume:0.7}); 
+            container.classList.add('show'); 
+            loadLyrics(); 
+            if(lyricInterval)clearInterval(lyricInterval); 
+            lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100);
+            aplayer.on('play', () => startContinuousNotes());
+            aplayer.on('pause', () => stopContinuousNotes());
+            aplayer.on('ended', () => stopContinuousNotes());
+            aplayer.on('error', () => stopContinuousNotes());
+            aplayer.play().catch(e=>{});
+        } };
         if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
         document.getElementById('watermelonSnapshotLink')?.addEventListener('click',()=>window.open('https://mittewolf-xigua-snapshot.netlify.app/','_blank'));
     }
