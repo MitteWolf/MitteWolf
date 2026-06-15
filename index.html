@@ -65,7 +65,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: rgba(232, 237, 244, 0.85);
-            backdrop-filter: blur(3px);
+            /* 删除了 backdrop-filter: blur(3px); 保留透明但无aero渲染 */
             padding: 4px 16px;
             border-radius: 40px;
             border: 1px solid rgba(127, 157, 185, 0.8);
@@ -117,7 +117,7 @@
             justify-content: center;
             gap: 6px;
             background: rgba(232, 237, 244, 0.55);
-            backdrop-filter: blur(6px);
+            /* 删除了 backdrop-filter: blur(6px); 保留透明但无毛玻璃效果 */
             padding: 8px 20px;
             border-radius: 20px;
             border: 1px solid rgba(127, 157, 185, 0.6);
@@ -145,7 +145,7 @@
         }
         .tab-btn {
             background: rgba(232, 237, 244, 0.7);
-            backdrop-filter: blur(3px);
+            /* 删除了 backdrop-filter: blur(3px); 去掉aero渲染 */
             border: 1px solid rgba(127, 157, 185, 0.7);
             border-radius: 40px;
             padding: 8px 20px;
@@ -180,7 +180,7 @@
         .tab-pane {
             display: none;
             background: rgba(232, 237, 244, 0.65);
-            backdrop-filter: blur(3px);
+            /* 删除了 backdrop-filter: blur(3px); 移除玻璃效果 */
             border: 1px solid rgba(127, 157, 185, 0.6);
             border-radius: 20px;
             padding: 25px 22px;
@@ -246,7 +246,7 @@
             min-width: 140px;
             max-width: 180px;
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(4px);
+            /* 删除了 backdrop-filter: blur(4px); 保留透明 */
             border-radius: 24px;
             padding: 16px 12px;
             text-decoration: none;
@@ -298,7 +298,7 @@
             left: 50%;
             transform: translateX(-50%) translateY(-8px);
             background: rgba(30, 59, 107, 0.9);
-            backdrop-filter: blur(3px);
+            /* 删除了 backdrop-filter: blur(3px); */
             color: #fff;
             font-size: 13px;
             font-weight: normal;
@@ -327,7 +327,6 @@
             padding: 0;
             border-radius: 0;
             background: transparent;
-            backdrop-filter: none;
             border: none;
             box-shadow: none;
             min-width: auto;
@@ -434,7 +433,7 @@
             width: 100%; 
             height: 100%; 
             background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(3px);
+            /* 删除了 backdrop-filter: blur(3px); 移除毛玻璃背景，但仍保留半透明白色无aero */
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -462,9 +461,10 @@
             transition: opacity 0.3s; 
         }
         #aplayer-container.show { opacity: 1; pointer-events: auto; }
-        .aplayer { background: rgba(232, 237, 244, 0.85) !important; backdrop-filter: blur(5px); border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
+        /* aplayer背景保持不引入新blur，原样式保留，但没有额外aero */
+        .aplayer { background: rgba(232, 237, 244, 0.85) !important; /* 移除backdrop-filter */ border-top: 1px solid #7f9db9; margin: 0 !important; border-radius: 0 !important; }
         
-        /* ----- 如烟飘浮 · 彻底无停顿，舒缓轻盈 ----- */
+        /* ----- 如烟飘浮 · 彻底无停顿，舒缓轻盈 (特效保留不变) ----- */
         .music-note-float {
             position: fixed;
             font-weight: normal;
@@ -473,34 +473,15 @@
             filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
             font-family: 'Segoe UI', 'Arial', 'Quicksand', sans-serif;
             will-change: transform, opacity;
-            /* 动画时长4.5秒，全程连续上升，无任何停滞点 */
             animation: smokeRise 4.5s linear forwards;
         }
         @keyframes smokeRise {
-            0% {
-                transform: translateY(0px) translateX(0px) scale(0.5);
-                opacity: 0.55;
-            }
-            20% {
-                transform: translateY(-28px) translateX(6px) scale(0.7);
-                opacity: 0.85;
-            }
-            40% {
-                transform: translateY(-62px) translateX(-8px) scale(0.75);
-                opacity: 0.9;
-            }
-            60% {
-                transform: translateY(-100px) translateX(10px) scale(0.68);
-                opacity: 0.75;
-            }
-            80% {
-                transform: translateY(-140px) translateX(-5px) scale(0.55);
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(-185px) translateX(0px) scale(0.35);
-                opacity: 0;
-            }
+            0% { transform: translateY(0px) translateX(0px) scale(0.5); opacity: 0.55; }
+            20% { transform: translateY(-28px) translateX(6px) scale(0.7); opacity: 0.85; }
+            40% { transform: translateY(-62px) translateX(-8px) scale(0.75); opacity: 0.9; }
+            60% { transform: translateY(-100px) translateX(10px) scale(0.68); opacity: 0.75; }
+            80% { transform: translateY(-140px) translateX(-5px) scale(0.55); opacity: 0.5; }
+            100% { transform: translateY(-185px) translateX(0px) scale(0.35); opacity: 0; }
         }
         
         .custom-lyrics-panel { 
@@ -751,11 +732,11 @@
     function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
     document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
     
-    // ========== 音符飘浮特效（彻底无停顿，requestAnimationFrame 连续生成）==========
+    // ========== 音符飘浮特效（彻底无停顿，保留原有效果）==========
     let aplayer = null;
     let noteSpawnActive = false;
     let lastSpawnTime = 0;
-    const SPAWN_INTERVAL_MS = 1050; // 舒缓节奏，无停顿感
+    const SPAWN_INTERVAL_MS = 1050;
     let animFrameId = null;
     
     function createFloatingNote() {
@@ -807,7 +788,7 @@
         }
     }
     
-    // 歌词及播放器初始化（保留原逻辑）
+    // 歌词及播放器初始化
     let lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
     async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
     function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
