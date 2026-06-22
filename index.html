@@ -359,7 +359,7 @@
             touch-action: none;
             will-change: transform;
             filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.35));
-            transition: filter 0.2s;
+            transition: filter 0.2s, opacity 0.5s ease, transform 0.5s ease;
             animation: softFloat 3s ease-in-out infinite;
         }
         #floating-character img {
@@ -380,6 +380,12 @@
             cursor: grabbing;
             filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
             transition: none;
+            animation: none !important;
+        }
+        #floating-character.hidden-char {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
             animation: none !important;
         }
         @keyframes softFloat {
@@ -404,7 +410,7 @@
             }
         }
 
-        /* ===== ★ 对话气泡 - 角色正上方 ===== */
+        /* ===== ★ 对话气泡 - 角色右边 ===== */
         #char-bubble-container {
             position: fixed;
             z-index: 1300;
@@ -422,11 +428,10 @@
             position: absolute;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             gap: 6px;
             pointer-events: none;
             max-width: 460px;
-            transform: translateX(-50%);
         }
         .char-bubble {
             background: rgba(255, 255, 255, 0.96);
@@ -440,36 +445,36 @@
             line-height: 1.6;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            max-width: 420px;
+            max-width: 400px;
             position: relative;
             animation: bubblePop 0.3s ease-out;
             text-shadow: none;
             font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
-            text-align: center;
+            text-align: left;
         }
-        .char-bubble::after {
+        .char-bubble::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: -10px;
+            top: 18px;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 12px solid rgba(255, 255, 255, 0.96);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 12px solid rgba(255, 255, 255, 0.96);
         }
         @keyframes bubblePop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.8) translateX(10px); opacity: 0; }
+            100% { transform: scale(1) translateX(0); opacity: 1; }
         }
         .char-options {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             pointer-events: auto;
+            margin-top: 2px;
         }
         .char-option-btn {
             background: rgba(255, 255, 255, 0.95);
@@ -477,7 +482,7 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(200, 200, 200, 0.5);
             border-radius: 30px;
-            padding: 10px 24px;
+            padding: 10px 22px;
             color: #1e3b6b;
             font-size: 14px;
             font-weight: 500;
@@ -487,6 +492,7 @@
             font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
             text-shadow: none;
+            white-space: nowrap;
         }
         .char-option-btn:hover {
             background: rgba(255, 255, 255, 1);
@@ -509,33 +515,24 @@
             line-height: 1.6;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            max-width: 400px;
+            max-width: 380px;
             animation: bubblePop 0.3s ease-out;
             text-shadow: none;
             font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
-            text-align: center;
+            text-align: left;
             position: relative;
         }
-        .char-bubble-sub::after {
+        .char-bubble-sub::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: -10px;
+            top: 16px;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 12px solid rgba(255, 255, 255, 0.96);
-        }
-        .char-options-wrapper {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            pointer-events: auto;
-            margin-top: 2px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 12px solid rgba(255, 255, 255, 0.96);
         }
         @media (max-width: 680px) {
             .char-bubble-wrapper {
@@ -544,7 +541,7 @@
             .char-bubble {
                 font-size: 13px;
                 padding: 12px 16px;
-                max-width: 300px;
+                max-width: 280px;
             }
             .char-option-btn {
                 font-size: 12px;
@@ -553,17 +550,17 @@
             .char-bubble-sub {
                 font-size: 13px;
                 padding: 10px 14px;
-                max-width: 280px;
+                max-width: 260px;
             }
         }
         @media (max-width: 480px) {
             .char-bubble-wrapper {
-                max-width: 280px;
+                max-width: 260px;
             }
             .char-bubble {
                 font-size: 12px;
                 padding: 10px 14px;
-                max-width: 250px;
+                max-width: 220px;
             }
             .char-option-btn {
                 font-size: 11px;
@@ -572,7 +569,7 @@
             .char-bubble-sub {
                 font-size: 12px;
                 padding: 8px 12px;
-                max-width: 230px;
+                max-width: 200px;
             }
         }
     </style>
@@ -772,7 +769,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
     <script>
     (function() {
-        // ===== 弹窗数据（吉祥物卡片无图标） =====
+        // ===== 弹窗数据 =====
         const modalData = {
             zh: {
                 sponsor: { icon: '❤️', title: '赞助一下我吧', body: '🔒 暂未开放<br><br>如果喜欢我的创作，未来可以通过爱发电支持~' },
@@ -1093,31 +1090,51 @@
         async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
         function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
 
-        // ===== ★ 对话系统 - 角色正上方 =====
+        // ===== ★ 对话系统 - 角色右边 =====
         const bubbleContainer = document.getElementById('char-bubble-container');
         const bubbleWrapper = document.getElementById('bubbleWrapper');
         const charContainer = document.getElementById('floating-character');
         let bubbleActive = false;
-        let currentBubbleType = null; // 'main' or 'sub'
+        let charHidden = false;
+
+        // ★ 刷新后角色自动重新出现
+        function checkCharHidden() {
+            // 只清除隐藏标记，让角色始终显示
+            localStorage.removeItem('mt_char_hidden');
+            charHidden = false;
+            charContainer.classList.remove('hidden-char');
+        }
+
+        function hideCharacter() {
+            charHidden = true;
+            charContainer.classList.add('hidden-char');
+            // 不存储隐藏状态到 localStorage，刷新后自动恢复
+            localStorage.removeItem('mt_char_hidden');
+            localStorage.removeItem('mt_char_x');
+            localStorage.removeItem('mt_char_y');
+            closeBubble();
+        }
 
         function updateBubblePosition() {
-            if (!charContainer || !bubbleContainer) return;
+            if (!charContainer || !bubbleContainer || charHidden) return;
             const rect = charContainer.getBoundingClientRect();
             const wrapper = bubbleWrapper;
-            // 将wrapper定位到角色正上方
-            const charCenterX = rect.left + rect.width / 2;
+            const charRight = rect.right;
             const charTop = rect.top;
-            // 气泡出现在角色上方，留出一点间距
-            wrapper.style.left = charCenterX + 'px';
-            wrapper.style.bottom = (window.innerHeight - charTop + 16) + 'px';
-            wrapper.style.top = 'auto';
+            const charHeight = rect.height;
+            const bubbleX = charRight + 16;
+            const bubbleY = charTop + charHeight / 2;
+            wrapper.style.left = bubbleX + 'px';
+            wrapper.style.top = bubbleY + 'px';
             wrapper.style.right = 'auto';
+            wrapper.style.bottom = 'auto';
+            wrapper.style.transform = 'translateY(-50%)';
         }
 
         function showBubble(text, options = null, isSub = false) {
+            if (charHidden) return;
             bubbleContainer.classList.add('active');
             bubbleActive = true;
-            currentBubbleType = isSub ? 'sub' : 'main';
             
             let html = '';
             if (isSub) {
@@ -1125,7 +1142,7 @@
             } else {
                 html = `<div class="char-bubble">${text}</div>`;
                 if (options && options.length > 0) {
-                    html += `<div class="char-options-wrapper">`;
+                    html += `<div class="char-options">`;
                     options.forEach(opt => {
                         html += `<button class="char-option-btn" data-action="${opt.action}">${opt.label}</button>`;
                     });
@@ -1133,11 +1150,8 @@
                 }
             }
             bubbleWrapper.innerHTML = html;
-            
-            // 更新位置
             updateBubblePosition();
             
-            // 绑定选项按钮事件
             if (options && options.length > 0) {
                 bubbleWrapper.querySelectorAll('.char-option-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
@@ -1147,6 +1161,14 @@
                             showBubble('这里是MT的小天地，你可以探索一下，据说给我三连+关注的会有好事发生哦~', null, true);
                         } else if (action === 'q2') {
                             showBubble('还不错owo', null, true);
+                        } else if (action === 'q3') {
+                            showBubble('现在没什么事，你可以走了。', null, true);
+                            setTimeout(() => {
+                                showBubble('好的，下次刷新界面可以重新看到我哦。', null, true);
+                                setTimeout(() => {
+                                    hideCharacter();
+                                }, 2000);
+                            }, 1200);
                         }
                     });
                 });
@@ -1157,28 +1179,104 @@
             bubbleContainer.classList.remove('active');
             bubbleActive = false;
             bubbleWrapper.innerHTML = '';
-            currentBubbleType = null;
         }
 
-        // 点击角色切换对话
+        // ===== ★ 点击/拖动分离 =====
         if (charContainer) {
-            charContainer.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // 如果已经显示气泡，点击角色关闭
-                if (bubbleActive) {
-                    closeBubble();
+            checkCharHidden();
+
+            let pointerStartX = 0, pointerStartY = 0;
+            let pointerStartTime = 0;
+            let isPointerDrag = false;
+
+            charContainer.addEventListener('pointerdown', function(e) {
+                pointerStartX = e.clientX;
+                pointerStartY = e.clientY;
+                pointerStartTime = Date.now();
+                isPointerDrag = false;
+                this.setPointerCapture(e.pointerId);
+            });
+
+            charContainer.addEventListener('pointermove', function(e) {
+                if (e.buttons === 0) return;
+                const dx = e.clientX - pointerStartX;
+                const dy = e.clientY - pointerStartY;
+                if (Math.sqrt(dx*dx + dy*dy) > 30) {
+                    isPointerDrag = true;
+                }
+            });
+
+            charContainer.addEventListener('pointerup', function(e) {
+                if (charHidden) {
+                    this.releasePointerCapture(e.pointerId);
                     return;
                 }
-                // 显示初始对话
-                showBubble('你好，我是MT，关于本站有什么疑问吗？', [
-                    { label: '这是哪里？', action: 'q1' },
-                    { label: '你最近过的好吗？', action: 'q2' }
-                ]);
+                const dt = Date.now() - pointerStartTime;
+                const dx = e.clientX - pointerStartX;
+                const dy = e.clientY - pointerStartY;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if (dist < 30 && dt < 500 && !isPointerDrag) {
+                    if (bubbleActive) {
+                        closeBubble();
+                    } else {
+                        showBubble('你好，我是MT，关于本站有什么疑问吗？', [
+                            { label: '这是哪里？', action: 'q1' },
+                            { label: '你最近过的好吗？', action: 'q2' },
+                            { label: '没事，你可以走了', action: 'q3' }
+                        ]);
+                    }
+                }
+                this.releasePointerCapture(e.pointerId);
+                isPointerDrag = false;
             });
+
+            // 触屏
+            let touchStartX = 0, touchStartY = 0;
+            let touchStartTime = 0;
+            let isTouchDrag = false;
+
+            charContainer.addEventListener('touchstart', function(e) {
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                touchStartTime = Date.now();
+                isTouchDrag = false;
+            }, { passive: true });
+
+            charContainer.addEventListener('touchmove', function(e) {
+                const touch = e.touches[0];
+                const dx = touch.clientX - touchStartX;
+                const dy = touch.clientY - touchStartY;
+                if (Math.sqrt(dx*dx + dy*dy) > 30) {
+                    isTouchDrag = true;
+                }
+            }, { passive: true });
+
+            charContainer.addEventListener('touchend', function(e) {
+                if (charHidden) return;
+                const dt = Date.now() - touchStartTime;
+                const touch = e.changedTouches[0];
+                const dx = touch.clientX - touchStartX;
+                const dy = touch.clientY - touchStartY;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if (dist < 30 && dt < 500 && !isTouchDrag) {
+                    if (bubbleActive) {
+                        closeBubble();
+                    } else {
+                        showBubble('你好，我是MT，关于本站有什么疑问吗？', [
+                            { label: '这是哪里？', action: 'q1' },
+                            { label: '你最近过的好吗？', action: 'q2' },
+                            { label: '没事，你可以走了', action: 'q3' }
+                        ]);
+                    }
+                }
+                isTouchDrag = false;
+            }, { passive: true });
         }
 
-        // 点击其他地方关闭气泡
-        document.addEventListener('click', function(e) {
+        document.addEventListener('pointerdown', function(e) {
             if (bubbleActive) {
                 const target = e.target;
                 const isChar = charContainer && charContainer.contains(target);
@@ -1189,35 +1287,34 @@
             }
         });
 
-        // 窗口大小变化时更新气泡位置
         window.addEventListener('resize', function() {
             if (bubbleActive) {
                 updateBubblePosition();
             }
         });
 
-        // ===== 角色拖动（保留原有功能） =====
+        // ===== 角色拖动 =====
         if (charContainer) {
             const savedX = localStorage.getItem('mt_char_x');
             const savedY = localStorage.getItem('mt_char_y');
-            if (savedX !== null && savedY !== null) {
+            if (savedX !== null && savedY !== null && !charHidden) {
                 charContainer.style.left = savedX + 'px';
                 charContainer.style.top = savedY + 'px';
                 charContainer.style.bottom = 'auto';
             }
 
-            let isDragging = false, offsetX = 0, offsetY = 0;
-            let dragStartTime = 0;
+            let dragOffsetX = 0, dragOffsetY = 0;
+            let dragActive = false;
 
             const onDragStart = (e) => {
+                if (charHidden) return;
                 const ev = e.touches ? e.touches[0] : e;
                 if (e.type === 'mousedown' && e.button !== 0) return;
-                dragStartTime = Date.now();
-                isDragging = true;
+                dragActive = true;
                 charContainer.classList.add('dragging');
                 const rect = charContainer.getBoundingClientRect();
-                offsetX = ev.clientX - rect.left;
-                offsetY = ev.clientY - rect.top;
+                dragOffsetX = ev.clientX - rect.left;
+                dragOffsetY = ev.clientY - rect.top;
                 document.addEventListener('mousemove', onDragMove);
                 document.addEventListener('mouseup', onDragEnd);
                 document.addEventListener('touchmove', onDragMove, { passive: false });
@@ -1226,10 +1323,10 @@
             };
 
             const onDragMove = (e) => {
-                if (!isDragging) return;
+                if (!dragActive || charHidden) return;
                 const ev = e.touches ? e.touches[0] : e;
-                let newLeft = ev.clientX - offsetX;
-                let newTop = ev.clientY - offsetY;
+                let newLeft = ev.clientX - dragOffsetX;
+                let newTop = ev.clientY - dragOffsetY;
                 const maxX = window.innerWidth - charContainer.offsetWidth - 10;
                 const maxY = window.innerHeight - charContainer.offsetHeight - 10;
                 newLeft = Math.max(10, Math.min(newLeft, maxX));
@@ -1237,7 +1334,6 @@
                 charContainer.style.left = newLeft + 'px';
                 charContainer.style.top = newTop + 'px';
                 charContainer.style.bottom = 'auto';
-                // 拖动时实时更新气泡位置
                 if (bubbleActive) {
                     updateBubblePosition();
                 }
@@ -1245,17 +1341,18 @@
             };
 
             const onDragEnd = (e) => {
-                if (!isDragging) return;
-                isDragging = false;
+                if (!dragActive) return;
+                dragActive = false;
                 charContainer.classList.remove('dragging');
                 document.removeEventListener('mousemove', onDragMove);
                 document.removeEventListener('mouseup', onDragEnd);
                 document.removeEventListener('touchmove', onDragMove);
                 document.removeEventListener('touchend', onDragEnd);
-                const rect = charContainer.getBoundingClientRect();
-                localStorage.setItem('mt_char_x', rect.left);
-                localStorage.setItem('mt_char_y', rect.top);
-                // 拖动结束后更新气泡位置
+                if (!charHidden) {
+                    const rect = charContainer.getBoundingClientRect();
+                    localStorage.setItem('mt_char_x', rect.left);
+                    localStorage.setItem('mt_char_y', rect.top);
+                }
                 if (bubbleActive) {
                     updateBubblePosition();
                 }
