@@ -148,6 +148,10 @@
         .aplayer .aplayer-bar .aplayer-thumb { background:#3c7fb1 !important; border:2px solid #f2f6f8 !important; box-shadow:0 1px 3px rgba(0,0,0,0.3) !important; }
         .aplayer .aplayer-info .aplayer-controller .aplayer-volume-bar-wrap .aplayer-volume-bar { background:#d0d8e0 !important; }
         .aplayer .aplayer-info .aplayer-controller .aplayer-volume-bar-wrap .aplayer-volume-bar .aplayer-volume { background:#3c7fb1 !important; }
+        .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.aplayer-icon-forward,
+        .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.aplayer-icon-backward {
+            display:none !important;
+        }
         .custom-lyrics-panel { position:fixed; bottom:70px; left:0; right:0; width:100%; background:transparent !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; color:white; text-align:center; padding:10px 20px; font-size:18px; font-family:'宋体','SimSun',monospace !important; font-weight:bold; z-index:999; transition:all 0.3s ease; pointer-events:none; white-space:nowrap; overflow-x:auto; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3); border:none !important; box-shadow:none !important; }
         .back-to-top { position:fixed !important; bottom:100px !important; right:30px !important; width:48px !important; height:48px !important; background:var(--aero-grad) !important; color:#000 !important; border:1px solid var(--aero-white) !important; box-shadow:0 0 0 0.5px var(--aero-black), 0 4px 12px rgba(from var(--aero-black) r g b / 0.3) !important; border-radius:50% !important; cursor:pointer !important; display:flex !important; align-items:center !important; justify-content:center !important; font-size:28px !important; font-weight:bold !important; transition:all 0.3s ease !important; z-index:1100 !important; overflow:hidden !important; padding:0 !important; line-height:1 !important; pointer-events:auto !important; transform:translateY(0) !important; }
         .back-to-top::after { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, var(--aero-highlight) 0%, var(--aero-highlight) 50%, color-mix(in srgb, var(--aero-highlight), black 10%) 51%, var(--aero-highlight) 80%); box-shadow:inset 0 0 0 2px var(--aero-highlight), 0 0 3px var(--aero-highlight); opacity:0; transition:opacity 0.2s; border-radius:inherit; }
@@ -186,7 +190,6 @@
             .tab-btn { padding:6px 14px; font-size:13px; } 
             .platform-icon { width:60px; height:60px; }
         }
-        /* ===== 弹窗样式 ===== */
         .modal-overlay {
             position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(0,0,0,0.5); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
@@ -214,14 +217,12 @@
         .modal-box .modal-body .mascot-name { font-size:20px; font-weight:bold; color:#ffdd88; }
         .modal-box .modal-body small { opacity:0.8; font-size:14px; }
         .modal-box .modal-body strong { color:#aaddfa; }
-        /* 吉祥物图片放大 */
         .modal-box .modal-body .mascot-avatar {
             width:200px; height:200px; border-radius:16px; margin:10px auto; 
             object-fit:cover; display:block; 
             border:2px solid rgba(255,255,255,0.3);
             box-shadow:0 4px 15px rgba(0,0,0,0.3);
         }
-        /* ===== 其他选项卡 ===== */
         .other-card {
             flex:1; min-width:140px; max-width:180px;
             background:rgba(from var(--aero-primary) r g b / 0.15); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
@@ -279,8 +280,6 @@
         .platform-card:hover .platform-tooltip { opacity:1; visibility:visible; transform:translateX(-50%) translateY(-12px); }
         .other-card .tooltip-text { display:none; }
         .no-construction { display:none; }
-
-        /* ===== QQ / 小窝 信息栏 ===== */
         .contact-info {
             margin-top: 20px;
             padding: 16px 20px;
@@ -345,596 +344,957 @@
                 justify-content:center;
             }
         }
+
+        /* ===== ★ 浮动角色 - 左下角 ===== */
+        #floating-character {
+            position: fixed;
+            bottom: 140px;
+            left: 30px;
+            width: 150px;
+            height: 150px;
+            z-index: 1200;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-drag: none;
+            touch-action: none;
+            will-change: transform;
+            filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.35));
+            transition: filter 0.2s;
+            animation: softFloat 3s ease-in-out infinite;
+        }
+        #floating-character img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            pointer-events: none;
+            border-radius: 0;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            -webkit-filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+        }
+        #floating-character.dragging {
+            cursor: grabbing;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+            transition: none;
+            animation: none !important;
+        }
+        @keyframes softFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-16px); }
+            100% { transform: translateY(0px); }
+        }
+        @media (max-width: 680px) {
+            #floating-character {
+                width: 110px;
+                height: 110px;
+                bottom: 125px;
+                left: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            #floating-character {
+                width: 85px;
+                height: 85px;
+                bottom: 115px;
+                left: 10px;
+            }
+        }
+
+        /* ===== ★ 对话气泡 - 角色正上方 ===== */
+        #char-bubble-container {
+            position: fixed;
+            z-index: 1300;
+            pointer-events: none;
+            display: none;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #char-bubble-container.active {
+            display: block;
+        }
+        .char-bubble-wrapper {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            pointer-events: none;
+            max-width: 460px;
+            transform: translateX(-50%);
+        }
+        .char-bubble {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 14px 22px;
+            color: #1e3b6b;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            max-width: 420px;
+            position: relative;
+            animation: bubblePop 0.3s ease-out;
+            text-shadow: none;
+            font-family: '宋体', 'SimSun', sans-serif !important;
+            pointer-events: auto;
+            text-align: center;
+        }
+        .char-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 12px solid rgba(255, 255, 255, 0.96);
+        }
+        @keyframes bubblePop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .char-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            pointer-events: auto;
+        }
+        .char-option-btn {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            border-radius: 30px;
+            padding: 10px 24px;
+            color: #1e3b6b;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+            font-family: '宋体', 'SimSun', sans-serif !important;
+            pointer-events: auto;
+            text-shadow: none;
+        }
+        .char-option-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(60, 127, 177, 0.25);
+            border-color: #3c7fb1;
+        }
+        .char-option-btn:active {
+            transform: scale(0.96);
+        }
+        .char-bubble-sub {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 18px;
+            padding: 12px 20px;
+            color: #1e3b6b;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.6;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            max-width: 400px;
+            animation: bubblePop 0.3s ease-out;
+            text-shadow: none;
+            font-family: '宋体', 'SimSun', sans-serif !important;
+            pointer-events: auto;
+            text-align: center;
+            position: relative;
+        }
+        .char-bubble-sub::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 12px solid rgba(255, 255, 255, 0.96);
+        }
+        .char-options-wrapper {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            pointer-events: auto;
+            margin-top: 2px;
+        }
+        @media (max-width: 680px) {
+            .char-bubble-wrapper {
+                max-width: 340px;
+            }
+            .char-bubble {
+                font-size: 13px;
+                padding: 12px 16px;
+                max-width: 300px;
+            }
+            .char-option-btn {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .char-bubble-sub {
+                font-size: 13px;
+                padding: 10px 14px;
+                max-width: 280px;
+            }
+        }
+        @media (max-width: 480px) {
+            .char-bubble-wrapper {
+                max-width: 280px;
+            }
+            .char-bubble {
+                font-size: 12px;
+                padding: 10px 14px;
+                max-width: 250px;
+            }
+            .char-option-btn {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+            .char-bubble-sub {
+                font-size: 12px;
+                padding: 8px 12px;
+                max-width: 230px;
+            }
+        }
     </style>
 </head>
 <body>
-
-<div class="welcome-overlay" id="welcomeOverlay">
-    <div class="welcome-card">
-        <h1 id="welcomeH1">Hey!</h1>
-        <p id="welcomeP">Welcome to MT's little space</p>
-        <div class="click-hint" id="clickHint">✨ Click anywhere to enter ✨</div>
-        <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
-    </div>
-</div>
-
-<!-- 弹窗 -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <div class="modal-icon" id="modalIcon">📢</div>
-        <div class="modal-title" id="modalTitle">标题</div>
-        <div class="modal-body" id="modalBody">内容</div>
-    </div>
-</div>
-
-<div class="title-avatar-wrapper">
-    <div class="title-section">
-        <div class="lang-switch-wrapper">
-            <span class="lang-option active" data-lang="zh">中文</span>
-            <span class="lang-option" data-lang="en">EN</span>
-        </div>
-        <div class="welcome-title" id="mainTitleText">这里是MT的小空间uwu</div>
-    </div>
-    <div class="info-panel" id="infoPanel">
-        <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
-        <div class="greeting-item" id="greetingMessage">✨ 加载问候语中...</div>
-        <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
-    </div>
-    <div class="avatar-wrapper">
-        <div class="avatar-circle">
-            <img src="https://pic1.imgdb.cn/item/6a1d8e1db3f09b19e9d1f225.jpg" alt="头像" draggable="false">
-            <div class="avatar-protection"></div>
-        </div>
-    </div>
-</div>
-
-<div class="tab-bar">
-    <button class="tab-btn active" data-tab="tab-platform">🐾 我的平台</button>
-    <button class="tab-btn" data-tab="tab-profile">✨ 设定介绍</button>
-    <button class="tab-btn" data-tab="tab-news">📢 公告</button>
-    <button class="tab-btn" data-tab="tab-others">🌐 其他</button>
-    <button class="tab-btn" data-tab="tab-honor">🏆 荣誉墙</button>
-</div>
-
-<div class="tab-content-area">
-    <!-- 我的平台 -->
-    <div id="tab-platform" class="tab-pane active-pane">
-        <div class="window-title">🐾 我的平台</div>
-        <div class="platform-grid">
-            <a href="https://space.bilibili.com/1044109952" target="_blank" class="platform-card">
-                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b87.png" alt="Bilibili" draggable="false">
-                <span class="platform-name">哔哩哔哩</span>
-                <div class="platform-tooltip platform-tooltip-text">我曾经在西瓜创作，现在来到b站创作啦~</div>
-            </a>
-            <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="platform-card">
-                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b86.png" alt="西瓜视频" draggable="false">
-                <span class="platform-name">西瓜视频</span>
-                <div class="platform-tooltip platform-tooltip-img">
-                    <img src="https://pic1.imgdb.cn/item/6a1d8b21b3f09b19e9d1ef66.jpg" alt="西瓜视频介绍图" draggable="false">
-                </div>
-            </a>
-            <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="platform-card">
-                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b88.png" alt="今日头条" draggable="false">
-                <span class="platform-name">今日头条</span>
-                <div class="platform-tooltip platform-tooltip-text">这个号跟我的西瓜视频信息同步</div>
-            </a>
-            <a href="https://i.furwall.net/furid/18006" target="_blank" class="platform-card">
-                <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b85.png" alt="Furwall" draggable="false">
-                <span class="platform-name">Furwall</span>
-                <div class="platform-tooltip platform-tooltip-text">这里记录着我的日常生活，要来看看吗~</div>
-            </a>
-        </div>
-        <!-- QQ / 小窝 信息栏 -->
-        <div class="contact-info">
-            <div class="contact-item">
-                <span class="label" id="qqLabel">💬 QQ：</span>
-                <span class="value" id="qqNumber">3877559035</span>
-                <button class="copy-btn" data-copy="qqNumber" id="qqCopyBtn">📋 复制</button>
-            </div>
-            <div class="contact-item">
-                <span class="label" id="groupLabel">🏠 我de小窝：</span>
-                <span class="value" id="groupNumber">1026977461</span>
-                <button class="copy-btn" data-copy="groupNumber" id="groupCopyBtn">📋 复制</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 设定介绍 -->
-    <div id="tab-profile" class="tab-pane">
-        <div class="window-title" id="profileTitle">✨ 设定介绍</div>
-        <div class="profile-layout">
-            <div class="profile-image" oncontextmenu="return false">
-                <img src="https://pic1.imgdb.cn/item/6a1d8f8db3f09b19e9d1f35a.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
-            </div>
-            <div class="character-content-compact" id="characterContent">
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="nameLabel">🐾 姓名：</span>
-                    <span id="nameValue">米特（国际名Mitte，可简称MT）</span>
-                </div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="genderLabel">♂️ 性别：</span>
-                    <span id="genderValue">男性</span>
-                </div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="personalityLabel">💫 性格：</span>
-                    <span id="personalityValue">纯洁，好奇，包容，同时又有些开放。</span>
-                </div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="identityLabel">🌌 身份：</span>
-                    <span id="identityValue">来自宇宙的MT，能在最关键的时刻带来好运~</span>
-                </div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="likeLabel">❤️ 喜好：</span>
-                    <span id="likeValue">喜欢漫游太空，经常陪其他兽兽一块看星星</span>
-                </div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="skillLabel">🔮 技能：</span>
-                    <span id="skillValue">召唤传送门，自由穿越不同的时空或地点。</span>
-                </div>
-                <div class="character-divider-compact"></div>
-                <div class="character-item-compact">
-                    <span class="character-label-compact" id="storyLabel">📖 故事背景：</span>
-                    <div class="story-text-compact" id="storyValue">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 公告 -->
-    <div id="tab-news" class="tab-pane">
-        <div class="window-title" id="newsTitle">📢 公告</div>
-        <div class="announcement-content">
-            <div class="announcement-item">
-                <div class="announcement-title">
-                    <span class="sticky-tag" id="stickyTag">置顶</span>
-                    <span id="announceTitle">我的经历</span>
-                </div>
-                <div id="announceDesc">如果想要了解我的经历可以点击下面访问视频页面：</div>
-                <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a>
-            </div>
-            <div class="static-text" id="staticNotice">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-card">
+            <h1 id="welcomeH1">Hey!</h1>
+            <p id="welcomeP">Welcome to MT's little space</p>
+            <div class="click-hint" id="clickHint">✨ Click anywhere to enter ✨</div>
+            <img class="welcome-gif" src="https://pic1.imgdb.cn/item/69db2c58e972b74d7846bb9d.gif" alt="欢迎动图" draggable="false">
         </div>
     </div>
 
-    <!-- 其他 -->
-    <div id="tab-others" class="tab-pane">
-        <div class="window-title" id="othersTitle">🌐 其他</div>
-        <div class="platform-grid">
-            <div class="other-card" data-modal="sponsor">
-                <img class="big-icon" src="https://pic1.imgdb.cn/item/6a37edb47f87ee54fb78748b.png" alt="赞助" draggable="false" style="background:transparent; padding:4px;">
-                <span class="card-title" id="sponsorTitle">❤️ 赞助一下我吧</span>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-icon" id="modalIcon">📢</div>
+            <div class="modal-title" id="modalTitle">标题</div>
+            <div class="modal-body" id="modalBody">内容</div>
+        </div>
+    </div>
+
+    <div class="title-avatar-wrapper">
+        <div class="title-section">
+            <div class="lang-switch-wrapper">
+                <span class="lang-option active" data-lang="zh">中文</span>
+                <span class="lang-option" data-lang="en">EN</span>
             </div>
-            <div class="other-card" data-modal="mascot">
-                <img class="big-icon" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat" draggable="false" style="border-radius:12px; object-fit:cover;">
-                <span class="card-title" id="mascotTitle">🎀 本站吉祥物</span>
-            </div>
-            <div class="other-card" data-modal="about">
-                <img class="big-icon" src="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" alt="关于本站" draggable="false" style="background:transparent; padding:4px;">
-                <span class="card-title" id="aboutTitle">ℹ️ 关于本站</span>
-            </div>
-            <div class="snapshot-card" id="watermelonSnapshotCard">
-                <img class="big-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b86.png" alt="西瓜视频" draggable="false" style="background:transparent; padding:4px;">
-                <span class="platform-name" id="snapshotTitle">我的西瓜视频<br>网页端快照</span>
-                <span class="snapshot-sub" id="snapshotSub">RIP 2025.2</span>
+            <div class="welcome-title" id="mainTitleText">这里是MT的小空间uwu</div>
+        </div>
+        <div class="info-panel" id="infoPanel">
+            <div class="info-item info-time" id="liveBeijingTime">北京时间: --:--:--</div>
+            <div class="greeting-item" id="greetingMessage">✨ 加载问候语中...</div>
+            <div class="info-item" id="constellationInfo">今日时运: 计算中...</div>
+        </div>
+        <div class="avatar-wrapper">
+            <div class="avatar-circle">
+                <img src="https://pic1.imgdb.cn/item/6a1d8e1db3f09b19e9d1f225.jpg" alt="头像" draggable="false">
+                <div class="avatar-protection"></div>
             </div>
         </div>
     </div>
 
-    <!-- 荣誉墙 -->
-    <div id="tab-honor" class="tab-pane">
-        <div class="window-title" id="honorTitle">🏆 荣誉墙</div>
-        <div class="honor-wall">
-            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt="荣誉图片1" draggable="false" oncontextmenu="return false"></div>
-            <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt="荣誉图片2" draggable="false" oncontextmenu="return false"></div>
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tab-platform">🐾 我的平台</button>
+        <button class="tab-btn" data-tab="tab-profile">✨ 设定介绍</button>
+        <button class="tab-btn" data-tab="tab-news">📢 公告</button>
+        <button class="tab-btn" data-tab="tab-others">🌐 其他</button>
+        <button class="tab-btn" data-tab="tab-honor">🏆 荣誉墙</button>
+    </div>
+
+    <div class="tab-content-area">
+        <div id="tab-platform" class="tab-pane active-pane">
+            <div class="window-title">🐾 我的平台</div>
+            <div class="platform-grid">
+                <a href="https://space.bilibili.com/1044109952" target="_blank" class="platform-card">
+                    <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b87.png" alt="Bilibili" draggable="false">
+                    <span class="platform-name">哔哩哔哩</span>
+                    <div class="platform-tooltip platform-tooltip-text">我曾经在西瓜创作，现在来到b站创作啦~</div>
+                </a>
+                <a href="https://www.ixigua.com/home/3839145926210555/" target="_blank" class="platform-card">
+                    <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b86.png" alt="西瓜视频" draggable="false">
+                    <span class="platform-name">西瓜视频</span>
+                    <div class="platform-tooltip platform-tooltip-img">
+                        <img src="https://pic1.imgdb.cn/item/6a1d8b21b3f09b19e9d1ef66.jpg" alt="西瓜视频介绍图" draggable="false">
+                    </div>
+                </a>
+                <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAcFVg2F8Rkw7G6b69T-1Mm_M54kpy61SFBUVGpTllRuBfOGnt1eE4bmvuraHfkvKv/" target="_blank" class="platform-card">
+                    <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b88.png" alt="今日头条" draggable="false">
+                    <span class="platform-name">今日头条</span>
+                    <div class="platform-tooltip platform-tooltip-text">这个号跟我的西瓜视频信息同步</div>
+                </a>
+                <a href="https://i.furwall.net/furid/18006" target="_blank" class="platform-card">
+                    <img class="platform-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b85.png" alt="Furwall" draggable="false">
+                    <span class="platform-name">Furwall</span>
+                    <div class="platform-tooltip platform-tooltip-text">这里记录着我的日常生活，要来看看吗~</div>
+                </a>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="label" id="qqLabel">💬 QQ：</span>
+                    <span class="value" id="qqNumber">3877559035</span>
+                    <button class="copy-btn" data-copy="qqNumber" id="qqCopyBtn">📋 复制</button>
+                </div>
+                <div class="contact-item">
+                    <span class="label" id="groupLabel">🏠 我de小窝：</span>
+                    <span class="value" id="groupNumber">1026977461</span>
+                    <button class="copy-btn" data-copy="groupNumber" id="groupCopyBtn">📋 复制</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="tab-profile" class="tab-pane">
+            <div class="window-title" id="profileTitle">✨ 设定介绍</div>
+            <div class="profile-layout">
+                <div class="profile-image" oncontextmenu="return false">
+                    <img src="https://pic1.imgdb.cn/item/6a1d8f8db3f09b19e9d1f35a.jpg" alt="MT设定插图" draggable="false" oncontextmenu="return false">
+                </div>
+                <div class="character-content-compact" id="characterContent">
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="nameLabel">🐾 姓名：</span>
+                        <span id="nameValue">米特（国际名Mitte，可简称MT）</span>
+                    </div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="genderLabel">♂️ 性别：</span>
+                        <span id="genderValue">男性</span>
+                    </div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="personalityLabel">💫 性格：</span>
+                        <span id="personalityValue">纯洁，好奇，包容，同时又有些开放。</span>
+                    </div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="identityLabel">🌌 身份：</span>
+                        <span id="identityValue">来自宇宙的MT，能在最关键的时刻带来好运~</span>
+                    </div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="likeLabel">❤️ 喜好：</span>
+                        <span id="likeValue">喜欢漫游太空，经常陪其他兽兽一块看星星</span>
+                    </div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="skillLabel">🔮 技能：</span>
+                        <span id="skillValue">召唤传送门，自由穿越不同的时空或地点。</span>
+                    </div>
+                    <div class="character-divider-compact"></div>
+                    <div class="character-item-compact">
+                        <span class="character-label-compact" id="storyLabel">📖 故事背景：</span>
+                        <div class="story-text-compact" id="storyValue">很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="tab-news" class="tab-pane">
+            <div class="window-title" id="newsTitle">📢 公告</div>
+            <div class="announcement-content">
+                <div class="announcement-item">
+                    <div class="announcement-title">
+                        <span class="sticky-tag" id="stickyTag">置顶</span>
+                        <span id="announceTitle">我的经历</span>
+                    </div>
+                    <div id="announceDesc">如果想要了解我的经历可以点击下面访问视频页面：</div>
+                    <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a>
+                </div>
+                <div class="static-text" id="staticNotice">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
+            </div>
+        </div>
+
+        <div id="tab-others" class="tab-pane">
+            <div class="window-title" id="othersTitle">🌐 其他</div>
+            <div class="platform-grid">
+                <div class="other-card" data-modal="sponsor">
+                    <img class="big-icon" src="https://pic1.imgdb.cn/item/6a37edb47f87ee54fb78748b.png" alt="赞助" draggable="false" style="background:transparent; padding:4px;">
+                    <span class="card-title" id="sponsorTitle">❤️ 赞助一下我吧</span>
+                </div>
+                <div class="other-card" data-modal="mascot">
+                    <img class="big-icon" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat" draggable="false" style="border-radius:12px; object-fit:cover;">
+                    <span class="card-title" id="mascotTitle">🎀 本站吉祥物</span>
+                </div>
+                <div class="other-card" data-modal="about">
+                    <img class="big-icon" src="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" alt="关于本站" draggable="false" style="background:transparent; padding:4px;">
+                    <span class="card-title" id="aboutTitle">ℹ️ 关于本站</span>
+                </div>
+                <div class="snapshot-card" id="watermelonSnapshotCard">
+                    <img class="big-icon" src="https://pic1.imgdb.cn/item/6a22cde46cb4776548569b86.png" alt="西瓜视频" draggable="false" style="background:transparent; padding:4px;">
+                    <span class="platform-name" id="snapshotTitle">我的西瓜视频<br>网页端快照</span>
+                    <span class="snapshot-sub" id="snapshotSub">RIP 2025.2</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-honor" class="tab-pane">
+            <div class="window-title" id="honorTitle">🏆 荣誉墙</div>
+            <div class="honor-wall">
+                <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac3.png" alt="荣誉图片1" draggable="false" oncontextmenu="return false"></div>
+                <div class="honor-card"><img class="honor-img" src="https://pic1.imgdb.cn/item/69db28e8e972b74d7846bac4.png" alt="荣誉图片2" draggable="false" oncontextmenu="return false"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="aplayer-container"></div>
-<div class="custom-lyrics-panel" id="customLyricsPanel">🎵 正在加载歌词...</div>
-<button class="back-to-top" id="backToTopBtn" aria-label="返回顶部"><span>↑</span></button>
+    <div id="aplayer-container"></div>
+    <div class="custom-lyrics-panel" id="customLyricsPanel">🎵 正在加载歌词...</div>
+    <button class="back-to-top" id="backToTopBtn" aria-label="返回顶部"><span>↑</span></button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
-<script>
-(function() {
-    // ===== 弹窗数据 =====
-    const modalData = {
-        zh: {
-            sponsor: {
-                icon: '❤️',
-                title: '赞助一下我吧',
-                body: '🔒 暂未开放<br><br>如果喜欢我的创作，未来可以通过爱发电支持~'
+    <!-- ===== ★ 浮动角色 ===== -->
+    <div id="floating-character">
+        <img src="https://pic1.imgdb.cn/item/6a3947134a893629d9932e0b.png" alt="MT 角色" draggable="false">
+    </div>
+
+    <!-- ===== ★ 对话气泡容器 ===== -->
+    <div id="char-bubble-container">
+        <div class="char-bubble-wrapper" id="bubbleWrapper">
+            <!-- 由 JS 动态渲染 -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    <script>
+    (function() {
+        // ===== 弹窗数据（吉祥物卡片无图标） =====
+        const modalData = {
+            zh: {
+                sponsor: { icon: '❤️', title: '赞助一下我吧', body: '🔒 暂未开放<br><br>如果喜欢我的创作，未来可以通过爱发电支持~' },
+                mascot: { title: '🎀 本站吉祥物', body: '<img class="mascot-avatar" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat"><br><div class="mascot-name">Silly Cat</div><br>我的入圈启蒙：Silly Cat © Mauzymice' },
+                about: { icon: 'ℹ️', title: '关于本站', body: '本站由 <strong>MT创作者</strong> 制作维护。<br><br>📅 新站建立于 <strong>2026年</strong><br><br>🗑️ 旧站建立于 <strong>2025年</strong>（已删除）' }
             },
-            mascot: {
-                title: '🎀 本站吉祥物',
-                body: '<img class="mascot-avatar" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat"><br><div class="mascot-name">Silly Cat</div><br>我的入圈启蒙：Silly Cat © Mauzymice'
-            },
-            about: {
-                icon: 'ℹ️',
-                title: '关于本站',
-                body: '本站由 <strong>MT创作者</strong> 制作维护。<br><br>📅 新站建立于 <strong>2026年</strong><br><br>🗑️ 旧站建立于 <strong>2025年</strong>（已删除）'
+            en: {
+                sponsor: { icon: '❤️', title: 'Sponsor Me', body: '🔒 Not open yet<br><br>If you enjoy my work, support me here in the future~' },
+                mascot: { title: '🎀 Mascot', body: '<img class="mascot-avatar" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat"><br><div class="mascot-name">Silly Cat</div><br>My entry inspiration: Silly Cat © Mauzymice' },
+                about: { icon: 'ℹ️', title: 'About This Site', body: 'Made by <strong>MT Creator</strong>.<br><br>📅 New site established in <strong>2026</strong><br><br>🗑️ Old site built in <strong>2025</strong> (deleted)' }
             }
-        },
-        en: {
-            sponsor: {
-                icon: '❤️',
-                title: 'Sponsor Me',
-                body: '🔒 Not open yet<br><br>If you enjoy my work, support me here in the future~'
-            },
-            mascot: {
-                icon: '🐱',
-                title: '🎀 Mascot',
-                body: '<img class="mascot-avatar" src="https://pic1.imgdb.cn/item/6a377598886895810ae15e79.png" alt="Silly Cat"><br><div class="mascot-name">Silly Cat</div><br>My entry inspiration: Silly Cat © Mauzymice'
-            },
-            about: {
-                icon: 'ℹ️',
-                title: 'About This Site',
-                body: 'Made by <strong>MT Creator</strong>.<br><br>📅 New site established in <strong>2026</strong><br><br>🗑️ Old site built in <strong>2025</strong> (deleted)'
-            }
+        };
+
+        function detectBrowserLanguage() {
+            const lang = navigator.language || navigator.languages?.[0] || 'zh';
+            return lang.startsWith('zh') ? 'zh' : 'en';
         }
-    };
 
-    // ===== 自动检测语言 =====
-    function detectBrowserLanguage() {
-        const lang = navigator.language || navigator.languages?.[0] || 'zh';
-        return lang.startsWith('zh') ? 'zh' : 'en';
-    }
+        let currentLang = localStorage.getItem('mt_lang') || detectBrowserLanguage();
 
-    let currentLang = localStorage.getItem('mt_lang') || detectBrowserLanguage();
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
 
-    // ===== 弹窗控制 =====
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalIcon = document.getElementById('modalIcon');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-    const modalClose = document.getElementById('modalClose');
+        function openModal(type) {
+            const data = modalData[currentLang][type];
+            if (!data) return;
+            modalIcon.textContent = data.icon || '';
+            modalTitle.textContent = data.title;
+            modalBody.innerHTML = data.body;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-    function openModal(type) {
-        const data = modalData[currentLang][type];
-        if (!data) return;
-        modalIcon.textContent = data.icon;
-        modalTitle.textContent = data.title;
-        modalBody.innerHTML = data.body;
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-    function closeModal() {
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', function(e) {
-        if (e.target === modalOverlay) closeModal();
-    });
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeModal();
-    });
-
-    // ===== 卡片点击 =====
-    document.querySelectorAll('.other-card[data-modal]').forEach(card => {
-        card.addEventListener('click', function(e) {
-            const type = this.dataset.modal;
-            openModal(type);
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeModal();
         });
-    });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
 
-    // ===== 西瓜视频快照卡片点击跳转 =====
-    document.getElementById('watermelonSnapshotCard')?.addEventListener('click', function() {
-        window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank');
-    });
+        document.querySelectorAll('.other-card[data-modal]').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const type = this.dataset.modal;
+                openModal(type);
+            });
+        });
 
-    // ===== 复制按钮功能 =====
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const targetId = this.dataset.copy;
-            const targetEl = document.getElementById(targetId);
-            if (!targetEl) return;
-            const text = targetEl.textContent.trim();
-            if (!text) return;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    this.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
-                    this.classList.add('copied');
-                    setTimeout(() => {
-                        this.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
-                        this.classList.remove('copied');
-                    }, 2000);
-                }).catch(() => {
+        document.getElementById('watermelonSnapshotCard')?.addEventListener('click', function() {
+            window.open('https://mittewolf-xigua-snapshot.netlify.app/', '_blank');
+        });
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const targetId = this.dataset.copy;
+                const targetEl = document.getElementById(targetId);
+                if (!targetEl) return;
+                const text = targetEl.textContent.trim();
+                if (!text) return;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        this.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
+                        this.classList.add('copied');
+                        setTimeout(() => {
+                            this.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
+                            this.classList.remove('copied');
+                        }, 2000);
+                    }).catch(() => {
+                        fallbackCopy(text, this);
+                    });
+                } else {
                     fallbackCopy(text, this);
-                });
+                }
+            });
+        });
+
+        function fallbackCopy(text, btn) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.pointerEvents = 'none';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                btn.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            } catch (e) {
+                alert('复制失败，请手动复制：' + text);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
+        function getConstellationName(month, day, lang) {
+            let cnName = "";
+            if ((month===1&&day>=20)||(month===2&&day<=18)) cnName = "水瓶座♒";
+            else if ((month===2&&day>=19)||(month===3&&day<=20)) cnName = "双鱼座♓";
+            else if ((month===3&&day>=21)||(month===4&&day<=19)) cnName = "白羊座♈";
+            else if ((month===4&&day>=20)||(month===5&&day<=20)) cnName = "金牛座♉";
+            else if ((month===5&&day>=21)||(month===6&&day<=20)) cnName = "双子座♊";
+            else if ((month===6&&day>=21)||(month===7&&day<=22)) cnName = "巨蟹座♋";
+            else if ((month===7&&day>=23)||(month===8&&day<=22)) cnName = "狮子座♌";
+            else if ((month===8&&day>=23)||(month===9&&day<=21)) cnName = "处女座♍";
+            else if ((month===9&&day>=23)||(month===10&&day<=21)) cnName = "天秤座♎";
+            else if ((month===10&&day>=23)||(month===11&&day<=21)) cnName = "天蝎座♏";
+            else if ((month===11&&day>=22)||(month===12&&day<=21)) cnName = "射手座♐";
+            else cnName = "摩羯座♑";
+            return lang === 'en' ? (zodiacMapEn[cnName] || cnName) : cnName;
+        }
+
+        const locales = {
+            en: {
+                mainTitle: "MT's little space uwu",
+                tabPlatform: "🐾 My Platforms",
+                tabProfile: "✨ Character",
+                tabNews: "📢 News",
+                tabOthers: "🌐 Others",
+                tabHonor: "🏆 Wall of Honor",
+                platformTitle: "🐾 My Platforms",
+                bili: "Bilibili",
+                xigua: "Xigua Video",
+                toutiao: "Toutiao",
+                furwall: "Furwall",
+                profileTitle: "✨ Character",
+                nameLabel: "🐾 Name: ",
+                nameVal: "Mitte (MT for short)",
+                genderLabel: "♂️ Gender: ",
+                genderVal: "Male",
+                personalityLabel: "💫 Personality: ",
+                personalityVal: "Pure, curious, inclusive, and open.",
+                identityLabel: "🌌 Identity: ",
+                identityVal: "MT from the universe, brings good luck~",
+                likeLabel: "❤️ Likes: ",
+                likeVal: "Stargazing in space, often takes other furry friends to watch stars.",
+                skillLabel: "🔮 Skills: ",
+                skillVal: "Summon portals, freely travel across different times and spaces.",
+                storyLabel: "📖 Backstory: ",
+                storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.",
+                newsTitle: "📢 Announcements",
+                stickyTag: "Sticky",
+                announceTitle: "My Journey Video",
+                announceDesc: "Click below to watch:",
+                staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!",
+                othersTitle: "🌐 Others",
+                sponsorCard: "❤️ Sponsor Me",
+                mascotCard: "🎀 Mascot",
+                aboutCard: "ℹ️ About This Site",
+                snapshotText: "My Xigua Web Snapshot",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ:",
+                groupLabel: "🏠 My Den:",
+                copyBtn: "📋 Copy",
+                copiedBtn: "✅ Copied",
+                honorTitle: "🏆 Wall of Honor",
+                welcomeH1: "Hey!",
+                welcomeP: "Welcome to MT's little space",
+                clickHint: "✨ Click anywhere to enter ✨",
+                constellationPrefix: "Today's Zodiac: ",
+                timePrefix: "Beijing Time: ",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
+            },
+            zh: {
+                mainTitle: "这里是MT的小空间uwu",
+                tabPlatform: "🐾 我的平台",
+                tabProfile: "✨ 设定介绍",
+                tabNews: "📢 公告",
+                tabOthers: "🌐 其他",
+                tabHonor: "🏆 荣誉墙",
+                platformTitle: "🐾 我的平台",
+                bili: "哔哩哔哩",
+                xigua: "西瓜视频",
+                toutiao: "今日头条",
+                furwall: "Furwall",
+                profileTitle: "✨ 设定介绍",
+                nameLabel: "🐾 姓名：",
+                nameVal: "米特（国际名Mitte，可简称MT）",
+                genderLabel: "♂️ 性别：",
+                genderVal: "男性",
+                personalityLabel: "💫 性格：",
+                personalityVal: "纯洁，好奇，包容，同时又有些开放。",
+                identityLabel: "🌌 身份：",
+                identityVal: "来自宇宙的MT，能在最关键的时刻带来好运~",
+                likeLabel: "❤️ 喜好：",
+                likeVal: "喜欢漫游太空，经常陪其他兽兽一块看星星",
+                skillLabel: "🔮 技能：",
+                skillVal: "召唤传送门，自由穿越不同的时空或地点。",
+                storyLabel: "📖 故事背景：",
+                storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。",
+                newsTitle: "📢 公告",
+                stickyTag: "置顶",
+                announceTitle: "我的经历",
+                announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
+                staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
+                othersTitle: "🌐 其他",
+                sponsorCard: "❤️ 赞助一下我吧",
+                mascotCard: "🎀 本站吉祥物",
+                aboutCard: "ℹ️ 关于本站",
+                snapshotText: "我的西瓜视频<br>网页端快照",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ：",
+                groupLabel: "🏠 我de小窝：",
+                copyBtn: "📋 复制",
+                copiedBtn: "✅ 已复制",
+                honorTitle: "🏆 荣誉墙",
+                welcomeH1: "Hey!",
+                welcomeP: "欢迎来到MT的小空间",
+                clickHint: "✨ 点击任意处进入 ✨",
+                constellationPrefix: "✨ 今日时运: ",
+                timePrefix: "北京时间: ",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
+            }
+        };
+
+        function updateConstellation() { const d=new Date(); const z=getConstellationName(d.getMonth()+1,d.getDate(),currentLang); document.getElementById('constellationInfo').innerHTML = `${locales[currentLang].constellationPrefix} ${z} ✨`; }
+        function updateBeijingTime() { const d=new Date(); document.getElementById('liveBeijingTime').innerHTML = `${locales[currentLang].timePrefix}${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; }
+        function updateGreeting() { const h=new Date().getHours(); document.getElementById('greetingMessage').innerHTML = locales[currentLang].greetingMsg(h); }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('mt_lang', lang);
+            const t = locales[lang];
+            document.getElementById('mainTitleText').innerText = t.mainTitle;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                const key = btn.dataset.tab.replace('tab-','');
+                const map = { platform:'tabPlatform', profile:'tabProfile', news:'tabNews', others:'tabOthers', honor:'tabHonor' };
+                if (map[key]) btn.innerText = t[map[key]] || btn.innerText;
+            });
+            const platTitle = document.querySelector('#tab-platform .window-title');
+            if (platTitle) platTitle.innerText = t.platformTitle;
+            const platNames = document.querySelectorAll('#tab-platform .platform-name');
+            if (platNames.length >= 4) {
+                platNames[0].innerText = t.bili;
+                platNames[1].innerText = t.xigua;
+                platNames[2].innerText = t.toutiao;
+                platNames[3].innerText = t.furwall;
+            }
+            document.getElementById('profileTitle').innerText = t.profileTitle;
+            document.getElementById('nameLabel').innerHTML = t.nameLabel;
+            document.getElementById('nameValue').innerText = t.nameVal;
+            document.getElementById('genderLabel').innerHTML = t.genderLabel;
+            document.getElementById('genderValue').innerText = t.genderVal;
+            document.getElementById('personalityLabel').innerHTML = t.personalityLabel;
+            document.getElementById('personalityValue').innerText = t.personalityVal;
+            document.getElementById('identityLabel').innerHTML = t.identityLabel;
+            document.getElementById('identityValue').innerText = t.identityVal;
+            document.getElementById('likeLabel').innerHTML = t.likeLabel;
+            document.getElementById('likeValue').innerText = t.likeVal;
+            document.getElementById('skillLabel').innerHTML = t.skillLabel;
+            document.getElementById('skillValue').innerText = t.skillVal;
+            document.getElementById('storyLabel').innerHTML = t.storyLabel;
+            document.getElementById('storyValue').innerHTML = t.storyVal;
+            document.getElementById('newsTitle').innerText = t.newsTitle;
+            document.getElementById('stickyTag').innerText = t.stickyTag;
+            document.getElementById('announceTitle').innerText = t.announceTitle;
+            document.getElementById('announceDesc').innerText = t.announceDesc;
+            document.getElementById('staticNotice').innerText = t.staticNotice;
+            document.getElementById('othersTitle').innerText = t.othersTitle;
+            document.getElementById('sponsorTitle').innerText = t.sponsorCard;
+            document.getElementById('mascotTitle').innerText = t.mascotCard;
+            document.getElementById('aboutTitle').innerText = t.aboutCard;
+            document.getElementById('snapshotTitle').innerHTML = t.snapshotText;
+            document.getElementById('snapshotSub').innerText = t.snapshotSub;
+            document.getElementById('qqLabel').innerText = t.qqLabel;
+            document.getElementById('groupLabel').innerText = t.groupLabel;
+            document.getElementById('qqCopyBtn').textContent = t.copyBtn;
+            document.getElementById('groupCopyBtn').textContent = t.copyBtn;
+            document.querySelectorAll('.copy-btn').forEach(btn => btn.classList.remove('copied'));
+            document.getElementById('honorTitle').innerText = t.honorTitle;
+            if(document.getElementById('welcomeOverlay') && !document.getElementById('welcomeOverlay').classList.contains('hidden')) {
+                document.getElementById('welcomeH1').innerText = t.welcomeH1;
+                document.getElementById('welcomeP').innerText = t.welcomeP;
+                document.getElementById('clickHint').innerText = t.clickHint;
+            }
+            updateGreeting(); updateBeijingTime(); updateConstellation();
+            document.querySelectorAll('.lang-option').forEach(opt => { if(opt.dataset.lang === lang) opt.classList.add('active'); else opt.classList.remove('active'); });
+        }
+
+        function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
+        document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
+
+        let aplayer = null, noteSpawnActive = false, lastSpawnTime = 0, animFrameId = null;
+        const SPAWN_INTERVAL_MS = 1050;
+        function createFloatingNote() {
+            const cover = document.querySelector('.aplayer-pic');
+            let baseX = window.innerWidth * 0.7, baseY = window.innerHeight - 85;
+            if (cover) { const rect = cover.getBoundingClientRect(); baseX = rect.left + rect.width/2 + (Math.random() - 0.5) * 28; baseY = rect.top + rect.height/2 - 5; }
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'music-note-float';
+            const notes = ['♪', '♫', '♩', '🎵', '♪', '♫'];
+            noteDiv.innerText = notes[Math.floor(Math.random() * notes.length)];
+            noteDiv.style.left = (baseX + (Math.random() - 0.5) * 58) + 'px';
+            noteDiv.style.top = baseY + 'px';
+            noteDiv.style.fontSize = (12 + Math.random() * 12) + 'px';
+            noteDiv.style.color = `hsl(${45 + Math.random() * 35}, 80%, 70%)`;
+            document.body.appendChild(noteDiv);
+            noteDiv.addEventListener('animationend', () => noteDiv.remove());
+            setTimeout(() => noteDiv.remove(), 5000);
+        }
+        function startContinuousNotes() { if(noteSpawnActive) return; noteSpawnActive=true; lastSpawnTime=performance.now(); function tick(now){ if(!noteSpawnActive)return; if(aplayer && aplayer.audio && !aplayer.audio.paused){ if(now-lastSpawnTime>=SPAWN_INTERVAL_MS){ createFloatingNote(); lastSpawnTime=now; } } animFrameId=requestAnimationFrame(tick); } if(animFrameId)cancelAnimationFrame(animFrameId); animFrameId=requestAnimationFrame(tick); }
+        function stopContinuousNotes(){ noteSpawnActive=false; if(animFrameId){ cancelAnimationFrame(animFrameId); animFrameId=null; } }
+
+        let lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
+        async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
+        function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
+
+        // ===== ★ 对话系统 - 角色正上方 =====
+        const bubbleContainer = document.getElementById('char-bubble-container');
+        const bubbleWrapper = document.getElementById('bubbleWrapper');
+        const charContainer = document.getElementById('floating-character');
+        let bubbleActive = false;
+        let currentBubbleType = null; // 'main' or 'sub'
+
+        function updateBubblePosition() {
+            if (!charContainer || !bubbleContainer) return;
+            const rect = charContainer.getBoundingClientRect();
+            const wrapper = bubbleWrapper;
+            // 将wrapper定位到角色正上方
+            const charCenterX = rect.left + rect.width / 2;
+            const charTop = rect.top;
+            // 气泡出现在角色上方，留出一点间距
+            wrapper.style.left = charCenterX + 'px';
+            wrapper.style.bottom = (window.innerHeight - charTop + 16) + 'px';
+            wrapper.style.top = 'auto';
+            wrapper.style.right = 'auto';
+        }
+
+        function showBubble(text, options = null, isSub = false) {
+            bubbleContainer.classList.add('active');
+            bubbleActive = true;
+            currentBubbleType = isSub ? 'sub' : 'main';
+            
+            let html = '';
+            if (isSub) {
+                html = `<div class="char-bubble-sub">${text}</div>`;
             } else {
-                fallbackCopy(text, this);
+                html = `<div class="char-bubble">${text}</div>`;
+                if (options && options.length > 0) {
+                    html += `<div class="char-options-wrapper">`;
+                    options.forEach(opt => {
+                        html += `<button class="char-option-btn" data-action="${opt.action}">${opt.label}</button>`;
+                    });
+                    html += `</div>`;
+                }
+            }
+            bubbleWrapper.innerHTML = html;
+            
+            // 更新位置
+            updateBubblePosition();
+            
+            // 绑定选项按钮事件
+            if (options && options.length > 0) {
+                bubbleWrapper.querySelectorAll('.char-option-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const action = this.dataset.action;
+                        if (action === 'q1') {
+                            showBubble('这里是MT的小天地，你可以探索一下，据说给我三连+关注的会有好事发生哦~', null, true);
+                        } else if (action === 'q2') {
+                            showBubble('还不错owo', null, true);
+                        }
+                    });
+                });
+            }
+        }
+
+        function closeBubble() {
+            bubbleContainer.classList.remove('active');
+            bubbleActive = false;
+            bubbleWrapper.innerHTML = '';
+            currentBubbleType = null;
+        }
+
+        // 点击角色切换对话
+        if (charContainer) {
+            charContainer.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // 如果已经显示气泡，点击角色关闭
+                if (bubbleActive) {
+                    closeBubble();
+                    return;
+                }
+                // 显示初始对话
+                showBubble('你好，我是MT，关于本站有什么疑问吗？', [
+                    { label: '这是哪里？', action: 'q1' },
+                    { label: '你最近过的好吗？', action: 'q2' }
+                ]);
+            });
+        }
+
+        // 点击其他地方关闭气泡
+        document.addEventListener('click', function(e) {
+            if (bubbleActive) {
+                const target = e.target;
+                const isChar = charContainer && charContainer.contains(target);
+                const isBubble = bubbleContainer && bubbleContainer.contains(target);
+                if (!isChar && !isBubble) {
+                    closeBubble();
+                }
             }
         });
-    });
 
-    function fallbackCopy(text, btn) {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        textarea.style.pointerEvents = 'none';
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            document.execCommand('copy');
-            btn.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
-            btn.classList.add('copied');
-            setTimeout(() => {
-                btn.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
-                btn.classList.remove('copied');
-            }, 2000);
-        } catch (e) {
-            alert('复制失败，请手动复制：' + text);
-        }
-        document.body.removeChild(textarea);
-    }
-
-    // ===== 星座/时间/多语言 =====
-    const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
-    function getConstellationName(month, day, lang) {
-        let cnName = "";
-        if ((month===1&&day>=20)||(month===2&&day<=18)) cnName = "水瓶座♒";
-        else if ((month===2&&day>=19)||(month===3&&day<=20)) cnName = "双鱼座♓";
-        else if ((month===3&&day>=21)||(month===4&&day<=19)) cnName = "白羊座♈";
-        else if ((month===4&&day>=20)||(month===5&&day<=20)) cnName = "金牛座♉";
-        else if ((month===5&&day>=21)||(month===6&&day<=20)) cnName = "双子座♊";
-        else if ((month===6&&day>=21)||(month===7&&day<=22)) cnName = "巨蟹座♋";
-        else if ((month===7&&day>=23)||(month===8&&day<=22)) cnName = "狮子座♌";
-        else if ((month===8&&day>=23)||(month===9&&day<=22)) cnName = "处女座♍";
-        else if ((month===9&&day>=23)||(month===10&&day<=21)) cnName = "天秤座♎";
-        else if ((month===10&&day>=23)||(month===11&&day<=21)) cnName = "天蝎座♏";
-        else if ((month===11&&day>=22)||(month===12&&day<=21)) cnName = "射手座♐";
-        else cnName = "摩羯座♑";
-        return lang === 'en' ? (zodiacMapEn[cnName] || cnName) : cnName;
-    }
-    
-    const locales = {
-        en: {
-            mainTitle: "MT's little space uwu",
-            tabPlatform: "🐾 My Platforms",
-            tabProfile: "✨ Character",
-            tabNews: "📢 News",
-            tabOthers: "🌐 Others",
-            tabHonor: "🏆 Wall of Honor",
-            platformTitle: "🐾 My Platforms",
-            bili: "Bilibili",
-            xigua: "Xigua Video",
-            toutiao: "Toutiao",
-            furwall: "Furwall",
-            profileTitle: "✨ Character",
-            nameLabel: "🐾 Name: ",
-            nameVal: "Mitte (MT for short)",
-            genderLabel: "♂️ Gender: ",
-            genderVal: "Male",
-            personalityLabel: "💫 Personality: ",
-            personalityVal: "Pure, curious, inclusive, and open.",
-            identityLabel: "🌌 Identity: ",
-            identityVal: "MT from the universe, brings good luck~",
-            likeLabel: "❤️ Likes: ",
-            likeVal: "Stargazing in space, often takes other furry friends to watch stars.",
-            skillLabel: "🔮 Skills: ",
-            skillVal: "Summon portals, freely travel across different times and spaces.",
-            storyLabel: "📖 Backstory: ",
-            storyVal: "Long ago, a shooting star with an extraordinary glow streaked across Sirius...<br>That meteor gradually turned into Mitte's prototype...<br>Thus, MT Wolf was born.",
-            newsTitle: "📢 Announcements",
-            stickyTag: "Sticky",
-            announceTitle: "My Journey Video",
-            announceDesc: "Click below to watch:",
-            staticNotice: "Although the author (a high school freshman) may be busy, I will try my best to reply. Please give me some support!",
-            othersTitle: "🌐 Others",
-            sponsorCard: "❤️ Sponsor Me",
-            mascotCard: "🎀 Mascot",
-            aboutCard: "ℹ️ About This Site",
-            snapshotText: "My Xigua Web Snapshot",
-            snapshotSub: "RIP 2025.2",
-            qqLabel: "💬 QQ:",
-            groupLabel: "🏠 My Den:",
-            copyBtn: "📋 Copy",
-            copiedBtn: "✅ Copied",
-            honorTitle: "🏆 Wall of Honor",
-            welcomeH1: "Hey!",
-            welcomeP: "Welcome to MT's little space",
-            clickHint: "✨ Click anywhere to enter ✨",
-            constellationPrefix: "Today's Zodiac: ",
-            timePrefix: "Beijing Time: ",
-            greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
-        },
-        zh: {
-            mainTitle: "这里是MT的小空间uwu",
-            tabPlatform: "🐾 我的平台",
-            tabProfile: "✨ 设定介绍",
-            tabNews: "📢 公告",
-            tabOthers: "🌐 其他",
-            tabHonor: "🏆 荣誉墙",
-            platformTitle: "🐾 我的平台",
-            bili: "哔哩哔哩",
-            xigua: "西瓜视频",
-            toutiao: "今日头条",
-            furwall: "Furwall",
-            profileTitle: "✨ 设定介绍",
-            nameLabel: "🐾 姓名：",
-            nameVal: "米特（国际名Mitte，可简称MT）",
-            genderLabel: "♂️ 性别：",
-            genderVal: "男性",
-            personalityLabel: "💫 性格：",
-            personalityVal: "纯洁，好奇，包容，同时又有些开放。",
-            identityLabel: "🌌 身份：",
-            identityVal: "来自宇宙的MT，能在最关键的时刻带来好运~",
-            likeLabel: "❤️ 喜好：",
-            likeVal: "喜欢漫游太空，经常陪其他兽兽一块看星星",
-            skillLabel: "🔮 技能：",
-            skillVal: "召唤传送门，自由穿越不同的时空或地点。",
-            storyLabel: "📖 故事背景：",
-            storyVal: "很久以前，天狼星上划过一道非同寻常光芒的流星……<br>那颗流星后来逐渐化为了米特的雏形……<br>MT狼便由此诞生了。",
-            newsTitle: "📢 公告",
-            stickyTag: "置顶",
-            announceTitle: "我的经历",
-            announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
-            staticNotice: "虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
-            othersTitle: "🌐 其他",
-            sponsorCard: "❤️ 赞助一下我吧",
-            mascotCard: "🎀 本站吉祥物",
-            aboutCard: "ℹ️ 关于本站",
-            snapshotText: "我的西瓜视频<br>网页端快照",
-            snapshotSub: "RIP 2025.2",
-            qqLabel: "💬 QQ：",
-            groupLabel: "🏠 我de小窝：",
-            copyBtn: "📋 复制",
-            copiedBtn: "✅ 已复制",
-            honorTitle: "🏆 荣誉墙",
-            welcomeH1: "Hey!",
-            welcomeP: "欢迎来到MT的小空间",
-            clickHint: "✨ 点击任意处进入 ✨",
-            constellationPrefix: "✨ 今日时运: ",
-            timePrefix: "北京时间: ",
-            greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
-        }
-    };
-    
-    function updateConstellation() { const d=new Date(); const z=getConstellationName(d.getMonth()+1,d.getDate(),currentLang); document.getElementById('constellationInfo').innerHTML = `${locales[currentLang].constellationPrefix} ${z} ✨`; }
-    function updateBeijingTime() { const d=new Date(); document.getElementById('liveBeijingTime').innerHTML = `${locales[currentLang].timePrefix}${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; }
-    function updateGreeting() { const h=new Date().getHours(); document.getElementById('greetingMessage').innerHTML = locales[currentLang].greetingMsg(h); }
-    
-    function applyLanguage(lang) {
-        currentLang = lang;
-        localStorage.setItem('mt_lang', lang);
-        const t = locales[lang];
-        // 标题
-        document.getElementById('mainTitleText').innerText = t.mainTitle;
-        // 标签栏
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            const key = btn.dataset.tab.replace('tab-','');
-            const map = { platform:'tabPlatform', profile:'tabProfile', news:'tabNews', others:'tabOthers', honor:'tabHonor' };
-            if (map[key]) btn.innerText = t[map[key]] || btn.innerText;
+        // 窗口大小变化时更新气泡位置
+        window.addEventListener('resize', function() {
+            if (bubbleActive) {
+                updateBubblePosition();
+            }
         });
-        // 平台标题
-        const platTitle = document.querySelector('#tab-platform .window-title');
-        if (platTitle) platTitle.innerText = t.platformTitle;
-        // 平台名称
-        const platNames = document.querySelectorAll('#tab-platform .platform-name');
-        if (platNames.length >= 4) {
-            platNames[0].innerText = t.bili;
-            platNames[1].innerText = t.xigua;
-            platNames[2].innerText = t.toutiao;
-            platNames[3].innerText = t.furwall;
+
+        // ===== 角色拖动（保留原有功能） =====
+        if (charContainer) {
+            const savedX = localStorage.getItem('mt_char_x');
+            const savedY = localStorage.getItem('mt_char_y');
+            if (savedX !== null && savedY !== null) {
+                charContainer.style.left = savedX + 'px';
+                charContainer.style.top = savedY + 'px';
+                charContainer.style.bottom = 'auto';
+            }
+
+            let isDragging = false, offsetX = 0, offsetY = 0;
+            let dragStartTime = 0;
+
+            const onDragStart = (e) => {
+                const ev = e.touches ? e.touches[0] : e;
+                if (e.type === 'mousedown' && e.button !== 0) return;
+                dragStartTime = Date.now();
+                isDragging = true;
+                charContainer.classList.add('dragging');
+                const rect = charContainer.getBoundingClientRect();
+                offsetX = ev.clientX - rect.left;
+                offsetY = ev.clientY - rect.top;
+                document.addEventListener('mousemove', onDragMove);
+                document.addEventListener('mouseup', onDragEnd);
+                document.addEventListener('touchmove', onDragMove, { passive: false });
+                document.addEventListener('touchend', onDragEnd);
+                e.preventDefault();
+            };
+
+            const onDragMove = (e) => {
+                if (!isDragging) return;
+                const ev = e.touches ? e.touches[0] : e;
+                let newLeft = ev.clientX - offsetX;
+                let newTop = ev.clientY - offsetY;
+                const maxX = window.innerWidth - charContainer.offsetWidth - 10;
+                const maxY = window.innerHeight - charContainer.offsetHeight - 10;
+                newLeft = Math.max(10, Math.min(newLeft, maxX));
+                newTop = Math.max(10, Math.min(newTop, maxY));
+                charContainer.style.left = newLeft + 'px';
+                charContainer.style.top = newTop + 'px';
+                charContainer.style.bottom = 'auto';
+                // 拖动时实时更新气泡位置
+                if (bubbleActive) {
+                    updateBubblePosition();
+                }
+                if (e.type === 'touchmove') e.preventDefault();
+            };
+
+            const onDragEnd = (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                charContainer.classList.remove('dragging');
+                document.removeEventListener('mousemove', onDragMove);
+                document.removeEventListener('mouseup', onDragEnd);
+                document.removeEventListener('touchmove', onDragMove);
+                document.removeEventListener('touchend', onDragEnd);
+                const rect = charContainer.getBoundingClientRect();
+                localStorage.setItem('mt_char_x', rect.left);
+                localStorage.setItem('mt_char_y', rect.top);
+                // 拖动结束后更新气泡位置
+                if (bubbleActive) {
+                    updateBubblePosition();
+                }
+            };
+
+            charContainer.addEventListener('mousedown', onDragStart);
+            charContainer.addEventListener('touchstart', onDragStart, { passive: false });
+            charContainer.addEventListener('dragstart', (e) => e.preventDefault());
         }
-        
-        // ===== 设定介绍 - 使用独立 ID 精确翻译 =====
-        document.getElementById('profileTitle').innerText = t.profileTitle;
-        document.getElementById('nameLabel').innerHTML = t.nameLabel;
-        document.getElementById('nameValue').innerText = t.nameVal;
-        document.getElementById('genderLabel').innerHTML = t.genderLabel;
-        document.getElementById('genderValue').innerText = t.genderVal;
-        document.getElementById('personalityLabel').innerHTML = t.personalityLabel;
-        document.getElementById('personalityValue').innerText = t.personalityVal;
-        document.getElementById('identityLabel').innerHTML = t.identityLabel;
-        document.getElementById('identityValue').innerText = t.identityVal;
-        document.getElementById('likeLabel').innerHTML = t.likeLabel;
-        document.getElementById('likeValue').innerText = t.likeVal;
-        document.getElementById('skillLabel').innerHTML = t.skillLabel;
-        document.getElementById('skillValue').innerText = t.skillVal;
-        document.getElementById('storyLabel').innerHTML = t.storyLabel;
-        document.getElementById('storyValue').innerHTML = t.storyVal;
-        
-        // ===== 公告 =====
-        document.getElementById('newsTitle').innerText = t.newsTitle;
-        document.getElementById('stickyTag').innerText = t.stickyTag;
-        document.getElementById('announceTitle').innerText = t.announceTitle;
-        document.getElementById('announceDesc').innerText = t.announceDesc;
-        document.getElementById('staticNotice').innerText = t.staticNotice;
-        
-        // ===== 其他 =====
-        document.getElementById('othersTitle').innerText = t.othersTitle;
-        document.getElementById('sponsorTitle').innerText = t.sponsorCard;
-        document.getElementById('mascotTitle').innerText = t.mascotCard;
-        document.getElementById('aboutTitle').innerText = t.aboutCard;
-        document.getElementById('snapshotTitle').innerHTML = t.snapshotText;
-        document.getElementById('snapshotSub').innerText = t.snapshotSub;
-        
-        // ===== 联系信息 =====
-        document.getElementById('qqLabel').innerText = t.qqLabel;
-        document.getElementById('groupLabel').innerText = t.groupLabel;
-        document.getElementById('qqCopyBtn').textContent = t.copyBtn;
-        document.getElementById('groupCopyBtn').textContent = t.copyBtn;
-        document.querySelectorAll('.copy-btn').forEach(btn => btn.classList.remove('copied'));
-        
-        // ===== 荣誉墙 =====
-        document.getElementById('honorTitle').innerText = t.honorTitle;
-        
-        // 欢迎界面
-        if(document.getElementById('welcomeOverlay') && !document.getElementById('welcomeOverlay').classList.contains('hidden')) {
-            document.getElementById('welcomeH1').innerText = t.welcomeH1;
-            document.getElementById('welcomeP').innerText = t.welcomeP;
-            document.getElementById('clickHint').innerText = t.clickHint;
+
+        function init() {
+            initTabs();
+            setInterval(updateBeijingTime,1000);
+            setInterval(updateGreeting,30*60*1000);
+            updateBeijingTime(); updateGreeting();
+            applyLanguage(currentLang);
+            document.querySelectorAll('.lang-option').forEach(opt=>opt.addEventListener('click',()=>applyLanguage(opt.dataset.lang)));
+
+            var backBtn = document.getElementById('backToTopBtn');
+            if (backBtn) { backBtn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); window.scrollTo({ top:0, behavior:'smooth' }); return false; }); }
+
+            const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
+            let playerInit=false;
+            const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ 
+                aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
+                container.classList.add('show'); 
+                loadLyrics(); 
+                if(lyricInterval)clearInterval(lyricInterval); 
+                lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100);
+                aplayer.on('play', () => startContinuousNotes());
+                aplayer.on('pause', () => stopContinuousNotes());
+                aplayer.on('ended', () => stopContinuousNotes());
+                aplayer.on('error', () => stopContinuousNotes());
+                aplayer.play().catch(e=>{});
+            } };
+            if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
         }
-        updateGreeting(); updateBeijingTime(); updateConstellation();
-        document.querySelectorAll('.lang-option').forEach(opt => { if(opt.dataset.lang === lang) opt.classList.add('active'); else opt.classList.remove('active'); });
-    }
-    
-    function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
-    document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
-    
-    // 音符飘浮
-    let aplayer = null, noteSpawnActive = false, lastSpawnTime = 0, animFrameId = null;
-    const SPAWN_INTERVAL_MS = 1050;
-    function createFloatingNote() {
-        const cover = document.querySelector('.aplayer-pic');
-        let baseX = window.innerWidth * 0.7, baseY = window.innerHeight - 85;
-        if (cover) { const rect = cover.getBoundingClientRect(); baseX = rect.left + rect.width/2 + (Math.random() - 0.5) * 28; baseY = rect.top + rect.height/2 - 5; }
-        const noteDiv = document.createElement('div');
-        noteDiv.className = 'music-note-float';
-        const notes = ['♪', '♫', '♩', '🎵', '♪', '♫'];
-        noteDiv.innerText = notes[Math.floor(Math.random() * notes.length)];
-        noteDiv.style.left = (baseX + (Math.random() - 0.5) * 58) + 'px';
-        noteDiv.style.top = baseY + 'px';
-        noteDiv.style.fontSize = (12 + Math.random() * 12) + 'px';
-        noteDiv.style.color = `hsl(${45 + Math.random() * 35}, 80%, 70%)`;
-        document.body.appendChild(noteDiv);
-        noteDiv.addEventListener('animationend', () => noteDiv.remove());
-        setTimeout(() => noteDiv.remove(), 5000);
-    }
-    function startContinuousNotes() { if(noteSpawnActive) return; noteSpawnActive=true; lastSpawnTime=performance.now(); function tick(now){ if(!noteSpawnActive)return; if(aplayer && aplayer.audio && !aplayer.audio.paused){ if(now-lastSpawnTime>=SPAWN_INTERVAL_MS){ createFloatingNote(); lastSpawnTime=now; } } animFrameId=requestAnimationFrame(tick); } if(animFrameId)cancelAnimationFrame(animFrameId); animFrameId=requestAnimationFrame(tick); }
-    function stopContinuousNotes(){ noteSpawnActive=false; if(animFrameId){ cancelAnimationFrame(animFrameId); animFrameId=null; } }
-    
-    // 歌词及播放器
-    let lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
-    async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
-    function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
-    
-    function init() {
-        initTabs();
-        setInterval(updateBeijingTime,1000);
-        setInterval(updateGreeting,30*60*1000);
-        updateBeijingTime(); updateGreeting();
-        applyLanguage(currentLang);
-        document.querySelectorAll('.lang-option').forEach(opt=>opt.addEventListener('click',()=>applyLanguage(opt.dataset.lang)));
-        
-        var backBtn = document.getElementById('backToTopBtn');
-        if (backBtn) { backBtn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); window.scrollTo({ top:0, behavior:'smooth' }); return false; }); }
-        
-        const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
-        let playerInit=false;
-        const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ 
-            aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'https://pic1.imgdb.cn/item/6a22caec6cb4776548569ae7.png'}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
-            container.classList.add('show'); 
-            loadLyrics(); 
-            if(lyricInterval)clearInterval(lyricInterval); 
-            lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100);
-            aplayer.on('play', () => startContinuousNotes());
-            aplayer.on('pause', () => stopContinuousNotes());
-            aplayer.on('ended', () => stopContinuousNotes());
-            aplayer.on('error', () => stopContinuousNotes());
-            aplayer.play().catch(e=>{});
-        } };
-        if(ov) ov.addEventListener('click',()=>{ if(!ov.classList.contains('hidden')){ ov.classList.add('hidden'); initPlayer(); } }); else initPlayer();
-    }
-    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
-})();
-</script>
+        document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+    })();
+    </script>
 </body>
 </html>
