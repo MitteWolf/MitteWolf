@@ -9,7 +9,12 @@
     <link rel="shortcut icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="icon" href="https://pic1.imgdb.cn/item/69db28e7e972b74d7846bac1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+
+    <!-- ===== ★ 霞鹜文楷（开源仿宋风格）- 国内镜像加速 ===== -->
+    <link href="https://fonts.geekzu.org/css2?family=LXGW+WenKai&display=swap" rel="stylesheet">
+
     <style>
+        /* ===== ★ 全局字体配置：霞鹜文楷（仿宋风格） ===== */
         :root {
             --aero-primary: #3c7fb1;
             --aero-highlight: #aaddfa;
@@ -22,13 +27,40 @@
                 color-mix(in srgb, var(--aero-secondary), black 10%) 51%, 
                 var(--aero-secondary) 100%);
         }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'宋体','SimSun','仿宋_GB2312','FangSong',serif !important; }
+
+        /* ===== ★ 全局强制使用仿宋风格（霞鹜文楷 + 系统仿宋回退） ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'LXGW WenKai', '仿宋_GB2312', 'FangSong', serif !important;
+        }
+
         body { 
             background:#a7b9ce;
             background-image:url('https://pic1.imgdb.cn/item/6a3776d3886895810ae15fe1.jpg');
             background-repeat:no-repeat; background-position:center center; background-attachment:fixed; background-size:cover;
             font-size:14px; margin:0; padding:40px 0 80px 0; color:#333; text-align:center; min-height:100vh; overflow-x:hidden;
         }
+
+        /* ===== APlayer 也强制使用仿宋 ===== */
+        .aplayer * {
+            font-family: 'LXGW WenKai', '仿宋_GB2312', 'FangSong', serif !important;
+        }
+
+        /* ===== 对话框也使用仿宋 ===== */
+        .char-bubble,
+        .char-bubble-sub,
+        .char-option-btn {
+            font-family: 'LXGW WenKai', '仿宋_GB2312', 'FangSong', sans-serif !important;
+        }
+
+        /* ===== 自定义歌词面板 ===== */
+        .custom-lyrics-panel {
+            font-family: 'LXGW WenKai', '仿宋_GB2312', 'FangSong', monospace !important;
+        }
+
+        /* ===== 其余样式保持不变 ===== */
         img, .profile-image img, .avatar-circle img, .honor-img, .welcome-gif {
             -webkit-touch-callout:none; -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
             pointer-events:auto; -webkit-user-drag:none; user-drag:none;
@@ -136,7 +168,6 @@
         #aplayer-container { position:fixed; bottom:0; left:0; width:100%; z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; }
         #aplayer-container.show { opacity:1; pointer-events:auto; }
         .aplayer { background:#e8edf4 !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; border-top:2px solid #7f9db9 !important; border-bottom:2px solid #7f9db9 !important; box-shadow:0 -2px 8px rgba(0,0,0,0.15) !important; margin:0 !important; border-radius:0 !important; }
-        .aplayer * { font-family:'宋体','SimSun',serif !important; }
         .aplayer .aplayer-info .aplayer-controller .aplayer-time { color:#1e3b6b !important; }
         .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path { fill:#1e3b6b !important; }
         .aplayer .aplayer-info .aplayer-music .aplayer-title { color:#1e3b6b !important; font-weight:bold !important; }
@@ -152,7 +183,7 @@
         .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.aplayer-icon-backward {
             display:none !important;
         }
-        .custom-lyrics-panel { position:fixed; bottom:70px; left:0; right:0; width:100%; background:transparent !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; color:white; text-align:center; padding:10px 20px; font-size:18px; font-family:'宋体','SimSun',monospace !important; font-weight:bold; z-index:999; transition:all 0.3s ease; pointer-events:none; white-space:nowrap; overflow-x:auto; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3); border:none !important; box-shadow:none !important; }
+        .custom-lyrics-panel { position:fixed; bottom:70px; left:0; right:0; width:100%; background:transparent !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; color:white; text-align:center; padding:10px 20px; font-size:18px; font-weight:bold; z-index:999; transition:all 0.3s ease; pointer-events:none; white-space:nowrap; overflow-x:auto; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3); border:none !important; box-shadow:none !important; }
         .back-to-top { position:fixed !important; bottom:100px !important; right:30px !important; width:48px !important; height:48px !important; background:var(--aero-grad) !important; color:#000 !important; border:1px solid var(--aero-white) !important; box-shadow:0 0 0 0.5px var(--aero-black), 0 4px 12px rgba(from var(--aero-black) r g b / 0.3) !important; border-radius:50% !important; cursor:pointer !important; display:flex !important; align-items:center !important; justify-content:center !important; font-size:28px !important; font-weight:bold !important; transition:all 0.3s ease !important; z-index:1100 !important; overflow:hidden !important; padding:0 !important; line-height:1 !important; pointer-events:auto !important; transform:translateY(0) !important; }
         .back-to-top::after { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, var(--aero-highlight) 0%, var(--aero-highlight) 50%, color-mix(in srgb, var(--aero-highlight), black 10%) 51%, var(--aero-highlight) 80%); box-shadow:inset 0 0 0 2px var(--aero-highlight), 0 0 3px var(--aero-highlight); opacity:0; transition:opacity 0.2s; border-radius:inherit; }
         .back-to-top:hover::after { opacity:1; }
@@ -449,7 +480,6 @@
             position: relative;
             animation: bubblePop 0.3s ease-out;
             text-shadow: none;
-            font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
             text-align: left;
         }
@@ -489,7 +519,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
-            font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
             text-shadow: none;
             white-space: nowrap;
@@ -518,7 +547,6 @@
             max-width: 380px;
             animation: bubblePop 0.3s ease-out;
             text-shadow: none;
-            font-family: '宋体', 'SimSun', sans-serif !important;
             pointer-events: auto;
             text-align: left;
             position: relative;
@@ -756,7 +784,7 @@
 
     <!-- ===== ★ 浮动角色 ===== -->
     <div id="floating-character">
-        <img src="https://pic1.imgdb.cn/item/6a3947134a893629d9932e0b.png" alt="MT 角色" draggable="false">
+        <img src="https://pic1.imgdb.cn/item/6a3a066e69b5900233a8e45e.png" alt="MT 角色" draggable="false">
     </div>
 
     <!-- ===== ★ 对话气泡容器 ===== -->
@@ -1097,9 +1125,7 @@
         let bubbleActive = false;
         let charHidden = false;
 
-        // ★ 刷新后角色自动重新出现
         function checkCharHidden() {
-            // 只清除隐藏标记，让角色始终显示
             localStorage.removeItem('mt_char_hidden');
             charHidden = false;
             charContainer.classList.remove('hidden-char');
@@ -1108,7 +1134,6 @@
         function hideCharacter() {
             charHidden = true;
             charContainer.classList.add('hidden-char');
-            // 不存储隐藏状态到 localStorage，刷新后自动恢复
             localStorage.removeItem('mt_char_hidden');
             localStorage.removeItem('mt_char_x');
             localStorage.removeItem('mt_char_y');
@@ -1181,7 +1206,6 @@
             bubbleWrapper.innerHTML = '';
         }
 
-        // ===== ★ 点击/拖动分离 =====
         if (charContainer) {
             checkCharHidden();
 
@@ -1231,7 +1255,6 @@
                 isPointerDrag = false;
             });
 
-            // 触屏
             let touchStartX = 0, touchStartY = 0;
             let touchStartTime = 0;
             let isTouchDrag = false;
@@ -1293,7 +1316,6 @@
             }
         });
 
-        // ===== 角色拖动 =====
         if (charContainer) {
             const savedX = localStorage.getItem('mt_char_x');
             const savedY = localStorage.getItem('mt_char_y');
