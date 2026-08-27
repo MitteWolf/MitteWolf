@@ -827,12 +827,12 @@
                     </div>
                     <div class="character-item-compact">
                         <span class="character-label-compact" id="skillLabel">🔮 技能：</span>
-                        <span id="skillValue">传送门：可以在任何地方召唤传送门，受重伤时会立即自动传送至安全地带。个体无法被敌方控制所利用。嗜血：I级：受伤状态下咬伤一个个体，同时回复自身30%的生命力。II级：寄生一个宿主的身体并控制，消耗掉对面一部分生命力。（II级必须一天中至少受伤一次才能触发）自愈：每秒自动回复5%的生命力，若身边有来自任何方面的支持，将获得回复加成。</span>
+                        <span id="skillValue">能召唤传送门，并且残血的时候会自愈，喜欢嗜血~owo</span>
                     </div>
                     <div class="character-divider-compact"></div>
                     <div class="character-item-compact">
                         <span class="character-label-compact" id="storyLabel">📖 故事背景：</span>
-                        <div class="story-text-compact" id="storyValue">从前，MT曾经是天界的一位使者。然而好景不长，他被残酷的现实折磨，受到了伤害和孤立，左天使翼逐渐褪去了它原有的白色光泽……逐渐转化成了恶魔翼……<br>最后MT被强制逐出天界，沦为了天地不容的堕天使……<br>虽然MT因被天地孤立，无法死亡，但是会流血，倒下……接着爬起来寻找出路……qwq</div>
+                        <div class="story-text-compact" id="storyValue">从前，MT曾经是天界的一位使者。然而好景不长，他被上天排挤，地狱不收，连死亡都是难题……受伤会正常流血，但是不会倒下……qwq（Tips:如果MT不再被孤立，那么诅咒解除）</div>
                     </div>
                 </div>
             </div>
@@ -1055,9 +1055,9 @@
                 likeLabel: "❤️ Likes: ",
                 likeVal: "Roaming through space, often stargazing with other furry friends~",
                 skillLabel: "🔮 Skills: ",
-                skillVal: "Can summon portals anywhere; when severely injured, will automatically teleport to a safe zone instantly. Cannot be controlled or exploited by enemies. Bloodlust: Level I: When injured, biting a target restores 30% of own health. Level II: Parasitizes and controls a host's body, consuming part of their vitality. (Level II can only be triggered if injured at least once during the day.) Self-Healing: Automatically recovers 5% health per second. Receives healing bonuses when supported by any form of assistance from those around.",
+                skillVal: "Can summon portals, self-heals when low on health, and loves bloodshed ~ owo",
                 storyLabel: "📖 Backstory: ",
-                storyVal: " Once upon a time, MT served as a messenger of the heavens. However, good times did not last—he was tormented by harsh reality, wounded and isolated. His left angelic wing gradually lost its pristine white luster… slowly transforming into a demonic wing…<br>In the end, MT was forcibly banished from the celestial realm, becoming a fallen angel rejected by both heaven and earth…<br>Though MT cannot die due to being forsaken by all realms, he can still bleed, fall… and then rise again to keep searching for his path… qwq",
+                storyVal: " Once, MT was a messenger of the heavens, but soon enough he was cast out by heaven, rejected by hell, and even death eluded him — he would bleed normally when wounded but never fall... qwq (Tip: if MT is no longer isolated, the curse will be lifted).",
                 newsTitle: "📢 Announcements",
                 stickyTag: "Sticky",
                 announceTitle: "My Journey Video",
@@ -1292,7 +1292,7 @@
                         if (action === 'q1') {
                             showBubble('这里是MT的小天地，你可以探索一下，据说给我三连+关注的会有好事发生哦~', null, true);
                         } else if (action === 'q2') {
-                            showBubble('还不错owo', null, true);
+                            showBubble('不太好，多希望有个人在现实陪陪我啊', null, true);
                         } else if (action === 'q3') {
                             showBubble('好的，下次刷新界面可以重新看到我哦。', null, true);
                             setTimeout(() => {
