@@ -848,6 +848,8 @@
                     </div>
                     <div id="announceDesc">如果想要了解我的经历可以点击下面访问视频页面：</div>
                     <a href="https://www.bilibili.com/video/BV16fAiz8Eo3/?share_source=copy_web" target="_blank" class="announcement-link">https://www.bilibili.com/video/BV16fAiz8Eo3/</a>
+    <div style="margin-top: 8px;">New! 我的卡比小站上线啦：</div>
+    <a href="https://kirby-mt.pages.dev/" target="_blank" class="announcement-link">https://kirby-mt.pages.dev/</a>
                 </div>
                 <div class="static-text" id="staticNotice">虽然本作者高一学业可能繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易</div>
             </div>
@@ -1062,6 +1064,7 @@
                 stickyTag: "Sticky",
                 announceTitle: "My Journey Video",
                 announceDesc: "Click below to watch:",
+                newAnnounceDesc: "New! My Kirby site is live:",
                 staticNotice: "Although the author may be busy, I will try my best to reply. Please give me some support！",
                 othersTitle: "🌐 Others",
                 sponsorCard: "❤️ Sponsor Me",
@@ -1079,6 +1082,7 @@
                 clickHint: "✨ Click anywhere to enter ✨",
                 constellationPrefix: "Today's Zodiac: ",
                 timePrefix: "Beijing Time: ",
+                kirbySite: "New! My Kirby site is live:",
                 greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
             },
             zh: {
@@ -1112,6 +1116,7 @@
                 stickyTag: "置顶",
                 announceTitle: "经历",
                 announceDesc: "如果想要了解我的经历可以点击下面访问视频页面：",
+                newAnnounceDesc: "New! 我的卡比小站上线啦：",
                 staticNotice: "虽然本作者平时可能比较繁忙，但还是会尽量及时回复的啦。希望大家能多多关照一下我，毕竟做主页也不容易",
                 othersTitle: "🌐 其他",
                 sponsorCard: "❤️ 赞助一下我吧",
@@ -1129,6 +1134,7 @@
                 clickHint: "✨ 点击任意处进入 ✨",
                 constellationPrefix: "✨ 今日时运: ",
                 timePrefix: "北京时间: ",
+                kirbySite: "New! 我的卡比小站上线啦：",
                 greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
             }
         };
@@ -1137,16 +1143,29 @@
         function updateBeijingTime() { const d=new Date(); document.getElementById('liveBeijingTime').innerHTML = `${locales[currentLang].timePrefix}${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; }
         function updateGreeting() { const h=new Date().getHours(); document.getElementById('greetingMessage').innerHTML = locales[currentLang].greetingMsg(h); }
 
-        function applyLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('mt_lang', lang);
-            const t = locales[lang];
-            document.getElementById('mainTitleText').innerText = t.mainTitle;
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                const key = btn.dataset.tab.replace('tab-','');
-                const map = { platform:'tabPlatform', profile:'tabProfile', news:'tabNews', others:'tabOthers', honor:'tabHonor' };
-                if (map[key]) btn.innerText = t[map[key]] || btn.innerText;
-            });
+function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('mt_lang', lang);
+    const t = locales[lang];
+    
+    // 更新主标题
+    document.getElementById('mainTitleText').innerText = t.mainTitle;
+    
+    // 更新所有 Tab 按钮
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        const key = btn.dataset.tab.replace('tab-','');
+        const map = { platform:'tabPlatform', profile:'tabProfile', news:'tabNews', others:'tabOthers', honor:'tabHonor' };
+        if (map[key]) btn.innerText = t[map[key]] || btn.innerText;
+    });
+    
+    // ✅ 正确：把 kirbySite 更新放在循环外面
+    const kirbyElements = document.querySelectorAll('#tab-news .announcement-item div[style*="margin-top: 8px;"]');
+    if (kirbyElements.length > 0) {
+        kirbyElements.forEach(el => {
+            el.textContent = t.kirbySite;
+        });
+    }
+    
             const platTitle = document.querySelector('#tab-platform .window-title');
             if (platTitle) platTitle.innerText = t.platformTitle;
             const platNames = document.querySelectorAll('#tab-platform .platform-name');
@@ -1194,8 +1213,11 @@
                 document.getElementById('clickHint').innerText = t.clickHint;
             }
             updateGreeting(); updateBeijingTime(); updateConstellation();
-            document.querySelectorAll('.lang-option').forEach(opt => { if(opt.dataset.lang === lang) opt.classList.add('active'); else opt.classList.remove('active'); });
-        }
+    document.querySelectorAll('.lang-option').forEach(opt => {
+        if (opt.dataset.lang === lang) opt.classList.add('active');
+        else opt.classList.remove('active');
+    });
+}
 
         function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
         document.querySelectorAll('img').forEach(img=>{ img.addEventListener('contextmenu',e=>e.preventDefault()); img.addEventListener('dragstart',e=>e.preventDefault()); img.setAttribute('draggable','false'); });
@@ -1504,7 +1526,7 @@
             const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
             let playerInit=false;
             const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ 
-                aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgICAgJCAkKCgkNDgwODRMREBARExwUFhQWFBwrGx8bGx8bKyYuJSMlLiZENS8vNUROQj5CTl9VVV93cXecnNEBCAgICAkICQoKCQ0ODA4NExEQEBETHBQWFBYUHCsbHxsbHxsrJi4lIyUuJkQ1Ly81RE5CPkJOX1VVX3dxd5yc0f/CABEIAEAAQAMBIgACEQEDEQH/xAAyAAACAwEBAQAAAAAAAAAAAAAFBwQGCAMBAgEAAgMBAAAAAAAAAAAAAAAABAUAAQMG/9oADAMBAAIQAxAAAAABcvOvNdCWhoISxX6gsuPmZvi7FgSgLz7Xn5xKsgepyZrCK3X0q+quVL1Nk7UtBU9Nv7PQ+3BjgA5JF9W0T5qEtKZ60rAIID3uhdUxTaMrbVcjTDas8kYkMrQBv//EADEQAAIBBAADBQcDBQAAAAAAAAECAwAEBREGITESE0FicRQiMjNRYYEQUrEjQpKhsv/aAAgBAQABPwC0aKSUbcAfcVZRWwj+MfblST2UMReSZUUdS3ICpOL+GYJCj5OFh5QXq14u4YnYKmUgB820/wC6jvbEoHS5UqRsEbYc6uMraxp8469CtZrLpf3TDvdRodDZHPXjWOsE0o5Vns9ZcP2gZtPO/wAqLxNZXP5TLyl7u4YrvlGDpF9BRqMFiAOtYO+vMFZrPHcsA3MxEkofUUOK483YN7NtJV5Soeq/cVZYqS4nX3zqg62tvLNKdJGhZj9lrN3tzlb+a8mJBf4EP9qDoK0VJqKCefYhidz5RVpD7NdJ7ZE8a/VlrL5U3D9mM6jXpqsRkJcdkILlSdAgOv7kPUViLRDDHNG+0dA6nXUNzFcV3AhwMwBY97JHH+GPOp3gfrupYEknghQ67xwPSrOGC2gWONQqgVPDBcwPDKO0j1PbPDczQEHcbkUkDEjdcDS99wvjCTt0jMf+BIrjBN4GaQR/JljkPoDU+R7RPZXX0pLp0nim18tgas54p4VkjfYNT3MNtC0krBUUfxUkzXNzcTnkZHJ1SDn1rgaB7fhnHB+roZPp8ZJqSCa+s57abu+xNGUPI8g35q/xtzY389nOupI216jwNYbAvcbaRPcHXdZJVsbuQWc0iLvpupriabRlld/U0GI51gLCfMZKCyjB98++37UHMmhJdW8KRRmEIiBV/pN0Xl9TSSJr4lWuIOHbXMRpNHIsd3F8D+DD9rVe5FMXYPayQmGduWmHL1Vh1FXc7Sysx58zz/TE4XJZaYRWkBYeLnkq+prhrBWmAtCETvLh/myk6/A8tXuSIHJNfmjMmuW6hugnT/ZqV7e6jaO4jSRD4OoYVccKcOy7PsYU+R2FW3DPD0JBFgHPnJf+ag3AvdxxiNBrsqo0BVzeyje2qa4kkdj2xqv/xAAjEQEAAQQCAQQDAAAAAAAAAAABAgADBBEFIWESEyIxFEGR/9oACAECAQE/AO7kyECrfHxDcnvxX4oHxf7VxSaS/VcbbPRO4/f1WRklkANrWPkl4RNJWRaisZtcbM9udvff3WRjl4EdJWPjlnau1rIuRiEV81auzhMkdJVrkoJ849+KuclHWrcO/NeudyTKTX//xAAkEQACAQMDAwUAAAAAAAAAAAABAgADBAUREpEiMYEhMkFRYf/aAAgBAwEBPwAkU01YypeknRR6fsFcn3SkF2Bh8y/qHcE8zF4pr4uxfbTXkmZTFtYlCH3I3b71lGowUqJfIQwfxMVlWsC6lNyNyDMplDfFAE2015JlCmx1IEekrqQexj2Da9D8xLBtet+IERBtAn//2Q=='}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
+                aplayer=new APlayer({container,audio:[{name:'‎‎ㅤ',artist:'ㅤ‎‎‎‎',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgICAgJCAkKCgkNDgwODRMREBARExwUFhQWFBwrGx8bGx8bKyYuJSMlLiZENS8vNUROQj5CTl9VVV93cXecnNEBCAgICAkICQoKCQ0ODA4NExEQEBETHBQWFBYUHCsbHxsbHxsrJi4lIyUuJkQ1Ly81RE5CPkJOX1VVX3dxd5yc0f/CABEIAEAAQAMBIgACEQEDEQH/xAAyAAACAwEBAQAAAAAAAAAAAAAFBwQGCAMBAgEAAgMBAAAAAAAAAAAAAAAABAUAAQMG/9oADAMBAAIQAxAAAAABcvOvNdCWhoISxX6gsuPmZvi7FgSgLz7Xn5xKsgepyZrCK3X0q+quVL1Nk7UtBU9Nv7PQ+3BjgA5JF9W0T5qEtKZ60rAIID3uhdUxTaMrbVcjTDas8kYkMrQBv//EADEQAAIBBAADBQcDBQAAAAAAAAECAwAEBREGITESE0FicRQiMjNRYYEQUrEjQpKhsv/aAAgBAQABPwC0aKSUbcAfcVZRWwj+MfblST2UMReSZUUdS3ICpOL+GYJCj5OFh5QXq14u4YnYKmUgB820/wC6jvbEoHS5UqRsEbYc6uMraxp8469CtZrLpf3TDvdRodDZHPXjWOsE0o5Vns9ZcP2gZtPO/wAqLxNZXP5TLyl7u4YrvlGDpF9BRqMFiAOtYO+vMFZrPHcsA3MxEkofUUOK483YN7NtJV5Soeq/cVZYqS4nX3zqg62tvLNKdJGhZj9lrN3tzlb+a8mJBf4EP9qDoK0VJqKCefYhidz5RVpD7NdJ7ZE8a/VlrL5U3D9mM6jXpqsRkJcdkILlSdAgOv7kPUViLRDDHNG+0dA6nXUNzFcV3AhwMwBY97JHH+GPOp3gfrupYEknghQ67xwPSrOGC2gWONQqgVPDBcwPDKO0j1PbPDczQEHcbkUkDEjdcDS99wvjCTt0jMf+BIrjBN4GaQR/JljkPoDU+R7RPZXX0pLp0nim18tgas54p4VkjfYNT3MNtC0krBUUfxUkzXNzcTnkZHJ1SDn1rgaB7fhnHB+roZPp8ZJqSCa+s57abu+xNGUPI8g35q/xtzY389nOupI216jwNYbAvcbaRPcHXdZJVsbuQWc0iLvpupriabRlld/U0GI51gLCfMZKCyjB98++37UHMmhJdW8KRRmEIiBV/pN0Xl9TSSJr4lWuIOHbXMRpNHIsd3F8D+DD9rVe5FMXYPayQmGduWmHL1Vh1FXc7Sysx58zz/TE4XJZaYRWkBYeLnkq+prhrBWmAtCETvLh/myk6/A8tXuSIHJNfmjMmuW6hugnT/ZqV7e6jaO4jSRD4OoYVccKcOy7PsYU+R2FW3DPD0JBFgHPnJf+ag3AvdxxiNBrsqo0BVzeyje2qa4kkdj2xqv/xAAjEQEAAQQCAQQDAAAAAAAAAAABAgADBBEFIWESEyIxFEGR/9oACAECAQE/AO7kyECrfHxDcnvxX4oHxf7VxSaS/VcbbPRO4/f1WRklkANrWPkl4RNJWRaisZtcbM9udvff3WRjl4EdJWPjlnau1rIuRiEV81auzhMkdJVrkoJ849+KuclHWrcO/NeudyTKTX//xAAkEQACAQMDAwUAAAAAAAAAAAABAgADBAUREpEiMYEhMkFRYf/aAAgBAwEBPwAkU01YypeknRR6fsFcn3SkF2Bh8y/qHcE8zF4pr4uxfbTXkmZTFtYlCH3I3b71lGowUqJfIQwfxMVlWsC6lNyNyDMplDfFAE2015JlCmx1IEekrqQexj2Da9D8xLBtet+IERBtAn//2Q=='}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
                 container.classList.add('show'); 
                 loadLyrics(); 
                 if(lyricInterval)clearInterval(lyricInterval); 
