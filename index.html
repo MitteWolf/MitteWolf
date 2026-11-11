@@ -137,6 +137,24 @@
         .lang-option { cursor:pointer; color:#FFFFFF; transition:all 0.2s; padding:2px 8px; border-radius:30px; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
         .lang-option.active { background:#2196F3; color:white; box-shadow:0 2px 6px rgba(33,150,243,0.3); text-shadow:none; }
         .lang-option:hover:not(.active) { background:rgba(33,150,243,0.5); color:white; }
+        @media (max-width:520px) {
+            .lang-switch-wrapper { gap:6px; padding:3px 8px; font-size:11px; }
+            .lang-option { padding:1px 4px; }
+        }
+
+        /* ===== 俄语：中文全宽字形会把西里尔字母撑开，单独改用拉丁字族 ===== */
+        html[data-lang="ru"], html[data-lang="ru"] * {
+            font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif !important;
+        }
+        /* 非中日文语种标题偏长，缩小并放开中文式字间距，避免换行后压到右侧时间栏 */
+        html[data-lang="ru"] .welcome-title, html[data-lang="fr"] .welcome-title,
+        html[data-lang="de"] .welcome-title, html[data-lang="it"] .welcome-title {
+            font-size:30px; letter-spacing:0.5px; word-break:normal; overflow-wrap:break-word;
+        }
+        @media (max-width:520px) {
+            html[data-lang="ru"] .welcome-title, html[data-lang="fr"] .welcome-title,
+            html[data-lang="de"] .welcome-title, html[data-lang="it"] .welcome-title { font-size:22px; }
+        }
         
         .welcome-title { 
             font-size:44px; 
@@ -244,7 +262,7 @@
         
         .character-content-compact { flex:1; min-width:200px; text-align:left; color:#FFFFFF; font-size:14px; line-height:1.7; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px rgba(255,255,255,0.2); }
         .character-item-compact { margin-bottom:12px; border-left:3px solid rgba(255,255,255,0.6); padding-left:10px; }
-        .character-label-compact { font-weight:bold; color:#FFFFFF; font-size:15px; display:inline-block; margin-right:6px; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px rgba(255,255,255,0.2); }
+        .character-label-compact { font-weight:bold; color:#FFFFFF; font-size:15px; display:block; margin:0 0 2px 0; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px rgba(255,255,255,0.2); }
         .character-content-compact span { color:#FFFFFF; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px rgba(255,255,255,0.2); }
         .story-text-compact { background:rgba(from var(--aero-primary) r g b / 0.15); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); padding:8px 10px; border-radius:8px; margin-top:6px; font-style:italic; font-size:13px; border:1px solid var(--aero-white); box-shadow:0 0 0 0.5px var(--aero-black); color:#FFFFFF; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 8px rgba(255,255,255,0.2); }
         .character-divider-compact { height:1px; background:linear-gradient(to right, rgba(255,255,255,0.6), transparent); margin:12px 0; }
@@ -733,6 +751,11 @@
             <div class="lang-switch-wrapper">
                 <span class="lang-option active" data-lang="zh">中文</span>
                 <span class="lang-option" data-lang="en">EN</span>
+                <span class="lang-option" data-lang="ru">РУ</span>
+                <span class="lang-option" data-lang="ja">日本語</span>
+                <span class="lang-option" data-lang="fr">FR</span>
+                <span class="lang-option" data-lang="de">DE</span>
+                <span class="lang-option" data-lang="it">IT</span>
             </div>
             <div class="welcome-title" id="mainTitleText">这里是MT的小空间uwu</div>
         </div>
@@ -823,16 +846,16 @@
                     </div>
                     <div class="character-item-compact">
                         <span class="character-label-compact" id="likeLabel">❤️ 喜好：</span>
-                        <span id="likeValue">漫游太空，经常陪其他兽兽一块看星星~</span>
+                        <span id="likeValue">漫游太空，经常陪其他兽兽一块看星星owo</span>
                     </div>
                     <div class="character-item-compact">
                         <span class="character-label-compact" id="skillLabel">🔮 技能：</span>
-                        <span id="skillValue">能召唤传送门，并且残血的时候会自愈，喜欢嗜血~owo</span>
+                        <span id="skillValue">I级[传送]（能在任何时间或地点等进行传送△-w-△）<br>II级[嗜血]（靠近对面可吸收对面三分之一的血，同时恢复自身三分之一的血△awa△）<br>III级[附身]（可附身到任意实体，甚至虚拟本身△0w0△）</span>
                     </div>
                     <div class="character-divider-compact"></div>
                     <div class="character-item-compact">
                         <span class="character-label-compact" id="storyLabel">📖 故事背景：</span>
-                        <div class="story-text-compact" id="storyValue">从前，MT曾经是天界的一位使者。然而好景不长，他被上天排挤，地狱不收，连死亡都是个难题……受伤会正常流血，但是不会倒下……qwq（Tips:如果MT不再被孤立，那么诅咒解除）</div>
+                        <div class="story-text-compact" id="storyValue">从前，MT曾经是天界的一位使者。然而好景不长，他被上天排挤，地狱不收，连死亡都是个难题……受伤会正常流血，但是不会倒下……qwq（Tips:如果MT不再被孤立，那么诅咒解除。若诅咒已被解除，MT被战败时必然会自爆，无法被反制……）</div>
                     </div>
                 </div>
             </div>
@@ -920,9 +943,182 @@
             }
         };
 
+        // ===== 新增 5 种语言的弹窗数据（吉祥物图片复用英文版，避免重复粘贴 base64）=====
+        const MASCOT_IMG_HTML = modalData.en.mascot.body.split('<br><div class="mascot-name">')[0];
+        const MASCOT_NAME_HTML = '<br><div class="mascot-name">Silly Cat</div><br>';
+        Object.assign(modalData, {
+            ru: {
+                sponsor: { icon: '❤️', title: '赞助一下我吧', body: 'Ты можешь поддержать меня на Bilibili<br><br>Если тебе нравится моё творчество, в будущем сможешь поддержать меня через Afdian~' },
+                mascot: { title: '🎀 Талисман сайта', body: MASCOT_IMG_HTML + MASCOT_NAME_HTML + 'Мой вход в фурри-фандом: Silly Cat © Mauzymice' },
+                about: { icon: 'ℹ️', title: 'О сайте', body: 'Сайт создан и поддерживается <strong>MT Creator</strong>.<br><br>📅 Новый сайт создан в <strong>2026</strong><br><br>🗑️ Старый сайт создан в <strong>2025</strong> (удалён)' }
+            },
+            ja: {
+                sponsor: { icon: '❤️', title: '支援してね', body: 'ビリビリで応援してくれると嬉しいです<br><br>僕の創作が好きなら、将来は愛発電でも支援できます~' },
+                mascot: { title: '🎀 当サイトのマスコット', body: MASCOT_IMG_HTML + MASCOT_NAME_HTML + '僕がケモナーになったきっかけ：Silly Cat © Mauzymice' },
+                about: { icon: 'ℹ️', title: 'このサイトについて', body: 'このサイトは <strong>MT Creator</strong> が制作・運営しています。<br><br>📅 新サイトは <strong>2026年</strong> に設立<br><br>🗑️ 旧サイトは <strong>2025年</strong> に作成（削除済み）' }
+            },
+            fr: {
+                sponsor: { icon: '❤️', title: 'Me soutenir', body: "Tu peux me soutenir sur Bilibili<br><br>Si tu aimes mes créations, tu pourras aussi me soutenir via Afdian plus tard~" },
+                mascot: { title: '🎀 Mascotte du site', body: MASCOT_IMG_HTML + MASCOT_NAME_HTML + "Mon entrée dans le fandom : Silly Cat © Mauzymice" },
+                about: { icon: 'ℹ️', title: 'À propos du site', body: "Site créé et maintenu par <strong>MT Creator</strong>.<br><br>📅 Nouveau site créé en <strong>2026</strong><br><br>🗑️ Ancien site créé en <strong>2025</strong> (supprimé)" }
+            },
+            de: {
+                sponsor: { icon: '❤️', title: 'Unterstütz mich', body: 'Du kannst mich auf Bilibili unterstützen<br><br>Wenn dir meine Arbeiten gefallen, kannst du mich später auch über Afdian unterstützen~' },
+                mascot: { title: '🎀 Maskottchen der Seite', body: MASCOT_IMG_HTML + MASCOT_NAME_HTML + 'Mein Einstieg in die Furry-Community: Silly Cat © Mauzymice' },
+                about: { icon: 'ℹ️', title: 'Über diese Seite', body: 'Diese Seite wird von <strong>MT Creator</strong> erstellt und gepflegt.<br><br>📅 Neue Seite seit <strong>2026</strong><br><br>🗑️ Alte Seite von <strong>2025</strong> (gelöscht)' }
+            },
+            it: {
+                sponsor: { icon: '❤️', title: 'Sostenimi', body: 'Puoi sostenermi su Bilibili<br><br>Se ti piacciono le mie creazioni, in futuro potrai sostenermi anche tramite Afdian~' },
+                mascot: { title: '🎀 Mascotte del sito', body: MASCOT_IMG_HTML + MASCOT_NAME_HTML + "Il mio ingresso nel fandom: Silly Cat © Mauzymice" },
+                about: { icon: 'ℹ️', title: 'Informazioni sul sito', body: "Sito realizzato e curato da <strong>MT Creator</strong>.<br><br>📅 Nuovo sito creato nel <strong>2026</strong><br><br>🗑️ Vecchio sito creato nel <strong>2025</strong> (eliminato)" }
+            }
+        });
+
+        const SUPPORTED_LANGS = ['zh', 'en', 'ru', 'ja', 'fr', 'de', 'it'];
         function detectBrowserLanguage() {
-            const lang = navigator.language || navigator.languages?.[0] || 'zh';
-            return lang.startsWith('zh') ? 'zh' : 'en';
+            const lang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'zh').toLowerCase();
+            const code = lang.slice(0, 2);
+            return SUPPORTED_LANGS.indexOf(code) !== -1 ? code : 'en';
+        }
+
+        // ===== 老系统（Win7/XP、老手机等）不支持 emoji 时，全站自动降级为不显示 emoji =====
+        // 判定规则（从严）：
+        //  1) 与“必定缺字”的 U+10FFFD 画出来一模一样 → 说明只会画豆腐方框，判为不支持；
+        //  2) 即使画出了字形，也必须是**彩色**：Win7/XP 只有黑白 emoji 字形，同样判为不支持；
+        //  3) 两者都不满足才认为可以展示 emoji。
+        // 也支持用 ?emoji=on / ?emoji=off 手动指定（部署到服务器后可用）。
+        const EMOJI_SUPPORTED = (function() {
+            const forced = (location.search.match(/emoji=(on|off)/) || [])[1];
+            if (forced === 'on') return true;
+            if (forced === 'off') return false;
+            try {
+                const cv = document.createElement('canvas');
+                const cx = cv.getContext ? cv.getContext('2d') : null;
+                if (!cx) return false;
+                cv.width = 32; cv.height = 32;
+                const read = function(ch) {
+                    cx.clearRect(0, 0, 32, 32);
+                    cx.font = '26px sans-serif';
+                    cx.textBaseline = 'top';
+                    cx.fillStyle = '#000';
+                    cx.fillText(ch, 0, 0);
+                    return cx.getImageData(0, 0, 32, 32).data;
+                };
+                const emojiPixels = read('\uD83D\uDE00');    // 😀 在正常系统里是黄色圆脸
+                const boxPixels = read('\uDBFF\uDFFD');      // 必定缺字 → 方框/空白
+                let identical = true, coloredPixels = 0;
+                for (let i = 0; i < emojiPixels.length; i += 4) {
+                    if (emojiPixels[i] !== boxPixels[i] || emojiPixels[i + 1] !== boxPixels[i + 1] ||
+                        emojiPixels[i + 2] !== boxPixels[i + 2] || emojiPixels[i + 3] !== boxPixels[i + 3]) {
+                        identical = false;
+                    }
+                    if (emojiPixels[i + 3] > 0) {
+                        const r = emojiPixels[i], g = emojiPixels[i + 1], b = emojiPixels[i + 2];
+                        if (Math.max(r, g, b) - Math.min(r, g, b) >= 40) coloredPixels++;
+                    }
+                }
+                if (identical) return false;      // 只会画方框 → 不显示 emoji
+                return coloredPixels >= 20;       // 黑白字形（Win7/XP 等）→ 也不显示
+            } catch (e) { return false; }
+        })();
+
+        // 需要保留的老系统也支持的普通符号（音乐符号、星座符号、关闭叉号）
+        const EMOJI_KEEP = { 0x2669:1, 0x266A:1, 0x266B:1, 0x266C:1, 0x2715:1, 0x2716:1,
+            0x2648:1, 0x2649:1, 0x264A:1, 0x264B:1, 0x264C:1, 0x264D:1, 0x264E:1, 0x264F:1, 0x2650:1, 0x2651:1, 0x2652:1, 0x2653:1 };
+
+        // 上面这些“保留符号”也逐个验一下字形是否存在：缺字（画成方框）的同样剔除，避免小方框
+        (function dropMissingSymbols() {
+            try {
+                const cv = document.createElement('canvas');
+                const cx = cv.getContext ? cv.getContext('2d') : null;
+                if (!cx) return;
+                cv.width = 24; cv.height = 24;
+                const read = function(ch) {
+                    cx.clearRect(0, 0, 24, 24);
+                    cx.font = '20px serif';
+                    cx.textBaseline = 'top';
+                    cx.fillStyle = '#000';
+                    cx.fillText(ch, 0, 0);
+                    return Array.prototype.join.call(cx.getImageData(0, 0, 24, 24).data, ',');
+                };
+                const box = read('\uDBFF\uDFFD');
+                Object.keys(EMOJI_KEEP).forEach(function(key) {
+                    const cp = Number(key);
+                    if (read(String.fromCodePoint(cp)) === box) delete EMOJI_KEEP[cp];
+                });
+            } catch (e) {}
+        })();
+
+        function isEmojiCodePoint(cp) {
+            if (EMOJI_KEEP[cp]) return false;
+            if (cp === 0xFE0F || cp === 0x200D || cp === 0x20E3) return true;   // 变体选择符 / 零宽连接 / 键帽
+            if (cp === 0x2139) return true;                                     // ℹ 信息符号
+            if (cp >= 0x1F000 && cp <= 0x1FAFF) return true;                    // 主体 emoji 区
+            if (cp >= 0x1F1E6 && cp <= 0x1F1FF) return true;                    // 国旗
+            if (cp >= 0x2B00 && cp <= 0x2BFF) return true;                      // ⭐⚡ 等
+            if (cp >= 0x2600 && cp <= 0x2647) return true;                      // ☀️✨ 等
+            if (cp >= 0x2654 && cp <= 0x27BF) return true;                      // ✅❤✂ 等
+            return false;
+        }
+
+        function stripEmojiText(str) {
+            if (EMOJI_SUPPORTED || !str) return str;
+            let out = '', skipSpace = false;
+            for (let i = 0; i < str.length; i++) {
+                const cp = str.codePointAt(i);
+                if (cp > 0xFFFF) i++;
+                if (isEmojiCodePoint(cp)) { skipSpace = true; continue; }
+                if (skipSpace && cp === 0x20) { skipSpace = false; continue; }
+                skipSpace = false;
+                out += String.fromCodePoint(cp);
+            }
+            return out.replace(/^\s+/, '').replace(/\s+$/, '');
+        }
+
+        function stripEmojiInElement(root) {
+            if (EMOJI_SUPPORTED || !root) return;
+            if (root.nodeType === 3) {
+                const v = stripEmojiText(root.nodeValue);
+                if (v !== root.nodeValue) root.nodeValue = v;
+                return;
+            }
+            if (root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+                acceptNode: function(n) {
+                    const p = n.parentNode && n.parentNode.nodeName;
+                    if (p === 'SCRIPT' || p === 'STYLE' || p === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }, false);
+            const list = [];
+            while (walker.nextNode()) list.push(walker.currentNode);
+            list.forEach(function(n) {
+                const v = stripEmojiText(n.nodeValue);
+                if (v !== n.nodeValue) n.nodeValue = v;
+            });
+            const attrs = ['aria-label', 'title', 'alt', 'placeholder'];
+            const fixAttrs = function(el) {
+                attrs.forEach(function(a) {
+                    if (!el.hasAttribute || !el.hasAttribute(a)) return;
+                    const v = stripEmojiText(el.getAttribute(a));
+                    if (v !== el.getAttribute(a)) el.setAttribute(a, v);
+                });
+            };
+            if (root.nodeType === 1) fixAttrs(root);
+            if (root.querySelectorAll) root.querySelectorAll('[aria-label],[title],[alt],[placeholder]').forEach(fixAttrs);
+        }
+
+        function initEmojiFallback() {
+            document.documentElement.setAttribute('data-emoji', EMOJI_SUPPORTED ? 'on' : 'off');
+            if (EMOJI_SUPPORTED) return;
+            stripEmojiInElement(document.body);
+            const mo = new MutationObserver(function(muts) {
+                muts.forEach(function(m) {
+                    if (m.type === 'characterData') { stripEmojiInElement(m.target); return; }
+                    Array.prototype.forEach.call(m.addedNodes, function(n) { stripEmojiInElement(n); });
+                });
+            });
+            mo.observe(document.body, { childList: true, subtree: true, characterData: true });
         }
 
         let currentLang = localStorage.getItem('mt_lang') || detectBrowserLanguage();
@@ -977,10 +1173,10 @@
                 if (!text) return;
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(text).then(() => {
-                        this.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
+                        this.textContent = (locales[currentLang] || locales.zh).copiedBtn;
                         this.classList.add('copied');
                         setTimeout(() => {
-                            this.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
+                            this.textContent = (locales[currentLang] || locales.zh).copyBtn;
                             this.classList.remove('copied');
                         }, 2000);
                     }).catch(() => {
@@ -1002,19 +1198,25 @@
             textarea.select();
             try {
                 document.execCommand('copy');
-                btn.textContent = currentLang === 'zh' ? '✅ 已复制' : '✅ Copied';
+                btn.textContent = (locales[currentLang] || locales.zh).copiedBtn;
                 btn.classList.add('copied');
                 setTimeout(() => {
-                    btn.textContent = currentLang === 'zh' ? '📋 复制' : '📋 Copy';
+                    btn.textContent = (locales[currentLang] || locales.zh).copyBtn;
                     btn.classList.remove('copied');
                 }, 2000);
             } catch (e) {
-                alert('复制失败，请手动复制：' + text);
+                alert((locales[currentLang] || locales.zh).copyFail + text);
             }
             document.body.removeChild(textarea);
         }
 
         const zodiacMapEn = { "水瓶座♒":"Aquarius♒","双鱼座♓":"Pisces♓","白羊座♈":"Aries♈","金牛座♉":"Taurus♉","双子座♊":"Gemini♊","巨蟹座♋":"Cancer♋","狮子座♌":"Leo♌","处女座♍":"Virgo♍","天秤座♎":"Libra♎","天蝎座♏":"Scorpio♏","射手座♐":"Sagittarius♐","摩羯座♑":"Capricorn♑" };
+        const zodiacMapRu = { "水瓶座♒":"Водолей♒","双鱼座♓":"Рыбы♓","白羊座♈":"Овен♈","金牛座♉":"Телец♉","双子座♊":"Близнецы♊","巨蟹座♋":"Рак♋","狮子座♌":"Лев♌","处女座♍":"Дева♍","天秤座♎":"Весы♎","天蝎座♏":"Скорпион♏","射手座♐":"Стрелец♐","摩羯座♑":"Козерог♑" };
+        const zodiacMapJa = { "水瓶座♒":"水瓶座♒","双鱼座♓":"魚座♓","白羊座♈":"牡羊座♈","金牛座♉":"牡牛座♉","双子座♊":"双子座♊","巨蟹座♋":"蟹座♋","狮子座♌":"獅子座♌","处女座♍":"乙女座♍","天秤座♎":"天秤座♎","天蝎座♏":"蠍座♏","射手座♐":"射手座♐","摩羯座♑":"山羊座♑" };
+        const zodiacMapFr = { "水瓶座♒":"Verseau♒","双鱼座♓":"Poissons♓","白羊座♈":"Bélier♈","金牛座♉":"Taureau♉","双子座♊":"Gémeaux♊","巨蟹座♋":"Cancer♋","狮子座♌":"Lion♌","处女座♍":"Vierge♍","天秤座♎":"Balance♎","天蝎座♏":"Scorpion♏","射手座♐":"Sagittaire♐","摩羯座♑":"Capricorne♑" };
+        const zodiacMapDe = { "水瓶座♒":"Wassermann♒","双鱼座♓":"Fische♓","白羊座♈":"Widder♈","金牛座♉":"Stier♉","双子座♊":"Zwillinge♊","巨蟹座♋":"Krebs♋","狮子座♌":"Löwe♌","处女座♍":"Jungfrau♍","天秤座♎":"Waage♎","天蝎座♏":"Skorpion♏","射手座♐":"Schütze♐","摩羯座♑":"Steinbock♑" };
+        const zodiacMapIt = { "水瓶座♒":"Acquario♒","双鱼座♓":"Pesci♓","白羊座♈":"Ariete♈","金牛座♉":"Toro♉","双子座♊":"Gemelli♊","巨蟹座♋":"Cancro♋","狮子座♌":"Leone♌","处女座♍":"Vergine♍","天秤座♎":"Bilancia♎","天蝎座♏":"Scorpione♏","射手座♐":"Sagittario♐","摩羯座♑":"Capricorno♑" };
+        const zodiacMaps = { en: zodiacMapEn, ru: zodiacMapRu, ja: zodiacMapJa, fr: zodiacMapFr, de: zodiacMapDe, it: zodiacMapIt };
         function getConstellationName(month, day, lang) {
             let cnName = "";
             if ((month===1&&day>=20)||(month===2&&day<=18)) cnName = "水瓶座♒";
@@ -1029,7 +1231,7 @@
             else if ((month===10&&day>=23)||(month===11&&day<=21)) cnName = "天蝎座♏";
             else if ((month===11&&day>=22)||(month===12&&day<=21)) cnName = "射手座♐";
             else cnName = "摩羯座♑";
-            return lang === 'en' ? (zodiacMapEn[cnName] || cnName) : cnName;
+            return (zodiacMaps[lang] && zodiacMaps[lang][cnName]) || cnName;
         }
 
         const locales = {
@@ -1055,11 +1257,11 @@
                 identityLabel: "🌌 Identity: ",
                 identityVal: "A fallen angel wolf, may bring you good luck at your most critical moments~",
                 likeLabel: "❤️ Likes: ",
-                likeVal: "Roaming through space, often stargazing with other furry friends~",
+                likeVal: "Roaming through space, often stargazing with other furry friends owo",
                 skillLabel: "🔮 Skills: ",
-                skillVal: "Can summon portals, self-heals when low on health, and loves bloodshed ~ owo",
+                skillVal: "Lv. I [Teleport] (can teleport at any time or place, and beyond △-w-△)<br>Lv. II [Bloodthirst] (when near an opponent, drain one third of their HP while restoring one third of your own △awa△)<br>Lv. III [Possession] (can possess any entity, even virtual entities themselves △0w0△)",
                 storyLabel: "📖 Backstory: ",
-                storyVal: " Once, MT was a messenger of the heavens, but soon enough he was cast out by heaven, rejected by hell, and even death eluded him — he would bleed normally when wounded but never fall... qwq (Tip: if MT is no longer isolated, the curse will be lifted).",
+                storyVal: " Once, MT was a messenger of the heavens, but soon enough he was cast out by heaven, rejected by hell, and even death eluded him — he would bleed normally when wounded but never fall... qwq (Tip: if MT is no longer isolated, the curse will be lifted. Once the curse is lifted, MT will inevitably self-destruct when it is defeated — there is no way to counter it...)",
                 newsTitle: "📢 Announcements",
                 stickyTag: "Sticky",
                 announceTitle: "My Journey Video",
@@ -1076,6 +1278,7 @@
                 groupLabel: "🏠 My Den:",
                 copyBtn: "📋 Copy",
                 copiedBtn: "✅ Copied",
+                copyFail: "Copy failed, please copy manually: ",
                 honorTitle: "🏆 Wall of Honor",
                 welcomeH1: "Hey!",
                 welcomeP: "Welcome to MT's little space",
@@ -1083,7 +1286,11 @@
                 constellationPrefix: "Today's Zodiac: ",
                 timePrefix: "Beijing Time: ",
                 kirbySite: "New! My Kirby site is live:",
-                greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~"
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Good morning!":h>=8&&h<11?"☀️ Good morning!":h>=11&&h<13?"🍚 Good noon!":h>=13&&h<17?"📚 Good afternoon!":h>=17&&h<19?"🌇 Good evening!":h>=19&&h<22?"🌙 Good evening!":"💤 Good night~",
+                lyricsLoading: "🎵 Loading lyrics...",
+                lyricsPureMusic: "🎵 Instrumental — enjoy the music 🎵",
+                lyricsWaiting: "🎵 Waiting to play 🎵",
+                lyricsStarting: "🎵 Starting soon 🎵"
             },
             zh: {
                 mainTitle: "这里是MT的小空间uwu",
@@ -1099,7 +1306,7 @@
                 furwall: "Furwall",
                 profileTitle: "✨ 设定介绍",
                 nameLabel: "🐾 姓名：",
-                nameVal: "米特，叫我MT就行啦￣▽￣（完整国际名：Mitte）",
+                nameVal: "米特，叫我MT就行啦△￣▽￣△（完整国际名：Mitte）",
                 genderLabel: "♂️ 性别：",
                 genderVal: "男性",
                 personalityLabel: "💫 性格：",
@@ -1107,11 +1314,11 @@
                 identityLabel: "🌌 身份：",
                 identityVal: "一位陨落神坛的堕天使wolf，可能会在你最关键de时刻带来好运~",
                 likeLabel: "❤️ 喜好：",
-                likeVal: "漫游太空，经常陪其他兽兽一块看星星~",
+                likeVal: "漫游太空，经常陪其他兽兽一块看星星owo",
                 skillLabel: "🔮 技能：",
-                skillVal: "能召唤传送门，并且残血的时候会自愈，喜欢嗜血△owo△",
+                skillVal: "I级[传送]（能在任何时间或地点等进行传送△-w-△）<br>II级[嗜血]（靠近对面可吸收对面三分之一的血，同时恢复自身三分之一的血△awa△）<br>III级[附身]（可附身到任意实体，甚至虚拟本身△0w0△）",
                 storyLabel: "📖 故事背景：",
-                storyVal: "从前，MT曾经是天界的一位使者。<br>然而好景不长，他被上天排挤，地狱不收，连死亡都是个难题……<br>受伤会正常流血，但是不会倒下……qwq<br>（Tips:如果MT不再被孤立，那么诅咒解除）",
+                storyVal: "从前，MT曾经是天界的一位使者。<br>然而好景不长，他被上天排挤，地狱不收，连死亡都是个难题……<br>受伤会正常流血，但是不会倒下……qwq<br>（Tips:如果MT不再被孤立，那么诅咒解除。若诅咒已被解除，MT被战败时必然会自爆，无法被反制……）",
                 newsTitle: "📢 公告",
                 stickyTag: "置顶",
                 announceTitle: "经历",
@@ -1128,6 +1335,7 @@
                 groupLabel: "🏠 我de小窝：",
                 copyBtn: "📋 复制",
                 copiedBtn: "✅ 已复制",
+                copyFail: "复制失败，请手动复制：",
                 honorTitle: "🏆 荣誉墙",
                 welcomeH1: "Hey!",
                 welcomeP: "欢迎来到MT的小空间",
@@ -1135,9 +1343,302 @@
                 constellationPrefix: "✨ 今日时运: ",
                 timePrefix: "北京时间: ",
                 kirbySite: "New! 我的卡比小站上线啦：",
-                greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~"
+                greetingMsg: (h) => h>=5&&h<8?"🌅 早上好，又是元气满满的一天呢！":h>=8&&h<11?"☀️ 上午好，今天也要加油鸭~":h>=11&&h<13?"🍚 中午好，记得按时吃饭休息哦！":h>=13&&h<17?"📚 下午好，愿你拥有一个充实的午后~":h>=17&&h<19?"🌇 傍晚好，夕阳很美，放松一下吧~":h>=19&&h<22?"🌙 晚上好，星星在陪你呢~":"💤 夜深了，早点休息，做个好梦~",
+                lyricsLoading: "🎵 正在加载歌词...",
+                lyricsPureMusic: "🎵 纯音乐，请欣赏 🎵",
+                lyricsWaiting: "🎵 等待播放 🎵",
+                lyricsStarting: "🎵 即将开始 🎵"
             }
         };
+
+        // ===== 新增 5 种语言文案包（ru / ja / fr / de / it）=====
+        Object.assign(locales, {
+            ru: {
+                mainTitle: "Маленькое пространство MT uwu",
+                tabPlatform: "🐾 Мои платформы",
+                tabProfile: "✨ Персонаж",
+                tabNews: "📢 Новости",
+                tabOthers: "🌐 Другое",
+                tabHonor: "🏆 Зал славы",
+                platformTitle: "🐾 Мои платформы",
+                bili: "Bilibili",
+                xigua: "Xigua Video",
+                toutiao: "Toutiao",
+                furwall: "Furwall",
+                profileTitle: "✨ Персонаж",
+                nameLabel: "🐾 Имя:",
+                nameVal: "Митте, зовите меня просто MT △￣▽￣△ (полное международное имя: Mitte)",
+                genderLabel: "♂️ Пол:",
+                genderVal: "Мужской",
+                personalityLabel: "💫 Характер:",
+                personalityVal: "Любопытный, терпимый и при этом немного чувствительный.",
+                identityLabel: "🌌 Кто он:",
+                identityVal: "Падший ангел-волк, свергнутый с небес; возможно, принесёт тебе удачу в самый важный момент~",
+                likeLabel: "❤️ Увлечения:",
+                likeVal: "Бродить по космосу и часто смотреть на звёзды вместе с другими фурри owo",
+                skillLabel: "🔮 Навыки:",
+                skillVal: "Ур. I [Телепорт] (может телепортироваться в любое время и в любом месте △-w-△)<br>Ур. II [Кровожадность] (рядом с противником забирает треть его HP и восстанавливает треть своих △awa△)<br>Ур. III [Одержимость] (может вселяться в любую сущность, даже в саму виртуальность △0w0△)",
+                storyLabel: "📖 Предыстория:",
+                storyVal: "Когда-то MT был посланником небес.<br>Но счастье длилось недолго: небо его отвергло, ад не принял, и даже смерть стала проблемой……<br>При ранах он нормально истекает кровью, но никогда не падает……qwq<br>（Подсказка: если MT больше не одинок, проклятие снимется. Если проклятие уже снято, при поражении MT неизбежно самоликвидируется, и это невозможно предотвратить……）",
+                newsTitle: "📢 Новости",
+                stickyTag: "Закреплено",
+                announceTitle: "Мой путь",
+                announceDesc: "Если хочешь узнать о моём пути, нажми ниже, чтобы открыть страницу с видео:",
+                newAnnounceDesc: "New! Мой сайт про Кирби уже онлайн:",
+                staticNotice: "Автор может быть занят, но я стараюсь отвечать как можно быстрее. Пожалуйста, поддержите меня — делать сайт тоже непросто",
+                othersTitle: "🌐 Другое",
+                sponsorCard: "❤️ Поддержать меня",
+                mascotCard: "🎀 Талисман сайта",
+                aboutCard: "ℹ️ О сайте",
+                snapshotText: "Мой снимок<br>веб-версии Xigua Video",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ:",
+                groupLabel: "🏠 Моя нора:",
+                copyBtn: "📋 Копировать",
+                copiedBtn: "✅ Скопировано",
+                copyFail: "Не удалось скопировать, скопируйте вручную: ",
+                honorTitle: "🏆 Зал славы",
+                welcomeH1: "Hey!",
+                welcomeP: "Добро пожаловать в маленькое пространство MT",
+                clickHint: "✨ Нажми в любом месте, чтобы войти ✨",
+                constellationPrefix: "✨ Удача на сегодня: ",
+                timePrefix: "Время в Пекине: ",
+                kirbySite: "New! Мой сайт про Кирби уже онлайн:",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Доброе утро, день будет полон сил!":h>=8&&h<11?"☀️ Доброе утро, сегодня тоже давай стараться~":h>=11&&h<13?"🍚 Добрый день, не забудь вовремя поесть и отдыхать!":h>=13&&h<17?"📚 Добрый день, пусть послеполуденное время будет насыщенным~":h>=17&&h<19?"🌇 Добрый вечер, закат красив, немного расслабься~":h>=19&&h<22?"🌙 Добрый вечер, звёзды рядом с тобой~":"💤 Поздно, ложись пораньше, сладких снов~",
+                lyricsLoading: "🎵 Загрузка текста песни...",
+                lyricsPureMusic: "🎵 Инструментальная музыка — приятного прослушивания 🎵",
+                lyricsWaiting: "🎵 Ожидание воспроизведения 🎵",
+                lyricsStarting: "🎵 Скоро начнётся 🎵"
+            },
+            ja: {
+                mainTitle: "ここはMTの小さなスペース uwu",
+                tabPlatform: "🐾 マイプラットフォーム",
+                tabProfile: "✨ キャラ設定",
+                tabNews: "📢 お知らせ",
+                tabOthers: "🌐 その他",
+                tabHonor: "🏆 栄誉の壁",
+                platformTitle: "🐾 マイプラットフォーム",
+                bili: "ビリビリ",
+                xigua: "西瓜動画",
+                toutiao: "今日頭条",
+                furwall: "Furwall",
+                profileTitle: "✨ キャラ設定",
+                nameLabel: "🐾 名前：",
+                nameVal: "ミット、MTって呼んでね△￣▽￣△（正式な国際名：Mitte）",
+                genderLabel: "♂️ 性別：",
+                genderVal: "男性",
+                personalityLabel: "💫 性格：",
+                personalityVal: "好奇心旺盛で、寛容だけど、少し繊細。",
+                identityLabel: "🌌 正体：",
+                identityVal: "堕天した堕天使wolf。あなたの一番大事な時に幸運を運ぶかも~",
+                likeLabel: "❤️ 好きなこと：",
+                likeVal: "宇宙を旅して、よく他のケモナーと一緒に星を眺めるowo",
+                skillLabel: "🔮 スキル：",
+                skillVal: "I級[転移]（いつでもどこでも転移できる△-w-△）<br>II級[吸血]（相手に近づくと相手のHPを三分の一奪い、自分のHPを三分の一回復する△awa△）<br>III級[憑依]（あらゆる実体に憑依でき、仮想そのものにも△0w0△）",
+                storyLabel: "📖 ストーリー：",
+                storyVal: "昔、MTは天界の使者だった。<br>でも長くは続かず、天界に排斥され、地獄にも受け入れられず、死さえも難題だった……<br>傷つくと普通に血は流れるけれど、決して倒れることはない……qwq<br>（Tips：MTがもう孤立しなければ、呪いは解ける。呪いが解けた後、MTは戦いに敗れた時に必ず自爆し、対抗手段はない……）",
+                newsTitle: "📢 お知らせ",
+                stickyTag: "固定",
+                announceTitle: "僕の歩み",
+                announceDesc: "僕の歩みを知りたい方は、下のリンクから動画ページへどうぞ：",
+                newAnnounceDesc: "New! 僕のカービィサイトが公開されました：",
+                staticNotice: "作者は普段忙しいかもしれませんが、できるだけ早く返信します。みんな、よろしくお願いします。ホームページ作りも楽じゃないので",
+                othersTitle: "🌐 その他",
+                sponsorCard: "❤️ 支援してね",
+                mascotCard: "🎀 当サイトのマスコット",
+                aboutCard: "ℹ️ このサイトについて",
+                snapshotText: "僕の西瓜動画<br>ウェブ版スナップショット",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ：",
+                groupLabel: "🏠 僕の巣：",
+                copyBtn: "📋 コピー",
+                copiedBtn: "✅ コピー済み",
+                copyFail: "コピーできませんでした。手動でコピーしてください：",
+                honorTitle: "🏆 栄誉の壁",
+                welcomeH1: "Hey!",
+                welcomeP: "MTの小さなスペースへようこそ",
+                clickHint: "✨ どこでもクリックして入場 ✨",
+                constellationPrefix: "✨ 今日の運勢：",
+                timePrefix: "北京時間：",
+                kirbySite: "New! 僕のカービィサイトが公開されました：",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 おはよう、今日も元気いっぱいの一日に！":h>=8&&h<11?"☀️ おはよう、今日も頑張ろうね~":h>=11&&h<13?"🍚 こんにちは、ご飯と休憩を忘れずに！":h>=13&&h<17?"📚 こんにちは、充実した午後になりますように~":h>=17&&h<19?"🌇 夕方だね、夕日がきれい、少しリラックス~":h>=19&&h<22?"🌙 こんばんは、星がそばにいるよ~":"💤 夜も更けたね、早めに休んでいい夢を~",
+                lyricsLoading: "🎵 歌詞を読み込み中...",
+                lyricsPureMusic: "🎵 インスト曲です、どうぞお楽しみに 🎵",
+                lyricsWaiting: "🎵 再生待ち 🎵",
+                lyricsStarting: "🎵 まもなく始まります 🎵"
+            },
+            fr: {
+                mainTitle: "Le petit espace de MT uwu",
+                tabPlatform: "🐾 Mes plateformes",
+                tabProfile: "✨ Personnage",
+                tabNews: "📢 Annonces",
+                tabOthers: "🌐 Autres",
+                tabHonor: "🏆 Mur d'honneur",
+                platformTitle: "🐾 Mes plateformes",
+                bili: "Bilibili",
+                xigua: "Xigua Video",
+                toutiao: "Toutiao",
+                furwall: "Furwall",
+                profileTitle: "✨ Personnage",
+                nameLabel: "🐾 Nom :",
+                nameVal: "Mitte, appelle-moi juste MT △￣▽￣△ (nom international complet : Mitte)",
+                genderLabel: "♂️ Genre :",
+                genderVal: "Masculin",
+                personalityLabel: "💫 Caractère :",
+                personalityVal: "Curieux, tolérant, mais aussi un peu sensible.",
+                identityLabel: "🌌 Identité :",
+                identityVal: "Un loup ange déchu, tombé du ciel, qui pourrait t'apporter la chance au moment le plus crucial~",
+                likeLabel: "❤️ Passions :",
+                likeVal: "Parcourir l'espace et souvent admirer les étoiles avec d'autres furs owo",
+                skillLabel: "🔮 Compétences :",
+                skillVal: "Niv. I [Téléportation] (peut se téléporter à tout moment et en tout lieu △-w-△)<br>Niv. II [Soif de sang] (près d'un adversaire, draine un tiers de ses PV et récupère un tiers des siens △awa△)<br>Niv. III [Possession] (peut posséder n'importe quelle entité, même le virtuel lui-même △0w0△)",
+                storyLabel: "📖 Histoire :",
+                storyVal: "Autrefois, MT était un messager des cieux.<br>Mais le bon temps fut court : rejeté par les cieux, refusé par l'enfer, même la mort était un problème……<br>Blessé, il saigne normalement, mais ne tombe jamais……qwq<br>（Astuce : si MT n'est plus isolé, la malédiction sera levée. Une fois levée, MT explosera inévitablement en étant vaincu, sans qu'on puisse le contrer……）",
+                newsTitle: "📢 Annonces",
+                stickyTag: "Épinglé",
+                announceTitle: "Mon parcours",
+                announceDesc: "Si tu veux connaître mon parcours, clique ci-dessous pour accéder à la page vidéo :",
+                newAnnounceDesc: "New ! Mon site Kirby est en ligne :",
+                staticNotice: "L'auteur peut être occupé, mais je ferai de mon mieux pour répondre. Merci de me soutenir, faire un site n'est pas facile",
+                othersTitle: "🌐 Autres",
+                sponsorCard: "❤️ Me soutenir",
+                mascotCard: "🎀 Mascotte du site",
+                aboutCard: "ℹ️ À propos du site",
+                snapshotText: "Ma capture<br>web de Xigua Video",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ :",
+                groupLabel: "🏠 Mon terrier :",
+                copyBtn: "📋 Copier",
+                copiedBtn: "✅ Copié",
+                copyFail: "Copie impossible, copie manuellement :",
+                honorTitle: "🏆 Mur d'honneur",
+                welcomeH1: "Hey !",
+                welcomeP: "Bienvenue dans le petit espace de MT",
+                clickHint: "✨ Clique n'importe où pour entrer ✨",
+                constellationPrefix: "✨ Chance du jour : ",
+                timePrefix: "Heure de Pékin : ",
+                kirbySite: "New ! Mon site Kirby est en ligne :",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Bonjour, une journée pleine d'énergie !":h>=8&&h<11?"☀️ Bonjour, on donne tout aujourd'hui~":h>=11&&h<13?"🍚 Bon midi, pense à manger et à te reposer !":h>=13&&h<17?"📚 Bon après-midi, qu'il soit bien rempli~":h>=17&&h<19?"🌇 Bonsoir, le coucher de soleil est beau, détends-toi~":h>=19&&h<22?"🌙 Bonne soirée, les étoiles te tiennent compagnie~":"💤 Il se fait tard, couche-toi tôt et fais de beaux rêves~",
+                lyricsLoading: "🎵 Chargement des paroles...",
+                lyricsPureMusic: "🎵 Musique instrumentale — bonne écoute 🎵",
+                lyricsWaiting: "🎵 En attente de lecture 🎵",
+                lyricsStarting: "🎵 Ça commence bientôt 🎵"
+            },
+            de: {
+                mainTitle: "MTs kleiner Raum uwu",
+                tabPlatform: "🐾 Meine Plattformen",
+                tabProfile: "✨ Charakter",
+                tabNews: "📢 Ankündigungen",
+                tabOthers: "🌐 Sonstiges",
+                tabHonor: "🏆 Ruhmeswand",
+                platformTitle: "🐾 Meine Plattformen",
+                bili: "Bilibili",
+                xigua: "Xigua Video",
+                toutiao: "Toutiao",
+                furwall: "Furwall",
+                profileTitle: "✨ Charakter",
+                nameLabel: "🐾 Name:",
+                nameVal: "Mitte, nenn mich einfach MT △￣▽￣△ (voller internationaler Name: Mitte)",
+                genderLabel: "♂️ Geschlecht:",
+                genderVal: "Männlich",
+                personalityLabel: "💫 Charakter:",
+                personalityVal: "Neugierig, tolerant und zugleich etwas sensibel.",
+                identityLabel: "🌌 Identität:",
+                identityVal: "Ein gefallener Engel-Wolf, vom Himmel gestürzt, der dir im entscheidendsten Moment Glück bringen kann~",
+                likeLabel: "❤️ Vorlieben:",
+                likeVal: "Durchs All streifen und oft mit anderen Furrys die Sterne betrachten owo",
+                skillLabel: "🔮 Fähigkeiten:",
+                skillVal: "Stufe I [Teleport] (kann jederzeit und überall teleportieren △-w-△)<br>Stufe II [Blutdurst] (saugt in Gegnernähe ein Drittel von dessen HP ab und heilt ein Drittel der eigenen △awa△)<br>Stufe III [Besessenheit] (kann von jeder Entität Besitz ergreifen, sogar von der Virtualität selbst △0w0△)",
+                storyLabel: "📖 Hintergrund:",
+                storyVal: "Einst war MT ein Bote des Himmels.<br>Doch das Glück hielt nicht lange: Der Himmel verstieß ihn, die Hölle nahm ihn nicht auf, selbst der Tod war ein Problem……<br>Verletzt blutet er normal, doch er fällt niemals……qwq<br>（Tipp: Wenn MT nicht mehr isoliert ist, wird der Fluch gebrochen. Ist der Fluch gebrochen, explodiert MT bei einer Niederlage unweigerlich selbst, und das lässt sich nicht kontern……）",
+                newsTitle: "📢 Ankündigungen",
+                stickyTag: "Angepinnt",
+                announceTitle: "Mein Weg",
+                announceDesc: "Wenn du mehr über meinen Weg erfahren willst, klick unten auf die Videoseite:",
+                newAnnounceDesc: "New! Meine Kirby-Seite ist online:",
+                staticNotice: "Der Autor ist vielleicht beschäftigt, aber ich antworte so schnell ich kann. Bitte unterstützt mich, eine Website zu bauen ist auch nicht leicht",
+                othersTitle: "🌐 Sonstiges",
+                sponsorCard: "❤️ Unterstütz mich",
+                mascotCard: "🎀 Maskottchen der Seite",
+                aboutCard: "ℹ️ Über diese Seite",
+                snapshotText: "Mein Xigua-Video-<br>Web-Schnappschuss",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ:",
+                groupLabel: "🏠 Mein Bau:",
+                copyBtn: "📋 Kopieren",
+                copiedBtn: "✅ Kopiert",
+                copyFail: "Kopieren fehlgeschlagen, bitte manuell kopieren:",
+                honorTitle: "🏆 Ruhmeswand",
+                welcomeH1: "Hey!",
+                welcomeP: "Willkommen in MTs kleinem Raum",
+                clickHint: "✨ Klick irgendwo, um einzutreten ✨",
+                constellationPrefix: "✨ Glück heute: ",
+                timePrefix: "Peking-Zeit: ",
+                kirbySite: "New! Meine Kirby-Seite ist online:",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Guten Morgen, ein Tag voller Energie!":h>=8&&h<11?"☀️ Guten Morgen, heute geben wir alles~":h>=11&&h<13?"🍚 Guten Mittag, denk ans Essen und Ausruhen!":h>=13&&h<17?"📚 Guten Nachmittag, möge er erfüllt sein~":h>=17&&h<19?"🌇 Guten Abend, der Sonnenuntergang ist schön, entspann dich~":h>=19&&h<22?"🌙 Guten Abend, die Sterne begleiten dich~":"💤 Es ist spät, geh früh schlafen und träum schön~",
+                lyricsLoading: "🎵 Songtext wird geladen...",
+                lyricsPureMusic: "🎵 Instrumentalmusik — viel Freude beim Hören 🎵",
+                lyricsWaiting: "🎵 Warte auf Wiedergabe 🎵",
+                lyricsStarting: "🎵 Gleich geht's los 🎵"
+            },
+            it: {
+                mainTitle: "Il piccolo spazio di MT uwu",
+                tabPlatform: "🐾 Le mie piattaforme",
+                tabProfile: "✨ Personaggio",
+                tabNews: "📢 Annunci",
+                tabOthers: "🌐 Altro",
+                tabHonor: "🏆 Muro d'onore",
+                platformTitle: "🐾 Le mie piattaforme",
+                bili: "Bilibili",
+                xigua: "Xigua Video",
+                toutiao: "Toutiao",
+                furwall: "Furwall",
+                profileTitle: "✨ Personaggio",
+                nameLabel: "🐾 Nome:",
+                nameVal: "Mitte, chiamami pure MT △￣▽￣△ (nome internazionale completo: Mitte)",
+                genderLabel: "♂️ Genere:",
+                genderVal: "Maschile",
+                personalityLabel: "💫 Carattere:",
+                personalityVal: "Curioso, tollerante e allo stesso tempo un po' sensibile.",
+                identityLabel: "🌌 Identità:",
+                identityVal: "Un lupo angelo caduto, precipitato dal cielo, che può portarti fortuna nel momento più decisivo~",
+                likeLabel: "❤️ Passioni:",
+                likeVal: "Vagare nello spazio e guardare spesso le stelle con gli altri furry owo",
+                skillLabel: "🔮 Abilità:",
+                skillVal: "Liv. I [Teletrasporto] (può teletrasportarsi in qualsiasi momento e luogo △-w-△)<br>Liv. II [Sete di sangue] (vicino a un avversario assorbe un terzo dei suoi HP e recupera un terzo dei propri △awa△)<br>Liv. III [Possessione] (può possedere qualsiasi entità, persino la virtualità stessa △0w0△)",
+                storyLabel: "📖 Storia:",
+                storyVal: "Un tempo MT era un messaggero del cielo.<br>Ma la fortuna durò poco: respinto dal cielo, rifiutato dall'inferno, persino la morte era un problema……<br>Ferito sanguina normalmente, ma non cade mai……qwq<br>（Suggerimento: se MT non è più isolato, la maledizione sarà spezzata. Una volta spezzata, MT si autodistruggerà inevitabilmente quando viene sconfitto, e non c'è modo di contrastarlo……）",
+                newsTitle: "📢 Annunci",
+                stickyTag: "Fissato",
+                announceTitle: "Il mio percorso",
+                announceDesc: "Se vuoi conoscere il mio percorso, clicca qui sotto per la pagina video:",
+                newAnnounceDesc: "New! Il mio sito Kirby è online:",
+                staticNotice: "L'autore può essere occupato, ma risponderò il prima possibile. Per favore sostenetemi, fare un sito non è facile",
+                othersTitle: "🌐 Altro",
+                sponsorCard: "❤️ Sostenimi",
+                mascotCard: "🎀 Mascotte del sito",
+                aboutCard: "ℹ️ Informazioni sul sito",
+                snapshotText: "Il mio snapshot<br>web di Xigua Video",
+                snapshotSub: "RIP 2025.2",
+                qqLabel: "💬 QQ:",
+                groupLabel: "🏠 La mia tana:",
+                copyBtn: "📋 Copia",
+                copiedBtn: "✅ Copiato",
+                copyFail: "Copia non riuscita, copia manualmente:",
+                honorTitle: "🏆 Muro d'onore",
+                welcomeH1: "Hey!",
+                welcomeP: "Benvenuto nel piccolo spazio di MT",
+                clickHint: "✨ Clicca ovunque per entrare ✨",
+                constellationPrefix: "✨ Fortuna di oggi: ",
+                timePrefix: "Ora di Pechino: ",
+                kirbySite: "New! Il mio sito Kirby è online:",
+                greetingMsg: (h) => h>=5&&h<8?"🌅 Buongiorno, una giornata piena di energia!":h>=8&&h<11?"☀️ Buongiorno, oggi diamo il massimo~":h>=11&&h<13?"🍚 Buon mezzogiorno, ricordati di mangiare e riposare!":h>=13&&h<17?"📚 Buon pomeriggio, che sia pieno~":h>=17&&h<19?"🌇 Buonasera, il tramonto è bello, rilassati~":h>=19&&h<22?"🌙 Buonasera, le stelle ti fanno compagnia~":"💤 È tardi, vai a dormire presto e sogna dolcemente~",
+                lyricsLoading: "🎵 Caricamento del testo...",
+                lyricsPureMusic: "🎵 Musica strumentale — buon ascolto 🎵",
+                lyricsWaiting: "🎵 In attesa di riproduzione 🎵",
+                lyricsStarting: "🎵 Inizia tra poco 🎵"
+            }
+        });
 
         function updateConstellation() { const d=new Date(); const z=getConstellationName(d.getMonth()+1,d.getDate(),currentLang); document.getElementById('constellationInfo').innerHTML = `${locales[currentLang].constellationPrefix} ${z} ✨`; }
         function updateBeijingTime() { const d=new Date(); document.getElementById('liveBeijingTime').innerHTML = `${locales[currentLang].timePrefix}${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; }
@@ -1145,6 +1646,7 @@
 
 function applyLanguage(lang) {
     currentLang = lang;
+    document.documentElement.setAttribute('data-lang', lang);
     localStorage.setItem('mt_lang', lang);
     const t = locales[lang];
     
@@ -1187,7 +1689,7 @@ function applyLanguage(lang) {
             document.getElementById('likeLabel').innerHTML = t.likeLabel;
             document.getElementById('likeValue').innerText = t.likeVal;
             document.getElementById('skillLabel').innerHTML = t.skillLabel;
-            document.getElementById('skillValue').innerText = t.skillVal;
+            document.getElementById('skillValue').innerHTML = t.skillVal;
             document.getElementById('storyLabel').innerHTML = t.storyLabel;
             document.getElementById('storyValue').innerHTML = t.storyVal;
             document.getElementById('newsTitle').innerText = t.newsTitle;
@@ -1217,6 +1719,7 @@ function applyLanguage(lang) {
         if (opt.dataset.lang === lang) opt.classList.add('active');
         else opt.classList.remove('active');
     });
+    if (typeof renderLyricsState === 'function') renderLyricsState();
 }
 
         function initTabs() { const btns=document.querySelectorAll('.tab-btn'), panes=document.querySelectorAll('.tab-pane'); btns.forEach(btn=>btn.addEventListener('click',()=>{ const id=btn.dataset.tab; panes.forEach(p=>p.classList.remove('active-pane')); document.getElementById(id)?.classList.add('active-pane'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); })); }
@@ -1243,9 +1746,17 @@ function applyLanguage(lang) {
         function startContinuousNotes() { if(noteSpawnActive) return; noteSpawnActive=true; lastSpawnTime=performance.now(); function tick(now){ if(!noteSpawnActive)return; if(aplayer && aplayer.audio && !aplayer.audio.paused){ if(now-lastSpawnTime>=SPAWN_INTERVAL_MS){ createFloatingNote(); lastSpawnTime=now; } } animFrameId=requestAnimationFrame(tick); } if(animFrameId)cancelAnimationFrame(animFrameId); animFrameId=requestAnimationFrame(tick); }
         function stopContinuousNotes(){ noteSpawnActive=false; if(animFrameId){ cancelAnimationFrame(animFrameId); animFrameId=null; } }
 
-        let lyricInterval=null, lyricsData=[], currentLyricIdx=-1; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
-        async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0) document.getElementById('customLyricsPanel').innerHTML='🎵 纯音乐，请欣赏 🎵'; else document.getElementById('customLyricsPanel').innerHTML='🎵 等待播放 🎵'; }catch(e){ console.log(e); } }
-        function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; document.getElementById('customLyricsPanel').innerHTML='🎵 即将开始 🎵'; } }
+        let lyricInterval=null, lyricsData=[], currentLyricIdx=-1, lyricsState='loading'; const LRC_URL='https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/lrc.lrc';
+        function renderLyricsState(){
+            const el = document.getElementById('customLyricsPanel'); if(!el) return;
+            const t = locales[currentLang] || locales.zh;
+            if(lyricsState==='loading') el.innerHTML = t.lyricsLoading;
+            else if(lyricsState==='pure') el.innerHTML = t.lyricsPureMusic;
+            else if(lyricsState==='waiting') el.innerHTML = t.lyricsWaiting;
+            else if(lyricsState==='starting') el.innerHTML = t.lyricsStarting;
+        }
+        async function loadLyrics() { try{ const r=await fetch(LRC_URL); if(!r.ok)throw new Error(); const txt=await r.text(); lyricsData=[]; txt.split(/\r?\n/).forEach(line=>{ const m=/\[(\d{2}):(\d{2})\.(\d{2,3})\]/.exec(line); if(m){ const time=parseInt(m[1])*60+parseInt(m[2])+parseInt(m[3].padEnd(3,'0'))/1000; let text=line.replace(/\[.*?\]/,'').trim()||'♪'; lyricsData.push({time,text}); } }); lyricsData.sort((a,b)=>a.time-b.time); if(lyricsData.length===0){ lyricsState='pure'; } else { lyricsState='waiting'; } renderLyricsState(); }catch(e){ console.log(e); } }
+        function updateLyrics(ct){ if(!lyricsData.length) return; let idx=-1; for(let i=lyricsData.length-1;i>=0;i--) if(ct>=lyricsData[i].time){ idx=i; break; } if(idx!==currentLyricIdx&&idx>=0){ currentLyricIdx=idx; lyricsState=null; document.getElementById('customLyricsPanel').innerHTML=`🎵 ${lyricsData[idx].text} 🎵`; }else if(idx===-1&&currentLyricIdx!==-2){ currentLyricIdx=-2; lyricsState='starting'; renderLyricsState(); } }
 
         // ===== ★ 对话系统 - 角色右边 =====
         const bubbleContainer = document.getElementById('char-bubble-container');
@@ -1285,6 +1796,76 @@ function applyLanguage(lang) {
             wrapper.style.transform = 'translateY(-50%)';
         }
 
+        const bubbleTexts = {
+            zh: {
+                greeting: '你好，我是MT，关于本站有什么疑问吗？',
+                q1: '这是哪里？',
+                q2: '你最近过的好吗？',
+                q3: '没事，你可以走了',
+                a1: '这里是MT的小天地，你可以探索一下，据说给我三连+关注的会有好事发生哦~',
+                a2: '还行吧，一切都会好起来的，不是吗~',
+                a3: '好的，下次刷新界面可以重新看到我哦。'
+            },
+            en: {
+                greeting: "Hi, I'm MT. Any questions about this site?",
+                q1: 'What is this place?',
+                q2: 'How have you been lately?',
+                q3: 'Nothing, you can go now',
+                a1: "This is MT's little corner, feel free to explore. They say if you like, comment and follow me, something good will happen to you~",
+                a2: "I'm doing okay. Everything will get better, right~",
+                a3: "All right. Refresh the page next time and you'll see me again."
+            }
+        };
+        function getBubbleText() { return bubbleTexts[currentLang] || bubbleTexts.en; }
+
+        Object.assign(bubbleTexts, {
+            ru: {
+                greeting: "Привет, я MT. Есть вопросы по сайту?",
+                q1: "Что это за место?",
+                q2: "Как у тебя дела в последнее время?",
+                q3: "Ничего, можешь идти",
+                a1: "Здесь уголок MT, можешь осмотреться. Говорят, если лайкнешь, прокомментируешь и подпишешься, случится что-то хорошее~",
+                a2: "Да вроде нормально. Всё же наладится, правда~",
+                a3: "Ладно. Обнови страницу в следующий раз — и снова увидишь меня."
+            },
+            ja: {
+                greeting: "こんにちは、MTです。このサイトについて何か質問はありますか？",
+                q1: "ここはどこ？",
+                q2: "最近どうしてる？",
+                q3: "大丈夫、もう行っていいよ",
+                a1: "ここはMTの小さな世界。ゆっくり見て回ってね。いいねとコメントとフォローをしてくれると、いいことが起きるらしいよ〜",
+                a2: "まあまあかな。きっと全部よくなるよ、そうでしょ〜",
+                a3: "了解。次にページを更新すれば、また会えるよ。"
+            },
+            fr: {
+                greeting: "Salut, je suis MT. Des questions sur ce site ?",
+                q1: "C'est où, ici ?",
+                q2: "Comment tu vas ces derniers temps ?",
+                q3: "Rien, tu peux y aller",
+                a1: "C'est le petit coin de MT, balade-toi. Il paraît que liker, commenter et s'abonner porte chance~",
+                a2: "Ça va à peu près. Tout finira par s'arranger, non ?",
+                a3: "D'accord. Actualise la page la prochaine fois et tu me reverras."
+            },
+            de: {
+                greeting: "Hi, ich bin MT. Hast du Fragen zu dieser Seite?",
+                q1: "Wo bin ich hier?",
+                q2: "Wie geht es dir in letzter Zeit?",
+                q3: "Nichts, du kannst gehen",
+                a1: "Das ist MTs kleiner Ort, schau dich ruhig um. Man sagt, wer liket, kommentiert und folgt, dem passiert etwas Gutes~",
+                a2: "Geht so. Alles wird besser werden, oder~",
+                a3: "Alles klar. Aktualisiere die Seite beim nächsten Mal und du siehst mich wieder."
+            },
+            it: {
+                greeting: "Ciao, sono MT. Hai domande su questo sito?",
+                q1: "Che posto è questo?",
+                q2: "Come stai in questo periodo?",
+                q3: "Va bene, puoi andare",
+                a1: "Questo è l'angolino di MT, dai un'occhiata. Dicono che mettere like, commentare e seguire porti fortuna~",
+                a2: "Così così. Andrà tutto meglio, no?~",
+                a3: "Va bene. Ricarica la pagina la prossima volta e mi rivedrai."
+            }
+        });
+
         function showBubble(text, options = null, isSub = false) {
             if (charHidden) return;
             bubbleContainer.classList.add('active');
@@ -1312,11 +1893,11 @@ function applyLanguage(lang) {
                         e.stopPropagation();
                         const action = this.dataset.action;
                         if (action === 'q1') {
-                            showBubble('这里是MT的小天地，你可以探索一下，据说给我三连+关注的会有好事发生哦~', null, true);
+                            showBubble(getBubbleText().a1, null, true);
                         } else if (action === 'q2') {
-                            showBubble('不太好，多希望有个人在现实陪陪我啊', null, true);
+                            showBubble(getBubbleText().a2, null, true);
                         } else if (action === 'q3') {
-                            showBubble('好的，下次刷新界面可以重新看到我哦。', null, true);
+                            showBubble(getBubbleText().a3, null, true);
                             setTimeout(() => {
                                 closeBubble();
                                 hideCharacter();
@@ -1371,10 +1952,10 @@ function applyLanguage(lang) {
                     if (bubbleActive) {
                         closeBubble();
                     } else {
-                        showBubble('你好，我是MT，关于本站有什么疑问吗？', [
-                            { label: '这是哪里？', action: 'q1' },
-                            { label: '你最近过的好吗？', action: 'q2' },
-                            { label: '没事，你可以走了', action: 'q3' }
+                        showBubble(getBubbleText().greeting, [
+                            { label: getBubbleText().q1, action: 'q1' },
+                            { label: getBubbleText().q2, action: 'q2' },
+                            { label: getBubbleText().q3, action: 'q3' }
                         ]);
                     }
                 }
@@ -1415,10 +1996,10 @@ function applyLanguage(lang) {
                     if (bubbleActive) {
                         closeBubble();
                     } else {
-                        showBubble('你好，我是MT，关于本站有什么疑问吗？', [
-                            { label: '这是哪里？', action: 'q1' },
-                            { label: '你最近过的好吗？', action: 'q2' },
-                            { label: '没事，你可以走了', action: 'q3' }
+                        showBubble(getBubbleText().greeting, [
+                            { label: getBubbleText().q1, action: 'q1' },
+                            { label: getBubbleText().q2, action: 'q2' },
+                            { label: getBubbleText().q3, action: 'q3' }
                         ]);
                     }
                 }
@@ -1518,6 +2099,7 @@ function applyLanguage(lang) {
             setInterval(updateGreeting,30*60*1000);
             updateBeijingTime(); updateGreeting();
             applyLanguage(currentLang);
+            initEmojiFallback();
             document.querySelectorAll('.lang-option').forEach(opt=>opt.addEventListener('click',()=>applyLanguage(opt.dataset.lang)));
 
             var backBtn = document.getElementById('backToTopBtn');
@@ -1526,8 +2108,20 @@ function applyLanguage(lang) {
             const ov=document.getElementById('welcomeOverlay'), container=document.getElementById('aplayer-container');
             let playerInit=false;
             const initPlayer=()=>{ if(playerInit) return; playerInit=true; if(!aplayer){ 
-                aplayer=new APlayer({container,audio:[{name:'‎‎ㅤ',artist:'ㅤ‎‎‎‎',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgICAgJCAkKCgkNDgwODRMREBARExwUFhQWFBwrGx8bGx8bKyYuJSMlLiZENS8vNUROQj5CTl9VVV93cXecnNEBCAgICAkICQoKCQ0ODA4NExEQEBETHBQWFBYUHCsbHxsbHxsrJi4lIyUuJkQ1Ly81RE5CPkJOX1VVX3dxd5yc0f/CABEIAEAAQAMBIgACEQEDEQH/xAAyAAACAwEBAQAAAAAAAAAAAAAFBwQGCAMBAgEAAgMBAAAAAAAAAAAAAAAABAUAAQMG/9oADAMBAAIQAxAAAAABcvOvNdCWhoISxX6gsuPmZvi7FgSgLz7Xn5xKsgepyZrCK3X0q+quVL1Nk7UtBU9Nv7PQ+3BjgA5JF9W0T5qEtKZ60rAIID3uhdUxTaMrbVcjTDas8kYkMrQBv//EADEQAAIBBAADBQcDBQAAAAAAAAECAwAEBREGITESE0FicRQiMjNRYYEQUrEjQpKhsv/aAAgBAQABPwC0aKSUbcAfcVZRWwj+MfblST2UMReSZUUdS3ICpOL+GYJCj5OFh5QXq14u4YnYKmUgB820/wC6jvbEoHS5UqRsEbYc6uMraxp8469CtZrLpf3TDvdRodDZHPXjWOsE0o5Vns9ZcP2gZtPO/wAqLxNZXP5TLyl7u4YrvlGDpF9BRqMFiAOtYO+vMFZrPHcsA3MxEkofUUOK483YN7NtJV5Soeq/cVZYqS4nX3zqg62tvLNKdJGhZj9lrN3tzlb+a8mJBf4EP9qDoK0VJqKCefYhidz5RVpD7NdJ7ZE8a/VlrL5U3D9mM6jXpqsRkJcdkILlSdAgOv7kPUViLRDDHNG+0dA6nXUNzFcV3AhwMwBY97JHH+GPOp3gfrupYEknghQ67xwPSrOGC2gWONQqgVPDBcwPDKO0j1PbPDczQEHcbkUkDEjdcDS99wvjCTt0jMf+BIrjBN4GaQR/JljkPoDU+R7RPZXX0pLp0nim18tgas54p4VkjfYNT3MNtC0krBUUfxUkzXNzcTnkZHJ1SDn1rgaB7fhnHB+roZPp8ZJqSCa+s57abu+xNGUPI8g35q/xtzY389nOupI216jwNYbAvcbaRPcHXdZJVsbuQWc0iLvpupriabRlld/U0GI51gLCfMZKCyjB98++37UHMmhJdW8KRRmEIiBV/pN0Xl9TSSJr4lWuIOHbXMRpNHIsd3F8D+DD9rVe5FMXYPayQmGduWmHL1Vh1FXc7Sysx58zz/TE4XJZaYRWkBYeLnkq+prhrBWmAtCETvLh/myk6/A8tXuSIHJNfmjMmuW6hugnT/ZqV7e6jaO4jSRD4OoYVccKcOy7PsYU+R2FW3DPD0JBFgHPnJf+ag3AvdxxiNBrsqo0BVzeyje2qa4kkdj2xqv/xAAjEQEAAQQCAQQDAAAAAAAAAAABAgADBBEFIWESEyIxFEGR/9oACAECAQE/AO7kyECrfHxDcnvxX4oHxf7VxSaS/VcbbPRO4/f1WRklkANrWPkl4RNJWRaisZtcbM9udvff3WRjl4EdJWPjlnau1rIuRiEV81auzhMkdJVrkoJ849+KuclHWrcO/NeudyTKTX//xAAkEQACAQMDAwUAAAAAAAAAAAABAgADBAUREpEiMYEhMkFRYf/aAAgBAwEBPwAkU01YypeknRR6fsFcn3SkF2Bh8y/qHcE8zF4pr4uxfbTXkmZTFtYlCH3I3b71lGowUqJfIQwfxMVlWsC6lNyNyDMplDfFAE2015JlCmx1IEekrqQexj2Da9D8xLBtet+IERBtAn//2Q=='}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
+                aplayer=new APlayer({container,audio:[{name:' ',artist:' ',url:'https://cdn.jsdmirror.com/gh/MitteWolf/MitteWolf/music.mp3',cover:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgICAgJCAkKCgkNDgwODRMREBARExwUFhQWFBwrGx8bGx8bKyYuJSMlLiZENS8vNUROQj5CTl9VVV93cXecnNEBCAgICAkICQoKCQ0ODA4NExEQEBETHBQWFBYUHCsbHxsbHxsrJi4lIyUuJkQ1Ly81RE5CPkJOX1VVX3dxd5yc0f/CABEIAEAAQAMBIgACEQEDEQH/xAAyAAACAwEBAQAAAAAAAAAAAAAFBwQGCAMBAgEAAgMBAAAAAAAAAAAAAAAABAUAAQMG/9oADAMBAAIQAxAAAAABcvOvNdCWhoISxX6gsuPmZvi7FgSgLz7Xn5xKsgepyZrCK3X0q+quVL1Nk7UtBU9Nv7PQ+3BjgA5JF9W0T5qEtKZ60rAIID3uhdUxTaMrbVcjTDas8kYkMrQBv//EADEQAAIBBAADBQcDBQAAAAAAAAECAwAEBREGITESE0FicRQiMjNRYYEQUrEjQpKhsv/aAAgBAQABPwC0aKSUbcAfcVZRWwj+MfblST2UMReSZUUdS3ICpOL+GYJCj5OFh5QXq14u4YnYKmUgB820/wC6jvbEoHS5UqRsEbYc6uMraxp8469CtZrLpf3TDvdRodDZHPXjWOsE0o5Vns9ZcP2gZtPO/wAqLxNZXP5TLyl7u4YrvlGDpF9BRqMFiAOtYO+vMFZrPHcsA3MxEkofUUOK483YN7NtJV5Soeq/cVZYqS4nX3zqg62tvLNKdJGhZj9lrN3tzlb+a8mJBf4EP9qDoK0VJqKCefYhidz5RVpD7NdJ7ZE8a/VlrL5U3D9mM6jXpqsRkJcdkILlSdAgOv7kPUViLRDDHNG+0dA6nXUNzFcV3AhwMwBY97JHH+GPOp3gfrupYEknghQ67xwPSrOGC2gWONQqgVPDBcwPDKO0j1PbPDczQEHcbkUkDEjdcDS99wvjCTt0jMf+BIrjBN4GaQR/JljkPoDU+R7RPZXX0pLp0nim18tgas54p4VkjfYNT3MNtC0krBUUfxUkzXNzcTnkZHJ1SDn1rgaB7fhnHB+roZPp8ZJqSCa+s57abu+xNGUPI8g35q/xtzY389nOupI216jwNYbAvcbaRPcHXdZJVsbuQWc0iLvpupriabRlld/U0GI51gLCfMZKCyjB98++37UHMmhJdW8KRRmEIiBV/pN0Xl9TSSJr4lWuIOHbXMRpNHIsd3F8D+DD9rVe5FMXYPayQmGduWmHL1Vh1FXc7Sysx58zz/TE4XJZaYRWkBYeLnkq+prhrBWmAtCETvLh/myk6/A8tXuSIHJNfmjMmuW6hugnT/ZqV7e6jaO4jSRD4OoYVccKcOy7PsYU+R2FW3DPD0JBFgHPnJf+ag3AvdxxiNBrsqo0BVzeyje2qa4kkdj2xqv/xAAjEQEAAQQCAQQDAAAAAAAAAAABAgADBBEFIWESEyIxFEGR/9oACAECAQE/AO7kyECrfHxDcnvxX4oHxf7VxSaS/VcbbPRO4/f1WRklkANrWPkl4RNJWRaisZtcbM9udvff3WRjl4EdJWPjlnau1rIuRiEV81auzhMkdJVrkoJ849+KuclHWrcO/NeudyTKTX//xAAkEQACAQMDAwUAAAAAAAAAAAABAgADBAUREpEiMYEhMkFRYf/aAAgBAwEBPwAkU01YypeknRR6fsFcn3SkF2Bh8y/qHcE8zF4pr4uxfbTXkmZTFtYlCH3I3b71lGowUqJfIQwfxMVlWsC6lNyNyDMplDfFAE2015JlCmx1IEekrqQexj2Da9D8xLBtet+IERBtAn//2Q=='}],theme:'#3c7fb1',autoplay:false,loop:'all',volume:0.7}); 
                 container.classList.add('show'); 
+                // 播放器歌名/歌手位原本是隐形占位内容（会显示成「ㅤ - ㅤ」），一律清空，不留无意义符号
+                const clearPlayerMeta = () => {
+                    const placeholderOnly = /^[\s\u3164\u115F\u200B-\u200F\u2060\uFE0F\uFEFF\u00A0\-–—|·]*(?:audio\s*(?:name|artist))?[\s\u3164\u115F\u200B-\u200F\u2060\uFE0F\uFEFF\u00A0\-–—|·]*$/i;
+                    const t = document.querySelector('.aplayer-title');
+                    const a = document.querySelector('.aplayer-author');
+                    if (t && t.textContent !== '' && placeholderOnly.test(t.textContent)) t.textContent = '';
+                    if (a && a.textContent !== '' && placeholderOnly.test(a.textContent)) a.textContent = '';
+                };
+                clearPlayerMeta();
+                if (window.MutationObserver) {
+                    new MutationObserver(clearPlayerMeta).observe(container, { childList: true, subtree: true, characterData: true });
+                }
                 loadLyrics(); 
                 if(lyricInterval)clearInterval(lyricInterval); 
                 lyricInterval=setInterval(()=>{ if(aplayer&&aplayer.audio&&!aplayer.audio.paused) updateLyrics(aplayer.audio.currentTime);},100);
